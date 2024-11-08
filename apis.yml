@@ -20,7 +20,7 @@ apis:
       - type: Documentation
         url: https://developers.expediagroup.com/docs/products/rapid
       - type: OpenAPI
-        url: properties/expedia-rapid-openapi-original.yaml
+        url: properties/expedia-rapid-openapi-original.yml
   - aid: expedia-group:loyalty
     name: Expedia Loyalty
     description: Needs a description
@@ -32,7 +32,7 @@ apis:
       - type: Documentation
         url: https://developers.expediagroup.com/docs/products/analytics
       - type: OpenAPI
-        url: properties/expedia-loyalty-openapi-original.yaml   
+        url: properties/expedia-loyalty-openapi-original.yml   
   - aid: expedia-group:fraud-protection
     name: Expedia Fraud Protection
     description: Needs a description
@@ -44,7 +44,7 @@ apis:
       - type: Documentation
         url: https://developers.expediagroup.com/docs/products/fraud-prevention
       - type: OpenAPI
-        url: properties/expedia-fraud-protection-openapi-original.yaml  
+        url: properties/expedia-fraud-protection-openapi-original.yml  
   - aid: expedia-group:deposit
     name: Expedia Deposit API
     description: Needs a description
