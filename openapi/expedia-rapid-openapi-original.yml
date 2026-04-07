@@ -6,18 +6,18 @@ info:
 servers:
   - url: https://test.ean.com/v3
 tags:
+  - name: Bookings
+    description: "The primary itinerary method of the Booking API creates a reservation for the selected hotel, room, rate and occupancy."
   - name: Content
     description: This section outlines the API calls available to you to access property content.
   - name: Geography
     description: The EPS Geography API provides geography content for regions around the world.
-  - name: Shopping
-    description: The EPS shopping APIs provide you with access to live rates & availability.
-  - name: Bookings
-    description: "The primary itinerary method of the Booking API creates a reservation for the selected hotel, room, rate and occupancy."
   - name: Manage Booking
     description: Retrieve existing itineraries or cancel existing rooms.
   - name: Notifications
     description: Requests test notifications and undelivered notifications.
+  - name: Shopping
+    description: The EPS shopping APIs provide you with access to live rates & availability.
 paths:
   /properties/content:
     get:

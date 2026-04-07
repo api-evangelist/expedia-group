@@ -13,13 +13,13 @@ servers:
 tags:
   - name: Property
     description: The property resource
+  - name: Rate Plan
+    description: The rate plan resource
   - name: Rate Verification Thresholds
     description: Manage room types Rate Verification Thresholds
-  - name: Rate plan
-    description: The rate plan resource
-  - name: Room type
+  - name: Room Type
     description: Manage room types
-  - name: Room type amenities
+  - name: Room Type Amenities
     description: Manage room type amenities
 paths:
   /products/properties:
@@ -80,7 +80,7 @@ paths:
   /properties/{propertyId}/roomTypes:
     get:
       tags:
-        - Room type
+        - Room Type
       summary: Expedia Group Obtain a list of room types for a given property
       operationId: getRoomTypes
       parameters:
@@ -109,7 +109,7 @@ paths:
         - Basic: []
     post:
       tags:
-        - Room type
+        - Room Type
       summary: Expedia Group Creates a new room type
       operationId: createRoomType
       parameters:
@@ -145,7 +145,7 @@ paths:
   /properties/{propertyId}/roomTypes/{roomTypeId}:
     get:
       tags:
-        - Room type
+        - Room Type
       summary: Expedia Group Read a single room type from a given property
       operationId: getRoomType
       parameters:
@@ -178,7 +178,7 @@ paths:
         - Basic: []
     put:
       tags:
-        - Room type
+        - Room Type
       summary: Expedia Group Modify an existing room type
       operationId: updateRoomType
       parameters:
@@ -219,7 +219,7 @@ paths:
       x-codegen-request-body-name: roomType
     patch:
       tags:
-        - Room type
+        - Room Type
       summary: Expedia Group Patch an existing room type
       operationId: patchRoomType
       parameters:
@@ -261,7 +261,7 @@ paths:
   /properties/{propertyId}/roomTypes/{roomTypeId}/amenities:
     get:
       tags:
-        - Room type amenities
+        - Room Type Amenities
       summary: Expedia Group Read a single room type's amenities
       operationId: getRoomTypeAmenities
       parameters:
@@ -288,7 +288,7 @@ paths:
         - Basic: []
     put:
       tags:
-        - Room type amenities
+        - Room Type Amenities
       summary: Expedia Group Set room type amenities to an existing room type
       operationId: setRoomTypeAmenities
       parameters:
@@ -326,7 +326,7 @@ paths:
   /properties/{propertyId}/roomTypes/{roomTypeId}/ratePlans:
     get:
       tags:
-        - Rate plan
+        - Rate Plan
       summary: Expedia Group Obtain a list of rate plans
       operationId: getRatePlans
       parameters:
@@ -358,7 +358,7 @@ paths:
         - Basic: []
     post:
       tags:
-        - Rate plan
+        - Rate Plan
       summary: Expedia Group Creates a new rate plan
       operationId: createRatePlan
       parameters:
@@ -394,7 +394,7 @@ paths:
   /properties/{propertyId}/roomTypes/{roomTypeId}/ratePlans/{ratePlanId}:
     get:
       tags:
-        - Rate plan
+        - Rate Plan
       summary: Expedia Group Read a single rate plan
       operationId: getRatePlan
       parameters:
@@ -427,7 +427,7 @@ paths:
         - Basic: []
     put:
       tags:
-        - Rate plan
+        - Rate Plan
       summary: Expedia Group Modify an existing rate plan
       operationId: updateRatePlan
       parameters:
@@ -468,7 +468,7 @@ paths:
       x-codegen-request-body-name: ratePlan
     delete:
       tags:
-        - Rate plan
+        - Rate Plan
       summary: Expedia Group Delete an existing rate plan
       operationId: deleteRatePlan
       parameters:
@@ -498,7 +498,7 @@ paths:
         - Basic: []
     patch:
       tags:
-        - Rate plan
+        - Rate Plan
       summary: Expedia Group Patch an existing rate plan
       operationId: patchRatePlan
       parameters:

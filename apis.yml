@@ -9,10 +9,10 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Travel
-  - Hotels
   - Flights
+  - Hotels
   - Lodging
+  - Travel
 url: https://developers.expediagroup.com/docs/
 created: '2024-06-07'
 modified: '2026-03-16'
@@ -27,9 +27,9 @@ apis:
       rates, and availability for booking integration.
     humanURL: https://developers.expediagroup.com/docs/products/rapid
     tags:
+      - Availability
       - Hotels
       - Rates
-      - Availability
     properties:
       - type: Documentation
         url: https://developers.expediagroup.com/docs/products/rapid
@@ -56,8 +56,8 @@ apis:
       Group partner network.
     humanURL: https://developers.expediagroup.com/supply/lodging
     tags:
-      - Lodging
       - Hotels
+      - Lodging
       - Property Management
     properties:
       - type: Documentation
