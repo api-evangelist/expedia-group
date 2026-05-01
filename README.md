@@ -16,7 +16,7 @@ Expedia Group is an American travel technology company that owns and operates tr
 ## Timestamps
 
 - **Created:** 2024-06-07 
-- **Modified:** 2026-03-16 
+- **Modified:** 2026-04-28 
 
 ## APIs
 
@@ -64,6 +64,36 @@ API for lodging supply and property management within the Expedia Group partner 
 
 - [Documentation](https://developers.expediagroup.com/supply/lodging)
 - [OpenAPI](openapi/expedia-lodging-product-openapi-original.yml)
+
+### Expedia EPS Deposit API
+The EPS Deposit API manages the deposit policy for a property, offering operations to create, update, read, and delete deposit policies for Expedia partner properties.
+
+**Human URL:** [https://expediaconnectivity.com/developer](https://expediaconnectivity.com/developer)
+
+
+#### Tags:
+
+ - Deposit, Lodging, Property Management
+
+#### Properties
+
+- [Documentation](https://expediaconnectivity.com/developer)
+- [OpenAPI](openapi/expedia-deposit-openapi-original.yml)
+
+### Expedia Loyalty Earn API
+The Loyalty Earn API provides access to loyalty earn transactions across configurable date ranges, returning sorted transaction data for membership programs.
+
+**Human URL:** [https://developers.expediagroup.com/analytics](https://developers.expediagroup.com/analytics)
+
+
+#### Tags:
+
+ - Loyalty, Analytics, Transactions
+
+#### Properties
+
+- [Documentation](https://developers.expediagroup.com/analytics)
+- [OpenAPI](openapi/expedia-loyalty-openapi-original.yml)
 
 ## Common Properties
 

@@ -15,7 +15,7 @@ tags:
   - Travel
 url: https://developers.expediagroup.com/docs/
 created: '2024-06-07'
-modified: '2026-03-16'
+modified: '2026-04-28'
 position: Consumer
 access: 3rd-Party
 specificationVersion: '0.19'
@@ -64,6 +64,38 @@ apis:
         url: https://developers.expediagroup.com/supply/lodging
       - type: OpenAPI
         url: openapi/expedia-lodging-product-openapi-original.yml
+  - aid: expedia-group:deposit
+    name: Expedia EPS Deposit API
+    description: >-
+      The EPS Deposit API manages the deposit policy for a property,
+      offering operations to create, update, read, and delete deposit
+      policies for Expedia partner properties.
+    humanURL: https://expediaconnectivity.com/developer
+    tags:
+      - Deposit
+      - Lodging
+      - Property Management
+    properties:
+      - type: Documentation
+        url: https://expediaconnectivity.com/developer
+      - type: OpenAPI
+        url: openapi/expedia-deposit-openapi-original.yml
+  - aid: expedia-group:loyalty
+    name: Expedia Loyalty Earn API
+    description: >-
+      The Loyalty Earn API provides access to loyalty earn transactions
+      across configurable date ranges, returning sorted transaction data
+      for membership programs.
+    humanURL: https://developers.expediagroup.com/analytics
+    tags:
+      - Analytics
+      - Loyalty
+      - Transactions
+    properties:
+      - type: Documentation
+        url: https://developers.expediagroup.com/analytics
+      - type: OpenAPI
+        url: openapi/expedia-loyalty-openapi-original.yml
 common:
   - type: Portal
     url: https://developers.expediagroup.com/docs/
