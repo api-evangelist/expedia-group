@@ -94,7 +94,7 @@ common:
     url: https://medium.com/expedia-group-tech
   - type: Support
     url: https://developers.expediagroup.com/docs/support
-  - type: Status
+  - type: StatusPage
     url: https://status.developers.expediagroup.com/
   - type: Features
     data:
