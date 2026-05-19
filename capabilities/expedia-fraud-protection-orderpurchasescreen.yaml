@@ -1,0 +1,81 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Expedia Group Fraud Prevention Service — OrderPurchaseScreen
+  description: 'Expedia Group Fraud Prevention Service — OrderPurchaseScreen. 1 operations. Lead operation: Expedia Group
+    Run fraud screening for one transaction. Self-contained Naftiko capability covering one Expedia Group business surface.'
+  tags:
+  - Expedia Group
+  - OrderPurchaseScreen
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EXPEDIA_GROUP_API_KEY: EXPEDIA_GROUP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: expedia-fraud-protection-orderpurchasescreen
+    baseUri: https://api.sandbox.expediagroup.com/fraud-prevention/v2
+    description: Expedia Group Fraud Prevention Service — OrderPurchaseScreen business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: order-purchase-screen
+      path: /order/purchase/screen
+      operations:
+      - name: screen
+        method: POST
+        description: Expedia Group Run fraud screening for one transaction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EXPEDIA_GROUP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: expedia-fraud-protection-orderpurchasescreen-rest
+    port: 8080
+    description: REST adapter for Expedia Group Fraud Prevention Service — OrderPurchaseScreen. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/order/purchase/screen
+      name: order-purchase-screen
+      description: REST surface for order-purchase-screen.
+      operations:
+      - method: POST
+        name: screen
+        description: Expedia Group Run fraud screening for one transaction
+        call: expedia-fraud-protection-orderpurchasescreen.screen
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: expedia-fraud-protection-orderpurchasescreen-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Expedia Group Fraud Prevention Service — OrderPurchaseScreen. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: expedia-group-run-fraud-screening
+      description: Expedia Group Run fraud screening for one transaction
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: expedia-fraud-protection-orderpurchasescreen.screen
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

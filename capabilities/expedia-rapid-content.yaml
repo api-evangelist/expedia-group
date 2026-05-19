@@ -1,0 +1,781 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Expedia Group Rapid API — Content
+  description: 'Expedia Group Rapid API — Content. 6 operations. Lead operation: Expedia Group Chain Reference. Self-contained
+    Naftiko capability covering one Expedia Group business surface.'
+  tags:
+  - Expedia Group
+  - Content
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EXPEDIA_GROUP_API_KEY: EXPEDIA_GROUP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: expedia-rapid-content
+    baseUri: https://test.ean.com/v3
+    description: Expedia Group Rapid API — Content business capability. Self-contained, no shared references.
+    resources:
+    - name: chains
+      path: /chains
+      operations:
+      - name: getchainreference
+        method: GET
+        description: Expedia Group Chain Reference
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Accept
+          in: header
+          type: string
+          description: Specifies the response format that the client would like to receive back. This must be `application/json`.
+          required: true
+        - name: Accept-Encoding
+          in: header
+          type: string
+          description: Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+          required: true
+        - name: Customer-Session-Id
+          in: header
+          type: string
+          description: Insert your own unique value for each user session, beginning with the first API call.
+        - name: User-Agent
+          in: header
+          type: string
+          description: The `User-Agent` header string from the customer's request, as captured by your integration. If you
+            are building an application then the `User-Agent` value shou
+          required: true
+        - name: billing_terms
+          in: query
+          type: string
+          description: This parameter is to specify the terms of how a resulting booking should be billed. If this field is
+            needed, the value for this will be provided to you separate
+        - name: partner_point_of_sale
+          in: query
+          type: string
+          description: This parameter is to specify what point of sale is being used to shop and book. If this field is needed,
+            the value for this will be provided to you separately.
+        - name: payment_terms
+          in: query
+          type: string
+          description: 'This parameter is to specify what terms should be used when being paid for a resulting booking. If
+            this field is needed, the value for this will be provided to '
+        - name: platform_name
+          in: query
+          type: string
+          description: This parameter is to specify what platform is being used to shop and book. If this field is needed,
+            the value for this will be provided to you separately.
+    - name: files-properties-catalog
+      path: /files/properties/catalog
+      operations:
+      - name: getpropertycatalogfile
+        method: GET
+        description: Expedia Group Property Catalog File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Accept
+          in: header
+          type: string
+          description: Specifies the response format that the client would like to receive back. This must be `application/json`.
+          required: true
+        - name: Accept-Encoding
+          in: header
+          type: string
+          description: Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+          required: true
+        - name: Customer-Session-Id
+          in: header
+          type: string
+          description: Insert your own unique value for each user session, beginning with the first API call.
+        - name: User-Agent
+          in: header
+          type: string
+          description: The `User-Agent` header string from the customer's request, as captured by your integration. If you
+            are building an application then the `User-Agent` value shou
+          required: true
+        - name: language
+          in: query
+          type: string
+          description: Desired language for the response as a subset of BCP47 format that only uses hyphenated pairs of two-digit
+            language and country codes. Use only ISO 639-1 alpha-
+          required: true
+        - name: supply_source
+          in: query
+          type: string
+          description: Options for which supply source you would like returned in the content response. This parameter may
+            only be supplied once and will return all properties that ma
+          required: true
+        - name: billing_terms
+          in: query
+          type: string
+          description: This parameter is to specify the terms of how a resulting booking should be billed. If this field is
+            needed, the value for this will be provided to you separate
+        - name: payment_terms
+          in: query
+          type: string
+          description: 'This parameter is to specify what terms should be used when being paid for a resulting booking. If
+            this field is needed, the value for this will be provided to '
+        - name: partner_point_of_sale
+          in: query
+          type: string
+          description: This parameter is to specify what point of sale is being used to shop and book. If this field is needed,
+            the value for this will be provided to you separately.
+        - name: platform_name
+          in: query
+          type: string
+          description: This parameter is to specify what platform is being used to shop and book. If this field is needed,
+            the value for this will be provided to you separately.
+    - name: files-properties-content
+      path: /files/properties/content
+      operations:
+      - name: getpropertycontentfile
+        method: GET
+        description: Expedia Group Property Content File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Accept
+          in: header
+          type: string
+          description: Specifies the response format that the client would like to receive back. This must be `application/json`.
+          required: true
+        - name: Accept-Encoding
+          in: header
+          type: string
+          description: Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+          required: true
+        - name: Customer-Session-Id
+          in: header
+          type: string
+          description: Insert your own unique value for each user session, beginning with the first API call.
+        - name: User-Agent
+          in: header
+          type: string
+          description: The `User-Agent` header string from the customer's request, as captured by your integration. If you
+            are building an application then the `User-Agent` value shou
+          required: true
+        - name: language
+          in: query
+          type: string
+          description: Desired language for the response as a subset of BCP47 format that only uses hyphenated pairs of two-digit
+            language and country codes. Use only ISO 639-1 alpha-
+          required: true
+        - name: supply_source
+          in: query
+          type: string
+          description: Options for which supply source you would like returned in the content response. This parameter may
+            only be supplied once and will return all properties that ma
+          required: true
+        - name: billing_terms
+          in: query
+          type: string
+          description: This parameter is to specify the terms of how a resulting booking should be billed. If this field is
+            needed, the value for this will be provided to you separate
+        - name: payment_terms
+          in: query
+          type: string
+          description: 'This parameter is to specify what terms should be used when being paid for a resulting booking. If
+            this field is needed, the value for this will be provided to '
+        - name: partner_point_of_sale
+          in: query
+          type: string
+          description: This parameter is to specify what point of sale is being used to shop and book. If this field is needed,
+            the value for this will be provided to you separately.
+        - name: platform_name
+          in: query
+          type: string
+          description: This parameter is to specify what platform is being used to shop and book. If this field is needed,
+            the value for this will be provided to you separately.
+    - name: properties-content
+      path: /properties/content
+      operations:
+      - name: getpropertycontent
+        method: GET
+        description: Expedia Group Property Content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Accept
+          in: header
+          type: string
+          description: Specifies the response format that the client would like to receive back. This must be `application/json`.
+          required: true
+        - name: Accept-Encoding
+          in: header
+          type: string
+          description: Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+          required: true
+        - name: User-Agent
+          in: header
+          type: string
+          description: The `User-Agent` header string from the customer's request, as captured by your integration. If you
+            are
+          required: true
+        - name: Customer-Session-Id
+          in: header
+          type: string
+          description: Insert your own unique value for each user session, beginning with the first API call. Continue to
+            pass the
+        - name: language
+          in: query
+          type: string
+          description: Desired language for the response as a subset of BCP47 format that only uses hyphenated pairs of two-digit
+          required: true
+        - name: supply_source
+          in: query
+          type: string
+          description: Options for which supply source you would like returned in the content response. This parameter may
+            only be
+          required: true
+        - name: all_inclusive
+          in: query
+          type: array
+          description: Search to include properties that have the requested `all_inclusive` values equal to true. If this
+            parameter
+        - name: amenity_id
+          in: query
+          type: array
+          description: The ID of the amenity you want to search for. This parameter can be supplied multiple times with different
+        - name: attribute_id
+          in: query
+          type: array
+          description: The ID of the attribute you want to search for. This parameter can be supplied multiple times with
+            different
+        - name: brand_id
+          in: query
+          type: array
+          description: The ID of the brand you want to search for. This parameter can be supplied multiple times with different
+        - name: business_model
+          in: query
+          type: array
+          description: Search for properties with the requested business model enabled. This parameter can be supplied multiple
+        - name: category_id
+          in: query
+          type: array
+          description: Search to include properties that have the requested
+        - name: category_id_exclude
+          in: query
+          type: array
+          description: Search to exclude properties that do not have the requested
+        - name: chain_id
+          in: query
+          type: array
+          description: The ID of the chain you want to search for. These chain IDs can be positive and negative numbers. This
+        - name: country_code
+          in: query
+          type: array
+          description: Search for properties with the requested country code, in ISO 3166-1 alpha-2 format. This parameter
+            can be
+        - name: date_added_end
+          in: query
+          type: string
+          description: Search for properties added on or before the requested UTC date, in ISO 8601 format (YYYY-MM-DD)
+        - name: date_added_start
+          in: query
+          type: string
+          description: Search for properties added on or after the requested UTC date, in ISO 8601 format (YYYY-MM-DD)
+        - name: date_updated_end
+          in: query
+          type: string
+          description: Search for properties updated on or before the requested UTC date, in ISO 8601 format (YYYY-MM-DD)
+        - name: date_updated_start
+          in: query
+          type: string
+          description: Search for properties updated on or after the requested UTC date, in ISO 8601 format (YYYY-MM-DD)
+        - name: include
+          in: query
+          type: array
+          description: Each time this parameter is specified will add to the list of fields and associated objects returned
+            in the
+        - name: multi_unit
+          in: query
+          type: boolean
+          description: Search for multi-unit properties. If this parameter is not supplied, both single-unit and multi-unit
+        - name: property_id
+          in: query
+          type: array
+          description: The ID of the property you want to search for. You can provide 1 to 250 property_id parameters.
+        - name: property_rating_max
+          in: query
+          type: string
+          description: Search for properties with a property rating less than or equal to the requested rating. The highest
+        - name: property_rating_min
+          in: query
+          type: string
+          description: Search for properties with a property rating greater than or equal to the requested rating. The lowest
+        - name: spoken_language_id
+          in: query
+          type: array
+          description: The id of the spoken language you want to search for. This parameter can be supplied multiple times
+            with
+        - name: billing_terms
+          in: query
+          type: string
+          description: This parameter is to specify the terms of how a resulting booking should be billed. If this field is
+            needed,
+        - name: partner_point_of_sale
+          in: query
+          type: string
+          description: This parameter is to specify what point of sale is being used to shop and book. If this field is needed,
+            the
+        - name: payment_terms
+          in: query
+          type: string
+          description: This parameter is to specify what terms should be used when being paid for a resulting booking. If
+            this
+        - name: platform_name
+          in: query
+          type: string
+          description: This parameter is to specify what platform is being used to shop and book. If this field is needed,
+            the
+    - name: properties-inactive
+      path: /properties/inactive
+      operations:
+      - name: getinactiveproperties
+        method: GET
+        description: Expedia Group Inactive Properties
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Accept
+          in: header
+          type: string
+          description: Specifies the response format that the client would like to receive back. This must be `application/json`.
+          required: true
+        - name: Accept-Encoding
+          in: header
+          type: string
+          description: Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+          required: true
+        - name: User-Agent
+          in: header
+          type: string
+          description: 'The `User-Agent` header string from the customer''s request, as captured by your integration. If you
+            are '
+          required: true
+        - name: Customer-Session-Id
+          in: header
+          type: string
+          description: Insert your own unique value for each user session, beginning with the first API call. Continue to
+            pass the same
+        - name: since
+          in: query
+          type: string
+          description: Required on initial call, not accepted on subsequent paging links provided in response header.<br>
+        - name: token
+          in: query
+          type: string
+          description: Only used for requesting additional pages of data. Provided by the `next` URL in the `Link` response
+            header.
+        - name: billing_terms
+          in: query
+          type: string
+          description: This parameter is to specify the terms of how a resulting booking should be billed. If this field is
+            needed,
+        - name: payment_terms
+          in: query
+          type: string
+          description: This parameter is to specify what terms should be used when being paid for a resulting booking. If
+            this
+        - name: partner_point_of_sale
+          in: query
+          type: string
+          description: This parameter is to specify what point of sale is being used to shop and book. If this field is needed,
+        - name: platform_name
+          in: query
+          type: string
+          description: This parameter is to specify what platform is being used to shop and book. If this field is needed,
+            the
+    - name: properties-property_id-guest-reviews
+      path: /properties/{property_id}/guest-reviews
+      operations:
+      - name: getpropertyguestreviews
+        method: GET
+        description: Expedia Group Property Guest Reviews
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Accept
+          in: header
+          type: string
+          description: Specifies the response format that the client would like to receive back. This must be `application/json`.
+          required: true
+        - name: Accept-Encoding
+          in: header
+          type: string
+          description: Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+          required: true
+        - name: Customer-Session-Id
+          in: header
+          type: string
+          description: Insert your own unique value for each user session, beginning with the first API call.
+        - name: User-Agent
+          in: header
+          type: string
+          description: The `User-Agent` header string from the customer's request, as captured by your integration. If you
+            are building an application then the `User-Agent` value shou
+          required: true
+        - name: property_id
+          in: path
+          type: string
+          description: Expedia Property ID.<br>
+          required: true
+        - name: language
+          in: query
+          type: string
+          description: Desired language for the response as a subset of BCP47 format that only uses hyphenated pairs of two-digit
+            language and country codes. Use only ISO 639-1 alpha-
+          required: true
+        - name: billing_terms
+          in: query
+          type: string
+          description: This parameter is to specify the terms of how a resulting booking should be billed. If this field is
+            needed, the value for this will be provided to you separate
+        - name: payment_terms
+          in: query
+          type: string
+          description: 'This parameter is to specify what terms should be used when being paid for a resulting booking. If
+            this field is needed, the value for this will be provided to '
+        - name: partner_point_of_sale
+          in: query
+          type: string
+          description: This parameter is to specify what point of sale is being used to shop and book. If this field is needed,
+            the value for this will be provided to you separately.
+        - name: platform_name
+          in: query
+          type: string
+          description: This parameter is to specify what platform is being used to shop and book. If this field is needed,
+            the value for this will be provided to you separately.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.EXPEDIA_GROUP_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: expedia-rapid-content-rest
+    port: 8080
+    description: REST adapter for Expedia Group Rapid API — Content. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/chains
+      name: chains
+      description: REST surface for chains.
+      operations:
+      - method: GET
+        name: getchainreference
+        description: Expedia Group Chain Reference
+        call: expedia-rapid-content.getchainreference
+        with:
+          Accept: rest.Accept
+          Accept-Encoding: rest.Accept-Encoding
+          Customer-Session-Id: rest.Customer-Session-Id
+          User-Agent: rest.User-Agent
+          billing_terms: rest.billing_terms
+          partner_point_of_sale: rest.partner_point_of_sale
+          payment_terms: rest.payment_terms
+          platform_name: rest.platform_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/properties/catalog
+      name: files-properties-catalog
+      description: REST surface for files-properties-catalog.
+      operations:
+      - method: GET
+        name: getpropertycatalogfile
+        description: Expedia Group Property Catalog File
+        call: expedia-rapid-content.getpropertycatalogfile
+        with:
+          Accept: rest.Accept
+          Accept-Encoding: rest.Accept-Encoding
+          Customer-Session-Id: rest.Customer-Session-Id
+          User-Agent: rest.User-Agent
+          language: rest.language
+          supply_source: rest.supply_source
+          billing_terms: rest.billing_terms
+          payment_terms: rest.payment_terms
+          partner_point_of_sale: rest.partner_point_of_sale
+          platform_name: rest.platform_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/files/properties/content
+      name: files-properties-content
+      description: REST surface for files-properties-content.
+      operations:
+      - method: GET
+        name: getpropertycontentfile
+        description: Expedia Group Property Content File
+        call: expedia-rapid-content.getpropertycontentfile
+        with:
+          Accept: rest.Accept
+          Accept-Encoding: rest.Accept-Encoding
+          Customer-Session-Id: rest.Customer-Session-Id
+          User-Agent: rest.User-Agent
+          language: rest.language
+          supply_source: rest.supply_source
+          billing_terms: rest.billing_terms
+          payment_terms: rest.payment_terms
+          partner_point_of_sale: rest.partner_point_of_sale
+          platform_name: rest.platform_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/properties/content
+      name: properties-content
+      description: REST surface for properties-content.
+      operations:
+      - method: GET
+        name: getpropertycontent
+        description: Expedia Group Property Content
+        call: expedia-rapid-content.getpropertycontent
+        with:
+          Accept: rest.Accept
+          Accept-Encoding: rest.Accept-Encoding
+          User-Agent: rest.User-Agent
+          Customer-Session-Id: rest.Customer-Session-Id
+          language: rest.language
+          supply_source: rest.supply_source
+          all_inclusive: rest.all_inclusive
+          amenity_id: rest.amenity_id
+          attribute_id: rest.attribute_id
+          brand_id: rest.brand_id
+          business_model: rest.business_model
+          category_id: rest.category_id
+          category_id_exclude: rest.category_id_exclude
+          chain_id: rest.chain_id
+          country_code: rest.country_code
+          date_added_end: rest.date_added_end
+          date_added_start: rest.date_added_start
+          date_updated_end: rest.date_updated_end
+          date_updated_start: rest.date_updated_start
+          include: rest.include
+          multi_unit: rest.multi_unit
+          property_id: rest.property_id
+          property_rating_max: rest.property_rating_max
+          property_rating_min: rest.property_rating_min
+          spoken_language_id: rest.spoken_language_id
+          billing_terms: rest.billing_terms
+          partner_point_of_sale: rest.partner_point_of_sale
+          payment_terms: rest.payment_terms
+          platform_name: rest.platform_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/properties/inactive
+      name: properties-inactive
+      description: REST surface for properties-inactive.
+      operations:
+      - method: GET
+        name: getinactiveproperties
+        description: Expedia Group Inactive Properties
+        call: expedia-rapid-content.getinactiveproperties
+        with:
+          Accept: rest.Accept
+          Accept-Encoding: rest.Accept-Encoding
+          User-Agent: rest.User-Agent
+          Customer-Session-Id: rest.Customer-Session-Id
+          since: rest.since
+          token: rest.token
+          billing_terms: rest.billing_terms
+          payment_terms: rest.payment_terms
+          partner_point_of_sale: rest.partner_point_of_sale
+          platform_name: rest.platform_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/properties/{property-id}/guest-reviews
+      name: properties-property-id-guest-reviews
+      description: REST surface for properties-property_id-guest-reviews.
+      operations:
+      - method: GET
+        name: getpropertyguestreviews
+        description: Expedia Group Property Guest Reviews
+        call: expedia-rapid-content.getpropertyguestreviews
+        with:
+          Accept: rest.Accept
+          Accept-Encoding: rest.Accept-Encoding
+          Customer-Session-Id: rest.Customer-Session-Id
+          User-Agent: rest.User-Agent
+          property_id: rest.property_id
+          language: rest.language
+          billing_terms: rest.billing_terms
+          payment_terms: rest.payment_terms
+          partner_point_of_sale: rest.partner_point_of_sale
+          platform_name: rest.platform_name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: expedia-rapid-content-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Expedia Group Rapid API — Content. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: expedia-group-chain-reference
+      description: Expedia Group Chain Reference
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: expedia-rapid-content.getchainreference
+      with:
+        Accept: tools.Accept
+        Accept-Encoding: tools.Accept-Encoding
+        Customer-Session-Id: tools.Customer-Session-Id
+        User-Agent: tools.User-Agent
+        billing_terms: tools.billing_terms
+        partner_point_of_sale: tools.partner_point_of_sale
+        payment_terms: tools.payment_terms
+        platform_name: tools.platform_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-property-catalog-file
+      description: Expedia Group Property Catalog File
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: expedia-rapid-content.getpropertycatalogfile
+      with:
+        Accept: tools.Accept
+        Accept-Encoding: tools.Accept-Encoding
+        Customer-Session-Id: tools.Customer-Session-Id
+        User-Agent: tools.User-Agent
+        language: tools.language
+        supply_source: tools.supply_source
+        billing_terms: tools.billing_terms
+        payment_terms: tools.payment_terms
+        partner_point_of_sale: tools.partner_point_of_sale
+        platform_name: tools.platform_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-property-content-file
+      description: Expedia Group Property Content File
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: expedia-rapid-content.getpropertycontentfile
+      with:
+        Accept: tools.Accept
+        Accept-Encoding: tools.Accept-Encoding
+        Customer-Session-Id: tools.Customer-Session-Id
+        User-Agent: tools.User-Agent
+        language: tools.language
+        supply_source: tools.supply_source
+        billing_terms: tools.billing_terms
+        payment_terms: tools.payment_terms
+        partner_point_of_sale: tools.partner_point_of_sale
+        platform_name: tools.platform_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-property-content
+      description: Expedia Group Property Content
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: expedia-rapid-content.getpropertycontent
+      with:
+        Accept: tools.Accept
+        Accept-Encoding: tools.Accept-Encoding
+        User-Agent: tools.User-Agent
+        Customer-Session-Id: tools.Customer-Session-Id
+        language: tools.language
+        supply_source: tools.supply_source
+        all_inclusive: tools.all_inclusive
+        amenity_id: tools.amenity_id
+        attribute_id: tools.attribute_id
+        brand_id: tools.brand_id
+        business_model: tools.business_model
+        category_id: tools.category_id
+        category_id_exclude: tools.category_id_exclude
+        chain_id: tools.chain_id
+        country_code: tools.country_code
+        date_added_end: tools.date_added_end
+        date_added_start: tools.date_added_start
+        date_updated_end: tools.date_updated_end
+        date_updated_start: tools.date_updated_start
+        include: tools.include
+        multi_unit: tools.multi_unit
+        property_id: tools.property_id
+        property_rating_max: tools.property_rating_max
+        property_rating_min: tools.property_rating_min
+        spoken_language_id: tools.spoken_language_id
+        billing_terms: tools.billing_terms
+        partner_point_of_sale: tools.partner_point_of_sale
+        payment_terms: tools.payment_terms
+        platform_name: tools.platform_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-inactive-properties
+      description: Expedia Group Inactive Properties
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: expedia-rapid-content.getinactiveproperties
+      with:
+        Accept: tools.Accept
+        Accept-Encoding: tools.Accept-Encoding
+        User-Agent: tools.User-Agent
+        Customer-Session-Id: tools.Customer-Session-Id
+        since: tools.since
+        token: tools.token
+        billing_terms: tools.billing_terms
+        payment_terms: tools.payment_terms
+        partner_point_of_sale: tools.partner_point_of_sale
+        platform_name: tools.platform_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-property-guest-reviews
+      description: Expedia Group Property Guest Reviews
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: expedia-rapid-content.getpropertyguestreviews
+      with:
+        Accept: tools.Accept
+        Accept-Encoding: tools.Accept-Encoding
+        Customer-Session-Id: tools.Customer-Session-Id
+        User-Agent: tools.User-Agent
+        property_id: tools.property_id
+        language: tools.language
+        billing_terms: tools.billing_terms
+        payment_terms: tools.payment_terms
+        partner_point_of_sale: tools.partner_point_of_sale
+        platform_name: tools.platform_name
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,419 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Expedia Group Rapid API — Bookings
+  description: 'Expedia Group Rapid API — Bookings. 4 operations. Lead operation: Expedia Group Create Booking. Self-contained
+    Naftiko capability covering one Expedia Group business surface.'
+  tags:
+  - Expedia Group
+  - Bookings
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EXPEDIA_GROUP_API_KEY: EXPEDIA_GROUP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: expedia-rapid-bookings
+    baseUri: https://test.ean.com/v3
+    description: Expedia Group Rapid API — Bookings business capability. Self-contained, no shared references.
+    resources:
+    - name: itineraries
+      path: /itineraries
+      operations:
+      - name: postitinerary
+        method: POST
+        description: Expedia Group Create Booking
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Accept
+          in: header
+          type: string
+          description: Specifies the response format that the client would like to receive back. This must be `application/json`.
+          required: true
+        - name: Accept-Encoding
+          in: header
+          type: string
+          description: Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: This parameter is to specify what format the request body is in. The only supported value is application/json.
+          required: true
+        - name: Customer-Ip
+          in: header
+          type: string
+          description: IP address of the customer, as captured by your integration.<br>
+          required: true
+        - name: Customer-Session-Id
+          in: header
+          type: string
+          description: Insert your own unique value for each user session, beginning with the first API call.
+        - name: User-Agent
+          in: header
+          type: string
+          description: The `User-Agent` header string from the customer's request, as captured by your integration. If you
+            are building an application then the `User-Agent` value shou
+          required: true
+        - name: Test
+          in: header
+          type: string
+          description: The book call has a test header that can be used to return set responses with the following keywords:<br>
+        - name: token
+          in: query
+          type: string
+          description: Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent
+            call by limiting the amount of information required
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: itineraries-itinerary_id
+      path: /itineraries/{itinerary_id}
+      operations:
+      - name: putresumebooking
+        method: PUT
+        description: Expedia Group Resume Booking
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Accept
+          in: header
+          type: string
+          description: Specifies the response format that the client would like to receive back. This must be `application/json`.
+          required: true
+        - name: Accept-Encoding
+          in: header
+          type: string
+          description: Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+          required: true
+        - name: Customer-Ip
+          in: header
+          type: string
+          description: IP address of the customer, as captured by your integration.<br>
+          required: true
+        - name: Customer-Session-Id
+          in: header
+          type: string
+          description: Insert your own unique value for each user session, beginning with the first API call.
+        - name: User-Agent
+          in: header
+          type: string
+          description: The `User-Agent` header string from the customer's request, as captured by your integration. If you
+            are building an application then the `User-Agent` value shou
+          required: true
+        - name: Test
+          in: header
+          type: string
+          description: The resume call has a test header that can be used to return set responses with the following keywords:<br>
+        - name: itinerary_id
+          in: path
+          type: string
+          description: This parameter is used only to prefix the token value - no ID value is used.<br>
+          required: true
+        - name: token
+          in: query
+          type: string
+          description: Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent
+            call by limiting the amount of information required
+          required: true
+    - name: itineraries-itinerary_id-payment-sessions
+      path: /itineraries/{itinerary_id}/payment-sessions
+      operations:
+      - name: putcompletepaymentsession
+        method: PUT
+        description: Expedia Group Complete Payment Session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Accept
+          in: header
+          type: string
+          description: Specifies the response format that the client would like to receive back. This must be `application/json`.
+          required: true
+        - name: Accept-Encoding
+          in: header
+          type: string
+          description: Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+          required: true
+        - name: Customer-Ip
+          in: header
+          type: string
+          description: IP address of the customer, as captured by your integration.<br>
+          required: true
+        - name: Customer-Session-Id
+          in: header
+          type: string
+          description: Insert your own unique value for each user session, beginning with the first API call.
+        - name: User-Agent
+          in: header
+          type: string
+          description: The `User-Agent` header string from the customer's request, as captured by your integration. If you
+            are building an application then the `User-Agent` value shou
+          required: true
+        - name: Test
+          in: header
+          type: string
+          description: The payment-sessions call has a test header that can be used to return set responses with the following
+            keywords:<br>
+        - name: itinerary_id
+          in: path
+          type: string
+          description: This parameter is used only to prefix the token value - no ID value is used.<br>
+          required: true
+        - name: token
+          in: query
+          type: string
+          description: Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent
+            call by limiting the amount of information required
+          required: true
+    - name: payment-sessions
+      path: /payment-sessions
+      operations:
+      - name: postpaymentsessions
+        method: POST
+        description: Expedia Group Register Payments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Accept
+          in: header
+          type: string
+          description: Specifies the response format that the client would like to receive back. This must be `application/json`.
+          required: true
+        - name: Accept-Encoding
+          in: header
+          type: string
+          description: Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: This parameter is to specify what format the request body is in. The only supported value is application/json.
+          required: true
+        - name: Customer-Ip
+          in: header
+          type: string
+          description: IP address of the customer, as captured by your integration.<br>
+          required: true
+        - name: Customer-Session-Id
+          in: header
+          type: string
+          description: Insert your own unique value for each user session, beginning with the first API call.
+        - name: User-Agent
+          in: header
+          type: string
+          description: The `User-Agent` header string from the customer's request, as captured by your integration. If you
+            are building an application then the `User-Agent` value shou
+          required: true
+        - name: Test
+          in: header
+          type: string
+          description: The book call has a test header that can be used to return set responses with the following keywords:<br>
+        - name: token
+          in: query
+          type: string
+          description: Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent
+            call by limiting the amount of information required
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.EXPEDIA_GROUP_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: expedia-rapid-bookings-rest
+    port: 8080
+    description: REST adapter for Expedia Group Rapid API — Bookings. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/itineraries
+      name: itineraries
+      description: REST surface for itineraries.
+      operations:
+      - method: POST
+        name: postitinerary
+        description: Expedia Group Create Booking
+        call: expedia-rapid-bookings.postitinerary
+        with:
+          Accept: rest.Accept
+          Accept-Encoding: rest.Accept-Encoding
+          Content-Type: rest.Content-Type
+          Customer-Ip: rest.Customer-Ip
+          Customer-Session-Id: rest.Customer-Session-Id
+          User-Agent: rest.User-Agent
+          Test: rest.Test
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/itineraries/{itinerary-id}
+      name: itineraries-itinerary-id
+      description: REST surface for itineraries-itinerary_id.
+      operations:
+      - method: PUT
+        name: putresumebooking
+        description: Expedia Group Resume Booking
+        call: expedia-rapid-bookings.putresumebooking
+        with:
+          Accept: rest.Accept
+          Accept-Encoding: rest.Accept-Encoding
+          Customer-Ip: rest.Customer-Ip
+          Customer-Session-Id: rest.Customer-Session-Id
+          User-Agent: rest.User-Agent
+          Test: rest.Test
+          itinerary_id: rest.itinerary_id
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/itineraries/{itinerary-id}/payment-sessions
+      name: itineraries-itinerary-id-payment-sessions
+      description: REST surface for itineraries-itinerary_id-payment-sessions.
+      operations:
+      - method: PUT
+        name: putcompletepaymentsession
+        description: Expedia Group Complete Payment Session
+        call: expedia-rapid-bookings.putcompletepaymentsession
+        with:
+          Accept: rest.Accept
+          Accept-Encoding: rest.Accept-Encoding
+          Customer-Ip: rest.Customer-Ip
+          Customer-Session-Id: rest.Customer-Session-Id
+          User-Agent: rest.User-Agent
+          Test: rest.Test
+          itinerary_id: rest.itinerary_id
+          token: rest.token
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment-sessions
+      name: payment-sessions
+      description: REST surface for payment-sessions.
+      operations:
+      - method: POST
+        name: postpaymentsessions
+        description: Expedia Group Register Payments
+        call: expedia-rapid-bookings.postpaymentsessions
+        with:
+          Accept: rest.Accept
+          Accept-Encoding: rest.Accept-Encoding
+          Content-Type: rest.Content-Type
+          Customer-Ip: rest.Customer-Ip
+          Customer-Session-Id: rest.Customer-Session-Id
+          User-Agent: rest.User-Agent
+          Test: rest.Test
+          token: rest.token
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: expedia-rapid-bookings-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Expedia Group Rapid API — Bookings. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: expedia-group-create-booking
+      description: Expedia Group Create Booking
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: expedia-rapid-bookings.postitinerary
+      with:
+        Accept: tools.Accept
+        Accept-Encoding: tools.Accept-Encoding
+        Content-Type: tools.Content-Type
+        Customer-Ip: tools.Customer-Ip
+        Customer-Session-Id: tools.Customer-Session-Id
+        User-Agent: tools.User-Agent
+        Test: tools.Test
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-resume-booking
+      description: Expedia Group Resume Booking
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: expedia-rapid-bookings.putresumebooking
+      with:
+        Accept: tools.Accept
+        Accept-Encoding: tools.Accept-Encoding
+        Customer-Ip: tools.Customer-Ip
+        Customer-Session-Id: tools.Customer-Session-Id
+        User-Agent: tools.User-Agent
+        Test: tools.Test
+        itinerary_id: tools.itinerary_id
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-complete-payment-session
+      description: Expedia Group Complete Payment Session
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: expedia-rapid-bookings.putcompletepaymentsession
+      with:
+        Accept: tools.Accept
+        Accept-Encoding: tools.Accept-Encoding
+        Customer-Ip: tools.Customer-Ip
+        Customer-Session-Id: tools.Customer-Session-Id
+        User-Agent: tools.User-Agent
+        Test: tools.Test
+        itinerary_id: tools.itinerary_id
+        token: tools.token
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-register-payments
+      description: Expedia Group Register Payments
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: expedia-rapid-bookings.postpaymentsessions
+      with:
+        Accept: tools.Accept
+        Accept-Encoding: tools.Accept-Encoding
+        Content-Type: tools.Content-Type
+        Customer-Ip: tools.Customer-Ip
+        Customer-Session-Id: tools.Customer-Session-Id
+        User-Agent: tools.User-Agent
+        Test: tools.Test
+        token: tools.token
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

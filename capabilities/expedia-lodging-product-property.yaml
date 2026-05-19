@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Expedia Group Product API — Property
+  description: 'Expedia Group Product API — Property. 2 operations. Lead operation: Expedia Group Obtain a list of properties.
+    Self-contained Naftiko capability covering one Expedia Group business surface.'
+  tags:
+  - Expedia Group
+  - Property
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EXPEDIA_GROUP_API_KEY: EXPEDIA_GROUP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: expedia-lodging-product-property
+    baseUri: https://services.expediapartnercentral.com
+    description: Expedia Group Product API — Property business capability. Self-contained, no shared references.
+    resources:
+    - name: products-properties
+      path: /products/properties
+      operations:
+      - name: getproperties
+        method: GET
+        description: Expedia Group Obtain a list of properties
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Status filter. String. Only supported value is "all".
+        - name: offset
+          in: query
+          type: string
+          description: Pagination offset. Integer starting at 0
+        - name: limit
+          in: query
+          type: string
+          description: Pagination limit. Integer between 1 and 200.
+    - name: products-properties-propertyId
+      path: /products/properties/{propertyId}
+      operations:
+      - name: getproperty
+        method: GET
+        description: Expedia Group Read a single property
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: propertyId
+          in: path
+          type: string
+          description: Expedia Property ID
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.EXPEDIA_GROUP_USER}}'
+      password: '{{env.EXPEDIA_GROUP_PASS}}'
+  exposes:
+  - type: rest
+    namespace: expedia-lodging-product-property-rest
+    port: 8080
+    description: REST adapter for Expedia Group Product API — Property. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/products/properties
+      name: products-properties
+      description: REST surface for products-properties.
+      operations:
+      - method: GET
+        name: getproperties
+        description: Expedia Group Obtain a list of properties
+        call: expedia-lodging-product-property.getproperties
+        with:
+          status: rest.status
+          offset: rest.offset
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/products/properties/{propertyid}
+      name: products-properties-propertyid
+      description: REST surface for products-properties-propertyId.
+      operations:
+      - method: GET
+        name: getproperty
+        description: Expedia Group Read a single property
+        call: expedia-lodging-product-property.getproperty
+        with:
+          propertyId: rest.propertyId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: expedia-lodging-product-property-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Expedia Group Product API — Property. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: expedia-group-obtain-list-properties
+      description: Expedia Group Obtain a list of properties
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: expedia-lodging-product-property.getproperties
+      with:
+        status: tools.status
+        offset: tools.offset
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-read-single-property
+      description: Expedia Group Read a single property
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: expedia-lodging-product-property.getproperty
+      with:
+        propertyId: tools.propertyId
+      outputParameters:
+      - type: object
+        mapping: $.

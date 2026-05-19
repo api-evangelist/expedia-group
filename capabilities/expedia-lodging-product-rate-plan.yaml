@@ -1,0 +1,360 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Expedia Group Product API — Rate Plan
+  description: 'Expedia Group Product API — Rate Plan. 6 operations. Lead operation: Expedia Group Obtain a list of rate plans.
+    Self-contained Naftiko capability covering one Expedia Group business surface.'
+  tags:
+  - Expedia Group
+  - Rate Plan
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EXPEDIA_GROUP_API_KEY: EXPEDIA_GROUP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: expedia-lodging-product-rate-plan
+    baseUri: https://services.expediapartnercentral.com
+    description: Expedia Group Product API — Rate Plan business capability. Self-contained, no shared references.
+    resources:
+    - name: properties-propertyId-roomTypes-roomTypeId-ratePlans
+      path: /properties/{propertyId}/roomTypes/{roomTypeId}/ratePlans
+      operations:
+      - name: getrateplans
+        method: GET
+        description: Expedia Group Obtain a list of rate plans
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: propertyId
+          in: path
+          type: string
+          description: Expedia Property ID
+          required: true
+        - name: roomTypeId
+          in: path
+          type: string
+          description: Room type resource ID
+          required: true
+        - name: status
+          in: query
+          type: string
+          description: Status filter. String. Only supported value is "all".
+      - name: createrateplan
+        method: POST
+        description: Expedia Group Creates a new rate plan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: propertyId
+          in: path
+          type: string
+          description: Expedia Property ID
+          required: true
+        - name: roomTypeId
+          in: path
+          type: string
+          description: Room type resource ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: properties-propertyId-roomTypes-roomTypeId-ratePlans-ratePlanId
+      path: /properties/{propertyId}/roomTypes/{roomTypeId}/ratePlans/{ratePlanId}
+      operations:
+      - name: getrateplan
+        method: GET
+        description: Expedia Group Read a single rate plan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: propertyId
+          in: path
+          type: string
+          description: Expedia Property ID
+          required: true
+        - name: roomTypeId
+          in: path
+          type: string
+          description: Room type resource ID
+          required: true
+        - name: ratePlanId
+          in: path
+          type: string
+          description: Rate plan resource ID
+          required: true
+      - name: updaterateplan
+        method: PUT
+        description: Expedia Group Modify an existing rate plan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: propertyId
+          in: path
+          type: string
+          description: Expedia Property ID
+          required: true
+        - name: roomTypeId
+          in: path
+          type: string
+          description: Room type resource ID
+          required: true
+        - name: ratePlanId
+          in: path
+          type: string
+          description: Rate plan resource ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleterateplan
+        method: DELETE
+        description: Expedia Group Delete an existing rate plan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: propertyId
+          in: path
+          type: string
+          description: Expedia Property ID
+          required: true
+        - name: roomTypeId
+          in: path
+          type: string
+          description: Room type resource ID
+          required: true
+        - name: ratePlanId
+          in: path
+          type: string
+          description: Rate plan resource ID
+          required: true
+      - name: patchrateplan
+        method: PATCH
+        description: Expedia Group Patch an existing rate plan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: propertyId
+          in: path
+          type: string
+          description: Expedia Property ID
+          required: true
+        - name: roomTypeId
+          in: path
+          type: string
+          description: Room type resource ID
+          required: true
+        - name: ratePlanId
+          in: path
+          type: string
+          description: Rate plan resource ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: basic
+      username: '{{env.EXPEDIA_GROUP_USER}}'
+      password: '{{env.EXPEDIA_GROUP_PASS}}'
+  exposes:
+  - type: rest
+    namespace: expedia-lodging-product-rate-plan-rest
+    port: 8080
+    description: REST adapter for Expedia Group Product API — Rate Plan. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/properties/{propertyid}/roomtypes/{roomtypeid}/rateplans
+      name: properties-propertyid-roomtypes-roomtypeid-rateplans
+      description: REST surface for properties-propertyId-roomTypes-roomTypeId-ratePlans.
+      operations:
+      - method: GET
+        name: getrateplans
+        description: Expedia Group Obtain a list of rate plans
+        call: expedia-lodging-product-rate-plan.getrateplans
+        with:
+          propertyId: rest.propertyId
+          roomTypeId: rest.roomTypeId
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createrateplan
+        description: Expedia Group Creates a new rate plan
+        call: expedia-lodging-product-rate-plan.createrateplan
+        with:
+          propertyId: rest.propertyId
+          roomTypeId: rest.roomTypeId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/properties/{propertyid}/roomtypes/{roomtypeid}/rateplans/{rateplanid}
+      name: properties-propertyid-roomtypes-roomtypeid-rateplans-rateplanid
+      description: REST surface for properties-propertyId-roomTypes-roomTypeId-ratePlans-ratePlanId.
+      operations:
+      - method: GET
+        name: getrateplan
+        description: Expedia Group Read a single rate plan
+        call: expedia-lodging-product-rate-plan.getrateplan
+        with:
+          propertyId: rest.propertyId
+          roomTypeId: rest.roomTypeId
+          ratePlanId: rest.ratePlanId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updaterateplan
+        description: Expedia Group Modify an existing rate plan
+        call: expedia-lodging-product-rate-plan.updaterateplan
+        with:
+          propertyId: rest.propertyId
+          roomTypeId: rest.roomTypeId
+          ratePlanId: rest.ratePlanId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleterateplan
+        description: Expedia Group Delete an existing rate plan
+        call: expedia-lodging-product-rate-plan.deleterateplan
+        with:
+          propertyId: rest.propertyId
+          roomTypeId: rest.roomTypeId
+          ratePlanId: rest.ratePlanId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchrateplan
+        description: Expedia Group Patch an existing rate plan
+        call: expedia-lodging-product-rate-plan.patchrateplan
+        with:
+          propertyId: rest.propertyId
+          roomTypeId: rest.roomTypeId
+          ratePlanId: rest.ratePlanId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: expedia-lodging-product-rate-plan-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Expedia Group Product API — Rate Plan. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: expedia-group-obtain-list-rate
+      description: Expedia Group Obtain a list of rate plans
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: expedia-lodging-product-rate-plan.getrateplans
+      with:
+        propertyId: tools.propertyId
+        roomTypeId: tools.roomTypeId
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-creates-new-rate
+      description: Expedia Group Creates a new rate plan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: expedia-lodging-product-rate-plan.createrateplan
+      with:
+        propertyId: tools.propertyId
+        roomTypeId: tools.roomTypeId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-read-single-rate
+      description: Expedia Group Read a single rate plan
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: expedia-lodging-product-rate-plan.getrateplan
+      with:
+        propertyId: tools.propertyId
+        roomTypeId: tools.roomTypeId
+        ratePlanId: tools.ratePlanId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-modify-existing-rate
+      description: Expedia Group Modify an existing rate plan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: expedia-lodging-product-rate-plan.updaterateplan
+      with:
+        propertyId: tools.propertyId
+        roomTypeId: tools.roomTypeId
+        ratePlanId: tools.ratePlanId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-delete-existing-rate
+      description: Expedia Group Delete an existing rate plan
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: expedia-lodging-product-rate-plan.deleterateplan
+      with:
+        propertyId: tools.propertyId
+        roomTypeId: tools.roomTypeId
+        ratePlanId: tools.ratePlanId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-patch-existing-rate
+      description: Expedia Group Patch an existing rate plan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: expedia-lodging-product-rate-plan.patchrateplan
+      with:
+        propertyId: tools.propertyId
+        roomTypeId: tools.roomTypeId
+        ratePlanId: tools.ratePlanId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

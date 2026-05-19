@@ -1,0 +1,173 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Expedia Group Rapid API — Notifications
+  description: 'Expedia Group Rapid API — Notifications. 2 operations. Lead operation: Expedia Group Request Undelivered Notifications.
+    Self-contained Naftiko capability covering one Expedia Group business surface.'
+  tags:
+  - Expedia Group
+  - Notifications
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EXPEDIA_GROUP_API_KEY: EXPEDIA_GROUP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: expedia-rapid-notifications
+    baseUri: https://test.ean.com/v3
+    description: Expedia Group Rapid API — Notifications business capability. Self-contained, no shared references.
+    resources:
+    - name: notifications
+      path: /notifications
+      operations:
+      - name: requestundeliverednotifications
+        method: GET
+        description: Expedia Group Request Undelivered Notifications
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: undeliverable
+          in: query
+          type: boolean
+          description: Undeliverable notifications are returned when this parameter is set to `true`.
+          required: true
+        - name: billing_terms
+          in: query
+          type: string
+          description: This parameter is to specify the terms of how a resulting booking should be billed. If this field is
+            needed, the value for this will be provided to you separate
+        - name: partner_point_of_sale
+          in: query
+          type: string
+          description: This parameter is to specify what point of sale is being used to shop and book. If this field is needed,
+            the value for this will be provided to you separately.
+        - name: payment_terms
+          in: query
+          type: string
+          description: 'This parameter is to specify what terms should be used when being paid for a resulting booking. If
+            this field is needed, the value for this will be provided to '
+        - name: platform_name
+          in: query
+          type: string
+          description: This parameter is to specify what platform is being used to shop and book. If this field is needed,
+            the value for this will be provided to you separately.
+      - name: requesttestnotification
+        method: POST
+        description: Expedia Group Request Test Notification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: billing_terms
+          in: query
+          type: string
+          description: This parameter is to specify the terms of how a resulting booking should be billed. If this field is
+            needed, the value for this will be provided to you separate
+        - name: partner_point_of_sale
+          in: query
+          type: string
+          description: This parameter is to specify what point of sale is being used to shop and book. If this field is needed,
+            the value for this will be provided to you separately.
+        - name: payment_terms
+          in: query
+          type: string
+          description: 'This parameter is to specify what terms should be used when being paid for a resulting booking. If
+            this field is needed, the value for this will be provided to '
+        - name: platform_name
+          in: query
+          type: string
+          description: This parameter is to specify what platform is being used to shop and book. If this field is needed,
+            the value for this will be provided to you separately.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.EXPEDIA_GROUP_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: expedia-rapid-notifications-rest
+    port: 8080
+    description: REST adapter for Expedia Group Rapid API — Notifications. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/notifications
+      name: notifications
+      description: REST surface for notifications.
+      operations:
+      - method: GET
+        name: requestundeliverednotifications
+        description: Expedia Group Request Undelivered Notifications
+        call: expedia-rapid-notifications.requestundeliverednotifications
+        with:
+          undeliverable: rest.undeliverable
+          billing_terms: rest.billing_terms
+          partner_point_of_sale: rest.partner_point_of_sale
+          payment_terms: rest.payment_terms
+          platform_name: rest.platform_name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: requesttestnotification
+        description: Expedia Group Request Test Notification
+        call: expedia-rapid-notifications.requesttestnotification
+        with:
+          billing_terms: rest.billing_terms
+          partner_point_of_sale: rest.partner_point_of_sale
+          payment_terms: rest.payment_terms
+          platform_name: rest.platform_name
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: expedia-rapid-notifications-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Expedia Group Rapid API — Notifications. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: expedia-group-request-undelivered-notifications
+      description: Expedia Group Request Undelivered Notifications
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: expedia-rapid-notifications.requestundeliverednotifications
+      with:
+        undeliverable: tools.undeliverable
+        billing_terms: tools.billing_terms
+        partner_point_of_sale: tools.partner_point_of_sale
+        payment_terms: tools.payment_terms
+        platform_name: tools.platform_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: expedia-group-request-test-notification
+      description: Expedia Group Request Test Notification
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: expedia-rapid-notifications.requesttestnotification
+      with:
+        billing_terms: tools.billing_terms
+        partner_point_of_sale: tools.partner_point_of_sale
+        payment_terms: tools.payment_terms
+        platform_name: tools.platform_name
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

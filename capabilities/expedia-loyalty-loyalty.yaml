@@ -1,0 +1,102 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Expedia Group Loyalty Earn API — Loyalty
+  description: 'Expedia Group Loyalty Earn API — Loyalty. 2 operations. Lead operation: Loyalty. Self-contained Naftiko capability
+    covering one Expedia Group business surface.'
+  tags:
+  - Expedia Group
+  - Loyalty
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EXPEDIA_GROUP_API_KEY: EXPEDIA_GROUP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: expedia-loyalty-loyalty
+    baseUri: https://test.analytics.ean.com/template/v1
+    description: Expedia Group Loyalty Earn API — Loyalty business capability. Self-contained, no shared references.
+    resources:
+    - name: loyalty-earn-last_update
+      path: /loyalty/earn/last_update
+      operations:
+      - name: loyaltylastupdate
+        method: GET
+        description: Get the last update datetime for loyalty earn transactions.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: loyalty-earn-transactions
+      path: /loyalty/earn/transactions
+      operations:
+      - name: loyaltytransactions
+        method: GET
+        description: Get loyalty earn transactions for the requested transaction date range. <br>
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.EXPEDIA_GROUP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: expedia-loyalty-loyalty-rest
+    port: 8080
+    description: REST adapter for Expedia Group Loyalty Earn API — Loyalty. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/loyalty/earn/last-update
+      name: loyalty-earn-last-update
+      description: REST surface for loyalty-earn-last_update.
+      operations:
+      - method: GET
+        name: loyaltylastupdate
+        description: Get the last update datetime for loyalty earn transactions.
+        call: expedia-loyalty-loyalty.loyaltylastupdate
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/loyalty/earn/transactions
+      name: loyalty-earn-transactions
+      description: REST surface for loyalty-earn-transactions.
+      operations:
+      - method: GET
+        name: loyaltytransactions
+        description: Get loyalty earn transactions for the requested transaction date range. <br>
+        call: expedia-loyalty-loyalty.loyaltytransactions
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: expedia-loyalty-loyalty-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Expedia Group Loyalty Earn API — Loyalty. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-last-update-datetime-loyalty
+      description: Get the last update datetime for loyalty earn transactions.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: expedia-loyalty-loyalty.loyaltylastupdate
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-loyalty-earn-transactions-requested
+      description: Get loyalty earn transactions for the requested transaction date range. <br>
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: expedia-loyalty-loyalty.loyaltytransactions
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,81 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Expedia Group Fraud Prevention Service — OrderPurchaseUpdate
+  description: 'Expedia Group Fraud Prevention Service — OrderPurchaseUpdate. 1 operations. Lead operation: Expedia Group
+    Send an update for a transaction. Self-contained Naftiko capability covering one Expedia Group business surface.'
+  tags:
+  - Expedia Group
+  - OrderPurchaseUpdate
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EXPEDIA_GROUP_API_KEY: EXPEDIA_GROUP_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: expedia-fraud-protection-orderpurchaseupdate
+    baseUri: https://api.sandbox.expediagroup.com/fraud-prevention/v2
+    description: Expedia Group Fraud Prevention Service — OrderPurchaseUpdate business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: order-purchase-update
+      path: /order/purchase/update
+      operations:
+      - name: update
+        method: POST
+        description: Expedia Group Send an update for a transaction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EXPEDIA_GROUP_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: expedia-fraud-protection-orderpurchaseupdate-rest
+    port: 8080
+    description: REST adapter for Expedia Group Fraud Prevention Service — OrderPurchaseUpdate. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/order/purchase/update
+      name: order-purchase-update
+      description: REST surface for order-purchase-update.
+      operations:
+      - method: POST
+        name: update
+        description: Expedia Group Send an update for a transaction
+        call: expedia-fraud-protection-orderpurchaseupdate.update
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: expedia-fraud-protection-orderpurchaseupdate-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Expedia Group Fraud Prevention Service — OrderPurchaseUpdate. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: expedia-group-send-update-transaction
+      description: Expedia Group Send an update for a transaction
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: expedia-fraud-protection-orderpurchaseupdate.update
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
