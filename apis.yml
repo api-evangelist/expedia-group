@@ -124,6 +124,9 @@ common:
     url: https://developers.expediagroup.com/docs/sdk
   - type: Blog
     url: https://medium.com/expedia-group-tech
+  - url: https://medium.com/feed/expedia-group-tech
+    type: BlogRSS
+    description: Discovered RSS/Atom feed for https://medium.com/expedia-group-tech
   - type: Support
     url: https://developers.expediagroup.com/docs/support
   - type: StatusPage
