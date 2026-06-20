@@ -4,7 +4,7 @@ description: Expedia Group is an American travel technology company that owns an
   metasearch engines, including Expedia, Hotels.com, Vrbo, Travelocity, Hotwire.com, Orbitz, Ebookers, CheapTickets, CarRentals.com,
   and Trivago. Their developer platform provides APIs for travel inventory, lodging, and analytics.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Flights
   - Hotels
