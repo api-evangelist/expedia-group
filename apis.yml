@@ -31,17 +31,17 @@ apis:
       url: https://developers.expediagroup.com/docs/products/rapid
     - type: OpenAPI
       url: openapi/expedia-rapid-openapi-original.yml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-rapid-bookings.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-rapid-content.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-rapid-geography.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-rapid-manage-booking.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-rapid-notifications.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-rapid-shopping.yaml
   - aid: expedia-group:fraud-protection
     name: Expedia Fraud Protection API
@@ -55,9 +55,9 @@ apis:
       url: https://developers.expediagroup.com/docs/products/fraud-prevention
     - type: OpenAPI
       url: openapi/expedia-fraud-protection-openapi-original.yml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - aid: expedia-group:lodging
     name: Expedia Lodging API
@@ -72,15 +72,15 @@ apis:
       url: https://developers.expediagroup.com/supply/lodging
     - type: OpenAPI
       url: openapi/expedia-lodging-product-openapi-original.yml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-lodging-product-property.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-lodging-product-rate-plan.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-lodging-product-room-type.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - aid: expedia-group:deposit
     name: Expedia EPS Deposit API
@@ -96,7 +96,7 @@ apis:
       url: https://expediaconnectivity.com/developer
     - type: OpenAPI
       url: openapi/expedia-deposit-openapi-original.yml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-deposit-deposit.yaml
   - aid: expedia-group:loyalty
     name: Expedia Loyalty Earn API
@@ -112,7 +112,7 @@ apis:
       url: https://developers.expediagroup.com/analytics
     - type: OpenAPI
       url: openapi/expedia-loyalty-openapi-original.yml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/expedia-loyalty-loyalty.yaml
 common:
   - type: GitHubOrganization
