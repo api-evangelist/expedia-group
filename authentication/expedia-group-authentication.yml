@@ -1,0 +1,38 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/expedia-deposit-openapi-original.yml, openapi/expedia-fraud-protection-openapi-original.yml,
+  openapi/expedia-lodging-product-openapi-original.yml, openapi/expedia-loyalty-openapi-original.yml,
+  openapi/expedia-rapid-openapi-original.yml
+summary:
+  types:
+  - apiKey
+  - http
+  - oauth2
+  api_key_in:
+  - header
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: Basic
+  type: http
+  scheme: basic
+  sources:
+  - openapi/expedia-deposit-openapi-original.yml
+  - openapi/expedia-lodging-product-openapi-original.yml
+- name: orderPurchaseScreenAuth
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.expediagroup.com/identity/oauth2/v3/token?grant_type=client_credentials
+    scopes: 1
+  sources:
+  - openapi/expedia-fraud-protection-openapi-original.yml
+  - openapi/expedia-loyalty-openapi-original.yml
+- name: rapidAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: The custom generated authentication header. Refer to our [signature authentication](https://developers.expediagroup.com/docs/rapid/resources/reference/signature-authentication)
+    page for full details.
+  sources:
+  - openapi/expedia-rapid-openapi-original.yml

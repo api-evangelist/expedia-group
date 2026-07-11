@@ -115,6 +115,10 @@ apis:
     - type: X-NaftikoCapability
       url: capabilities/expedia-loyalty-loyalty.yaml
 common:
+  - type: DomainSecurity
+    url: security/expedia-group-domain-security.yml
+  - type: Authentication
+    url: authentication/expedia-group-authentication.yml
   - type: OAuthScopes
     url: scopes/expedia-group-scopes.yml
   - type: GitHubOrganization
