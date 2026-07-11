@@ -115,6 +115,8 @@ apis:
     - type: X-NaftikoCapability
       url: capabilities/expedia-loyalty-loyalty.yaml
 common:
+  - type: OAuthScopes
+    url: scopes/expedia-group-scopes.yml
   - type: GitHubOrganization
     url: https://github.com/expediagroup
   - type: LinkedIn

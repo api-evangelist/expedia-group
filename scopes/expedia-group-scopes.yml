@@ -1,0 +1,38 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/expedia-fraud-protection-openapi-original.yml, openapi/expedia-loyalty-openapi-original.yml
+schemes:
+- name: orderPurchaseScreenAuth
+  source: openapi/expedia-fraud-protection-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.expediagroup.com/identity/oauth2/v3/token?grant_type=client_credentials
+- name: orderPurchaseUpdateAuth
+  source: openapi/expedia-fraud-protection-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.expediagroup.com/identity/oauth2/v3/token?grant_type=client_credentials
+- name: oauth
+  source: openapi/expedia-loyalty-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://test.analytics.ean.com/template/v1/oauth/token
+scopes:
+- scope: demand-solutions.demand-api-wrappers-prod.all
+  description: Access to all Demand API Wrappers
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/expedia-loyalty-openapi-original.yml
+- scope: fraudandrisk.fraud.order-purchase-screen
+  description: Use Fraud Systems for screening orders
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/expedia-fraud-protection-openapi-original.yml
+- scope: fraudandrisk.fraud.order-purchase-update
+  description: Use Fraud Systems for updating orders
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/expedia-fraud-protection-openapi-original.yml
