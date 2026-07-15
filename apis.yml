@@ -115,6 +115,8 @@ apis:
     - type: X-NaftikoCapability
       url: capabilities/expedia-loyalty-loyalty.yaml
 common:
+  - type: AgenticAccess
+    url: agentic-access/expedia-group-agentic-access.yml
   - type: DomainSecurity
     url: security/expedia-group-domain-security.yml
   - type: Authentication
