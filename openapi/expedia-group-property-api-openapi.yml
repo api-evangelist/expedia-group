@@ -1,0 +1,216 @@
+openapi: 3.0.1
+info:
+  title: Expedia Group EPS Deposit Bookings Property API
+  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
+  contact:
+    name: Expedia Partner Services
+    url: https://expediaconnectivity.com/developer
+    email: eqcss@expedia.com
+  version: '1.0'
+servers:
+- url: https://services.expediapartnercentral.com/
+security:
+- Basic: []
+tags:
+- name: Property
+  description: The property resource
+paths:
+  /products/properties:
+    get:
+      tags:
+      - Property
+      summary: Expedia Group Obtain a list of properties
+      operationId: getProperties
+      parameters:
+      - name: status
+        in: query
+        description: Status filter. String. Only supported value is "all".
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Pagination offset. Integer starting at 0
+        schema:
+          type: string
+          default: '0'
+      - name: limit
+        in: query
+        description: Pagination limit. Integer between 1 and 200.
+        schema:
+          type: string
+          default: '20'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.expedia.eps.product-v2+json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperDTO«List«PropertyDTO»»'
+      security:
+      - Basic: []
+  /products/properties/{propertyId}:
+    get:
+      tags:
+      - Property
+      summary: Expedia Group Read a single property
+      operationId: getProperty
+      parameters:
+      - name: propertyId
+        in: path
+        description: Expedia Property ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.expedia.eps.product-v2+json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperDTO«PropertyDTO»'
+      security:
+      - Basic: []
+components:
+  schemas:
+    PropertyAddressDTO:
+      type: object
+      properties:
+        city:
+          type: string
+          description: City in which the property is located
+        countryCode:
+          type: string
+          description: ISO 3166-1 Alpha 3 country code, for the country where the property is located
+        line1:
+          type: string
+          description: First line of address
+        line2:
+          type: string
+          description: Second line of address, not always available
+        postalCode:
+          type: string
+          description: Postal or State Code, might not be available
+        state:
+          type: string
+          description: State/Province, which is optional and thus might not be available
+    PropertyDTO:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/PropertyAddressDTO'
+        allowedAgeCategories:
+          type: array
+          items:
+            type: string
+            enum:
+            - Adult
+            - ChildAgeA
+            - ChildAgeB
+            - ChildAgeC
+            - ChildAgeD
+            - Infant
+        baseAllocationEnabled:
+          type: boolean
+          description: Boolean to indicate whether this property has a base allocation contract with Expedia.
+          example: false
+        cancellationTime:
+          type: string
+          description: Cancellation deadline reference time. When cancel policies are defined and exchanged via the rate plan resource, a deadline in hours is provided. The deadline in hours is always relative to this property cancellation deadline reference time configuration
+        currency:
+          type: string
+          description: 'Format: ISO 4217 Alpha 3. This currency code is applicable to all amounts found in any resources available as part of the EPS Product API.'
+        distributionModels:
+          type: array
+          description: Distribution model(s) under which the property is configured to work with Expedia
+          items:
+            type: string
+            enum:
+            - ExpediaCollect
+            - HotelCollect
+        name:
+          type: string
+          description: Name describing the property. Max. 255 characters
+        partnerCode:
+          type: string
+          description: Partner property code/identifier. Max 64 characters. Optional field returned for connected properties. This code allows partner to uniquely identify the property in its system.
+        pricingModel:
+          type: string
+          description: Configuration of the property when it comes to pricing rooms and rates.
+          enum:
+          - PerDayPricing
+          - OccupancyBasedPricing
+        rateAcquisitionType:
+          type: string
+          description: Describes which type of rate will be provided via this API, but also which type of rate should be used when managing availability and rates in ExpediaPartnerCentral or using EC or EQC APIs.
+          enum:
+          - NetRate
+          - SellLAR
+        ratePlanLinkageEnabled:
+          type: boolean
+          description: Descriptive information on if the property is enabled for linkage or not.
+          example: false
+        reservationCutOff:
+          $ref: '#/components/schemas/CutOffDTO'
+        resourceId:
+          type: integer
+          description: Expedia ID for this resource. Generated when created. Generated on POST, required on PUT
+          format: int32
+        status:
+          type: string
+          description: 'Status in which the property can be in; Allowed values are: Active, Inactive, Onboarding, UnderConversion'
+          enum:
+          - Active
+          - Inactive
+          - Onboarding
+          - UnderConversion
+        taxInclusive:
+          type: boolean
+          description: Returned to indicate whether the rate being exchanged over other APIs (availability/rates or booking) is inclusive of taxes or not.
+          example: false
+        timezone:
+          type: string
+          description: Descriptive information about property timezone configuration in Expedia system. Description will start by a GMT offset, followed by a friendly name.
+    ErrorDTO:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    ResponseWrapperDTO«List«PropertyDTO»»:
+      type: object
+      properties:
+        entity:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDTO'
+    ResponseWrapperDTO«PropertyDTO»:
+      type: object
+      properties:
+        entity:
+          $ref: '#/components/schemas/PropertyDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDTO'
+    CutOffDTO:
+      type: object
+      properties:
+        day:
+          type: string
+          description: Can be of same day or next day. Complements the time attribute
+          enum:
+          - sameDay
+          - nextDay
+        time:
+          type: string
+          description: Indicates at which time we’ll stop making inventory available for same day reservations
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic

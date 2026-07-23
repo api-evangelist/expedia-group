@@ -1,0 +1,329 @@
+openapi: 3.0.1
+info:
+  title: Expedia Group EPS Deposit Bookings OrderPurchaseUpdate API
+  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
+  contact:
+    name: Expedia Partner Services
+    url: https://expediaconnectivity.com/developer
+    email: eqcss@expedia.com
+  version: '1.0'
+servers:
+- url: https://services.expediapartnercentral.com/
+security:
+- Basic: []
+tags:
+- name: OrderPurchaseUpdate
+paths:
+  /order/purchase/update:
+    post:
+      tags:
+      - OrderPurchaseUpdate
+      description: 'The Order Purchase Update API is called when the status of the order has changed.
+
+
+        For example, if the customer cancels the reservation, changes reservation in any way, or adds additional products or travelers to the reservation, the Order Purchase Update API is called to notify Expedia Group about the change.
+
+
+        The Order Purchase Update API is also called when the merchant cancels or changes an order based on a Fraud recommendation.
+
+        '
+      summary: Expedia Group Send an update for a transaction
+      operationId: update
+      security:
+      - orderPurchaseUpdateAuth:
+        - fraudandrisk.fraud.order-purchase-update
+      requestBody:
+        required: true
+        description: 'An OrderPurchaseUpdate request may be of one of the following types `ORDER_UPDATE`, `CHARGEBACK_FEEDBACK`, `INSULT_FEEDBACK`, `REFUND_UPDATE`, `PAYMENT_UPDATE`.
+
+          '
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderPurchaseUpdateRequest'
+            examples:
+              OrderUpdate:
+                summary: Sample OrderUpdate Request
+                value:
+                  type: ORDER_UPDATE
+                  risk_id: '1234324324'
+                  acquirer_reference_number: '12345'
+                  order_status: COMPLETED
+                  cancellation_reason:
+                    primary_reason_description: string
+              ChargebackFeedback:
+                summary: Sample ChargebackFeedback Request
+                value:
+                  type: CHARGEBACK_FEEDBACK
+                  risk_id: '1234324324'
+                  chargeback_detail:
+                    chargeback_status: RECEIVED
+                    chargeback_reason: FRAUD
+                    chargeback_amount:
+                      value: 123.45
+                      currency_code: USD
+              InsultFeedback:
+                summary: Sample InsultFeedback Request
+                value:
+                  type: INSULT_FEEDBACK
+                  risk_id: '1234324324'
+              RefundUpdate:
+                summary: Sample RefundUpdate Request
+                value:
+                  type: REFUND_UPDATE
+                  risk_id: '1234324324'
+                  refund_status: SETTLED
+                  refund_details:
+                    acquirer_reference_number: '12345'
+                    refund_deposit_date_time: '2022-07-24T01:01:01.111Z'
+                    refund_settlement_date_time: '2022-07-24T01:01:01.111Z'
+                    settlement_id: '12345'
+                    refund_settled_amount:
+                      value: 123.32
+                      currency_code: USD
+              PaymentUpdate:
+                summary: Sample PaymentUpdate Request
+                value:
+                  type: PAYMENT_UPDATE
+                  risk_id: '1234324324'
+                  merchant_order_code: '12345'
+      responses:
+        '200':
+          description: The OrderUpdateRequest was successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderPurchaseUpdateResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Order Purchase Update Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderPurchaseUpdateNotFoundError'
+        '429':
+          description: Too many requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestsError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+        '502':
+          description: Bad gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadGatewayError'
+        '503':
+          description: Retryable Order Purchase Update Failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetryableOrderPurchaseUpdateFailure'
+        '504':
+          description: Gateway timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayTimeoutError'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+components:
+  schemas:
+    RetryableOrderPurchaseUpdateFailure:
+      description: 'Indicates that the API is either down for maintenance or overloaded and cannot fulfill the request at the current time. This is a temporary error and retrying the same request after a certain delay could eventually result in success.
+
+        There will be a Retry-After HTTP header in API response specifying how long to wait to retry the request. If there is no Retry-After HTTP header then retry can happen immediately. If the error persists after retrying with delay, please reach out to <support team>."
+
+        '
+      example:
+        code: RETRYABLE_ORDER_PURCHASE_UPDATE_FAILURE
+        message: A temporary internal error occurred. You can safely retry your call using the same order details.
+      allOf:
+      - $ref: '#/components/schemas/Error'
+    BadRequestError:
+      description: Indicates that a bad request occurred. Typically it is an invalid parameter.
+      example:
+        code: BAD_REQUEST
+        message: An input validation error was encountered. Please see causes for more details.
+        causes:
+          code: MISSING_MANDATORY_PARAM
+          field: $.transaction.customer_account.account_type
+          message: The value of a field should not be null.
+      allOf:
+      - $ref: '#/components/schemas/Error'
+      - type: object
+        properties:
+          causes:
+            type: array
+            items:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: MISSING_MANDATORY_PARAM
+                  enum:
+                  - MISSING_MANDATORY_PARAM
+                  - INVALID_PARAM
+                  - INVALID_FORMAT
+                field:
+                  type: string
+                  description: A JSON Path expression indicating which field, in the request body, caused the error.
+                  example: $.transaction.customer_account.account_type
+                message:
+                  type: string
+                  example: The value of a field should not be null.
+    BadGatewayError:
+      description: Indicates that the server received an invalid response from the upstream server. Causes could be incorrectly configured target server at gateway, EOF exception, incorrectly configured keep-alive timeouts. Please reach out to support team as next step for this error resolution.
+      example:
+        code: BAD_GATEWAY
+        message: The server received an invalid response from an upstream server.
+      allOf:
+      - $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: Indicates that the API encountered an unexpected condition that prevented it from fulfilling the request. Sometimes used as a generic catch-allerror type when no other error types can be used. Retrying the same request will usually result in the same error. Please reach out to support team as next step for this error resolution.
+      example:
+        code: INTERNAL_SERVER_ERROR
+        message: The server encountered an internal error.
+      allOf:
+      - $ref: '#/components/schemas/Error'
+    TooManyRequestsError:
+      description: Indicates that the API cannot fulfill the request because server resources have been exhausted. Perhaps the client has sent too many requests in a given amount of time or has reached some specific quota. Please check the rate limits for the product and adjust as necessary before retries. If you believe the rate limit was incorrect or if you need a different rate limit, please reach out to the <support team> regarding the next steps.
+      example:
+        code: TOO_MANY_REQUESTS
+        message: The request failed because the server resources for this client have been exhausted.
+      allOf:
+      - $ref: '#/components/schemas/Error'
+    OrderPurchaseUpdateResponse:
+      title: OrderPurchaseUpdateResponse
+      type: object
+      properties:
+        risk_id:
+          type: string
+          description: Unique identifier of transaction that was updated.
+          maxLength: 200
+          example: '1234567'
+    OrderPurchaseUpdateNotFoundError:
+      description: Indicates that the API cannot find the resource that is either being requested or against which the operation is being performed.
+      example:
+        code: ORDER_PURCHASE_UPDATE_NOT_FOUND
+        message: The request failed because the Order Screen event for this booking is missing. Please send a new Order Screen event again.
+      allOf:
+      - $ref: '#/components/schemas/Error'
+    GatewayTimeoutError:
+      description: Indicates that the API gateway has issues completing the request on time. Request can be retried if it is idempotent, If the issue persists, please reach out to support. For non-idempotent requests, please reach out to <support team> to know the status of your request before attempting retries.
+      example:
+        code: GATEWAY_TIMEOUT
+        message: The server timed out while trying to complete the request.
+      allOf:
+      - $ref: '#/components/schemas/Error'
+    UpdateType:
+      title: UpdateType
+      description: Transaction type associated with the update event.
+      type: string
+      enum:
+      - ORDER_UPDATE
+      - CHARGEBACK_FEEDBACK
+      - INSULT_FEEDBACK
+      - REFUND_UPDATE
+      - PAYMENT_UPDATE
+    OrderPurchaseUpdateRequest:
+      title: OrderPurchaseUpdateRequest
+      description: 'The `type` field value is used as a discriminator, with the following mapping:
+
+        * `ORDER_UPDATE`: `OrderUpdate`
+
+        * `CHARGEBACK_FEEDBACK`: `ChargebackFeedback`
+
+        * `INSULT_FEEDBACK`: `InsultFeedback`
+
+        * `REFUND_UPDATE`: `RefundUpdate`
+
+        * `PAYMENT_UPDATE`: `PaymentUpdate`
+
+        '
+      type: object
+      required:
+      - risk_id
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/UpdateType'
+        risk_id:
+          description: The `risk_id` provided by Expedia's Fraud Prevention Service in the `OrderPurchaseScreenResponse`.
+          type: string
+          maxLength: 200
+          example: '123456789'
+      discriminator:
+        propertyName: type
+        mapping:
+          ORDER_UPDATE: OrderUpdate
+          CHARGEBACK_FEEDBACK: ChargebackFeedback
+          INSULT_FEEDBACK: InsultFeedback
+          REFUND_UPDATE: RefundUpdate
+          PAYMENT_UPDATE: PaymentUpdate
+    UnauthorizedError:
+      description: Indicates that the token sent in the 'Authorization' header is either invalid or missing. Please check the value in the token field along with the token expiration time before retrying.
+      example:
+        code: UNAUTHORIZED
+        message: Invalid EG token provided. Please provide a valid token in the Authorization header.
+      allOf:
+      - $ref: '#/components/schemas/Error'
+    Error:
+      description: The object used to describe an error, containing both human-readable and machine-readable information.
+      type: object
+      properties:
+        code:
+          description: Snake cased all caps error code interpreted from the HTTP status code that can programmatically be acted upon.
+          type: string
+          example: BAD_REQUEST
+          enum:
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - NOT_FOUND
+          - ORDER_PURCHASE_UPDATE_NOT_FOUND
+          - TOO_MANY_REQUESTS
+          - INTERNAL_SERVER_ERROR
+          - BAD_GATEWAY
+          - RETRYABLE_ORDER_PURCHASE_SCREEN_FAILURE
+          - RETRYABLE_ORDER_PURCHASE_UPDATE_FAILURE
+          - GATEWAY_TIMEOUT
+          - BAD_REQUEST
+        message:
+          description: A human-readable explanation of the error, specific to this error occurrence.
+          type: string
+          example: An input validation error was encountered. Please see causes for more details.
+      required:
+      - code
+      - message
+    ForbiddenError:
+      description: Indicates that the API cannot fulfill the request because while the client is correctly authenticated, the client doesn't have the permission to execute the specified operation. This error type does not imply that the request is valid, or that the resource against which the operation being performed exists or satisfies other pre-conditions.
+      example:
+        code: FORBIDDEN
+        message: Insufficient permissions to perform the request.
+      allOf:
+      - $ref: '#/components/schemas/Error'
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic

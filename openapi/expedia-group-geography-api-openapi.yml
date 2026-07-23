@@ -1,0 +1,1579 @@
+openapi: 3.0.1
+info:
+  title: Expedia Group EPS Deposit Bookings Geography API
+  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
+  contact:
+    name: Expedia Partner Services
+    url: https://expediaconnectivity.com/developer
+    email: eqcss@expedia.com
+  version: '1.0'
+servers:
+- url: https://services.expediapartnercentral.com/
+security:
+- Basic: []
+tags:
+- name: Geography
+  description: The EPS Geography API provides geography content for regions around the world.
+paths:
+  /regions:
+    get:
+      tags:
+      - Geography
+      summary: Expedia Group Regions
+      description: 'Returns the geographic definition and property mappings of regions matching the specified parameters.<br><br>
+
+        To request all regions in the world, omit the `ancestor` query parameter. To request all regions in a specific
+
+        continent, country or other level, specify the ID of that region as the `ancestor`. Refer to the list of
+
+        [top level regions](https://developers.expediagroup.com/docs/rapid/lodging/geography/geography-reference-lists).
+
+        <br><br>
+
+        The response is a paginated list of regions. See the `Link` header in the 200 response section.
+
+        '
+      operationId: getRegions
+      parameters:
+      - name: Accept
+        in: header
+        description: 'Specifies the response format that the client would like to receive back. This must be `application/json`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: application/json
+      - name: Accept-Encoding
+        in: header
+        description: 'Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: gzip
+      - name: User-Agent
+        in: header
+        description: 'The `User-Agent` header string from the customer''s request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: TravelNow/3.30.112
+      - name: Customer-Session-Id
+        in: header
+        description: 'Insert your own unique value for each user session, beginning with the first API call.
+
+          Continue to pass the same value for each subsequent API call during the user''s session, using a new value for every new customer session.<br>
+
+          Including this value greatly eases EPS''s internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user''s session.
+
+          '
+        schema:
+          type: string
+      - name: include
+        in: query
+        description: "Options for which content to return in the response. This parameter can be supplied multiple times with different values. The standard and details options cannot be requested together. The value must be lower case.\n  * standard - Include the metadata and basic hierarchy of each region.\n  * details - Include the metadata, coordinates and full hierarchy of each region.\n  * property_ids - Include the list of property IDs within the bounding polygon of each region.\n  * property_ids_expanded - Include the list of property IDs within the bounding polygon of each region and property IDs from the surrounding area if minimal properties are within the region.\n"
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - standard
+            - details
+            - property_ids
+            - property_ids_expanded
+        example:
+        - details
+      - name: language
+        in: query
+        description: 'Desired language for the response as a subset of BCP47 format that only uses hyphenated pairs of two-digit language and country codes. Use only ISO 639-1 alpha-2 language codes and ISO 3166-1 alpha-2 country codes. See [https://www.w3.org/International/articles/language-tags/](https://www.w3.org/International/articles/language-tags/)
+
+
+          Language Options: [https://developers.expediagroup.com/docs/rapid/resources/reference/language-options](https://developers.expediagroup.com/docs/rapid/resources/reference/language-options)
+
+          '
+        required: true
+        schema:
+          type: string
+        example: en-US
+      - name: ancestor_id
+        in: query
+        description: 'Search for regions whose ancestors include the requested ancestor region ID. Refer to the list of [top level regions](https://developers.expediagroup.com/docs/rapid/lodging/geography/geography-reference-lists).
+
+          '
+        schema:
+          type: string
+        example: 602962
+      - name: area
+        in: query
+        description: "Filter the results to regions that intersect with a specified area.<br><br>\nThe area may be defined in one of two ways:\n  * radius,region_id\n  * radius,latitude,longitude\n\nRadius combined with region id would search an area that extends the number of kilometers out from the boundaries of the region in all directions.<br>\nRadius combined with a single point, specified by a latitude, longitude pair would search an area in a circle with the specified radius and the point as the center.<br>\nRadius should be specified in non-negative whole kilometers, decimals will return an error. A radius of 0 is allowed.<br>\nWhen specifying the area parameter, there will be a limit of 100 results, which can be narrowed further by the limit parameter.<br>\nDue to the number of results, unless `point_of_interest` is specified as the only type, regions of type `point_of_interest`\nwill not be included in a request that filters to an area.<br><br>\nAn example use case would be searching for the closest 3 airports within 50 kilometers of a specified point.<br>\n  `&type=airport&limit=3&area=50,37.227924,-93.310036`\n"
+        schema:
+          type: string
+        example: 3,602962
+      - name: country_code
+        in: query
+        description: 'Filter the results to a specified ISO 3166-1 alpha-2 country code.
+
+
+          For more information see: [https://www.iso.org/obp/ui/#search/code/](https://www.iso.org/obp/ui/#search/code/)
+
+          '
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - US
+      - name: country_subdivision_code
+        in: query
+        description: Filter the results down to only the ISO 3166-2 country subdivision.
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - US-MO
+      - name: iata_location_code
+        in: query
+        description: 'Search for regions by the requested 3-character IATA location code, which will apply to both iata_airport_code and iata_airport_metro_code. The code must be upper case.
+
+          '
+        schema:
+          type: string
+        example: SGF
+      - name: limit
+        in: query
+        description: 'Limit the number of results returned.
+
+          Using the area parameter will impose a max value of 100 for this whether specified or not.
+
+          '
+        schema:
+          type: number
+      - name: supply_source
+        in: query
+        description: "Options for which supply source you would like returned in the geography response. This parameter may only be supplied once and will return all properties that match the requested supply source. An error is thrown if the parameter is provided multiple times.\n  * `expedia` - Standard Expedia supply.\n  * `vrbo` - VRBO supply - This option is restricted to partners who have VRBO supply enabled for their profile. See [Vacation Rentals](https://developers.expediagroup.com/docs/rapid/lodging/vacation-rentals) for more information.\n"
+        schema:
+          type: string
+        example: vrbo
+      - name: type
+        in: query
+        description: 'Filter the results to a specified region type.
+
+          '
+        schema:
+          type: array
+          items:
+            type: string
+      - name: billing_terms
+        in: query
+        description: 'This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: partner_point_of_sale
+        in: query
+        description: 'This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: payment_terms
+        in: query
+        description: 'This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: platform_name
+        in: query
+        description: 'This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+            Link:
+              description: 'Contains a single link to get the immediate next page of results, and follows the
+
+                [IETF standard](https://tools.ietf.org/html/rfc5988). To get the next page of results, simply follow
+
+                the `next` URL in this header without modifying it. This header will be missing when there are no
+
+                further pages. If the link expires, there will be an `expires` link-extension that is the UTC date the
+
+                link will expire, in ISO 8601 format.
+
+                '
+              schema:
+                type: string
+                example: <https://test.ean.com/v3/regions?token=Q11RF1Vda1JREAQQCQMFVgpRDVQDDFsAFgJVgYBDQYAUw==>; rel="next"; expires=2023-06-29T20:15:05.324083439Z
+            Pagination-Total-Results:
+              description: Header that returns the pagination total results.
+              schema:
+                type: string
+                example: '2801'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Region'
+              examples:
+                Regions:
+                  value:
+                  - id: '602962'
+                    type: multi_city_vicinity
+                    name: Springfield
+                    name_full: Springfield, Missouri, United States of America
+                    descriptor: and vicinity
+                    country_code: US
+                    country_subdivision_code: US-MO
+                    coordinates:
+                      center_longitude: -93.310036
+                      center_latitude: 37.227924
+                      bounding_polygon:
+                        type: Polygon
+                        coordinates:
+                        - - - -93.446782
+                            - 37.169329
+                          - - -93.4244
+                            - 37.169432
+                          - - -93.371097
+                            - 37.168636
+                          - - -93.376295
+                            - 37.139236
+                          - - -93.361419
+                            - 37.138634
+                          - - -93.347109
+                            - 37.100601
+                          - - -93.215792
+                            - 37.095905
+                          - - -93.215259
+                            - 37.138013
+                          - - -93.189332
+                            - 37.141503
+                          - - -93.191278
+                            - 37.333322
+                          - - -93.438268
+                            - 37.339372
+                          - - -93.446782
+                            - 37.169329
+                    ancestors:
+                    - id: '227'
+                      type: province_state
+                    - id: '201'
+                      type: country
+                    - id: '500001'
+                      type: continent
+                    descendants:
+                      point_of_interest:
+                      - '6064841'
+                      - '6064853'
+                  - id: '6064841'
+                    type: point_of_interest
+                    name: American National Fish and Wildlife Museum
+                    name_full: American National Fish and Wildlife Museum, Springfield, Missouri, United States of America
+                    country_code: US
+                    country_subdivision_code: US-MO
+                    coordinates:
+                      center_longitude: -93.29635
+                      center_latitude: 37.1826
+                    ancestors:
+                    - id: '602962'
+                      type: multi_city_vicinity
+                    - id: '227'
+                      type: province_state
+                    - id: '201'
+                      type: country
+                    - id: '500001'
+                      type: continent
+                  - id: '4605779'
+                    type: airport
+                    name: Springfield, MO (SGF-Springfield-Branson National)
+                    name_full: Springfield, MO, United States (SGF-Springfield-Branson National)
+                    iata_airport_code: SGF
+                    country_code: US
+                    country_subdivision_code: US-MO
+                    coordinates:
+                      center_longitude: -93.382095
+                      center_latitude: 37.24233
+                    associations:
+                      multi_city_vicinity:
+                      - '6058734'
+                    ancestors:
+                    - id: '602962'
+                      type: multi_city_vicinity
+                    - id: '227'
+                      type: province_state
+                    - id: '201'
+                      type: country
+                    - id: '500001'
+                      type: continent
+                No regions:
+                  value: []
+        '400':
+          description: Bad Request
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: invalid_input
+                message: An invalid request was sent in, please check the nested errors for details.
+                errors:
+                - type: include.invalid
+                  message: 'Include is invalid. Accepted include values are: [details, property_ids, property_ids_expanded, standard]'
+                  fields:
+                  - name: include
+                    type: querystring
+                    value: STANDARD
+        '401':
+          description: Unauthorized
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+            WWW-Authenticate:
+              description: Provides an example of the Authorization header.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthenticated
+                message: Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.
+                fields:
+                - name: apikey
+                  type: header
+                  value: jaj3982k239dka328e
+                - name: signature
+                  type: header
+                  value: 129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b
+                - name: timestamp
+                  type: header
+                  value: 198284729
+                - name: servertimestamp
+                  type: server
+                  value: 198284729
+        '403':
+          description: Forbidden
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthorized
+                message: Your request could not be authorized.
+        '410':
+          description: Gone
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: link.expired
+                message: The link that you followed has expired and this paginated session is now gone. Please restart the regions call from the beginning.
+        '426':
+          description: Upgrade Required
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: upgrade_required
+                message: This service requires the use of TLS.
+        '429':
+          description: Too Many Requests
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: too_many_requests
+                message: You have reached your capacity for this type of request.
+        '500':
+          description: Internal Error
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: internal_error
+                message: An internal server error has occurred. Please discard any previously received results in this pagination and restart the pagination from the beginning.
+        '503':
+          description: Service Unavailable
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: service_unavailable
+                message: This service is currently unavailable.
+      security:
+      - rapidAuth: []
+  /regions/{region_id}:
+    get:
+      tags:
+      - Geography
+      summary: Expedia Group Region
+      description: 'Returns the geographic definition and property mappings for the requested Region ID. The response is a single JSON formatted region object.
+
+        '
+      operationId: getRegion
+      parameters:
+      - name: Accept
+        in: header
+        description: 'Specifies the response format that the client would like to receive back. This must be `application/json`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: application/json
+      - name: Accept-Encoding
+        in: header
+        description: 'Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: gzip
+      - name: Customer-Session-Id
+        in: header
+        description: 'Insert your own unique value for each user session, beginning with the first API call.
+
+          Continue to pass the same value for each subsequent API call during the user''s session, using a new value for every new customer session.<br>
+
+          Including this value greatly eases EPS''s internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user''s session.
+
+          '
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        description: 'The `User-Agent` header string from the customer''s request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: TravelNow/3.30.112
+      - name: region_id
+        in: path
+        description: 'ID of the region to retrieve.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: 178248
+      - name: language
+        in: query
+        description: 'Desired language for the response as a subset of BCP47 format that only uses hyphenated pairs of two-digit language and country codes. Use only ISO 639-1 alpha-2 language codes and ISO 3166-1 alpha-2 country codes. See [https://www.w3.org/International/articles/language-tags/](https://www.w3.org/International/articles/language-tags/)
+
+
+          Language Options: [https://developers.expediagroup.com/docs/rapid/resources/reference/language-options](https://developers.expediagroup.com/docs/rapid/resources/reference/language-options)
+
+          '
+        required: true
+        schema:
+          type: string
+        example: en-US
+      - name: include
+        in: query
+        description: "Options for which content to return in the response. This parameter can be supplied multiple times with different values. The value must be lower case.\n  * details - Include the metadata, coordinates and full hierarchy of the region.\n  * property_ids - Include the list of property IDs within the bounding polygon of the region.\n  * property_ids_expanded - Include the list of property IDs within the bounding polygon of the region and property IDs from the surrounding area if minimal properties are within the region.\n"
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - details
+            - property_ids
+            - property_ids_expanded
+        example:
+        - details
+      - name: billing_terms
+        in: query
+        description: 'This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: partner_point_of_sale
+        in: query
+        description: 'This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: payment_terms
+        in: query
+        description: 'This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: platform_name
+        in: query
+        description: 'This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: supply_source
+        in: query
+        description: "Options for which supply source you would like returned in the geography response. This parameter may only be supplied once and will return all properties that match the requested supply source. An error is thrown if the parameter is provided multiple times.\n  * `expedia` - Standard Expedia supply.\n  * `vrbo` - VRBO supply - This option is restricted to partners who have VRBO supply enabled for their profile. See [Vacation Rentals](https://developers.expediagroup.com/docs/rapid/lodging/vacation-rentals) for more information.\n"
+        schema:
+          type: string
+        example: vrbo
+      responses:
+        '200':
+          description: OK
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+            Pagination-Total-Results:
+              description: Header that returns the pagination total results.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Region'
+              examples:
+                Multi-City Vicinity:
+                  value:
+                    id: '178309'
+                    type: multi_city_vicinity
+                    name: Chicago
+                    name_full: Chicago, Illinois, United States of America
+                    descriptor: and vicinity
+                    country_code: US
+                    country_subdivision_code: US-IL
+                    coordinates:
+                      center_longitude: -87.62813
+                      center_latitude: 41.88078
+                      bounding_polygon:
+                        type: MultiPolygon
+                        coordinates:
+                        - - - - -90.859069
+                              - 38.503453
+                            - - -90.853202
+                              - 38.508207
+                            - - -90.81246
+                              - 38.493525
+                            - - -90.845915
+                              - 38.481057
+                            - - -90.857717
+                              - 38.48231
+                            - - -90.859069
+                              - 38.503453
+                        - - - - -90.907324
+                              - 38.796858
+                            - - -90.895084
+                              - 38.852815
+                            - - -90.793246
+                              - 38.824804
+                            - - -90.800455
+                              - 38.809497
+                            - - -90.905098
+                              - 38.77501
+                            - - -90.907324
+                              - 38.796858
+                        - - - - -90.160125
+                              - 38.456535
+                            - - -90.153095
+                              - 38.455189
+                            - - -90.153836
+                              - 38.465606
+                            - - -90.149344
+                              - 38.465929
+                            - - -90.149547
+                              - 38.47438
+                            - - -90.153305
+                              - 38.474261
+                            - - -90.160125
+                              - 38.456535
+                    ancestors:
+                    - id: '215'
+                      type: province_state
+                    - id: '201'
+                      type: country
+                    - id: '500001'
+                      type: continent
+                    descendants:
+                      high_level_region:
+                      - '6330730'
+                      city:
+                      - '10014'
+                      - '9975'
+                    property_ids:
+                    - '37242'
+                    - '859343'
+                    property_ids_expanded:
+                    - '37242'
+                    - '859343'
+                    - '48972'
+                Airport:
+                  value:
+                    id: '4477519'
+                    type: airport
+                    name: Chicago, IL (ORD-O'Hare Intl.)
+                    name_full: Chicago, IL, United States (ORD-O'Hare Intl.)
+                    iata_airport_code: ORD
+                    iata_airport_metro_code: CHI
+                    country_code: US
+                    country_subdivision_code: US-IL
+                    coordinates:
+                      center_longitude: -87.904785
+                      center_latitude: 41.97693
+                    associations:
+                      multi_city_vicinity:
+                      - '178248'
+                    ancestors:
+                    - id: '178309'
+                      type: province_state
+                    - id: '215'
+                      type: province_state
+                    - id: '201'
+                      type: country
+                    - id: '500001'
+                      type: continent
+        '400':
+          description: Bad Request
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: invalid_input
+                message: An invalid request was sent in, please check the nested errors for details.
+                errors:
+                - type: include.invalid
+                  message: 'Include is invalid. Accepted include values are: [details, property_ids, property_ids_expanded]'
+                  fields:
+                  - name: include
+                    type: querystring
+                    value: DETAILS
+        '401':
+          description: Unauthorized
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+            WWW-Authenticate:
+              description: Provides an example of the Authorization header.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthenticated
+                message: Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.
+                fields:
+                - name: apikey
+                  type: header
+                  value: jaj3982k239dka328e
+                - name: signature
+                  type: header
+                  value: 129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b
+                - name: timestamp
+                  type: header
+                  value: 198284729
+                - name: servertimestamp
+                  type: server
+                  value: 198284729
+        '403':
+          description: Forbidden
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthorized
+                message: Your request could not be authorized.
+        '404':
+          description: Not Found
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: region.not_found
+                message: The requested region could not be found.
+                fields:
+                - name: region_id
+                  type: path
+                  value: '29384729424'
+        '426':
+          description: Upgrade Required
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: upgrade_required
+                message: This service requires the use of TLS.
+        '429':
+          description: Too Many Requests
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: too_many_requests
+                message: You have reached your capacity for this type of request.
+        '500':
+          description: Unknown Internal Error
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: unknown_internal_error
+                message: An internal server error has occurred.
+        '503':
+          description: Service Unavailable
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: service_unavailable
+                message: This service is currently unavailable.
+      security:
+      - rapidAuth: []
+  /properties/geography:
+    post:
+      tags:
+      - Geography
+      summary: Expedia Group Properties within Polygon
+      description: "Returns the properties within an custom polygon that represents a multi-city area or smaller.\nThe coordinates of the polygon should be in [GeoJSON format](https://tools.ietf.org/html/rfc7946) and the polygon must conform to the following restrictions:\n  * Polygon size - diagonal distance of the polygon must be less than 500km\n  * Polygon type - only single polygons are supported\n  * Number of coordinates - must be <= 2000\n"
+      operationId: postGeography
+      parameters:
+      - name: Accept-Encoding
+        in: header
+        description: 'Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: gzip
+      - name: Customer-Session-Id
+        in: header
+        description: 'Insert your own unique value for each user session, beginning with the first API call.
+
+          Continue to pass the same value for each subsequent API call during the user''s session, using a new value for every new customer session.<br>
+
+          Including this value greatly eases EPS''s internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user''s session.
+
+          '
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        description: 'The `User-Agent` header string from the customer''s request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: TravelNow/3.30.112
+      - name: include
+        in: query
+        description: "Options for which content to return in the response. The value must be lower case.\n  * property_ids - Include the property IDs.\n"
+        required: true
+        schema:
+          type: string
+        example: property_ids
+      - name: billing_terms
+        in: query
+        description: 'This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: partner_point_of_sale
+        in: query
+        description: 'This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: payment_terms
+        in: query
+        description: 'This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: platform_name
+        in: query
+        description: 'This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: supply_source
+        in: query
+        description: "Options for which supply source you would like returned in the geography response. This parameter may only be supplied once and will return all properties that match the requested supply source. An error is thrown if the parameter is provided multiple times.\n  * `expedia` - Standard Expedia supply.\n  * `vrbo` - VRBO supply - This option is restricted to partners who have VRBO supply enabled for their profile. See [Vacation Rentals](https://developers.expediagroup.com/docs/rapid/lodging/vacation-rentals) for more information.\n"
+        schema:
+          type: string
+        example: vrbo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropertiesGeoJsonRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/PropertyGeography'
+                description: A map of property ids to property objects.
+              example:
+                '34347':
+                  property_id: '34347'
+                '9777':
+                  property_id: '9777'
+                '1223181':
+                  property_id: '1223181'
+                '430764':
+                  property_id: '430764'
+        '400':
+          description: Bad Request
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: invalid_input
+                message: An invalid request was sent in, please check the nested errors for details.
+                errors:
+                - type: polygon.coordinates_required
+                  message: The polygon must have coordinates.
+        '401':
+          description: Unauthorized
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+            WWW-Authenticate:
+              description: Provides an example of the Authorization header.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthenticated
+                message: Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.
+                fields:
+                - name: apikey
+                  type: header
+                  value: jaj3982k239dka328e
+                - name: signature
+                  type: header
+                  value: 129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b
+                - name: timestamp
+                  type: header
+                  value: 198284729
+                - name: servertimestamp
+                  type: server
+                  value: 198284729
+        '403':
+          description: Forbidden
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthorized
+                message: Your request could not be authorized.
+        '426':
+          description: Upgrade Required
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: upgrade_required
+                message: This service requires the use of TLS.
+        '429':
+          description: Too Many Requests
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: too_many_requests
+                message: You have reached your capacity for this type of request.
+        '500':
+          description: Unknown Internal Error
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: unknown_internal_error
+                message: An internal server error has occurred.
+        '503':
+          description: Service Unavailable
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: service_unavailable
+                message: This service is currently unavailable.
+      security:
+      - rapidAuth: []
+components:
+  schemas:
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The field that had an error.
+        type:
+          type: string
+          description: The type of the field that had an error.
+        value:
+          type: string
+          description: The value of the field that had an error.
+      description: An individual field that had an error.
+    CoordinatesRegion:
+      type: object
+      properties:
+        center_longitude:
+          type: number
+          description: Center Longitude.
+        center_latitude:
+          type: number
+          description: Center Latitude.
+        bounding_polygon:
+          $ref: '#/components/schemas/BoundingPolygon'
+    PolygonCoordinates:
+      type: array
+      description: An array of linear ring coordinate arrays that combine to make up a single [Polygon](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.6) in geojson format. If there is more than one linear ring at this level, the first is the outer boundary and the remaining linear rings are interior rings or holes.
+      items:
+        minItems: 4
+        type: array
+        description: An array of Points making up a single linear ring in geojson format.
+        items:
+          maxItems: 2
+          minItems: 2
+          type: array
+          description: Individual coordinates as a geojson Point, in longitude, latitude order (x,y).
+          items:
+            type: number
+    ErrorIndividual:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+      description: An individual error.
+    PropertyGeography:
+      type: object
+      properties:
+        property_id:
+          type: string
+          description: Unique Expedia property ID.
+      description: A property object.
+    PropertiesGeoJsonRequest:
+      required:
+      - coordinates
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: The geometry type. The only supported type is `Polygon`
+        coordinates:
+          $ref: '#/components/schemas/PolygonCoordinates'
+      description: GeoJSON geometry
+      example:
+        type: Polygon
+        coordinates:
+        - - - -93.446782
+            - 37.169329
+          - - -93.4244
+            - 37.169432
+          - - -93.371097
+            - 37.168636
+          - - -93.376295
+            - 37.139236
+          - - -93.361419
+            - 37.138634
+          - - -93.347109
+            - 37.100601
+          - - -93.215792
+            - 37.095905
+          - - -93.215259
+            - 37.138013
+          - - -93.189332
+            - 37.141503
+          - - -93.191278
+            - 37.333322
+          - - -93.438268
+            - 37.339372
+          - - -93.446782
+            - 37.169329
+    Ancestors:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of ancestor region.
+        type:
+          type: string
+          description: Region type of ancestor region.
+      description: A region ancestor.
+    BoundingPolygon:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of bounding polygon.
+      discriminator:
+        propertyName: type
+        mapping:
+          Polygon: '#/components/schemas/Polygon'
+          MultiPolygon: '#/components/schemas/MultiPolygon'
+    Region:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Region Id.
+        type:
+          type: string
+          description: Region type.
+        name:
+          type: string
+          description: Region name.
+        name_full:
+          type: string
+          description: Full region name.
+        descriptor:
+          type: string
+          description: Specific information about the region e.g. whether it covers surrounding areas for a city. Only present when relevant for a region. See our [region descriptors reference](https://developers.expediagroup.com/docs/rapid/lodging/geography/geography-reference-lists) for current known descriptor values.
+        iata_airport_code:
+          type: string
+          description: 3-character IATA airport code.
+        iata_airport_metro_code:
+          type: string
+          description: 3-character IATA airport metropolitan code of the metropolitan airport area.
+        country_code:
+          type: string
+          description: Region country code (ISO 3166-1 alpha-2).
+        country_subdivision_code:
+          type: string
+          description: Region country subdivision code (ISO 3166-2).
+        coordinates:
+          $ref: '#/components/schemas/CoordinatesRegion'
+        associations:
+          type: object
+          additionalProperties:
+            type: array
+            description: An array of region ids associated with the region type.
+            items:
+              type: string
+          description: A map of region types to a sorted array of region ids with a touristic association to the region.
+        ancestors:
+          type: array
+          description: An array of the region's ancestors.
+          items:
+            $ref: '#/components/schemas/Ancestors'
+        descendants:
+          type: object
+          additionalProperties:
+            type: array
+            description: An array of region ids associated with the region type.
+            items:
+              type: string
+          description: A map of region types to an array of region ids. The region ids are direct descendants of the region.
+        property_ids:
+          type: array
+          description: An array of associated property ids for the region.
+          items:
+            type: string
+        property_ids_expanded:
+          type: array
+          description: An array of associated property ids within an expanded radius for the region.
+          items:
+            type: string
+        categories:
+          type: array
+          description: A list of regional categories.
+          items:
+            type: string
+        tags:
+          type: array
+          description: A list of regional tags.
+          items:
+            type: string
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+        errors:
+          type: array
+          description: An array of all the actual errors that occured.
+          items:
+            $ref: '#/components/schemas/ErrorIndividual'
+      description: The overall class of error that occured.
+  headers:
+    Region:
+      description: Optional header that provides information about where the request was processed.
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: us-west-2
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic

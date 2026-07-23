@@ -1,0 +1,2126 @@
+openapi: 3.0.1
+info:
+  title: Expedia Group EPS Deposit Bookings API
+  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
+  contact:
+    name: Expedia Partner Services
+    url: https://expediaconnectivity.com/developer
+    email: eqcss@expedia.com
+  version: '1.0'
+servers:
+- url: https://services.expediapartnercentral.com/
+security:
+- Basic: []
+tags:
+- name: Bookings
+  description: The primary itinerary method of the Booking API creates a reservation for the selected hotel, room, rate and occupancy.
+paths:
+  /payment-sessions:
+    post:
+      tags:
+      - Bookings
+      summary: Expedia Group Register Payments
+      description: '<b>This link only applies to transactions where EPS takes the customer''s payment information. This includes both Expedia Collect and Property Collect transactions.</b><br>
+
+        This link will be available in the Price Check response if payment registration is required. It returns a payment session ID and a link to create a booking. This will be the first step in the booking flow only if you''ve opted into Two-Factor Authentication to comply with the September 2019 EU Regulations for PSD2. Learn more with our [PSD2 Overview](https://developers.expediagroup.com/docs/rapid/lodging/booking/psd2-regulation)
+
+        '
+      operationId: postPaymentSessions
+      parameters:
+      - name: Accept
+        in: header
+        description: 'Specifies the response format that the client would like to receive back. This must be `application/json`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: application/json
+      - name: Accept-Encoding
+        in: header
+        description: 'Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: gzip
+      - name: Content-Type
+        in: header
+        description: 'This parameter is to specify what format the request body is in. The only supported value is application/json.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: application/json
+      - name: Customer-Ip
+        in: header
+        description: 'IP address of the customer, as captured by your integration.<br>
+
+          Ensure your integration passes the customer''s IP, not your own. This value helps determine their location and assign the correct payment gateway.<br>
+
+          Also used for fraud recovery and other important analytics.
+
+          '
+        required: true
+        schema:
+          type: string
+      - name: Customer-Session-Id
+        in: header
+        description: 'Insert your own unique value for each user session, beginning with the first API call.
+
+          Continue to pass the same value for each subsequent API call during the user''s session, using a new value for every new customer session.<br>
+
+          Including this value greatly eases EPS''s internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user''s session.
+
+          '
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        description: 'The `User-Agent` header string from the customer''s request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: TravelNow/3.30.112
+      - name: Test
+        in: header
+        description: 'The book call has a test header that can be used to return set responses with the following keywords:<br>
+
+          * `standard`
+
+          * `service_unavailable`
+
+          * `internal_server_error`
+
+          '
+        schema:
+          type: string
+          enum:
+          - standard
+          - service_unavailable
+          - internal_server_error
+      - name: token
+        in: query
+        description: 'Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentSessionsRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentSessions'
+              example:
+                payment_session_id: 76d6aaea-c1d5-11e8-a355-529269fb1459
+                encoded_init_config: QSBiYXNlNjQgZW5jb2RlZCBvYmplY3Qgd2hpY2ggY29udGFpbnMgY29uZmlndXJhdGlvbiBuZWVkZWQgdG8gcGVyZm9ybSBkZXZpY2UgZmluZ2VycHJpbnRpbmcgYW5kL29yIDNEUyBNZXRob2Qu
+                links:
+                  book:
+                    method: POST
+                    href: /v3/itineraries?token=MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+                    expires: '2019-03-05T07:23:14.000Z'
+        '400':
+          description: Bad Request
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: invalid_input
+                message: An invalid request was sent in, please check the nested errors for details.
+                errors:
+                - type: payments.required
+                  message: Payment is required.
+                  fields:
+                  - name: payments
+                    type: body
+        '401':
+          description: Unauthorized
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+            WWW-Authenticate:
+              description: Provides an example of the Authorization header.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthenticated
+                message: Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.
+                fields:
+                - name: apikey
+                  type: header
+                  value: jaj3982k239dka328e
+                - name: signature
+                  type: header
+                  value: 129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b
+                - name: timestamp
+                  type: header
+                  value: 198284729
+                - name: servertimestamp
+                  type: server
+                  value: 198284729
+        '403':
+          description: Forbidden
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthorized
+                message: Your request could not be authorized.
+        '426':
+          description: Upgrade Required
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: upgrade_required
+                message: This service requires the use of TLS.
+        '429':
+          description: Too Many Requests
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: too_many_requests
+                message: You have reached your capacity for this type of request.
+        '500':
+          description: Unknown Internal Error
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: unknown_internal_error
+                message: An internal server error has occurred.
+        '503':
+          description: Service Unavailable
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: service_unavailable
+                message: This service is currently unavailable.
+      security:
+      - rapidAuth: []
+  /itineraries:
+    post:
+      tags:
+      - Bookings
+      summary: Expedia Group Create Booking
+      description: 'This link will be available in the Price Check response or in the register payments response when Two-Factor Authentication is used. It returns an itinerary id and links to retrieve reservation details, cancel a held booking, resume a held booking or complete payment session. Please note that depending on the state of the booking, the response will contain only the applicable link(s).
+
+        '
+      operationId: postItinerary
+      parameters:
+      - name: Accept
+        in: header
+        description: 'Specifies the response format that the client would like to receive back. This must be `application/json`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: application/json
+      - name: Accept-Encoding
+        in: header
+        description: 'Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: gzip
+      - name: Content-Type
+        in: header
+        description: 'This parameter is to specify what format the request body is in. The only supported value is application/json.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: application/json
+      - name: Customer-Ip
+        in: header
+        description: 'IP address of the customer, as captured by your integration.<br>
+
+          Ensure your integration passes the customer''s IP, not your own. This value helps determine their location and assign the correct payment gateway.<br>
+
+          Also used for fraud recovery and other important analytics.
+
+          '
+        required: true
+        schema:
+          type: string
+      - name: Customer-Session-Id
+        in: header
+        description: 'Insert your own unique value for each user session, beginning with the first API call.
+
+          Continue to pass the same value for each subsequent API call during the user''s session, using a new value for every new customer session.<br>
+
+          Including this value greatly eases EPS''s internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user''s session.
+
+          '
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        description: 'The `User-Agent` header string from the customer''s request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: TravelNow/3.30.112
+      - name: Test
+        in: header
+        description: 'The book call has a test header that can be used to return set responses with the following keywords:<br>
+
+          * `standard`
+
+          * `complete_payment_session`
+
+          * `service_unavailable`
+
+          * `internal_server_error`
+
+          * `price_mismatch`
+
+          * `cc_declined`
+
+          * `rooms_unavailable`
+
+          '
+        schema:
+          type: string
+          enum:
+          - standard
+          - service_unavailable
+          - internal_server_error
+          - price_mismatch
+          - cc_declined
+          - rooms_unavailable
+      - name: token
+        in: query
+        description: 'Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateItineraryRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItineraryCreation'
+              examples:
+                Create Without Hold (No Challenge) Example:
+                  value:
+                    itinerary_id: '8999989898988'
+                    links:
+                      retrieve:
+                        method: GET
+                        href: /v3/itineraries/8999989898988?token=MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+                Create With Hold (No Challenge) Example:
+                  value:
+                    itinerary_id: '8999989898988'
+                    links:
+                      retrieve:
+                        method: GET
+                        href: /v3/itineraries/8999989898988?token=MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+                      resume:
+                        method: PUT
+                        href: /v3/itineraries/8999989898988?token=MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+                      cancel:
+                        method: DELETE
+                        href: /v3/itineraries/8999989898988?token=MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+                Create (Payment Challenged) Example:
+                  value:
+                    itinerary_id: '8999989898988'
+                    links:
+                      complete_payment_session:
+                        method: PUT
+                        href: /v3/itineraries/8999989898988/payment-sessions?token=MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+                    encoded_challenge_config: ABElifsiejfacies2@033asfe=
+        '400':
+          description: Bad Request
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Invalid Country Code Example:
+                  value:
+                    type: invalid_input
+                    message: An invalid request was sent in, please check the nested errors for details.
+                    errors:
+                    - type: address.country_code.invalid
+                      message: Address country code is invalid.
+                      fields:
+                      - name: country_code
+                        type: body
+                        value: ABCD
+                Duplicate Itinerary Example:
+                  value:
+                    type: invalid_input
+                    message: An invalid request was sent in, please check the nested errors for details.
+                    errors:
+                    - type: duplicate_itinerary
+                      message: An itinerary already exists with this affiliate reference id.
+                      fields:
+                      - name: affiliate_reference_id
+                        type: body
+                        value: ABCD
+        '401':
+          description: Unauthorized
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+            WWW-Authenticate:
+              description: Provides an example of the Authorization header.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthenticated
+                message: Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.
+                fields:
+                - name: apikey
+                  type: header
+                  value: jaj3982k239dka328e
+                - name: signature
+                  type: header
+                  value: 129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b
+                - name: timestamp
+                  type: header
+                  value: 198284729
+                - name: servertimestamp
+                  type: server
+                  value: 198284729
+        '403':
+          description: Forbidden
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthorized
+                message: Your request could not be authorized.
+        '409':
+          description: Price Mismatch
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: price_mismatch
+                message: Payment amount did not match current price, please check price and try again.
+                fields:
+                - name: payments.amount
+                  type: body
+                  value: '100.00'
+                - name: price.amount
+                  type: body
+                  value: '120.00'
+        '410':
+          description: Sold Out
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: rooms_unavailable
+                message: One or more requested rooms are unavailable.
+        '426':
+          description: Upgrade Required
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: upgrade_required
+                message: This service requires the use of TLS.
+        '429':
+          description: Too Many Requests
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: too_many_requests
+                message: You have reached your capacity for this type of request.
+        '500':
+          description: Unknown Internal Error
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: unknown_internal_error
+                message: An internal server error has occurred.
+        '503':
+          description: Service Unavailable
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: service_unavailable
+                message: This service is currently unavailable.
+      security:
+      - rapidAuth: []
+  /itineraries/{itinerary_id}:
+    put:
+      tags:
+      - Bookings
+      summary: Expedia Group Resume Booking
+      description: 'This link will be available in the booking response after creating a held booking.
+
+        '
+      operationId: putResumeBooking
+      parameters:
+      - name: Accept
+        in: header
+        description: 'Specifies the response format that the client would like to receive back. This must be `application/json`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: application/json
+      - name: Accept-Encoding
+        in: header
+        description: 'Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: gzip
+      - name: Customer-Ip
+        in: header
+        description: 'IP address of the customer, as captured by your integration.<br>
+
+          Ensure your integration passes the customer''s IP, not your own. This value helps determine their location and assign the correct payment gateway.<br>
+
+          Also used for fraud recovery and other important analytics.
+
+          '
+        required: true
+        schema:
+          type: string
+      - name: Customer-Session-Id
+        in: header
+        description: 'Insert your own unique value for each user session, beginning with the first API call.
+
+          Continue to pass the same value for each subsequent API call during the user''s session, using a new value for every new customer session.<br>
+
+          Including this value greatly eases EPS''s internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user''s session.
+
+          '
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        description: 'The `User-Agent` header string from the customer''s request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: TravelNow/3.30.112
+      - name: Test
+        in: header
+        description: 'The resume call has a test header that can be used to return set responses with the following keywords:<br>
+
+          * `standard` - Requires valid test held booking.
+
+          * `service_unavailable` - Returns the HTTP 202 response caused by partial service unavailablity.
+
+          * `internal_server_error`
+
+          '
+        schema:
+          type: string
+          enum:
+          - standard
+          - service_unavailable
+          - internal_server_error
+      - name: itinerary_id
+        in: path
+        description: 'This parameter is used only to prefix the token value - no ID value is used.<br>
+
+          '
+        required: true
+        schema:
+          type: string
+        example: '8955599932111'
+      - name: token
+        in: query
+        description: 'Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+      responses:
+        '202':
+          description: Accepted - Request is valid but the state of the booking is unknown. Make a retrieve call to verify the booking has been resumed properly.
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content: {}
+        '204':
+          description: No Content - Held booking has successfully resumed.
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content: {}
+        '400':
+          description: Bad Request
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: invalid_input
+                message: An invalid request was sent in, please check the nested errors for details.
+                errors:
+                - type: link.invalid
+                  message: Link is invalid.
+        '401':
+          description: Unauthorized
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+            WWW-Authenticate:
+              description: Provides an example of the Authorization header.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthenticated
+                message: Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.
+                fields:
+                - name: apikey
+                  type: header
+                  value: jaj3982k239dka328e
+                - name: signature
+                  type: header
+                  value: 129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b
+                - name: timestamp
+                  type: header
+                  value: 198284729
+                - name: servertimestamp
+                  type: server
+                  value: 198284729
+        '403':
+          description: Forbidden
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthorized
+                message: Your request could not be authorized.
+        '404':
+          description: Not Found
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: resource_not_found
+                message: Itinerary was not found with provided request.
+        '426':
+          description: Upgrade Required
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: upgrade_required
+                message: This service requires the use of TLS.
+        '429':
+          description: Too Many Requests
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: too_many_requests
+                message: You have reached your capacity for this type of request.
+        '500':
+          description: Unknown Internal Error
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: unknown_internal_error
+                message: An internal server error has occurred.
+        '503':
+          description: Service Unavailable
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: service_unavailable
+                message: This service is currently unavailable.
+      security:
+      - rapidAuth: []
+  /itineraries/{itinerary_id}/payment-sessions:
+    put:
+      tags:
+      - Bookings
+      summary: Expedia Group Complete Payment Session
+      description: '<b>This link only applies to transactions where EPS takes the customer''s payment information. This includes both Expedia Collect and Property Collect transactions.</b><br>
+
+        This link will be available in the booking response only if you''ve opted into Two-Factor Authentication to comply with the September 2019 EU Regulations for PSD2. It should be called after Two-Factor Authentication has been completed by the customer in order to finalize the payment and complete the booking or hold attempt. Learn more with our [PSD2 Overview](https://developers.expediagroup.com/docs/rapid/lodging/booking/psd2-regulation)
+
+        '
+      operationId: putCompletePaymentSession
+      parameters:
+      - name: Accept
+        in: header
+        description: 'Specifies the response format that the client would like to receive back. This must be `application/json`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: application/json
+      - name: Accept-Encoding
+        in: header
+        description: 'Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: gzip
+      - name: Customer-Ip
+        in: header
+        description: 'IP address of the customer, as captured by your integration.<br>
+
+          Ensure your integration passes the customer''s IP, not your own. This value helps determine their location and assign the correct payment gateway.<br>
+
+          Also used for fraud recovery and other important analytics.
+
+          '
+        required: true
+        schema:
+          type: string
+      - name: Customer-Session-Id
+        in: header
+        description: 'Insert your own unique value for each user session, beginning with the first API call.
+
+          Continue to pass the same value for each subsequent API call during the user''s session, using a new value for every new customer session.<br>
+
+          Including this value greatly eases EPS''s internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user''s session.
+
+          '
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        description: 'The `User-Agent` header string from the customer''s request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: TravelNow/3.30.112
+      - name: Test
+        in: header
+        description: 'The payment-sessions call has a test header that can be used to return set responses with the following keywords:<br>
+
+          * `standard`
+
+          * `service_unavailable`
+
+          * `internal_server_error`
+
+          '
+        schema:
+          type: string
+          enum:
+          - standard
+          - service_unavailable
+          - internal_server_error
+      - name: itinerary_id
+        in: path
+        description: 'This parameter is used only to prefix the token value - no ID value is used.<br>
+
+          '
+        required: true
+        schema:
+          type: string
+        example: '8955599932111'
+      - name: token
+        in: query
+        description: 'Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+      responses:
+        '200':
+          description: Payment Session Completed
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletePaymentSession'
+              examples:
+                Booking Not Held Example:
+                  value:
+                    itinerary_id: '8999989898988'
+                    links:
+                      retrieve:
+                        method: GET
+                        href: /v3/itineraries/8999989898988?token=MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+                Booking Held Example:
+                  value:
+                    itinerary_id: '8999989898988'
+                    links:
+                      retrieve:
+                        method: GET
+                        href: /v3/itineraries/8999989898988?token=MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+                      resume:
+                        method: PUT
+                        href: /v3/itineraries/8999989898988?token=MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+                      cancel:
+                        method: DELETE
+                        href: /v3/itineraries/8999989898988?token=MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+        '400':
+          description: Bad Request
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: invalid_input
+                message: An invalid request was sent in, please check the nested errors for details.
+                errors:
+                - type: link.invalid
+                  message: Link is invalid.
+        '401':
+          description: Unauthorized
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+            WWW-Authenticate:
+              description: Provides an example of the Authorization header.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthenticated
+                message: Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.
+                fields:
+                - name: apikey
+                  type: header
+                  value: jaj3982k239dka328e
+                - name: signature
+                  type: header
+                  value: 129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b
+                - name: timestamp
+                  type: header
+                  value: 198284729
+                - name: servertimestamp
+                  type: server
+                  value: 198284729
+        '403':
+          description: Forbidden
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthorized
+                message: Your request could not be authorized.
+        '404':
+          description: Not Found
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: resource_not_found
+                message: Itinerary was not found with provided request.
+        '426':
+          description: Upgrade Required
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: upgrade_required
+                message: This service requires the use of TLS.
+        '429':
+          description: Too Many Requests
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: too_many_requests
+                message: You have reached your capacity for this type of request.
+        '500':
+          description: Unknown Internal Error
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: unknown_internal_error
+                message: An internal server error has occurred.
+        '503':
+          description: Service Unavailable
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: service_unavailable
+                message: This service is currently unavailable.
+      security:
+      - rapidAuth: []
+components:
+  schemas:
+    Link:
+      type: object
+      properties:
+        method:
+          type: string
+          description: The request method used to access the link.
+        href:
+          type: string
+          description: The URL for the link. This can be absolute or relative.
+        expires:
+          type: string
+          description: If the link expires, this will be the UTC date the link will expire, in ISO 8601 format.
+      description: An individual link.
+    TraderDetails:
+      type: array
+      description: An array of traders.
+      items:
+        required:
+        - contact_message
+        type: object
+        properties:
+          name:
+            $ref: '#/components/schemas/TraderName'
+          address:
+            $ref: '#/components/schemas/TraderAddress'
+          business_register_name:
+            type: string
+            description: 'Name of the register where the trader is registered, and is related to the `business_register_number`
+
+              '
+            example: A real business register name
+          business_register_number:
+            type: string
+            description: 'Business registration number
+
+              '
+            example: 792837491b
+          self_certification:
+            type: boolean
+            description: 'Certification that the trader has confirmed their commitment to only offer products or services that
+
+              comply with the applicable rules of Union law.
+
+              '
+            example: true
+          contact_message:
+            $ref: '#/components/schemas/TraderContactMessage'
+          right_to_withdraw_message:
+            $ref: '#/components/schemas/TraderRightToWithdrawMessage'
+          email:
+            type: string
+            description: The trader email address.
+            example: travel@support.expedia.com
+          phone:
+            type: string
+            description: The trader phone number.
+            example: 0330-123-1235
+        description: Information of the professional entity that sells the property inventory or related services.
+    ErrorIndividual:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+      description: An individual error.
+    PaymentSessionsLinks:
+      type: object
+      properties:
+        book:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: A map of links, including links to create a booking.
+    TraderTermsAndConditions:
+      type: string
+      description: The url linking to the full text terms and conditions.
+      example: https://www.expedia.com/terms_and_conditions
+    TraderAddress:
+      type: object
+      properties:
+        line_1:
+          type: string
+          description: First line of customer's street address.
+          example: 555 1st St
+        line_2:
+          type: string
+          description: Second line of customer's street address.
+          example: 10th Floor
+        line_3:
+          type: string
+          description: Third line of customer's street address.
+          example: Unit 12
+        city:
+          type: string
+          description: Customer's city.
+          example: Seattle
+        state_province_code:
+          type: string
+          description: Customer's state or province code.
+          example: WA
+        postal_code:
+          type: string
+          description: Customer's postal code.
+          example: '98121'
+        country_code:
+          type: string
+          description: Customer's country code, in two-letter ISO 3166-1 alpha-2 format.
+          example: US
+      description: The trader address.
+    ItineraryCreationLinks:
+      type: object
+      properties:
+        retrieve:
+          $ref: '#/components/schemas/Link'
+        resume:
+          $ref: '#/components/schemas/Link'
+        complete_payment_session:
+          $ref: '#/components/schemas/Link'
+        cancel:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: A map of links, including links to retrieve a booking, resume a held booking, cancel a held booking, or complete a payment session if a challenge is used.
+    TraderName:
+      type: string
+      description: The trader name.
+      example: Expedia
+    PaymentSessionsRequest:
+      required:
+      - browser_accept_header
+      - customer_account_details
+      - encoded_browser_metadata
+      - merchant_url
+      - payments
+      - preferred_challenge_window_size
+      - version
+      type: object
+      properties:
+        version:
+          type: string
+          description: The version of the EgPayments.js library.
+        browser_accept_header:
+          type: string
+          description: The customer's browser accept header that was used in the booking request.
+        encoded_browser_metadata:
+          type: string
+          description: Encoded browser metadata, provided by the EgPayments.js library.
+        preferred_challenge_window_size:
+          type: string
+          description: "The preferred window size that needs to be displayed to the customer. Following are the possible values of this field:\n  * `extra_small`: 250 x 400\n  * `small`: 390 x 400\n  * `medium`: 600 x 400\n  * `large`: 500 x 600\n  * `full_screen`: Full screen\n"
+          enum:
+          - extra_small
+          - small
+          - medium
+          - large
+          - full_screen
+        merchant_url:
+          type: string
+          description: Fully qualified URL of merchant website or customer care site.
+        customer_account_details:
+          $ref: '#/components/schemas/PaymentSessionsRequestCustomerAccountDetails'
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentRequest'
+      example:
+        version: '1'
+        browser_accept_header: '*/*'
+        encoded_browser_metadata: ZW5jb2RlZF9icm93c2VyX21ldGFkYXRh
+        preferred_challenge_window_size: medium
+        merchant_url: https://server.adomainname.net
+        customer_account_details:
+          authentication_method: guest
+          authentication_timestamp: '2018-02-12T11:59:00.000Z'
+          create_date: '2018-09-15'
+          change_date: '2018-09-17'
+          password_change_date: '2018-09-17'
+          add_card_attempts: 1
+          account_purchases: 1
+        payments:
+        - type: customer_card
+          number: '4111111111111111'
+          security_code: '123'
+          expiration_month: 08
+          expiration_year: '2025'
+          billing_contact:
+            given_name: John
+            family_name: Smith
+            address:
+              line_1: 555 1st St
+              line_2: 10th Floor
+              line_3: Unit 12
+              city: Seattle
+              state_province_code: WA
+              postal_code: '98121'
+              country_code: US
+          enrollment_date: '2018-09-15'
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+        errors:
+          type: array
+          description: An array of all the actual errors that occured.
+          items:
+            $ref: '#/components/schemas/ErrorIndividual'
+      description: The overall class of error that occured.
+    CreateItineraryRequestRoom:
+      required:
+      - family_name
+      - given_name
+      type: object
+      properties:
+        given_name:
+          type: string
+          description: First name of room guest. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        family_name:
+          type: string
+          description: Last name of room guest. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        smoking:
+          type: boolean
+          description: Specify if the guest would prefer a smoking room. This field is only a request and the property is not guaranteed to honor it, it will not override any non-smoking policies by the hotel.
+        special_request:
+          type: string
+          description: Special requests to send to hotel (not guaranteed). Do not use this field to communicate B2B customer service requests or pass any sensitive personal or financial information (PII). Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        loyalty_id:
+          type: string
+          description: Deprecated. Please use the loyalty id inside the loyalty object.
+        loyalty:
+          $ref: '#/components/schemas/Loyalty'
+    TraderInformation:
+      required:
+      - terms_and_conditions
+      type: object
+      properties:
+        traders:
+          $ref: '#/components/schemas/TraderDetails'
+        terms_and_conditions:
+          $ref: '#/components/schemas/TraderTermsAndConditions'
+      description: The professional entity or entities that sells the property inventory or related services.
+    Loyalty:
+      type: object
+      properties:
+        member_id:
+          type: string
+          description: The identifier for the individual associated with a loyalty program.
+          example: ABC123
+        program_id:
+          type: string
+          description: The identifier for the loyalty program.
+          example: SN
+      description: A loyalty object for a loyalty program.
+    PaymentSessionsRequestCustomerAccountDetails:
+      type: object
+      properties:
+        authentication_method:
+          type: string
+          description: Mechanism used by the cardholder to authenticate to the merchant.
+          enum:
+          - guest
+          - own_credentials
+          - federated_id
+          - issuer_credentials
+          - third_party_authentication
+          - fido_authentication
+        authentication_timestamp:
+          type: string
+          description: Date and time in UTC of the cardholder authentication, in extended ISO 8601 format.
+        create_date:
+          type: string
+          description: Date the cardholder opened the account with the merchant, in ISO 8601 format (YYYY-MM-DD).
+        change_date:
+          type: string
+          description: Date the cardholder’s account with the merchant was last changed, including Billing or Shipping address, new payment account, or new user(s) added, in ISO 8601 format (YYYY-MM-DD).
+        password_change_date:
+          type: string
+          description: Date the cardholder’s account with the merchant had a password change or account reset, in ISO 8601 format (YYYY-MM-DD).
+        add_card_attempts:
+          type: number
+          description: Number of add card attempts in the last 24 hours.
+        account_purchases:
+          type: number
+          description: Number of purchases with this cardholder's account during the previous six months.
+    CompletePaymentSessionLinks:
+      type: object
+      properties:
+        retrieve:
+          $ref: '#/components/schemas/Link'
+        resume:
+          $ref: '#/components/schemas/Link'
+        cancel:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: A map of links, including links to retrieve a booking, resume a held booking, or cancel a held booking.
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The field that had an error.
+        type:
+          type: string
+          description: The type of the field that had an error.
+        value:
+          type: string
+          description: The value of the field that had an error.
+      description: An individual field that had an error.
+    BillingContactRequest:
+      required:
+      - address
+      - family_name
+      - given_name
+      type: object
+      properties:
+        given_name:
+          type: string
+          description: First/given name of the payment type account holder. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        family_name:
+          type: string
+          description: Last/family name of the payment type account holder. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        address:
+          $ref: '#/components/schemas/BillingContactRequestAddress'
+    ThirdPartyAuthRequest:
+      required:
+      - cavv
+      - ds_transaction_id
+      - eci
+      - three_ds_version
+      type: object
+      properties:
+        cavv:
+          type: string
+          description: 'Cryptographic element used to indicate Authentication was successfully performed
+
+            '
+        eci:
+          type: string
+          description: 'Electronic Commerce Indicator. The ECI is used in payer authentication to indicate the level of security used when the cardholder provided payment information to the merchant. Its value corresponds to the authentication result and the characteristics of the merchant checkout process. Each card network, e.g., Visa, MasterCard, JCB, has specific rules around the appropriate values and use of the ECI.
+
+            '
+        three_ds_version:
+          type: string
+          description: 'Indicates what version of 3DS was used to authenticate the user.
+
+            '
+          example: xxx
+        ds_transaction_id:
+          type: string
+          description: 'Directory Server Transaction Id. Returned during authentication and is used as an additional parameter to validate that transaction was authenticated.
+
+            '
+        pa_res_status:
+          type: string
+          description: 'set only if PAResStatus value is received in the authentication response
+
+            '
+        ve_res_status:
+          type: string
+          description: 'set this only if PAResStatus value is received in the authentication response
+
+            if Authentication was Frictionless → AuthenticationResponse.PAResStatus,
+
+            if Authentication was a successful challenge → "C" (This is the directory response for challenge)
+
+            '
+          example: C
+        xid:
+          type: string
+          description: 'String used by both Visa and MasterCard which identifies a specific transaction on the Directory
+
+            This string value should remain consistent throughout a transaction''s history.
+
+            '
+        cavv_algorithm:
+          type: string
+          description: 'Used in some scenarios for 3DS 1.0.
+
+            '
+        ucaf_indicator:
+          type: string
+          description: 'Only received for Mastercard transactions, else can be null.
+
+            0 - Non-SecureCode transaction, bypassed by the Merchant
+
+            1 - Merchant-Only SecureCode transaction
+
+            2 - Fully authenticated SecureCode transaction
+
+            '
+    TraderRightToWithdrawMessage:
+      type: string
+      description: The trader right to withdraw message.
+      example: If you cancel your booking, you'll be subject to the property's cancellation policy. In accordance with EU regulations about consumer rights, property booking services are not subject to the right to withdraw.
+    ItineraryCreation:
+      type: object
+      properties:
+        itinerary_id:
+          type: string
+          description: The itinerary id.
+        links:
+          $ref: '#/components/schemas/ItineraryCreationLinks'
+        encoded_challenge_config:
+          type: string
+          description: The challenge config that is required to perform payment challenge. This field will be available when payment challenge is needed.
+        trader_information:
+          $ref: '#/components/schemas/TraderInformation'
+      description: The book response.
+    BillingContactRequestAddress:
+      required:
+      - country_code
+      type: object
+      properties:
+        line_1:
+          type: string
+          description: First line of customer's street address. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+        line_2:
+          type: string
+          description: Second line of customer's street address. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+        line_3:
+          type: string
+          description: Third line of customer's street address. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+        city:
+          type: string
+          description: Customer's city. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+        state_province_code:
+          type: string
+          description: Customer's state or province code. Mandatory for AU, CA and US. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+        postal_code:
+          type: string
+          description: Customer's postal code. Mandatory for CA, GB, and US. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+        country_code:
+          type: string
+          description: Customer's country code, in two-letter ISO 3166-1 alpha-2 format. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+    PaymentSessions:
+      type: object
+      properties:
+        payment_session_id:
+          type: string
+          description: The registered payment session ID.
+        encoded_init_config:
+          type: string
+          description: A base64 encoded object which contains configuration needed to perform device fingerprinting. It is used in conjunction with the provided Javascript library for PSD2.
+        links:
+          $ref: '#/components/schemas/PaymentSessionsLinks'
+      description: The payment registration response.
+    PhoneRequest:
+      required:
+      - country_code
+      - number
+      type: object
+      properties:
+        country_code:
+          type: string
+          description: The numerical portion of the country code from the phone number. Do not include the leading '+' character. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        area_code:
+          type: string
+          description: The area code of the phone number. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        number:
+          type: string
+          description: The remaining digits of the phone number. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+      description: The entire phone number must be represented across the three fields in this object. The entire phone number should not exceed 25 characters.
+    CompletePaymentSession:
+      type: object
+      properties:
+        itinerary_id:
+          type: string
+          description: The itinerary id.
+        links:
+          $ref: '#/components/schemas/CompletePaymentSessionLinks'
+        trader_information:
+          $ref: '#/components/schemas/TraderInformation'
+      description: The payment session response.
+    PaymentRequest:
+      required:
+      - billing_contact
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: Identifier for the type of payment. If affiliate_collect, card information is not required as EPS will not be processing the payment. However, billing contact information is still required.
+          enum:
+          - corporate_card
+          - customer_card
+          - virtual_card
+          - affiliate_collect
+        number:
+          type: string
+          description: Card number. Required for credit card transactions.
+        security_code:
+          type: string
+          description: CVV/CSV code from the back of the customer's card. Required for credit card transactions.
+        expiration_month:
+          type: string
+          description: Two-digit month the credit card will expire. Required for credit card transactions.
+        expiration_year:
+          type: string
+          description: Year the credit card will expire. Required for credit card transactions.
+        billing_contact:
+          $ref: '#/components/schemas/BillingContactRequest'
+        third_party_authentication:
+          $ref: '#/components/schemas/ThirdPartyAuthRequest'
+        enrollment_date:
+          type: string
+          description: Date the payment account was enrolled in the cardholder's account with the merchant, in ISO 8601 format (YYYY-MM-DD).
+    TraderContactMessage:
+      type: string
+      description: The trader contact message.
+      example: This property is managed by a professional host. The provision of housing is linked to their trade, business or profession.
+    CreateItineraryRequest:
+      required:
+      - email
+      - phone
+      - rooms
+      type: object
+      properties:
+        affiliate_reference_id:
+          type: string
+          description: Your unique reference value. This field supports from 3 to a maximum of 28 characters and is required to be unique (if provided). Entering special characters ("<", ">", "(", ")", and "&") in this field will result in the request being rejected.
+        hold:
+          type: boolean
+          description: Flag for placing a booking on hold. The booking will be released if the resume link is not followed within the hold period. Please refer to our Hold and Resume documentation.
+        email:
+          type: string
+          description: Email address for the customer. Must adhere to standard RFC 822 email format. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        phone:
+          $ref: '#/components/schemas/PhoneRequest'
+        rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateItineraryRequestRoom'
+        payments:
+          type: array
+          description: Required if payment information prior to booking was not submitted. If register payments was called prior to this call, do not submit payment information again.
+          items:
+            $ref: '#/components/schemas/PaymentRequest'
+        affiliate_metadata:
+          type: string
+          description: Field that stores up to 256 characters of additional metadata with the itinerary. Will be returned on all retrieve responses for this itinerary. The data must be in the format 'key1:value|key2:value|key3:value'. Other Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        tax_registration_number:
+          type: string
+          description: 'The customer''s taxpayer identification number that is provided by the government to nationals or resident aliens. This number should be collected from individuals that pay taxes or participate in activities that provide revenue for one or more tax types. Note: This value is only needed from Brazilian and Indian customers.'
+        traveler_handling_instructions:
+          type: string
+          description: Custom traveler handling instructions for the hotel. Do not include PCI sensitive data, such as credit card numbers, in this field.
+      example:
+        affiliate_reference_id: 4480ABC
+        hold: false
+        email: john@example.com
+        phone:
+          country_code: '1'
+          area_code: '487'
+          number: '5550077'
+        rooms:
+        - given_name: John
+          family_name: Smith
+          smoking: false
+          special_request: Top floor or away from street please
+          loyalty_id: ABC123
+          loyalty:
+            member_id: ABD123
+            program_id: SN
+        payments:
+        - type: customer_card
+          number: '4111111111111111'
+          security_code: '123'
+          expiration_month: 08
+          expiration_year: '2025'
+          billing_contact:
+            given_name: John
+            family_name: Smith
+            address:
+              line_1: 555 1st St
+              line_2: 10th Floor
+              line_3: Unit 12
+              city: Seattle
+              state_province_code: WA
+              postal_code: '98121'
+              country_code: US
+          enrollment_date: '2018-09-15'
+          third_party_authentication:
+            cavv: jELUbgG+Tgj0AREBDMLeCad+oIs=
+            eci: '05'
+            three_ds_version: 2.2.0
+            ds_transaction_id: ac01cc2b-c1a1-4981-8c6f-400d4eec88de
+            pa_res_status: Y
+            ve_res_status: C
+            xid: 47133847-13be-4ae3-9be9-e4053b9c83c0
+            cavv_algorithm: '3'
+            ucaf_indicator: '0'
+        affiliate_metadata: data_point_1:123|data_point2:This is data.
+        tax_registration_number: '12345678910'
+        traveler_handling_instructions: Please use the card provided for payment. Avoid cancelation as this is for a corporate traveler. Contact traveler if any issues.
+  headers:
+    Region:
+      description: Optional header that provides information about where the request was processed.
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: us-west-2
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic

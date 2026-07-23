@@ -1,0 +1,261 @@
+openapi: 3.0.1
+info:
+  title: Expedia Group EPS Deposit Bookings Notifications API
+  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
+  contact:
+    name: Expedia Partner Services
+    url: https://expediaconnectivity.com/developer
+    email: eqcss@expedia.com
+  version: '1.0'
+servers:
+- url: https://services.expediapartnercentral.com/
+security:
+- Basic: []
+tags:
+- name: Notifications
+  description: Requests test notifications and undelivered notifications.
+paths:
+  /notifications:
+    get:
+      tags:
+      - Notifications
+      summary: Expedia Group Request Undelivered Notifications
+      description: 'Use this API to fetch undelivered notifications. Up to 25 notifications are returned with each call.
+
+        Each undelivered notification will be returned only once.
+
+        '
+      operationId: requestUndeliveredNotifications
+      parameters:
+      - name: undeliverable
+        in: query
+        description: Undeliverable notifications are returned when this parameter is set to `true`.
+        required: true
+        schema:
+          type: boolean
+      - name: billing_terms
+        in: query
+        description: 'This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: partner_point_of_sale
+        in: query
+        description: 'This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: payment_terms
+        in: query
+        description: 'This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: platform_name
+        in: query
+        description: 'This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
+              example:
+              - event_id: e02d6f41-4708-476f-915d-8a7032942e94
+                event_type: itinerary.agent.change
+                event_time: '2018-04-28T20:31:03.423Z'
+                itinerary_id: '1204309424793'
+                email: alice@example.com
+                message: An agent changed this itinerary.
+                affiliate_reference_id: R194193582
+              - event_id: fe97op1b-595a-406e-8e0e-90108d5cb4a1
+                event_type: itinerary.agent.cancel
+                event_time: '2018-05-24T04:08:50.839Z'
+                itinerary_id: '1204329124126'
+                email: bob@example.com
+                message: An agent canceled one or more rooms on this itinerary.
+                affiliate_reference_id: ''
+      security:
+      - rapidAuth: []
+    post:
+      tags:
+      - Notifications
+      summary: Expedia Group Request Test Notification
+      description: 'This request triggers a test notification according to the specified event_type.
+
+        All event types supported by the Notifications API are available to test.
+
+        '
+      operationId: requestTestNotification
+      parameters:
+      - name: billing_terms
+        in: query
+        description: 'This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: partner_point_of_sale
+        in: query
+        description: 'This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: payment_terms
+        in: query
+        description: 'This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: platform_name
+        in: query
+        description: 'This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestNotificationRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content - Test notification has been sent.
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content: {}
+        '400':
+          description: Bad Request
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: invalid_input
+                message: An invalid request was sent in, please check the nested errors for details.
+                errors:
+                - type: event_type.not_supported
+                  message: 'Event type is not supported. Supported event types are: [itinerary.agent.create, itinerary.agent.change, itinerary.agent.cancel, itinerary.supplier.confirm, itinerary.supplier.cancel, itinerary.fraud.cancel]'
+                  fields:
+                  - name: event_type
+                    type: path
+      security:
+      - rapidAuth: []
+components:
+  schemas:
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The field that had an error.
+        type:
+          type: string
+          description: The type of the field that had an error.
+        value:
+          type: string
+          description: The value of the field that had an error.
+      description: An individual field that had an error.
+    ErrorIndividual:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+      description: An individual error.
+    TestNotificationRequest:
+      required:
+      - event_type
+      type: object
+      properties:
+        event_type:
+          type: string
+          description: The event type for which the test notification is requested.
+      example:
+        event_type: itinerary.agent.create
+    Notification:
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: Unique identifier for each message
+        event_type:
+          type: string
+          description: An indication of what event caused the notification. This value can be used for message handling and routing. Refer to the list of event types for more information.
+        event_time:
+          type: string
+          description: Timestamp of the event notification, in UTC
+        itinerary_id:
+          type: string
+          description: The Itinerary ID of the affected booking
+        email:
+          type: string
+          description: The customer e-mail address associated with the affected itinerary
+        message:
+          type: string
+          description: Description of event notification
+        affiliate_reference_id:
+          type: string
+          description: The Affiliate Reference ID of the affected booking
+      description: A notification.
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+        errors:
+          type: array
+          description: An array of all the actual errors that occured.
+          items:
+            $ref: '#/components/schemas/ErrorIndividual'
+      description: The overall class of error that occured.
+  headers:
+    Region:
+      description: Optional header that provides information about where the request was processed.
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: us-west-2
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic

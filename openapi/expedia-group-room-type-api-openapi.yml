@@ -1,0 +1,592 @@
+openapi: 3.0.1
+info:
+  title: Expedia Group EPS Deposit Bookings Room Type API
+  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
+  contact:
+    name: Expedia Partner Services
+    url: https://expediaconnectivity.com/developer
+    email: eqcss@expedia.com
+  version: '1.0'
+servers:
+- url: https://services.expediapartnercentral.com/
+security:
+- Basic: []
+tags:
+- name: Room Type
+  description: Manage room types
+paths:
+  /properties/{propertyId}/roomTypes:
+    get:
+      tags:
+      - Room Type
+      summary: Expedia Group Obtain a list of room types for a given property
+      operationId: getRoomTypes
+      parameters:
+      - name: propertyId
+        in: path
+        description: Expedia Property ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.expedia.eps.product-v3+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoomType'
+        default:
+          description: Error
+          content:
+            application/vnd.expedia.eps.product-v3+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - Basic: []
+    post:
+      tags:
+      - Room Type
+      summary: Expedia Group Creates a new room type
+      operationId: createRoomType
+      parameters:
+      - name: propertyId
+        in: path
+        description: Expedia Property ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: roomType
+        content:
+          application/vnd.expedia.eps.product-v3+json:
+            schema:
+              $ref: '#/components/schemas/RoomType'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.expedia.eps.product-v3+json:
+              schema:
+                $ref: '#/components/schemas/RoomType'
+        default:
+          description: Error
+          content:
+            application/vnd.expedia.eps.product-v3+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - Basic: []
+      x-codegen-request-body-name: roomType
+  /properties/{propertyId}/roomTypes/{roomTypeId}:
+    get:
+      tags:
+      - Room Type
+      summary: Expedia Group Read a single room type from a given property
+      operationId: getRoomType
+      parameters:
+      - name: propertyId
+        in: path
+        description: Expedia Property ID
+        required: true
+        schema:
+          type: string
+      - name: roomTypeId
+        in: path
+        description: Room type resource ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.expedia.eps.product-v3+json:
+              schema:
+                $ref: '#/components/schemas/RoomType'
+        default:
+          description: Error
+          content:
+            application/vnd.expedia.eps.product-v3+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - Basic: []
+    put:
+      tags:
+      - Room Type
+      summary: Expedia Group Modify an existing room type
+      operationId: updateRoomType
+      parameters:
+      - name: propertyId
+        in: path
+        description: Expedia Property ID
+        required: true
+        schema:
+          type: string
+      - name: roomTypeId
+        in: path
+        description: Room type resource ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: roomType
+        content:
+          application/vnd.expedia.eps.product-v3+json:
+            schema:
+              $ref: '#/components/schemas/RoomType'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.expedia.eps.product-v3+json:
+              schema:
+                $ref: '#/components/schemas/RoomType'
+        default:
+          description: Error
+          content:
+            application/vnd.expedia.eps.product-v3+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - Basic: []
+      x-codegen-request-body-name: roomType
+    patch:
+      tags:
+      - Room Type
+      summary: Expedia Group Patch an existing room type
+      operationId: patchRoomType
+      parameters:
+      - name: propertyId
+        in: path
+        description: Expedia Property Id
+        required: true
+        schema:
+          type: string
+      - name: roomTypeId
+        in: path
+        description: Room type resource ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: JSON message of partially updated room type
+        content:
+          application/vnd.expedia.eps.product-v3+json:
+            schema:
+              $ref: '#/components/schemas/RoomType'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.expedia.eps.product-v3+json:
+              schema:
+                $ref: '#/components/schemas/RoomType'
+        default:
+          description: Error
+          content:
+            application/vnd.expedia.eps.product-v3+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+      security:
+      - Basic: []
+      x-codegen-request-body-name: roomTypeBody
+components:
+  schemas:
+    RoomType:
+      title: RoomType
+      required:
+      - ageCategories
+      - bedrooms
+      - floorSize
+      - maxOccupancy
+      - name
+      - partnerCode
+      - smokingPreferences
+      type: object
+      properties:
+        resourceId:
+          type: integer
+          description: Expedia ID for this resource. Generated when created. Generated on POST, required on PUT
+          format: int64
+        partnerCode:
+          type: string
+          description: Partner room type code/identifier. Max. 40 characters
+        status:
+          type: string
+          description: 'Room type status is derived from the rate plans under the room type: if at least 1 rate plan is active, the room type status will be active. If all rate plans are inactive, then the room type becomes inactive as well.'
+          enum:
+          - Active
+          - Inactive
+        name:
+          $ref: '#/components/schemas/RoomTypeName'
+        ageCategories:
+          type: array
+          description: Defines the different age categories supported by the room type. At the very least, the 'Adult' category must be defined.
+          items:
+            $ref: '#/components/schemas/AgeCategory'
+        bedrooms:
+          type: array
+          description: Defines list of bedrooms the room type have
+          items:
+            $ref: '#/components/schemas/Bedroom'
+        extraBedding:
+          type: array
+          description: Defines the configuration (type, size and quality) of any extra beds the room type may have.
+          items:
+            $ref: '#/components/schemas/ExtraBed'
+        floorSize:
+          $ref: '#/components/schemas/Size'
+        livingRooms:
+          type: array
+          description: Defines list of living rooms the room type have
+          items:
+            $ref: '#/components/schemas/LivingRoom'
+        maxOccupancy:
+          $ref: '#/components/schemas/Occupancy'
+        regulatoryRecords:
+          $ref: '#/components/schemas/RegulatoryRecords'
+        smokingPreferences:
+          type: array
+          description: Used to define whether the room type is smoking, nonsmoking, or if both options are available on request. If a single smoking option is provided, then the room is, by default, only available in this configuration. If both options are provided, then a choice will be offered to the customer at the time he makes a reservation, and the customer preference will be sent in electronic booking messages to the partner
+          items:
+            type: string
+            enum:
+            - Smoking
+            - Non-Smoking
+        views:
+          type: array
+          description: Used to indicate the views available from this room.
+          items:
+            type: string
+            enum:
+            - Bay View
+            - Beach View
+            - Canal View
+            - City View
+            - Courtyard View
+            - Desert View
+            - Garden View
+            - Golf View
+            - Harbor View
+            - Hill View
+            - Lagoon View
+            - Lake View
+            - Partial Lake View
+            - Marina View
+            - Mountain View
+            - Ocean View
+            - Partial Ocean View
+            - Park View
+            - Pool View
+            - Resort View
+            - River View
+            - Sea View
+            - Partial Sea View
+            - Valley View
+            - Vineyard View
+            - Water View
+        wheelchairAccessibility:
+          type: boolean
+          description: Used to indicate whether the room is configured to be wheelchair accessible or not.
+        _links:
+          $ref: '#/components/schemas/Links'
+    Link:
+      title: Link
+      type: object
+      properties:
+        href:
+          type: string
+          description: The link's URL.
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+    BedOption:
+      title: BedOption
+      type: object
+      properties:
+        quantity:
+          type: integer
+          format: int32
+        size:
+          type: string
+          enum:
+          - Crib
+          - Full
+          - King
+          - Queen
+          - Twin
+          - Twin Xl
+        type:
+          type: string
+          enum:
+          - Bunk Bed
+          - Full Bed
+          - Futon
+          - King Bed
+          - Murphy Bed
+          - Queen Bed
+          - Sofa Bed
+          - Trundle Bed
+          - Twin Bed
+          - Twin Xl Bed
+          - Water Bed
+    RegulatoryRecords:
+      title: RegulatoryRecords
+      type: object
+      properties:
+        category:
+          type: string
+          description: Regulatory Category
+          enum:
+          - BED_AND_BREAKFAST
+          - EVENT
+          - HOTEL
+          - HOTEL_OR_BNB
+          - HOTEL_RYOKAN
+          - LONG_TERM_ONLY
+          - MINPAKU
+          - NO_LICENSE
+          - PRIMARY_HOME
+          - PRIMARY_HOME_WITH_EXCEPTION
+          - PRIMARY_OR_SECONDARY
+          - RYOKAN
+          - SECONDARY_HOME
+          - SHORT_TERM_RENTAL
+          - SIMPLE_LODGING
+          - SPECIAL
+          - VACATION_RENTAL
+        records:
+          type: array
+          description: Registration Records
+          items:
+            $ref: '#/components/schemas/RegistrationRecord'
+    Bedroom:
+      title: Bedroom
+      required:
+      - bedding
+      - count
+      type: object
+      properties:
+        bedding:
+          type: array
+          items:
+            $ref: '#/components/schemas/BedGroup'
+        count:
+          type: integer
+          format: int32
+    ExtraBed:
+      title: ExtraBed
+      type: object
+      properties:
+        quantity:
+          type: integer
+          format: int32
+        size:
+          type: string
+          enum:
+          - Crib
+          - Full
+          - King
+          - Queen
+          - Twin
+          - Twin Xl
+        surcharge:
+          $ref: '#/components/schemas/Surcharge'
+        type:
+          type: string
+          enum:
+          - Crib
+          - Day Bed
+          - Rollaway Bed
+          - Sofa Bed
+    Surcharge:
+      title: Surcharge
+      required:
+      - type
+      type: object
+      properties:
+        amount:
+          type: number
+          description: If the surcharge type is different than 'Free', must be greater than 0. Otherwise, must not be defined.
+          format: double
+        type:
+          type: string
+          description: The type of surcharge applied to the extra bed.
+          enum:
+          - Free
+          - Per Day
+          - Per Night
+          - Per Week
+          - Per Stay
+          - Unknown
+    LivingRoom:
+      title: LivingRoom
+      type: object
+      properties:
+        bedding:
+          type: array
+          items:
+            $ref: '#/components/schemas/BedGroup'
+        count:
+          type: integer
+          format: int32
+    RoomTypeName:
+      title: RoomTypeName
+      required:
+      - attributes
+      - value
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/NameAttributes'
+        value:
+          type: string
+          description: The custom name provided for the room. Max. 255 characters. Not to be used in conjunction with the attributes
+    Links:
+      title: Links
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/Link'
+    NameAttributes:
+      title: NameAttributes
+      required:
+      - typeOfRoom
+      type: object
+      properties:
+        accessibility:
+          type: boolean
+          description: Attribute that determines if room is considered wheelchair accessible
+        area:
+          type: string
+          description: Attributed used to highlight the location of the room
+        bedroomDetails:
+          type: string
+          description: Attribute that describes details of the bedroom used to compose the name of the room
+        customLabel:
+          type: string
+          description: Free text that can be appended to the name generated by the attributes. Use of this attribute is discouraged (see full spec). Max 37 characters
+        featuredAmenity:
+          type: string
+          description: Attribute used to highlight a feature of the room on its name
+        includeBedType:
+          type: boolean
+          description: Attribute that determines whether or not to include bed type on the room name
+        includeSmokingPref:
+          type: boolean
+          description: Attribute that determines if room has smoking preference
+        roomClass:
+          type: string
+          description: Attribute that described the class of room, which is used to compose the name
+        typeOfRoom:
+          type: string
+          description: Attribute that determines the type of room, which is used to compose the name
+        view:
+          type: string
+          description: Attribute that gives additional information about the view of the room
+    BedGroup:
+      title: BedGroup
+      type: object
+      properties:
+        option:
+          type: array
+          description: List of bedding option
+          items:
+            $ref: '#/components/schemas/BedOption'
+    Occupancy:
+      title: Occupancy
+      type: object
+      properties:
+        adults:
+          type: integer
+          format: int32
+        children:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+    AgeCategory:
+      title: AgeCategory
+      type: object
+      properties:
+        category:
+          type: string
+          description: The age category whose occupancy is being defined
+          enum:
+          - Adult
+          - ChildAgeA
+          - ChildAgeB
+          - ChildAgeC
+          - ChildAgeD
+          - Infant
+        minAge:
+          type: integer
+          description: Minimum age allowed for the category. Min 0, max 99
+          format: int32
+    RegistrationRecord:
+      title: RegistrationRecord
+      required:
+      - registrationNumber
+      type: object
+      properties:
+        expiry:
+          type: string
+          description: Registration Number Expiry. Format is YYYY-MM-DD.
+        registrationNumber:
+          type: string
+          description: Registration Number
+        registrationNumberType:
+          type: string
+          description: Registration Number Type
+          enum:
+          - BUSINESS_LICENSE_NUMBER
+          - BUSINESS_TAX_ID
+          - HOTEL_LICENSE
+          - LICENSE_ID
+          - LICENSE_NUMBER
+          - OPERATOR_LICENSE_ID
+          - PARTIAL_TAX_ID
+          - PERMIT_NUMBER
+          - PLANNING_NUMBER
+          - REGISTRATION_NUMBER
+          - RESORT_TAX_ID
+          - SHORT_TERM_RENTAL_LICENSE
+          - TOURIST_DEVELOPMENT_TAX_ACCOUNT_NUMBER
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Size:
+      title: Size
+      required:
+      - squareFeet
+      - squareMeters
+      type: object
+      properties:
+        squareFeet:
+          type: integer
+          description: Room size in square feet. No decimals.
+          format: int32
+        squareMeters:
+          type: integer
+          description: Room size in square meters. No decimals.
+          format: int32
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic

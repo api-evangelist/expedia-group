@@ -1,0 +1,104 @@
+openapi: 3.0.1
+info:
+  title: Expedia Group EPS Deposit Bookings Rate Verification Thresholds API
+  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
+  contact:
+    name: Expedia Partner Services
+    url: https://expediaconnectivity.com/developer
+    email: eqcss@expedia.com
+  version: '1.0'
+servers:
+- url: https://services.expediapartnercentral.com/
+security:
+- Basic: []
+tags:
+- name: Rate Verification Thresholds
+  description: Manage room types Rate Verification Thresholds
+paths:
+  /properties/{propertyId}/roomTypes/{roomTypeId}/rateThresholds:
+    get:
+      tags:
+      - Rate Verification Thresholds
+      summary: Expedia Group Read a single room type's rate verification thresholds
+      operationId: getRateVerificationThresholds
+      parameters:
+      - name: propertyId
+        in: path
+        description: Expedia Property ID
+        required: true
+        schema:
+          type: string
+      - name: roomTypeId
+        in: path
+        description: Room type resource ID. Integer
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.expedia.eps.product-v2+json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperDTO«RateVerificationThresholdsDTO»'
+      security:
+      - Basic: []
+components:
+  schemas:
+    RateVerificationThresholdsDTO:
+      type: object
+      properties:
+        _links:
+          $ref: '#/components/schemas/RateVerificationThresholdsDTOLinks'
+        maxAmount:
+          type: number
+          description: Defines maximum acceptable rates. If the rate is higher than this maximum value, the AR rate update will be ignored and a warning will be returned.
+          format: double
+        minAmount:
+          type: number
+          description: Defines minimum acceptable rates. If the rate is lower than this minimum value, the AR rate update will be ignored and a warning will be returned.
+          format: double
+        source:
+          type: string
+          description: Defines how the minimum and maximum amounts were calculated. It is either RecentBookings (thresholds calculated using last 10 reservations, and applying multiplication and division factor to find maximum and minimum values) or Manual (manually defined by Expedia). RecentReservation is Expedia's default method.
+          enum:
+          - RecentBookings
+          - ManualOverride
+        type:
+          type: string
+          description: 'Type of the rate verification thresholds. The only possible value is: SellLAR'
+          enum:
+          - NetRate
+          - SellLAR
+    RateVerificationThresholdsDTOLinks:
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/LinkDTO'
+    ErrorDTO:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    ResponseWrapperDTO«RateVerificationThresholdsDTO»:
+      type: object
+      properties:
+        entity:
+          $ref: '#/components/schemas/RateVerificationThresholdsDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDTO'
+    LinkDTO:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The link's URL.
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic

@@ -1,0 +1,4084 @@
+openapi: 3.0.1
+info:
+  title: Expedia Group EPS Deposit Bookings Shopping API
+  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
+  contact:
+    name: Expedia Partner Services
+    url: https://expediaconnectivity.com/developer
+    email: eqcss@expedia.com
+  version: '1.0'
+servers:
+- url: https://services.expediapartnercentral.com/
+security:
+- Basic: []
+tags:
+- name: Shopping
+  description: The EPS shopping APIs provide you with access to live rates & availability.
+paths:
+  /properties/availability:
+    get:
+      tags:
+      - Shopping
+      summary: Expedia Group Get property room rates and availability
+      description: 'Returns rates on available room types for specified properties (maximum of 250 properties per request).  The response includes rate details such as promos, whether the rate is refundable, cancellation penalties and a full price breakdown to meet the price display requirements for your market.
+
+        _Note_: If there are no available rooms, the response will be an empty array.
+
+        * Multiple rooms of the same type may be requested by including multiple instances of the `occupancy` parameter.
+
+        * The `nightly` array includes each individual night''s charges. When the total price includes fees, charges, or adjustments that are not divided by night, these amounts will be included in the `stay` rate array, which details charges applied to the entire stay (each check-in).
+
+        '
+      operationId: getAvailability
+      parameters:
+      - name: Accept
+        in: header
+        description: 'Specifies the response format that the client would like to receive back. This must be `application/json`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: application/json
+      - name: Accept-Encoding
+        in: header
+        description: 'Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: gzip
+      - name: User-Agent
+        in: header
+        description: 'The `User-Agent` header string from the customer''s request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: TravelNow/3.30.112
+      - name: Customer-Ip
+        in: header
+        description: 'IP address of the customer, as captured by your integration.<br>
+
+          Ensure your integration passes the customer''s IP, not your own. This value helps determine their location and assign the correct payment gateway.<br>
+
+          Also used for fraud recovery and other important analytics.
+
+          '
+        schema:
+          type: string
+      - name: Customer-Session-Id
+        in: header
+        description: 'Insert your own unique value for each user session, beginning with the first API call.
+
+          Continue to pass the same value for each subsequent API call during the user''s session, using a new value for every new customer session.<br>
+
+          Including this value greatly eases EPS''s internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user''s session.
+
+          '
+        schema:
+          type: string
+      - name: Test
+        in: header
+        description: 'Shop calls have a test header that can be used to return set responses with the following keywords:<br>
+
+          * `standard`
+
+          * `service_unavailable`
+
+          * `unknown_internal_error`
+
+          '
+        schema:
+          type: string
+          enum:
+          - standard
+          - service_unavailable
+          - unknown_internal_error
+      - name: checkin
+        in: query
+        description: 'Check-in date, in ISO 8601 format (YYYY-MM-DD). This can be up to 365 days in the future. Some partner configurations may extend this up to 500 days.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: '2024-08-01'
+      - name: checkout
+        in: query
+        description: 'Check-out date, in ISO 8601 format (YYYY-MM-DD). Total length of stay cannot exceed 28 nights or 365 nights depending on Vacation Rental configurations.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: '2024-08-03'
+      - name: currency
+        in: query
+        description: 'Requested currency for the rates, in ISO 4217 format<br><br>
+
+          Currency Options: [https://developers.expediagroup.com/docs/rapid/resources/reference/currency-options](https://developers.expediagroup.com/docs/rapid/resources/reference/currency-options)
+
+          '
+        required: true
+        schema:
+          type: string
+        example: USD
+      - name: country_code
+        in: query
+        description: 'The country code of the traveler''s point of sale, in ISO 3166-1 alpha-2 format. This should represent the country where the shopping transaction is taking place.<br>
+
+          For more information see: [https://www.iso.org/obp/ui/#search/code/](https://www.iso.org/obp/ui/#search/code/)
+
+          '
+        required: true
+        schema:
+          type: string
+        example: US
+      - name: language
+        in: query
+        description: 'Desired language for the response as a subset of BCP47 format that only uses hyphenated pairs of two-digit language and country codes. Use only ISO 639-1 alpha-2 language codes and ISO 3166-1 alpha-2 country codes. See [https://www.w3.org/International/articles/language-tags/](https://www.w3.org/International/articles/language-tags/)<br>
+
+          Language Options: [https://developers.expediagroup.com/docs/rapid/resources/reference/language-options](https://developers.expediagroup.com/docs/rapid/resources/reference/language-options)
+
+          '
+        required: true
+        schema:
+          type: string
+        example: en-US
+      - name: occupancy
+        in: query
+        description: 'Defines the requested occupancy for a single room. Each room must have at least 1 adult occupant.<br>
+
+          Format: `numberOfAdults[-firstChildAge[,nextChildAge]]`<br>
+
+          To request multiple rooms (of the same type), include one instance of occupancy for each room requested. Up to 8 rooms may be requested or booked at once.<br>
+
+          Examples:
+
+          * 2 adults, one 9-year-old and one 4-year-old would be represented by `occupancy=2-9,4`.<br>
+
+          * A multi-room request to lodge an additional 2 adults would be represented by `occupancy=2-9,4&occupancy=2`
+
+          '
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example: 2
+      - name: property_id
+        in: query
+        description: 'The ID of the property you want to search for. You can provide 1 to 250 property_id parameters.
+
+          '
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - 20321
+      - name: rate_plan_count
+        in: query
+        description: 'The number of rates to return per property. The rates with the best value will be returned, e.g. a rate_plan_count=4 will return the best 4 rates, but the rates are not ordered from lowest to highest or vice versa in the response. Generally lowest rates will be prioritized.<br><br>
+
+          The value must be between 1 and 250.
+
+          '
+        required: true
+        schema:
+          type: number
+        example: 1
+      - name: sales_channel
+        in: query
+        description: 'You must provide the sales channel for the display of rates. EPS dynamically provides the best content for optimal conversion on each sales channel. If you have a sales channel that is not currently supported in this list, please contact our support team.<br>
+
+          * `website` - Standard website accessed from the customer''s computer
+
+          * `agent_tool` - Your own agent tool used by your call center or retail store agent
+
+          * `mobile_app` - An application installed on a phone or tablet device
+
+          * `mobile_web` - A web browser application on a phone or tablet device
+
+          * `meta` - Rates will be passed to and displayed on a 3rd party comparison website
+
+          * `cache` - Rates will be used to populate a local cache
+
+          '
+        required: true
+        schema:
+          type: string
+        example: website
+      - name: sales_environment
+        in: query
+        description: 'You must provide the sales environment in which rates will be sold. EPS dynamically provides the best content for optimal conversion. If you have a sales environment that is not currently supported in this list, please contact our support team.<br>
+
+          * `hotel_package` - Use when selling the hotel with a transport product, e.g. flight & hotel.
+
+          * `hotel_only` - Use when selling the hotel as an individual product.
+
+          * `loyalty` - Use when you are selling the hotel as part of a loyalty program and the price is converted to points.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: hotel_only
+      - name: amenity_category
+        in: query
+        description: 'Single amenity category. Send multiple instances of this parameter to request rates that match multiple amenity categories.<br>
+
+          See the Amenity Categories section of the
+
+          [Content Reference Lists](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists)
+
+          for a list of values.
+
+          '
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example:
+        - swimming_pool
+      - name: exclusion
+        in: query
+        description: 'Single exclusion type. Send multiple instances of this parameter to request multiple exclusions.<br>
+
+          * `refundable_damage_deposit` - Excludes rates with refundable damage deposits from the response.
+
+          '
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - refundable_damage_deposit
+        example:
+        - refundable_damage_deposit
+      - name: filter
+        in: query
+        description: 'Single filter type. Send multiple instances of this parameter to request multiple filters.<br>
+
+          * `refundable` - Filters results to only show fully refundable rates.
+
+          * `expedia_collect` - Filters results to only show rates where payment is collected by Expedia at the time of booking. These properties can be eligible for payments via Expedia Affiliate Collect(EAC).
+
+          * `property_collect` - Filters results to only show rates where payment is collected by the property after booking. This can include rates that require a deposit by the property, dependent upon the deposit policies.
+
+          * `loyalty` - Filters results to only show rates that are eligible for loyalty points.
+
+          '
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - refundable
+            - expedia_collect
+            - property_collect
+        example:
+        - expedia_collect
+      - name: include
+        in: query
+        description: 'Modify the response by including types of responses that are not provided by default.<br>
+
+          * `unavailable_reason` - When a property is unavailable for an actionable reason, return a response with that reason - See [Unavailable Reason Codes](https://developers.expediagroup.com/docs/rapid/resources/reference/unavailable-reason-codes) for possible values.
+
+          * `sale_scenario.mobile_promotion` - Enable the `mobile_promotion` flag under the `room.rate.sale_scenario` section of the response.
+
+          * `rooms.rates.marketing_fee_incentives` - When a rate has a marketing fee incentive applied, the response will include the `marketing_fee_incentives` array if this flag is provided in the request.
+
+          '
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - unavailable_reason
+            - sale_scenario.mobile_promotion
+            - rooms.rates.marketing_fee_incentives
+        example: unavailable_reason
+      - name: rate_option
+        in: query
+        description: 'Request specific rate options for each property. Send multiple instances of this parameter to request multiple rate options.
+
+          Accepted values:<br>
+
+          * `member` - Return member rates for each property. This feature must be enabled and requires a user to be logged in to request these rates.
+
+          * `net_rates` - Return net rates for each property. This feature must be enabled to request these rates.
+
+          * `cross_sell` - Identify if the traffic is coming from a cross sell booking. Where the traveler has booked another service (flight, car, activities...) before hotel.
+
+          '
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - member
+            - net_rates
+            - cross_sell
+      - name: travel_purpose
+        in: query
+        description: 'This parameter is to specify the travel purpose of the booking. This may impact available rate plans, pricing, or tax calculations.
+
+          * `leisure`
+
+          * `business`
+
+          '
+        schema:
+          type: string
+          enum:
+          - leisure
+          - business
+        example: leisure
+      - name: billing_terms
+        in: query
+        description: 'This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: payment_terms
+        in: query
+        description: 'This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: partner_point_of_sale
+        in: query
+        description: 'This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      - name: platform_name
+        in: query
+        description: 'This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.
+
+          '
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Property'
+              examples:
+                Availability:
+                  value:
+                  - property_id: '19248'
+                    status: available
+                    rooms:
+                    - id: 123abc
+                      room_name: Fancy Queen Room
+                      rates:
+                      - id: 333abc
+                        status: available
+                        available_rooms: 12
+                        refundable: true
+                        member_deal_available: true
+                        sale_scenario:
+                          package: false
+                          member: false
+                          corporate: false
+                          distribution: false
+                          mobile_promotion: false
+                        merchant_of_record: expedia
+                        amenities:
+                          '1234':
+                            id: '1234'
+                            name: Free Wireless Internet
+                        links:
+                          payment_options:
+                            method: GET
+                            href: /v3/properties/19248/payment-options?token=MY5S3j36cOcL
+                        bed_groups:
+                          '12345':
+                            links:
+                              price_check:
+                                method: GET
+                                href: /v3/properties/19248/rooms/abc123/rates/abc123?token=MY5S3j36cOcL
+                                expires: '2019-03-05T07:23:14.000Z'
+                            id: '12345'
+                            description: 1 Queen Bed
+                            configuration:
+                            - type: Bed
+                              size: Queen
+                              quantity: 1
+                        cancel_penalties:
+                        - currency: USD
+                          start: '2018-02-12T11:59:00.000-08:00'
+                          end: '2018-02-12T11:59:00.000-08:00'
+                          amount: '10.00'
+                        nonrefundable_date_ranges:
+                        - start: '2022-02-02'
+                          end: '2022-02-02'
+                        marketing_fee_incentives:
+                        - source: property
+                          start: '2022-02-02'
+                          end: '2022-02-02'
+                        occupancy_pricing:
+                          '2':
+                            nightly:
+                            - - type: base_rate
+                                value: '309.00'
+                                currency: CAD
+                              - type: tax_and_service_fee
+                                value: '37.00'
+                                currency: CAD
+                            - - type: base_rate
+                                value: '309.00'
+                                currency: CAD
+                              - type: tax_and_service_fee
+                                value: '37.00'
+                                currency: CAD
+                            stay:
+                            - type: extra_person_fee
+                              value: '10.00'
+                              currency: CAD
+                            totals:
+                              inclusive:
+                                billable_currency:
+                                  value: '702.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '530.00'
+                                  currency: USD
+                              exclusive:
+                                billable_currency:
+                                  value: '628.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '475.00'
+                                  currency: USD
+                              property_inclusive:
+                                billable_currency:
+                                  value: '717.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '539.00'
+                                  currency: USD
+                              strikethrough:
+                                billable_currency:
+                                  value: '650.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '490.00'
+                                  currency: USD
+                              property_inclusive_strikethrough:
+                                billable_currency:
+                                  value: '750.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '565.00'
+                                  currency: USD
+                              marketing_fee:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '10.00'
+                                  currency: USD
+                              gross_profit:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '10.00'
+                                  currency: USD
+                              minimum_selling_price:
+                                billable_currency:
+                                  value: '702.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '530.00'
+                                  currency: USD
+                              property_fees:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '9.00'
+                                  currency: USD
+                            fees:
+                              mandatory_fee:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.00'
+                                  currency: USD
+                              resort_fee:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.00'
+                                  currency: USD
+                              mandatory_tax:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.00'
+                                  currency: USD
+                          1-7,10:
+                            nightly:
+                            - - type: base_rate
+                                value: '309.00'
+                                currency: CAD
+                              - type: tax_and_service_fee
+                                value: '37.00'
+                                currency: CAD
+                            - - type: base_rate
+                                value: '309.00'
+                                currency: CAD
+                              - type: tax_and_service_fee
+                                value: '37.00'
+                                currency: CAD
+                            stay:
+                            - type: extra_person_fee
+                              value: '10.00'
+                              currency: CAD
+                            totals:
+                              inclusive:
+                                billable_currency:
+                                  value: '702.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '530.00'
+                                  currency: USD
+                              exclusive:
+                                billable_currency:
+                                  value: '628.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '475.00'
+                                  currency: USD
+                              strikethrough:
+                                billable_currency:
+                                  value: '650.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '490.00'
+                                  currency: USD
+                              marketing_fee:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '10.00'
+                                  currency: USD
+                              gross_profit:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '10.00'
+                                  currency: USD
+                              minimum_selling_price:
+                                billable_currency:
+                                  value: '702.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '530.00'
+                                  currency: USD
+                              property_fees:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '9.00'
+                                  currency: USD
+                            fees:
+                              mandatory_fee:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.00'
+                                  currency: USD
+                              resort_fee:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.00'
+                                  currency: USD
+                              mandatory_tax:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.00'
+                                  currency: USD
+                        promotions:
+                          value_adds:
+                            123abc:
+                              id: 123abc
+                              description: 10 USD credit on activities and sports for your stay.
+                              category: entertainment
+                              offer_type: credit
+                              frequency: per_stay
+                              person_count: 1
+                          deal:
+                            id: 999abc
+                            description: Book early and save 15%
+                        card_on_file_limit:
+                          value: '500.00'
+                          currency: USD
+                        refundable_damage_deposit:
+                          value: '500.00'
+                          currency: USD
+                        deposits:
+                        - value: '70.00'
+                          due: '2025-12-21'
+                          currency: USD
+                    links:
+                      additional_rates:
+                        method: GET
+                        href: /v3/properties/12345/availability?token=MY5S3j36cOcL
+                    score: 10052
+                Availability and Unavailable Reason:
+                  value:
+                  - property_id: '824739'
+                    status: partially_unavailable
+                    score: 12345
+                    unavailable_reason:
+                      code: adults_exceed_threshold
+                      data: '2'
+                  - property_id: '19248'
+                    status: available
+                    rooms:
+                    - id: 123abc
+                      room_name: Fancy Queen Room
+                      rates:
+                      - id: 333abc
+                        status: available
+                        available_rooms: 12
+                        refundable: true
+                        member_deal_available: true
+                        sale_scenario:
+                          package: false
+                          member: false
+                          corporate: false
+                          distribution: false
+                          mobile_promotion: false
+                        merchant_of_record: expedia
+                        amenities:
+                          '1234':
+                            id: '1234'
+                            name: Free Wireless Internet
+                        links:
+                          payment_options:
+                            method: GET
+                            href: /v3/properties/19248/payment-options?token=MY5S3j36cOcL
+                        bed_groups:
+                          '12345':
+                            links:
+                              price_check:
+                                method: GET
+                                href: /v3/properties/19248/rooms/abc123/rates/abc123?token=MY5S3j36cOcL
+                                expires: '2019-03-05T07:23:14.000Z'
+                            id: '12345'
+                            description: 1 Queen Bed
+                            configuration:
+                            - type: Bed
+                              size: Queen
+                              quantity: 1
+                        cancel_penalties:
+                        - currency: USD
+                          start: '2018-02-12T11:59:00.000-08:00'
+                          end: '2018-02-12T11:59:00.000-08:00'
+                          amount: '10.00'
+                        nonrefundable_date_ranges:
+                        - start: '2022-02-02'
+                          end: '2022-02-02'
+                        occupancy_pricing:
+                          '2':
+                            nightly:
+                            - - type: base_rate
+                                value: '309.00'
+                                currency: CAD
+                              - type: tax_and_service_fee
+                                value: '37.00'
+                                currency: CAD
+                            - - type: base_rate
+                                value: '309.00'
+                                currency: CAD
+                              - type: tax_and_service_fee
+                                value: '37.00'
+                                currency: CAD
+                            stay:
+                            - type: extra_person_fee
+                              value: '10.00'
+                              currency: CAD
+                            totals:
+                              inclusive:
+                                billable_currency:
+                                  value: '702.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '530.97'
+                                  currency: USD
+                              exclusive:
+                                billable_currency:
+                                  value: '628.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '475.00'
+                                  currency: USD
+                              inclusive_strikethrough:
+                                billable_currency:
+                                  value: '726.63'
+                                  currency: CAD
+                                request_currency:
+                                  value: '549.60'
+                                  currency: USD
+                              strikethrough:
+                                billable_currency:
+                                  value: '650.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '491.64'
+                                  currency: USD
+                              marketing_fee:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '11.34'
+                                  currency: USD
+                              gross_profit:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '11.34'
+                                  currency: USD
+                              minimum_selling_price:
+                                billable_currency:
+                                  value: '702.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '530.97'
+                                  currency: USD
+                              property_fees:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '11.34'
+                                  currency: USD
+                            fees:
+                              mandatory_fee:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.78'
+                                  currency: USD
+                              resort_fee:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.78'
+                                  currency: USD
+                              mandatory_tax:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.78'
+                                  currency: USD
+                          1-7,10:
+                            nightly:
+                            - - type: base_rate
+                                value: '309.00'
+                                currency: CAD
+                              - type: tax_and_service_fee
+                                value: '37.00'
+                                currency: CAD
+                            - - type: base_rate
+                                value: '309.00'
+                                currency: CAD
+                              - type: tax_and_service_fee
+                                value: '37.00'
+                                currency: CAD
+                            stay:
+                            - type: extra_person_fee
+                              value: '10.00'
+                              currency: CAD
+                            totals:
+                              inclusive:
+                                billable_currency:
+                                  value: '702.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '530.97'
+                                  currency: USD
+                              exclusive:
+                                billable_currency:
+                                  value: '628.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '475.00'
+                                  currency: USD
+                              inclusive_strikethrough:
+                                billable_currency:
+                                  value: '726.63'
+                                  currency: CAD
+                                request_currency:
+                                  value: '549.60'
+                                  currency: USD
+                              strikethrough:
+                                billable_currency:
+                                  value: '650.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '491.64'
+                                  currency: USD
+                              marketing_fee:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '11.34'
+                                  currency: USD
+                              gross_profit:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '11.34'
+                                  currency: USD
+                              minimum_selling_price:
+                                billable_currency:
+                                  value: '702.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '530.97'
+                                  currency: USD
+                              property_fees:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '11.34'
+                                  currency: USD
+                            fees:
+                              mandatory_fee:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.78'
+                                  currency: USD
+                              resort_fee:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.78'
+                                  currency: USD
+                              mandatory_tax:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.78'
+                                  currency: USD
+                        promotions:
+                          value_adds:
+                            123abc:
+                              id: 123abc
+                              description: 10 USD credit on activities and sports for your stay.
+                              category: entertainment
+                              offer_type: credit
+                              frequency: per_stay
+                              person_count: 1
+                          deal:
+                            id: 999abc
+                            description: Book early and save 15%
+                        card_on_file_limit:
+                          value: '500.00'
+                          currency: USD
+                        refundable_damage_deposit:
+                          value: '500.00'
+                          currency: USD
+                        deposits:
+                        - value: '70.00'
+                          due: '2025-12-21'
+                          currency: USD
+                    links:
+                      additional_rates:
+                        method: GET
+                        href: /v3/properties/12345/availability?token=MY5S3j36cOcL
+                    score: 10052
+                No availability:
+                  value: []
+        '400':
+          description: Bad Request
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: invalid_input
+                message: An invalid request was sent in, please check the nested errors for details.
+                errors:
+                - type: checkin.invalid_date_format
+                  message: Invalid checkin format. It must be formatted in ISO 8601 (YYYY-mm-dd) http://www.iso.org/iso/catalogue_detail?csnumber=40874.
+                  fields:
+                  - name: checkin
+                    type: querystring
+                    value: 2019-01-1
+                - type: checkout.invalid_length_of_stay_too_long_vrbo
+                  message: 'Invalid date range. Checkin and checkout dates cannot differ by more than 365 days.
+
+                    '
+                  fields:
+                  - name: checkin
+                    type: querystring
+                    value: '2024-09-21'
+                  - name: checkout
+                    type: querystring
+                    value: '2025-10-21'
+                - type: number_of_occupancies.invalid_above_maximum
+                  message: Number of occupancies must be less than 9.
+                  fields:
+                  - name: occupancy
+                    type: querystring
+                    value: '9'
+                - type: include.not_supported
+                  message: 'Include value not supported. Supported include values are: [unavailable_reason]
+
+                    '
+                  fields:
+                  - name: include
+                    type: querystring
+                    value: free_money
+        '401':
+          description: Unauthorized
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+            WWW-Authenticate:
+              description: Provides an example of the Authorization header.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthenticated
+                message: Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.
+                fields:
+                - name: apikey
+                  type: header
+                  value: jaj3982k239dka328e
+                - name: signature
+                  type: header
+                  value: 129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b
+                - name: timestamp
+                  type: header
+                  value: 198284729
+                - name: servertimestamp
+                  type: server
+                  value: 198284729
+        '403':
+          description: Forbidden
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthorized
+                message: Your request could not be authorized.
+        '426':
+          description: Upgrade Required
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: upgrade_required
+                message: This service requires the use of TLS.
+        '429':
+          description: Too Many Requests
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: too_many_requests
+                message: You have reached your capacity for this type of request.
+        '500':
+          description: Unknown Internal Error
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: unknown_internal_error
+                message: An internal server error has occurred.
+        '503':
+          description: Service Unavailable
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: service_unavailable
+                message: This service is currently unavailable.
+      security:
+      - rapidAuth: []
+  /properties/{property_id}/availability:
+    get:
+      tags:
+      - Shopping
+      summary: Expedia Group Get additional property room rates and availability
+      description: 'Returns additional rates on available room types, using the parameters of the previous call.  The response includes rate details such as promos, whether the rate is refundable, cancellation penalties and a full price breakdown to meet the price display requirements for your market.
+
+        _Note_: If there are no available rooms, the response will be an empty array.
+
+        * The `nightly` array includes each individual night''s charges. When the total price includes fees, charges, or adjustments that are not divided by night, these amounts will be included in the `stay` rate array, which details charges applied to the entire stay (each check-in).
+
+        '
+      operationId: getAdditionalAvailability
+      parameters:
+      - name: Accept
+        in: header
+        description: 'Specifies the response format that the client would like to receive back. This must be `application/json`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: application/json
+      - name: Accept-Encoding
+        in: header
+        description: 'Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: gzip
+      - name: User-Agent
+        in: header
+        description: 'The `User-Agent` header string from the customer''s request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: TravelNow/3.30.112
+      - name: Customer-Ip
+        in: header
+        description: 'IP address of the customer, as captured by your integration.<br>
+
+          Ensure your integration passes the customer''s IP, not your own. This value helps determine their location and assign the correct payment gateway.<br>
+
+          Also used for fraud recovery and other important analytics.
+
+          '
+        schema:
+          type: string
+      - name: Customer-Session-Id
+        in: header
+        description: 'Insert your own unique value for each user session, beginning with the first API call.
+
+          Continue to pass the same value for each subsequent API call during the user''s session, using a new value for every new customer session.<br>
+
+          Including this value greatly eases EPS''s internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user''s session.
+
+          '
+        schema:
+          type: string
+      - name: Test
+        in: header
+        description: 'Shop calls have a test header that can be used to return set responses with the following keywords:<br>
+
+          * `standard`
+
+          * `service_unavailable`
+
+          * `unknown_internal_error`
+
+          * `no_availability`
+
+          * `forbidden`
+
+          '
+        schema:
+          type: string
+          enum:
+          - standard
+          - service_unavailable
+          - unknown_internal_error
+          - no_availability
+          - forbidden
+      - name: property_id
+        in: path
+        description: 'Expedia Property ID.<br>
+
+          '
+        required: true
+        schema:
+          type: string
+        example: 19248
+      - name: token
+        in: query
+        description: A hashed collection of query parameters. Used to maintain state across calls. This token is provided as part of the `additional_rates` link from the shop response, or the `shop` link on a `sold_out` price check response. It is also provided from the `shop_for_change` link on an itinerary retrieve.
+        required: true
+        schema:
+          type: string
+      - name: checkin
+        in: query
+        description: 'Check-in date, in ISO 8601 format (YYYY-MM-DD). This can be up to 365 days in the future. Some partner configurations may extend this up to 500 days.<br>
+
+          Note: Only needed for hard change if desired check-in date is different than original booking.
+
+          If specified must also specify `checkout`.
+
+          '
+        schema:
+          type: string
+        example: '2024-08-01'
+      - name: checkout
+        in: query
+        description: 'Check-out date, in ISO 8601 format (YYYY-MM-DD). Total length of stay cannot exceed 28 nights or 365 nights depending on Vacation Rental configurations.<br>
+
+          Note: Only needed for hard change if desired check-out date is different than original booking.
+
+          If specified must also specify `checkin`.<br>
+
+          '
+        schema:
+          type: string
+        example: '2024-08-03'
+      - name: exclusion
+        in: query
+        description: 'Single exclusion type. Send multiple instances of this parameter to request multiple exclusions.<br>
+
+          Note: Optional parameter for use with hard change requests. <br>
+
+          * `refundable_damage_deposit` - Excludes rates with refundable damage deposits from the response.
+
+          '
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - refundable_damage_deposit
+        example:
+        - refundable_damage_deposit
+      - name: filter
+        in: query
+        description: 'Single filter type. Send multiple instances of this parameter to request multiple filters.<br>
+
+          Note: Optional parameter for use with hard change requests.<br>
+
+          This parameter cannot be set to `property_collect` if the existing booking is `expedia_collect` and vice versa.<br>
+
+          * `refundable` - Filters results to only show fully refundable rates.
+
+          * `expedia_collect` - Filters results to only show rates where payment is collected by Expedia at the time of booking. These properties can be eligible for payments via Expedia Affiliate Collect(EAC).
+
+          * `property_collect` - Filters results to only show rates where payment is collected by the property after booking. This can include rates that require a deposit by the property, dependent upon the deposit policies.
+
+          * `loyalty` - Filters results to only show rates that are eligible for loyalty points.
+
+          '
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - refundable
+            - expedia_collect
+            - property_collect
+        example:
+        - refundable
+        - expedia_collect
+      - name: include
+        in: query
+        description: 'Modify the response by including types of responses that are not provided by default.<br>
+
+          * `sale_scenario.mobile_promotion` - Enable the `mobile_promotion` flag under the `sale_scenario` section of the response.
+
+          '
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - sale_scenario.mobile_promotion
+        example: sale_scenario.mobile_promotion
+      - name: occupancy
+        in: query
+        description: 'Defines the requested occupancy for a single room. Each room must have at least 1 adult occupant.<br>
+
+          Format: `numberOfAdults[-firstChildAge[,nextChildAge]]`<br>
+
+          To request multiple rooms (of the same type), include one instance of occupancy for each room requested. Up to 8 rooms may be requested or booked at once.<br>
+
+          Note: Only needed for hard change if desired occupancy is different than original booking.<br>
+
+          Examples:
+
+          * 2 adults, one 9-year-old and one 4-year-old would be represented by `occupancy=2-9,4`.<br>
+
+          * A multi-room request to lodge an additional 2 adults would be represented by `occupancy=2-9,4&occupancy=2`
+
+          '
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - name: rate_option
+        in: query
+        description: 'Request specific rate options for each property. Send multiple instances of this parameter to request multiple rate options.
+
+          Note: Optional parameter for use with hard change requests.<br>
+
+          Accepted values:<br>
+
+          * `member` - Return member rates for each property. This feature must be enabled and requires a user to be logged in to request these rates.
+
+          * `net_rates` - Return net rates for each property. This feature must be enabled to request these rates.
+
+          * `cross_sell` - Identify if the traffic is coming from a cross sell booking. Where the traveler has booked another service (flight, car, activities...) before hotel.
+
+          '
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - member
+            - net_rates
+            - cross_sell
+        example:
+        - member
+        - net_rates
+      - name: sales_channel
+        in: query
+        description: 'Provide the sales channel if you wish to override the sales_channel provided in the previous call. EPS dynamically provides the best content for optimal conversion on each sales channel.<br>
+
+          Note: Must specify this value for hard change requests.<br>
+
+          * `website` - Standard website accessed from the customer''s computer
+
+          * `agent_tool` - Your own agent tool used by your call center or retail store agent
+
+          * `mobile_app` - An application installed on a phone or tablet device
+
+          * `mobile_web` - A web browser application on a phone or tablet device
+
+          * `meta` - Rates will be passed to and displayed on a 3rd party comparison website
+
+          * `cache` - Rates will be used to populate a local cache
+
+          '
+        schema:
+          type: string
+      - name: currency
+        in: query
+        description: 'Determines the returned currency type throughout the response <br>
+
+          Note: This parameter is only valid for hard change requests and is ignored in all other cases
+
+          '
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PropertyAvailability'
+              examples:
+                Availability:
+                  value:
+                  - property_id: 19248
+                    rooms:
+                    - id: 123abc
+                      room_name: Fancy Queen Room
+                      rates:
+                      - id: 333abc
+                        status: available
+                        available_rooms: 12
+                        refundable: true
+                        member_deal_available: true
+                        sale_scenario:
+                          package: false
+                          member: false
+                          corporate: false
+                          distribution: false
+                          mobile_promotion: false
+                        merchant_of_record: expedia
+                        amenities:
+                          '1234':
+                            id: 1234
+                            name: Free Wireless Internet
+                        links:
+                          payment_options:
+                            method: GET
+                            href: /v3/properties/19248/payment-options?token=MY5S3j36cOcL
+                        bed_groups:
+                          '12345':
+                            links:
+                              price_check:
+                                method: GET
+                                href: /v3/properties/19248/rooms/abc123/rates/abc123?token=MY5S3j36cOcL
+                                expires: '2019-03-05T07:23:14.000Z'
+                            id: '12345'
+                            description: 1 Queen Bed
+                            configuration:
+                            - type: Bed
+                              size: Queen
+                              quantity: 1
+                        cancel_penalties:
+                        - currency: USD
+                          start: '2018-02-12T11:59:00.000-08:00'
+                          end: '2018-02-12T11:59:00.000-08:00'
+                          amount: '10.00'
+                          nights: 1
+                          percent: 30%
+                        occupancy_pricing:
+                          '2':
+                            nightly:
+                            - - type: base_rate
+                                value: '309.00'
+                                currency: CAD
+                              - type: tax_and_service_fee
+                                value: '37.00'
+                                currency: CAD
+                            - - type: base_rate
+                                value: '309.00'
+                                currency: CAD
+                              - type: tax_and_service_fee
+                                value: '37.00'
+                                currency: CAD
+                            stay:
+                            - type: extra_person_fee
+                              value: '10.00'
+                              currency: CAD
+                            totals:
+                              inclusive:
+                                billable_currency:
+                                  value: '702.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '530.97'
+                                  currency: USD
+                              exclusive:
+                                billable_currency:
+                                  value: '628.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '475.00'
+                                  currency: USD
+                              inclusive_strikethrough:
+                                billable_currency:
+                                  value: '726.63'
+                                  currency: CAD
+                                request_currency:
+                                  value: '549.60'
+                                  currency: USD
+                              strikethrough:
+                                billable_currency:
+                                  value: '650.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '491.64'
+                                  currency: USD
+                              marketing_fee:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '11.34'
+                                  currency: USD
+                              gross_profit:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '11.34'
+                                  currency: USD
+                              minimum_selling_price:
+                                billable_currency:
+                                  value: '702.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '530.97'
+                                  currency: USD
+                              property_fees:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '11.34'
+                                  currency: USD
+                            fees:
+                              mandatory_fee:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.78'
+                                  currency: USD
+                              resort_fee:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.78'
+                                  currency: USD
+                              mandatory_tax:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.78'
+                                  currency: USD
+                          1-7,10:
+                            nightly:
+                            - - type: base_rate
+                                value: '309.00'
+                                currency: CAD
+                              - type: tax_and_service_fee
+                                value: '37.00'
+                                currency: CAD
+                            - - type: base_rate
+                                value: '309.00'
+                                currency: CAD
+                              - type: tax_and_service_fee
+                                value: '37.00'
+                                currency: CAD
+                            stay:
+                            - type: extra_person_fee
+                              value: '10.00'
+                              currency: CAD
+                            totals:
+                              inclusive:
+                                billable_currency:
+                                  value: '702.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '530.97'
+                                  currency: USD
+                              exclusive:
+                                billable_currency:
+                                  value: '628.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '475.00'
+                                  currency: USD
+                              inclusive_strikethrough:
+                                billable_currency:
+                                  value: '726.63'
+                                  currency: CAD
+                                request_currency:
+                                  value: '549.60'
+                                  currency: USD
+                              strikethrough:
+                                billable_currency:
+                                  value: '650.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '491.64'
+                                  currency: USD
+                              marketing_fee:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '11.34'
+                                  currency: USD
+                              gross_profit:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '11.34'
+                                  currency: USD
+                              minimum_selling_price:
+                                billable_currency:
+                                  value: '702.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '530.97'
+                                  currency: USD
+                              property_fees:
+                                billable_currency:
+                                  value: '15.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '11.34'
+                                  currency: USD
+                            fees:
+                              mandatory_fee:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.78'
+                                  currency: USD
+                              resort_fee:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.78'
+                                  currency: USD
+                              mandatory_tax:
+                                billable_currency:
+                                  value: '5.00'
+                                  currency: CAD
+                                request_currency:
+                                  value: '3.78'
+                                  currency: USD
+                        promotions:
+                          value_adds:
+                            123abc:
+                              id: 123abc
+                              description: 10 USD credit on activities and sports for your stay.
+                              category: entertainment
+                              offer_type: credit
+                              frequency: per_stay
+                              person_count: 1
+                          deal:
+                            id: 999abc
+                            description: Book early and save 15%
+                        card_on_file_limit:
+                          value: '500.00'
+                          currency: USD
+                        refundable_damage_deposit:
+                          value: '500.00'
+                          currency: USD
+                        deposits:
+                        - value: '70.00'
+                          due: '2025-12-21'
+                          currency: USD
+                    links:
+                      additional_rates:
+                        method: GET
+                        href: /v3/properties/12345/availability?token=MY5S3j36cOcL
+                    score: 10052
+                No availability:
+                  value: []
+        '400':
+          description: Bad Request
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: invalid_input
+                message: An invalid request was sent in, please check the nested errors for details.
+                errors:
+                - type: checkin.invalid_date_format
+                  message: Invalid checkin format. It must be formatted in ISO 8601 (YYYY-mm-dd) http://www.iso.org/iso/catalogue_detail?csnumber=40874.
+                  fields:
+                  - name: checkin
+                    type: querystring
+                    value: 2019-01-1
+                - type: checkout.invalid_length_of_stay_too_long_vrbo
+                  message: 'Invalid date range. Checkin and checkout dates cannot differ by more than 365 days.
+
+                    '
+                  fields:
+                  - name: checkin
+                    type: querystring
+                    value: '2024-09-21'
+                  - name: checkout
+                    type: querystring
+                    value: '2025-10-21'
+                - type: number_of_occupancies.invalid_above_maximum
+                  message: Number of occupancies must be less than 9.
+                  fields:
+                  - name: occupancy
+                    type: querystring
+                    value: 9
+                - type: filter.mismatch
+                  message: Existing booking is expedia_collect, this cannot be changed.
+                  fields:
+                  - name: filter
+                    type: querystring
+                    value: property_collect
+        '401':
+          description: Unauthorized
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+            WWW-Authenticate:
+              description: Provides an example of the Authorization header.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthenticated
+                message: Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.
+                fields:
+                - name: apikey
+                  type: header
+                  value: jaj3982k239dka328e
+                - name: signature
+                  type: header
+                  value: 129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b
+                - name: timestamp
+                  type: header
+                  value: 198284729
+                - name: servertimestamp
+                  type: server
+                  value: 198284729
+        '403':
+          description: Forbidden
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthorized
+                message: Your request could not be authorized.
+        '426':
+          description: Upgrade Required
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: upgrade_required
+                message: This service requires the use of TLS.
+        '429':
+          description: Too Many Requests
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: too_many_requests
+                message: You have reached your capacity for this type of request.
+        '500':
+          description: Unknown Internal Error
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: unknown_internal_error
+                message: An internal server error has occurred.
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: service_unavailable
+                message: This service is currently unavailable.
+      security:
+      - rapidAuth: []
+  /properties/{property_id}/rooms/{room_id}/rates/{rate_id}:
+    get:
+      tags:
+      - Shopping
+      summary: Expedia Group Price-Check
+      description: 'Confirms the price returned by the Property Availability response. Use this API to verify a previously-selected rate is still valid before booking. If the price is matched, the response returns a link to request a booking. If the price has changed, the response returns new price details and a booking link for the new price. If the rate is no longer available, the response will return a new Property Availability request link to search again for different rates. In the event of a price change, go back to Property Availability and book the property at the new price or return to additional rates for the property.
+
+        '
+      operationId: priceCheck
+      parameters:
+      - name: Accept
+        in: header
+        description: 'Specifies the response format that the client would like to receive back. This must be `application/json`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: application/json
+      - name: Accept-Encoding
+        in: header
+        description: 'Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: gzip
+      - name: Customer-Ip
+        in: header
+        description: 'IP address of the customer, as captured by your integration.<br>
+
+          Ensure your integration passes the customer''s IP, not your own. This value helps determine their location and assign the correct payment gateway.<br>
+
+          Also used for fraud recovery and other important analytics.
+
+          '
+        schema:
+          type: string
+      - name: Customer-Session-Id
+        in: header
+        description: 'Insert your own unique value for each user session, beginning with the first API call.
+
+          Continue to pass the same value for each subsequent API call during the user''s session, using a new value for every new customer session.<br>
+
+          Including this value greatly eases EPS''s internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user''s session.
+
+          '
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        description: 'The `User-Agent` header string from the customer''s request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: TravelNow/3.30.112
+      - name: Test
+        in: header
+        description: "Price check calls have a test header that can be used to return set responses with the following keywords:\n  * `available`\n  * `price_changed`\n  * `sold_out`\n  * `service_unavailable`\n  * `unknown_internal_error`\n"
+        schema:
+          type: string
+          enum:
+          - available
+          - price_changed
+          - sold_out
+          - service_unavailable
+          - unknown_internal_error
+      - name: property_id
+        in: path
+        description: 'Expedia Property ID.<br>
+
+          '
+        required: true
+        schema:
+          type: string
+        example: 19248
+      - name: room_id
+        in: path
+        description: 'Room ID of a property.<br>
+
+          '
+        required: true
+        schema:
+          type: string
+        example: 123abc
+      - name: rate_id
+        in: path
+        description: 'Rate ID of a room.<br>
+
+          '
+        required: true
+        schema:
+          type: string
+        example: 123abc
+      - name: token
+        in: query
+        description: A hashed collection of query parameters. Used to maintain state across calls. This token is provided as part of the price check link from the shop response.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomPriceCheck'
+              examples:
+                Available Example:
+                  value:
+                    status: available
+                    occupancy_pricing:
+                      '2':
+                        nightly:
+                        - - type: base_rate
+                            value: '309.00'
+                            currency: CAD
+                          - type: tax_and_service_fee
+                            value: '37.00'
+                            currency: CAD
+                        totals:
+                          inclusive:
+                            billable_currency:
+                              value: '346.00'
+                              currency: CAD
+                            request_currency:
+                              value: '261.00'
+                              currency: USD
+                          exclusive:
+                            billable_currency:
+                              value: '309.00'
+                              currency: CAD
+                            request_currency:
+                              value: '230.00'
+                              currency: USD
+                        fees:
+                          mandatory_fee:
+                            billable_currency:
+                              value: '5.00'
+                              currency: CAD
+                            request_currency:
+                              value: '3.00'
+                              currency: USD
+                    card_on_file_limit:
+                      value: '500.00'
+                      currency: USD
+                    refundable_damage_deposit:
+                      value: '500.00'
+                      currency: USD
+                    deposits:
+                    - value: '70.00'
+                      due: '2025-12-21'
+                      currency: USD
+                    links:
+                      book:
+                        method: POST
+                        href: /v3/itineraries?token=MY5S3j36cOcL
+                        expires: '2019-03-05T07:23:14.000Z'
+                Available Example With Trader Information:
+                  value:
+                    status: available
+                    occupancy_pricing:
+                      '2':
+                        nightly:
+                        - - type: base_rate
+                            value: '309.00'
+                            currency: CAD
+                          - type: tax_and_service_fee
+                            value: '37.00'
+                            currency: CAD
+                        totals:
+                          inclusive:
+                            billable_currency:
+                              value: '346.00'
+                              currency: CAD
+                            request_currency:
+                              value: '261.00'
+                              currency: USD
+                          exclusive:
+                            billable_currency:
+                              value: '309.00'
+                              currency: CAD
+                            request_currency:
+                              value: '230.00'
+                              currency: USD
+                        fees:
+                          mandatory_fee:
+                            billable_currency:
+                              value: '5.00'
+                              currency: CAD
+                            request_currency:
+                              value: '3.00'
+                              currency: USD
+                    trader_information:
+                      traders:
+                      - name: Test Property Name
+                        address:
+                          line_1: 123 Main St
+                          city: Springfield
+                          state_province_code: MO
+                          postal_code: '65804'
+                          country_code: US
+                        business_register_name: A Real Registry
+                        business_register_number: 72973910d
+                        self_certification: true
+                        phone: 1-417-555-1212
+                        right_to_withdraw_message: 'The right of withdrawal under European consumer law does not apply when you book
+
+                          accommodation. Supplier cancellation policy will apply
+
+                          '
+                      terms_and_conditions: https://forever.travel-assets.com/flex/flexmanager/mediaasset/618796-0_2-UnitedKingdom_en.pdf
+                    links:
+                      book:
+                        method: POST
+                        href: /v3/itineraries?token=MY5S3j36cOcL
+                        expires: '2024-03-05T07:23:14.000Z'
+                Room Change Example:
+                  value:
+                    status: available
+                    occupancy_pricing:
+                      '2':
+                        nightly:
+                        - - type: base_rate
+                            value: '309.00'
+                            currency: CAD
+                          - type: tax_and_service_fee
+                            value: '37.00'
+                            currency: CAD
+                        totals:
+                          inclusive:
+                            billable_currency:
+                              value: '346.00'
+                              currency: CAD
+                            request_currency:
+                              value: '261.00'
+                              currency: USD
+                          exclusive:
+                            billable_currency:
+                              value: '309.00'
+                              currency: CAD
+                            request_currency:
+                              value: '230.00'
+                              currency: USD
+                        fees:
+                          mandatory_fee:
+                            billable_currency:
+                              value: '5.00'
+                              currency: CAD
+                            request_currency:
+                              value: '3.00'
+                              currency: USD
+                    card_on_file_limit:
+                      value: '500.00'
+                      currency: USD
+                    refundable_damage_deposit:
+                      value: '500.00'
+                      currency: USD
+                    deposits:
+                    - value: '70.00'
+                      due: '2025-12-21'
+                      currency: USD
+                    amount_owed:
+                      billable_currency:
+                        value: '132.56'
+                        currency: CAD
+                      request_currency:
+                        value: '100.00'
+                        currency: USD
+                    penalty:
+                      billable_currency:
+                        value: '26.51'
+                        currency: CAD
+                      request_currency:
+                        value: '20.00'
+                        currency: USD
+                    links:
+                      commit:
+                        method: PUT
+                        href: /v3/itineraries/8999989898988/rooms/d08572fc-82d2-4d5d-ad30-60f5be7fb53e/pricing?token=MY5S3j36cOcL
+                        expires: '2019-03-05T07:23:14.000Z'
+                Price Changed Example:
+                  value:
+                    status: price_changed
+                    occupancy_pricing:
+                      '1234':
+                        nightly:
+                          type: base_rate
+                          value: '90.00'
+                          currency: USD
+                        stay:
+                          type: base_rate
+                          value: '90.00'
+                          currency: USD
+                        totals:
+                          inclusive:
+                            billable_currency:
+                              value: '215.00'
+                              currency: USD
+                            request_currency:
+                              value: '215.00'
+                              currency: USD
+                          exclusive:
+                            billable_currency:
+                              value: '215.00'
+                              currency: USD
+                            request_currency:
+                              value: '215.00'
+                              currency: USD
+                          strikethrough:
+                            billable_currency:
+                              value: '215.00'
+                              currency: USD
+                            request_currency:
+                              value: '215.00'
+                              currency: USD
+                          marketing_fee:
+                            billable_currency:
+                              value: '215.00'
+                              currency: USD
+                            request_currency:
+                              value: '215.00'
+                              currency: USD
+                          gross_profit:
+                            billable_currency:
+                              value: '15.00'
+                              currency: CAD
+                            request_currency:
+                              value: '10.00'
+                              currency: USD
+                          minimum_selling_price:
+                            billable_currency:
+                              value: '215.00'
+                              currency: USD
+                            request_currency:
+                              value: '215.00'
+                              currency: USD
+                          property_fees:
+                            billable_currency:
+                              value: '8.50'
+                              currency: EUR
+                            request_currency:
+                              value: '10.00'
+                              currency: USD
+                        fees:
+                          mandatory_fee:
+                            billable_currency:
+                              value: '8.50'
+                              currency: EUR
+                            request_currency:
+                              value: '10.00'
+                              currency: USD
+                    links:
+                      additional_rates:
+                        method: GET
+                        href: /v3/properties/1234/availability?token=REhZAQsABAMGQggMV1pFAV1YVA5cZhBYEgNKH1RGEVEQUAoOBwlVVBlVCEkFUxVZWgZAFAVbABgMC0RXRx=
+                      book:
+                        method: POST
+                        href: /v3/itineraries?token=MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+                        expires: '2019-03-05T07:23:14.000Z'
+                Sold Out Example:
+                  value:
+                    status: sold_out
+                    links:
+                      shop:
+                        method: GET
+                        href: /v3/properties/1234/availability?token=REhZAQsABAMGQggMV1pFAV1YVA5cZhBYEgNKH1RGEVEQUAoOBwlVVBlVCEkFUxVZWgZAFAVbABgMC0RXRx=
+        '400':
+          description: Bad Request
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: invalid_input
+                message: An invalid request was sent in, please check the nested errors for details.
+                errors:
+                - type: link.invalid
+                  message: Link is invalid.
+        '401':
+          description: Unauthorized
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+            WWW-Authenticate:
+              description: Provides an example of the Authorization header.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthenticated
+                message: Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.
+                fields:
+                - name: apikey
+                  type: header
+                  value: jaj3982k239dka328e
+                - name: signature
+                  type: header
+                  value: 129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b
+                - name: timestamp
+                  type: header
+                  value: 198284729
+                - name: servertimestamp
+                  type: server
+                  value: 198284729
+        '403':
+          description: Forbidden
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: request_unauthorized
+                message: Your request could not be authorized.
+        '426':
+          description: Upgrade Required
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: upgrade_required
+                message: This service requires the use of TLS.
+        '429':
+          description: Too Many Requests
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: too_many_requests
+                message: You have reached your capacity for this type of request.
+        '500':
+          description: Unknown Internal Error
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: unknown_internal_error
+                message: An internal server error has occurred.
+        '503':
+          description: Service Unavailable
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: service_unavailable
+                message: This service is currently unavailable.
+      security:
+      - rapidAuth: []
+  /properties/{property_id}/payment-options:
+    get:
+      tags:
+      - Shopping
+      summary: Expedia Group Get Accepted Payment Types - EPS MOR Only
+      description: 'Returns the accepted payment options.  Use this API to power your checkout page and display valid forms of payment, ensuring a smooth booking.
+
+        '
+      operationId: getPaymentOptions
+      parameters:
+      - name: Accept
+        in: header
+        description: 'Specifies the response format that the client would like to receive back. This must be `application/json`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: application/json
+      - name: Accept-Encoding
+        in: header
+        description: 'Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: gzip
+      - name: Customer-Ip
+        in: header
+        description: 'IP address of the customer, as captured by your integration.<br>
+
+          Ensure your integration passes the customer''s IP, not your own. This value helps determine their location and assign the correct payment gateway.<br>
+
+          Also used for fraud recovery and other important analytics.
+
+          '
+        schema:
+          type: string
+      - name: Customer-Session-Id
+        in: header
+        description: 'Insert your own unique value for each user session, beginning with the first API call.
+
+          Continue to pass the same value for each subsequent API call during the user''s session, using a new value for every new customer session.<br>
+
+          Including this value greatly eases EPS''s internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user''s session.
+
+          '
+        schema:
+          type: string
+      - name: property_id
+        in: path
+        description: 'Expedia Property ID.<br>
+
+          '
+        required: true
+        schema:
+          type: string
+        example: 19248
+      - name: token
+        in: query
+        description: 'Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m
+      - name: User-Agent
+        in: header
+        description: 'The `User-Agent` header string from the customer''s request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: TravelNow/3.30.112
+      responses:
+        '200':
+          description: OK
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentOption'
+              example:
+                affiliate_collect:
+                  name: Affiliate Collect
+                credit_card:
+                  name: Credit Card
+                  card_options:
+                  - name: AmericanExpress
+                  - name: MasterCard
+                    processing_country: US
+                  merchant:
+                    name: TRAVEL RESERVATION
+        '400':
+          description: Bad Request
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: invalid_input
+                message: An invalid request was sent in, please check the nested errors for details.
+                errors:
+                - type: link.invalid
+                  message: Link is invalid.
+        '404':
+          description: Not Found
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: payment_options.not_found
+                message: The requested property returned no payment options that are enabled for this point of sale.
+                fields:
+                - name: property_id
+                  type: path
+                  value: '1337'
+                - name: token.currency
+                  type: querystring
+                  value: USD
+                - name: token.country_code
+                  type: querystring
+                  value: US
+        '426':
+          description: Upgrade Required
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: upgrade_required
+                message: This service requires the use of TLS.
+        '429':
+          description: Too Many Requests
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: too_many_requests
+                message: You have reached your capacity for this type of request.
+        '500':
+          description: Unknown Internal Error
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: unknown_internal_error
+                message: An internal server error has occurred.
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                type: service_unavailable
+                message: This service is currently unavailable.
+      security:
+      - rapidAuth: []
+  /calendars/availability:
+    get:
+      tags:
+      - Shopping
+      summary: Expedia Group Get a calendar of availability dates for properties. This is currently a Vrbo property only feature.
+      description: "Returns availability information for the specified properties (maximum of 25 properties per request).\n The response includes per day information about the property's availability, information about if check-in or check-out is available for the day,\n  and information regarding the stay constraints.\n"
+      operationId: getCalendarAvailability
+      parameters:
+      - name: Accept
+        in: header
+        description: 'Specifies the response format that the client would like to receive back. This must be `application/json`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: application/json
+      - name: Accept-Encoding
+        in: header
+        description: 'Specifies the response encoding that the client would like to receive back. This must be `gzip`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: gzip
+      - name: Authorization
+        in: header
+        description: The custom generated authentication header. Refer to our [signature authentication](https://developer.expediapartnersolutions.com/reference/signature-authentication) page for full details.
+        required: true
+        schema:
+          type: string
+      - name: User-Agent
+        in: header
+        description: 'The `User-Agent` header string from the customer''s request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.
+
+          '
+        required: true
+        schema:
+          type: string
+        example: TravelNow/3.30.112
+      - name: Test
+        in: header
+        description: 'Shop calls have a test header that can be used to return set responses with the following keywords:<br>
+
+          * `standard`
+
+          * `service_unavailable`
+
+          * `unknown_internal_error`
+
+          '
+        schema:
+          type: string
+          enum:
+          - standard
+          - service_unavailable
+          - unknown_internal_error
+      - name: property_id
+        in: query
+        description: 'The ID of the property you want to search for. You can provide 1 to 250 property_id parameters.
+
+          '
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        example: property_id=1234&property_id=5678
+      - name: start_date
+        in: query
+        description: 'The first day of availability information to be returned, in ISO 8601 format (YYYY-MM-DD), up to 500 days in the future from the current date.
+
+          '
+        required: true
+        schema:
+          type: string
+          format: date
+        example: '2023-01-15'
+      - name: end_date
+        in: query
+        description: 'The last day of availability information to be returned, in ISO 8601 format (YYYY-MM-DD). This must be 365 days or less from the start_date.
+
+          '
+        required: true
+        schema:
+          type: string
+          format: date
+        example: '2023-12-17'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PropertyCalendarAvailability'
+              examples:
+                Single Property Availability:
+                  value:
+                  - property_id: '1234'
+                    days:
+                    - date: '2022-09-20'
+                      available: true
+                      checkin: CHECKIN_VALID
+                      checkout: CHECKOUT_VALID
+                      stay_constraints:
+                        min_stay: 1
+                        max_stay: 14
+                    - date: '2022-09-21'
+                      available: true
+                      checkin: CHECKIN_VALID
+                      checkout: CHECKOUT_VALID
+                      stay_constraints:
+                        min_stay: 1
+                        max_stay: 14
+                Multi Property Availability:
+                  value:
+                  - property_id: '1234'
+                    days:
+                    - date: '2022-09-20'
+                      available: true
+                      checkin: CHECKIN_VALID
+                      checkout: CHECKOUT_VALID
+                      stay_constraints:
+                        min_stay: 1
+                        max_stay: 14
+                  - property_id: '5678'
+                    days:
+                    - date: '2022-09-20'
+                      available: true
+                      checkin: CHECKIN_VALID
+                      checkout: CHECKOUT_VALID
+                      stay_constraints:
+                        min_stay: 1
+                        max_stay: 5
+                No Results:
+                  value: []
+        '400':
+          description: Bad Request
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            Example:
+              example:
+                type: invalid_input
+                message: An invalid request was sent in, please check the nested errors for details.
+                errors:
+                - type: checkin.invalid_date_format
+                  message: Invalid checkin format. It must be formatted in ISO 8601 (YYYY-mm-dd) http://www.iso.org/iso/catalogue_detail?csnumber=40874.
+                  fields:
+                  - name: checkin
+                    type: querystring
+                    value: 2019-01-1
+                - type: number_of_occupancies.invalid_above_maximum
+                  message: Number of occupancies must be less than 9.
+                  fields:
+                  - name: occupancy
+                    type: querystring
+                    value: '9'
+        '401':
+          description: Unauthorized
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+            WWW-Authenticate:
+              description: Provides an example of the Authorization header.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            Example:
+              example:
+                type: request_unauthenticated
+                message: Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.
+                fields:
+                - name: apikey
+                  type: header
+                  value: jaj3982k239dka328e
+                - name: signature
+                  type: header
+                  value: 129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b
+                - name: timestamp
+                  type: header
+                  value: 198284729
+                - name: servertimestamp
+                  type: server
+                  value: 198284729
+        '403':
+          description: Forbidden
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            Example:
+              example:
+                type: request_unauthorized
+                message: Your request could not be authorized.
+        '426':
+          description: Upgrade Required
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            Example:
+              example:
+                type: upgrade_required
+                message: This service requires the use of TLS.
+        '429':
+          description: Too Many Requests
+          headers:
+            Rate-Limit-Day:
+              description: Reserved for future use. Optional header for request capacity per day.
+              schema:
+                type: number
+            Rate-Limit-Day-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the daily time window.
+              schema:
+                type: number
+            Rate-Limit-Day-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Minute:
+              description: Reserved for future use. Optional header for request capacity per minute.
+              schema:
+                type: number
+            Rate-Limit-Minute-Remaining:
+              description: Optional header for the remaining capacity, as a percentage, for the per minute time window.
+              schema:
+                type: number
+            Rate-Limit-Minute-Reset:
+              description: Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.
+              schema:
+                type: number
+            Rate-Limit-Reduction-Status:
+              description: Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.
+              schema:
+                type: string
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            Example:
+              example:
+                type: too_many_requests
+                message: You have reached your capacity for this type of request.
+        '500':
+          description: Unknown Internal Error
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            Example:
+              example:
+                type: unknown_internal_error
+                message: An internal server error has occurred.
+        '503':
+          description: Service Unavailable
+          headers:
+            Region:
+              $ref: '#/components/headers/Region'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            Example:
+              example:
+                type: service_unavailable
+                message: This service is currently unavailable.
+      security:
+      - rapidAuth: []
+components:
+  schemas:
+    Deal:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the deal.
+        description:
+          type: string
+          description: The description for the deal.
+      description: The deal that applies to this rate.
+    Link:
+      type: object
+      properties:
+        method:
+          type: string
+          description: The request method used to access the link.
+        href:
+          type: string
+          description: The URL for the link. This can be absolute or relative.
+        expires:
+          type: string
+          description: If the link expires, this will be the UTC date the link will expire, in ISO 8601 format.
+      description: An individual link.
+    TraderDetails:
+      type: array
+      description: An array of traders.
+      items:
+        required:
+        - contact_message
+        type: object
+        properties:
+          name:
+            $ref: '#/components/schemas/TraderName'
+          address:
+            $ref: '#/components/schemas/TraderAddress'
+          business_register_name:
+            type: string
+            description: 'Name of the register where the trader is registered, and is related to the `business_register_number`
+
+              '
+            example: A real business register name
+          business_register_number:
+            type: string
+            description: 'Business registration number
+
+              '
+            example: 792837491b
+          self_certification:
+            type: boolean
+            description: 'Certification that the trader has confirmed their commitment to only offer products or services that
+
+              comply with the applicable rules of Union law.
+
+              '
+            example: true
+          contact_message:
+            $ref: '#/components/schemas/TraderContactMessage'
+          right_to_withdraw_message:
+            $ref: '#/components/schemas/TraderRightToWithdrawMessage'
+          email:
+            type: string
+            description: The trader email address.
+            example: travel@support.expedia.com
+          phone:
+            type: string
+            description: The trader phone number.
+            example: 0330-123-1235
+        description: Information of the professional entity that sells the property inventory or related services.
+    BedGroupConfiguration:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of this bed configuration in the room.
+        size:
+          type: string
+          description: The size of this bed configuration in the room.
+        quantity:
+          type: number
+          description: The number of this bed configuration in the room.
+      description: An individual bed configuration.
+    StayConstraints:
+      type: object
+      properties:
+        min_stay:
+          type: integer
+          description: The minimum number of days for a stay.
+          format: int32
+          example: 1
+        max_stay:
+          type: integer
+          description: The maximum number of days for a stay.
+          format: int32
+          example: 14
+    PaymentOption:
+      type: object
+      properties:
+        affiliate_collect:
+          $ref: '#/components/schemas/AffiliateCollect'
+        credit_card:
+          $ref: '#/components/schemas/CreditCard'
+      description: The payment option response.
+    FeesPricingInformation:
+      type: object
+      properties:
+        mandatory_fee:
+          $ref: '#/components/schemas/ChargeCalculated'
+        resort_fee:
+          $ref: '#/components/schemas/ChargeCalculated'
+        mandatory_tax:
+          $ref: '#/components/schemas/ChargeCalculated'
+      description: 'The fees collected by the property. The values for each type of fee are the total for that type.
+
+
+        Mandatory fees are collected by the property at check-in or check-out.
+
+        Resort fees are charged for amenities and extras and collected by the property at check-in or check-out.
+
+        Mandatory taxes are taxes collected by the property at check-in or check-out.
+
+        '
+    ErrorIndividual:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+      description: An individual error.
+    RateLinks:
+      type: object
+      properties:
+        payment_options:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: A map of links, including a link to request payment options.
+    TraderTermsAndConditions:
+      type: string
+      description: The url linking to the full text terms and conditions.
+      example: https://www.expedia.com/terms_and_conditions
+    TraderAddress:
+      type: object
+      properties:
+        line_1:
+          type: string
+          description: First line of customer's street address.
+          example: 555 1st St
+        line_2:
+          type: string
+          description: Second line of customer's street address.
+          example: 10th Floor
+        line_3:
+          type: string
+          description: Third line of customer's street address.
+          example: Unit 12
+        city:
+          type: string
+          description: Customer's city.
+          example: Seattle
+        state_province_code:
+          type: string
+          description: Customer's state or province code.
+          example: WA
+        postal_code:
+          type: string
+          description: Customer's postal code.
+          example: '98121'
+        country_code:
+          type: string
+          description: Customer's country code, in two-letter ISO 3166-1 alpha-2 format.
+          example: US
+      description: The trader address.
+    MerchantOfRecord:
+      type: string
+      description: '* `expedia` - Payment is taken by Expedia.
+
+        * `property` - Payment is taken by the property.
+
+        '
+      enum:
+      - expedia
+      - property
+    TraderName:
+      type: string
+      description: The trader name.
+      example: Expedia
+    Status:
+      type: string
+      description: Indicates the status of the rate. If the rate is still available then available will be returned. If the rate is no longer available at that price then price_changed will be returned. If the rate is no longer available at all then sold_out will be returned.
+      enum:
+      - available
+      - price_changed
+      - sold_out
+    PropertyAvailabilityLinks:
+      type: object
+      properties:
+        additional_rates:
+          $ref: '#/components/schemas/Link'
+        recommendations:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: A map of links, including links to request additional rates. Note that the recommendations feature has been retired and will return an error if the link is followed.
+      example:
+        additional_rates:
+          method: GET
+          href: /v3/properties/12345/availability?token=MY5S3j36cOcL
+    Amount:
+      type: object
+      properties:
+        value:
+          type: string
+          description: The value of the amount object. Decimal point inline with correct precision.
+        currency:
+          type: string
+          description: Currency of the amount object.
+      description: The monetary amount.
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+        errors:
+          type: array
+          description: An array of all the actual errors that occured.
+          items:
+            $ref: '#/components/schemas/ErrorIndividual'
+      description: The overall class of error that occured.
+    Property:
+      type: object
+      properties:
+        property_id:
+          type: string
+          description: Expedia property ID.
+        status:
+          type: string
+          description: Helps determine which type of property response is returned.
+          enum:
+          - available
+          - partially_unavailable
+        score:
+          type: number
+          description: A score to sort properties where the higher the value the better. It can be used to:<br> * Sort the properties on the response<br> * Sort properties across multiple responses in parallel searches for large regions<br>
+      discriminator:
+        propertyName: status
+        mapping:
+          available: '#/components/schemas/PropertyAvailability'
+          partially_unavailable: '#/components/schemas/PropertyUnavailability'
+    CheckOutValidity:
+      type: string
+      description: 'Enumeration indicating the capability of check-out on the date.
+
+
+        `CHECKOUT_VALID`: The associated date is valid for check out.
+
+
+        `CHECKOUT_INVALID`: The checkout validity value is invalid or unknown.
+
+
+        `CHECKOUT_INVALID_DUE_TO_NON_CHANGEOVER_DAY_OF_WEEK`: The associated date is not valid for check out because it falls on a day of the week that check out is prohibited.
+
+
+        `CHECKOUT_INVALID_DUE_TO_CHANGEOVER_EXCLUSION`: The associated date is not valid for check out because check out was prohibited on that specific date.
+
+        '
+      example: CHECKOUT_VALID
+    OfferType:
+      type: string
+      description: The type of offer this value add promotion is.
+      enum:
+      - buy_one_get_one_free
+      - credit
+      - discount
+      - free
+      - voucher
+    TraderInformation:
+      required:
+      - terms_and_conditions
+      type: object
+      properties:
+        traders:
+          $ref: '#/components/schemas/TraderDetails'
+        terms_and_conditions:
+          $ref: '#/components/schemas/TraderTermsAndConditions'
+      description: The professional entity or entities that sells the property inventory or related services.
+    RoomPriceCheckLinks:
+      type: object
+      properties:
+        book:
+          $ref: '#/components/schemas/Link'
+        commit:
+          $ref: '#/components/schemas/Link'
+        payment_session:
+          $ref: '#/components/schemas/Link'
+        additional_rates:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: 'A map of links, including links to continue booking this rate or to shop for additional rates.
+
+
+        If this rate is still available for booking then a book link will be present if PSD2 is not a requirement for you or a payment_session link will be present if PSD2 is a requirement for you.
+
+        '
+    NightChargeType:
+      type: string
+      description: "The price breakout type.\n  * `base_rate` - The room rate without any taxes and fees applied.\n  * `tax_and_service_fee` - Tax recovery charges, service fees, and taxes. Ensure that you capture these values and display as:\n                            \"Taxes and Fees\"\n  * `extra_person_fee` - A per night fee that is charged by a hotel for additional adults over the nightly rate. This fee is included as part of the total.\n  * `property_fee` - The property fee surcharge type must be displayed beginning on the initial hotel room selection page, immediately after your hotel search results page. This placement is required by the U.S. Federal Trade Commission (FTC).\n                     Display this surcharge as \"Property Fee\" on your room selection page, as described above, and in all subsequent price breakdowns for the following Points of Sale:\n                     * `US`\n                     * `Canada`\n                     * `Brazil`\n                     * `LATAM`\n  * `sales_tax` - Taxes that must be displayed by certain jurisdictional laws. Ensure that you capture these values and display as \"Taxes\".\n  * `adjustment` - This is the amount that the individual night have been adjusted/discounted.\n  * `recovery_charges_and_fees` - Tax recovery charges, service fees, and taxes. Ensure that you capture these values and display as:\n                                  \"Taxes and Fees\"\n  * `traveler_service_fee` - Fee charged by Vrbo to support use of online tools, services and functions on its platform which enable guest self service. May be displayed as 'Traveler Service Fee' or 'Service Fee' any time fees are broken out for display on partner sites.\n"
+      enum:
+      - base_rate
+      - tax_and_service_fee
+      - extra_person_fee
+      - property_fee
+      - sales_tax
+      - adjustment
+      - recovery_charges_and_fees
+      - traveler_service_fee
+    CreditCard:
+      type: object
+      properties:
+        card_options:
+          type: array
+          items:
+            $ref: '#/components/schemas/CardOption'
+        merchant:
+          $ref: '#/components/schemas/CreditCardMerchant'
+        name:
+          type: string
+          description: Display name of payment option.
+    CardOption:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Brand name for the accepted credit or debit card. Use this value to determine which cards to display on your checkout page.
+        processing_country:
+          type: string
+          description: The country in which the payment will be processed.
+    Totals:
+      type: object
+      properties:
+        inclusive:
+          $ref: '#/components/schemas/Charge'
+        exclusive:
+          $ref: '#/components/schemas/Charge'
+        property_inclusive:
+          $ref: '#/components/schemas/Charge'
+        inclusive_strikethrough:
+          $ref: '#/components/schemas/Charge'
+        strikethrough:
+          $ref: '#/components/schemas/Charge'
+        property_inclusive_strikethrough:
+          $ref: '#/components/schemas/Charge'
+        marketing_fee:
+          $ref: '#/components/schemas/Charge'
+        gross_profit:
+          $ref: '#/components/schemas/Charge'
+        minimum_selling_price:
+          $ref: '#/components/schemas/Charge'
+        property_fees:
+          $ref: '#/components/schemas/Charge'
+      description: 'The total price of charges, given various criteria.
+
+        * `inclusive` - provides the total price including taxes and fees. This does not include property collected fees such as resort, mandatory taxes, and mandatory fees.
+
+        * `exclusive` - provides the total price excluding taxes and fees.
+
+        * `property_inclusive` - provides the total price including taxes, fees, and property collected fees such as resort, mandatory taxes, and mandatory fees.
+
+        * `inclusive_strikethrough` - provides the tax `inclusive` total price with any property funded discounts added back. Can be used to merchandise the savings due to a discount.
+
+        * `strikethrough` - provides the tax `exclusive` total price with any property funded discounts added back. Can be used to merchandise the savings due to a discount.
+
+        * `property_inclusive_strikethrough` - provides the tax, fees, and property collected fees `inclusive` total price with any property funded discounts added back. Can be used to merchandise the savings due to a discount.
+
+        * `marketing_fee` - provides the potential owed earnings per transaction.
+
+        * `gross_profit` - provides the estimated gross profit per transaction.
+
+        * `minimum_selling_price` - provides the minimum selling price.
+
+        * `property_fees` - provides the total of the fees collected by the property.
+
+        '
+    ChargeCalculated:
+      type: object
+      properties:
+        billable_currency:
+          $ref: '#/components/schemas/Amount'
+        request_currency:
+          $ref: '#/components/schemas/Amount'
+      description: An object representing a charge. Information about the charge is provided in both the billable currency and the request currency.
+    AffiliateCollect:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Display name of payment option.
+      description: This option will be returned if a booking can be made using Expedia Affiliate Collect.
+    SaleScenario:
+      type: object
+      properties:
+        package:
+          type: boolean
+          description: 'If true, this rate has been provided to be bundled with car, air, etc. and displayed as a total package price.
+
+
+            If shopping in a cross-sell scenario and using the cross-sell rate option, this indicates that the rate is a package rate available to be sold as an add-on to an existing itinerary.
+
+            '
+        member:
+          type: boolean
+          description: 'If true, this rate has a "Member Only Deal" discount applied to the rate.
+
+
+            Partners must be enabled to receive "Member Only Deals". If interested, partners should speak to their account representatives.
+
+
+            This parameter can be used to merchandise if a "Member Only Deal" has been applied, which will help drive loyalty. In addition, it can be used by OTA''s to create an opaque, but public shopping experience.
+
+
+            This value will always be false for requests where the sales_environment is equal to "hotel_package".
+
+            '
+        corporate:
+          type: boolean
+          description: 'If true, this rate is a corporate negotiated rate.  These rates provide additional value adds (e.g. free breakfast, free wifi, discount) and same-day cancellation.
+
+            '
+        distribution:
+          type: boolean
+          description: 'If true, this rate is an EPS Optimized Distribution rate. These rates are procured exclusively for EPS distribution and may contain benefits such as larger marketing fee, less restrictive cancellation policies, additional value adds, or unique availability.
+
+            '
+        mobile_promotion:
+          type: boolean
+          description: 'If true, this rate has an associated mobile promotion which can be advertised as a special mobile only deal.
+
+            This will only be present when `include=sale_scenario.mobile_promotion` is passed as a request parameter.
+
+            '
+      description: Provides the special scenarios that need to be taken into account when using this rate.
+    BedGroupAvailabilityLinks:
+      type: object
+      properties:
+        price_check:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: A map of links, including links to confirm pricing and availability for the selected rate.
+    Deposit:
+      type: object
+      properties:
+        value:
+          type: string
+          description: The amount that must be paid as a deposit.
+        due:
+          type: string
+          description: The due date in ISO 8601 format.
+        currency:
+          type: string
+          description: The currency for the deposit amount.
+      description: A deposit policy associated with the rate.
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The field that had an error.
+        type:
+          type: string
+          description: The type of the field that had an error.
+        value:
+          type: string
+          description: The value of the field that had an error.
+      description: An individual field that had an error.
+    Frequency:
+      type: string
+      description: The frequency of when this applies.
+      enum:
+      - unknown
+      - per_night
+      - per_day
+      - per_stay
+      - per_week
+      - round_trip
+      - one_way
+    Stay:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/StayType'
+        value:
+          type: string
+          description: The value of the amount object. Decimal point inline with correct precision.
+        currency:
+          type: string
+          description: Currency of the amount object.
+    PropertyCalendarAvailability:
+      type: object
+      properties:
+        property_id:
+          type: string
+          description: Expedia property ID.
+          example: '123456'
+        days:
+          type: array
+          items:
+            $ref: '#/components/schemas/Day'
+    TraderRightToWithdrawMessage:
+      type: string
+      description: The trader right to withdraw message.
+      example: If you cancel your booking, you'll be subject to the property's cancellation policy. In accordance with EU regulations about consumer rights, property booking services are not subject to the right to withdraw.
+    Rate:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique Identifier for a rate.
+        status:
+          $ref: '#/components/schemas/Status'
+        available_rooms:
+          type: number
+          description: 'The number of bookable rooms remaining with this rate in EPS inventory. Use this value to create rules for urgency messaging to alert users to low availability on busy travel dates or at popular properties.
+
+            If the value returns as 2147483647 (max int value), the actual value could not be determined. Ensure your urgency messaging ignores such instances when returned.'
+        refundable:
+          type: boolean
+          description: Indicates if the rate is fully refundable at the time of booking. Cancel penalties may still apply. Please refer to the cancel penalties section for reference.
+        member_deal_available:
+          type: boolean
+          description: Indicates if a "Member Only Deal" is available for this rate.
+        sale_scenario:
+          $ref: '#/components/schemas/SaleScenario'
+        merchant_of_record:
+          $ref: '#/components/schemas/MerchantOfRecord'
+        amenities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Amenity'
+          description: Room amenities.
+        links:
+          $ref: '#/components/schemas/RateLinks'
+        bed_groups:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BedGroupAvailability'
+          description: A map of the room's bed groups.
+        cancel_penalties:
+          type: array
+          description: Array of `cancel_penalty` objects containing cancel penalty information.
+          items:
+            $ref: '#/components/schemas/CancelPenalty'
+        nonrefundable_date_ranges:
+          type: array
+          description: 'An array of stay date ranges within this check-in / check-out range that are not refundable. Stay dates
+
+            within these ranges provide no refund on cancellation, regardless of cancel penalty windows. The stay dates
+
+            are determined by the would be check-in of that night. With a check-in date of 2023-09-01, and a check-out
+
+            date of 2023-09-06, this would be a 5 night stay. A `nonrefundable_date_range` with start: 2023-09-02 and
+
+            end: 2023-09-03 would mean 2 of the nights are nonrefundable. The 1st night is refundable, the 2nd and 3rd
+
+            nights are nonrefundable, and the 4th and 5th nights are refundable, subject to `cancel_penalties`
+
+            restrictions.
+
+            '
+          items:
+            $ref: '#/components/schemas/NonrefundableDateRange'
+        marketing_fee_incentives:
+          type: array
+          description: 'An array of stay date ranges within this check-in / check-out range that have an incentive applied. The stay
+
+            dates are determined by the would be check-in of that night. With a check-in date of 2023-09-01, and a
+
+            check-out date of 2023-09-06, this would be a 5 night stay. A `marketing_fee_incentive` with start:
+
+            2023-09-02 and end: 2023-09-03 would mean 2 of the nights have an incentive applied. The 1st night is not
+
+            part of the incentive, the 2nd and 3rd nights are part of the incentive, and the 4th and 5th nights are not
+
+            part of the incentive.
+
+            '
+          items:
+            $ref: '#/components/schemas/MarketingFeeIncentive'
+        occupancy_pricing:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PricingInformation'
+          description: A map of room information by occupancy.
+        promotions:
+          $ref: '#/components/schemas/Promotions'
+        card_on_file_limit:
+          $ref: '#/components/schemas/Amount'
+        refundable_damage_deposit:
+          $ref: '#/components/schemas/Amount'
+        deposits:
+          type: array
+          description: Array of deposits for the rate.
+          items:
+            $ref: '#/components/schemas/Deposit'
+      description: A rate.
+    CancelPenalty:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: Currency of the amount object.
+        start:
+          type: string
+          description: Effective date and time of cancellation penalty in extended ISO 8601 format, with ±hh:mm timezone offset
+        end:
+          type: string
+          description: End date and time of cancellation penalty in extended ISO 8601 format, with ±hh:mm timezone offset
+        amount:
+          type: string
+          description: The monetary amount of the penalty.
+        nights:
+          type: string
+          description: Number of nights charged for as penalty.
+        percent:
+          type: string
+          description: Percentage of total booking charged for as penalty. A thirty percent penalty would be returned as 30%
+    NonrefundableDateRange:
+      type: object
+      properties:
+        start:
+          type: string
+          description: Start date of nonrefundable date range in ISO 8601 format.
+        end:
+          type: string
+          description: End date of nonrefundable date range in ISO 8601 format.
+    StatusPriceCheck:
+      type: string
+      description: Indicates the status of the rate. If the rate is still available then available will be returned. If the rate is no longer available at that price then price_changed will be returned. If the rate is no longer available at all then sold_out will be returned.
+      enum:
+      - available
+      - price_changed
+      - sold_out
+    RoomPriceCheck:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusPriceCheck'
+        occupancy_pricing:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PricingInformation'
+          description: A map of room information by occupancy.
+        links:
+          $ref: '#/components/schemas/RoomPriceCheckLinks'
+        card_on_file_limit:
+          $ref: '#/components/schemas/Amount'
+        refundable_damage_deposit:
+          $ref: '#/components/schemas/Amount'
+        deposits:
+          type: array
+          description: Array of deposits.
+          items:
+            $ref: '#/components/schemas/Deposit'
+        refund:
+          $ref: '#/components/schemas/Charge'
+        amount_owed:
+          $ref: '#/components/schemas/Charge'
+        penalty:
+          $ref: '#/components/schemas/Charge'
+        trader_information:
+          $ref: '#/components/schemas/TraderInformation'
+      description: The price check response.
+    ValueAdd:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the value add promotion.
+        description:
+          type: string
+          description: A localized description of the value add promotion.
+        category:
+          $ref: '#/components/schemas/CategoryValueAdd'
+        offer_type:
+          $ref: '#/components/schemas/OfferType'
+        frequency:
+          $ref: '#/components/schemas/Frequency'
+        person_count:
+          type: number
+          description: Indicates how many guests the value add promotion applies to.
+      description: An individual value add.
+    Promotions:
+      type: object
+      properties:
+        value_adds:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ValueAdd'
+          description: A collection of value adds that apply to this rate.
+        deal:
+          $ref: '#/components/schemas/Deal'
+      description: Available promotions that apply to this rate.
+    Charge:
+      type: object
+      properties:
+        billable_currency:
+          $ref: '#/components/schemas/Amount'
+        request_currency:
+          $ref: '#/components/schemas/Amount'
+      description: An object representing a charge. Information about the charge is provided in both the billable currency and the request currency.
+    RoomAvailability:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique Identifier for a room type.
+        room_name:
+          type: string
+          description: Name of the room type.
+        rates:
+          type: array
+          description: Array of objects containing rate information.
+          items:
+            $ref: '#/components/schemas/Rate'
+      description: The room information.
+    Day:
+      type: object
+      properties:
+        date:
+          type: string
+          description: Date associated to the provided information.
+          format: date
+        available:
+          type: boolean
+          description: True if the property is available on the date.
+        checkin:
+          $ref: '#/components/schemas/CheckInValidity'
+        checkout:
+          $ref: '#/components/schemas/CheckOutValidity'
+        stay_constraints:
+          $ref: '#/components/schemas/StayConstraints'
+    CategoryValueAdd:
+      type: string
+      description: The general category that this value add promotion falls into.
+      enum:
+      - food_and_beverage
+      - entertainment
+      - service
+      - activity
+      - credit
+    PricingInformation:
+      type: object
+      properties:
+        nightly:
+          type: array
+          description: Array of arrays of amount objects. Each sub-array of amount objects represents a single night's charges.
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/NightCharge'
+        stay:
+          type: array
+          description: Array of amount objects. Details any charges that apply to the entire stay (not divided per-night). Any per-room adjustments are applied to the `base_rate` amount within this object.
+          items:
+            $ref: '#/components/schemas/Stay'
+        totals:
+          $ref: '#/components/schemas/Totals'
+        fees:
+          $ref: '#/components/schemas/FeesPricingInformation'
+      description: The pricing information object.
+    Amenity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The amenity definition ID for this amenity.
+        name:
+          type: string
+          description: Amenity name.
+        value:
+          type: string
+          description: Amenity value.
+        categories:
+          type: array
+          description: 'This is an optional field and will be present only if the amenity falls into one or more of these amenity categories.<br>
+
+            See the Amenity Categories section of the
+
+            [Content Reference Lists](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists)
+
+            for a list of values.
+
+            '
+          items:
+            type: string
+      description: An individual amenity.
+    NightCharge:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/NightChargeType'
+        value:
+          type: string
+          description: The value of the amount object. Decimal point inline with correct precision.
+        currency:
+          type: string
+          description: Currency of the amount object.
+    MarketingFeeIncentive:
+      type: object
+      properties:
+        source:
+          type: string
+          description: 'The source of the incentive. This can be used to differentiate between incentives in the case that more than
+
+            one incentive applies to a particular rate.
+
+            '
+        start:
+          type: string
+          description: The first stay date with the incentive applied in ISO 8601 format.
+        end:
+          type: string
+          description: The last stay date with the incentive applied in ISO 8601 format.
+      description: An object representing one incentive source and the stay dates relevant to that particular incentive.
+    StayType:
+      type: string
+      description: The price breakout type.
+      enum:
+      - base_rate
+      - tax_and_service_fee
+      - extra_person_fee
+      - property_fee
+      - sales_tax
+      - adjustment
+      - recovery_charges_and_fees
+      - traveler_service_fee
+    CheckInValidity:
+      type: string
+      description: 'Enumeration indicating the capability of check-in on the date.
+
+
+        `CHECKIN_VALID`: The associated date is valid for check in.
+
+
+        `CHECKIN_INVALID`: Generic or Unknown reason for being not being a valid day for check in.
+
+
+        `CHECKIN_INVALID_DUE_TO_BEING_IN_PAST`: The associated date is not valid for check in due to being in the past.
+
+
+        `CHECKIN_INVALID_DUE_TO_MIN_PRIOR_NOTIFICATION`:  The associated date is not valid for check in because checking in on this date would not meet the owner''s minimum prior notification requirements.
+
+
+        `CHECKIN_INVALID_DUE_TO_MAX_FUTURE_BOOKING`: The associated date is not valid for check in because it is too far in the future.
+
+
+        `CHECKIN_INVALID_DUE_TO_NOT_AVAILABLE`: The associated date is not valid for check in because it is not available (ie. the date is already reserved).
+
+
+        `CHECKIN_INVALID_DUE_TO_NON_CHANGEOVER_DAY_OF_WEEK`: The associated date is not valid for check in because it falls on a day of the week that check in is prohibited.
+
+
+        `CHECKIN_INVALID_DUE_TO_CHANGEOVER_EXCLUSION`: The associated date is not valid for check in because check in was prohibited on that specific date.
+
+
+        `CHECKIN_INVALID_DUE_TO_MIN_STAY_NOT_ACHIEVABLE`: The associated date is not valid for check in because checking in on this date does not satisfy the minimum stay duration.
+
+
+        `CHECKIN_INVALID_DUE_TO_NO_VALID_CHECKOUT_WITHIN_CONSTRAINTS`: The associated date is not valid for check in because there is not an associated check out date that would allow the stay to satisfy stay constraints.
+
+        '
+      example: CHECKIN_VALID
+    TraderContactMessage:
+      type: string
+      description: The trader contact message.
+      example: This property is managed by a professional host. The provision of housing is linked to their trade, business or profession.
+    PropertyAvailability:
+      allOf:
+      - $ref: '#/components/schemas/Property'
+      - type: object
+        properties:
+          rooms:
+            type: array
+            description: Array of objects containing room information.
+            items:
+              $ref: '#/components/schemas/RoomAvailability'
+          links:
+            $ref: '#/components/schemas/PropertyAvailabilityLinks'
+        description: The rooms and rates for a property.
+    BedGroupAvailability:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/BedGroupAvailabilityLinks'
+        id:
+          type: string
+          description: Unique identifier for a bed group.
+        description:
+          type: string
+          description: This is a display ready description of a bed configuration for this room.
+        configuration:
+          type: array
+          description: The bed configuration for a given room. This array can be empty for the related bed group.
+          items:
+            $ref: '#/components/schemas/BedGroupConfiguration'
+    CreditCardMerchant:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the merchant to use during 3rd party authorization for PSD2.
+      example:
+        name: TRAVEL RESERVATION
+  headers:
+    Region:
+      description: Optional header that provides information about where the request was processed.
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: us-west-2
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic

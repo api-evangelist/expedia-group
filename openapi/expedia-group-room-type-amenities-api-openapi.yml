@@ -1,0 +1,121 @@
+openapi: 3.0.1
+info:
+  title: Expedia Group EPS Deposit Bookings Room Type Amenities API
+  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
+  contact:
+    name: Expedia Partner Services
+    url: https://expediaconnectivity.com/developer
+    email: eqcss@expedia.com
+  version: '1.0'
+servers:
+- url: https://services.expediapartnercentral.com/
+security:
+- Basic: []
+tags:
+- name: Room Type Amenities
+  description: Manage room type amenities
+paths:
+  /properties/{propertyId}/roomTypes/{roomTypeId}/amenities:
+    get:
+      tags:
+      - Room Type Amenities
+      summary: Expedia Group Read a single room type's amenities
+      operationId: getRoomTypeAmenities
+      parameters:
+      - name: propertyId
+        in: path
+        description: Expedia Property ID
+        required: true
+        schema:
+          type: string
+      - name: roomTypeId
+        in: path
+        description: Room type resource ID. Integer
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.expedia.eps.product-v2+json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperDTO«List«RoomTypeAmenityDTO»»'
+      security:
+      - Basic: []
+    put:
+      tags:
+      - Room Type Amenities
+      summary: Expedia Group Set room type amenities to an existing room type
+      operationId: setRoomTypeAmenities
+      parameters:
+      - name: propertyId
+        in: path
+        description: Expedia Property Id
+        required: true
+        schema:
+          type: string
+      - name: roomTypeId
+        in: path
+        description: Room type resource ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: JSON message with the room type amenities
+        content:
+          application/vnd.expedia.eps.product-v2+json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/RoomTypeAmenityDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.expedia.eps.product-v2+json:
+              schema:
+                $ref: '#/components/schemas/ResponseWrapperDTO«List«RoomTypeAmenityDTO»»'
+      security:
+      - Basic: []
+      x-codegen-request-body-name: roomTypeAmenityDTOs
+components:
+  schemas:
+    ErrorDTO:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    ResponseWrapperDTO«List«RoomTypeAmenityDTO»»:
+      type: object
+      properties:
+        entity:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoomTypeAmenityDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDTO'
+    RoomTypeAmenityDTO:
+      required:
+      - code
+      type: object
+      properties:
+        code:
+          type: string
+          description: Uniquely identifies an amenity
+        detailCode:
+          type: string
+          description: Adds precision or qualifies the amenity. Mandatory for some amenity, optional for other and prohibited by the rest of the amenities.
+        value:
+          type: number
+          description: Number. Adds precision to the amenity. Mandatory for some amenity, optional for other and prohibited by the rest of the amenities.
+  securitySchemes:
+    Basic:
+      type: http
+      scheme: basic
