@@ -1,0 +1,42 @@
+{
+  "provider": "expedia-group",
+  "sources": [
+    "expedia-group-bookings-api-openapi.yml",
+    "expedia-group-content-api-openapi.yml",
+    "expedia-group-deposit-api-openapi.yml",
+    "expedia-group-geography-api-openapi.yml",
+    "expedia-group-loyalty-api-openapi.yml",
+    "expedia-group-manage-booking-api-openapi.yml",
+    "expedia-group-notifications-api-openapi.yml",
+    "expedia-group-orderpurchasescreen-api-openapi.yml",
+    "expedia-group-orderpurchaseupdate-api-openapi.yml",
+    "expedia-group-property-api-openapi.yml",
+    "expedia-group-rate-plan-api-openapi.yml",
+    "expedia-group-rate-verification-thresholds-api-openapi.yml",
+    "expedia-group-room-type-amenities-api-openapi.yml",
+    "expedia-group-room-type-api-openapi.yml",
+    "expedia-group-shopping-api-openapi.yml"
+  ],
+  "outputs": [
+    "expedia-group-bookings-api-openapi.yml",
+    "expedia-group-content-api-openapi.yml",
+    "expedia-group-deposit-api-openapi.yml",
+    "expedia-group-geography-api-openapi.yml",
+    "expedia-group-loyalty-api-openapi.yml",
+    "expedia-group-manage-booking-api-openapi.yml",
+    "expedia-group-notifications-api-openapi.yml",
+    "expedia-group-orderpurchasescreen-api-openapi.yml",
+    "expedia-group-orderpurchaseupdate-api-openapi.yml",
+    "expedia-group-property-api-openapi.yml",
+    "expedia-group-rate-plan-api-openapi.yml",
+    "expedia-group-rate-verification-thresholds-api-openapi.yml",
+    "expedia-group-room-type-amenities-api-openapi.yml",
+    "expedia-group-room-type-api-openapi.yml",
+    "expedia-group-shopping-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
