@@ -44,44 +44,14 @@ apis:
     url: openapi/expedia-group-bookings-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-content-api
   name: Expedia Group Content API
   description: This section outlines the API calls available to you to access property content.
@@ -93,44 +63,14 @@ apis:
     url: openapi/expedia-group-content-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-deposit-api
   name: Expedia Group Deposit API
   description: The Deposit resource
@@ -142,44 +82,14 @@ apis:
     url: openapi/expedia-group-deposit-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-geography-api
   name: Expedia Group Geography API
   description: The EPS Geography API provides geography content for regions around the world.
@@ -191,44 +101,14 @@ apis:
     url: openapi/expedia-group-geography-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-loyalty-api
   name: Expedia Group Loyalty API
   description: Template Loyalty Earn API
@@ -240,44 +120,14 @@ apis:
     url: openapi/expedia-group-loyalty-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-manage-booking-api
   name: Expedia Group Manage Booking API
   description: Retrieve existing itineraries or cancel existing rooms.
@@ -289,44 +139,14 @@ apis:
     url: openapi/expedia-group-manage-booking-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-notifications-api
   name: Expedia Group Notifications API
   description: Requests test notifications and undelivered notifications.
@@ -338,44 +158,14 @@ apis:
     url: openapi/expedia-group-notifications-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-orderpurchasescreen-api
   name: Expedia Group OrderPurchaseScreen API
   description: The OrderPurchaseScreen API from Expedia Group — 1 operation(s) for orderpurchasescreen.
@@ -387,44 +177,14 @@ apis:
     url: openapi/expedia-group-orderpurchasescreen-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-orderpurchaseupdate-api
   name: Expedia Group OrderPurchaseUpdate API
   description: The OrderPurchaseUpdate API from Expedia Group — 1 operation(s) for orderpurchaseupdate.
@@ -436,44 +196,14 @@ apis:
     url: openapi/expedia-group-orderpurchaseupdate-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-property-api
   name: Expedia Group Property API
   description: The property resource
@@ -485,44 +215,14 @@ apis:
     url: openapi/expedia-group-property-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-rate-plan-api
   name: Expedia Group Rate Plan API
   description: The rate plan resource
@@ -534,44 +234,14 @@ apis:
     url: openapi/expedia-group-rate-plan-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-rate-verification-thresholds-api
   name: Expedia Group Rate Verification Thresholds API
   description: Manage room types Rate Verification Thresholds
@@ -583,44 +253,14 @@ apis:
     url: openapi/expedia-group-rate-verification-thresholds-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-room-type-amenities-api
   name: Expedia Group Room Type Amenities API
   description: Manage room type amenities
@@ -632,44 +272,14 @@ apis:
     url: openapi/expedia-group-room-type-amenities-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-room-type-api
   name: Expedia Group Room Type API
   description: Manage room types
@@ -681,44 +291,14 @@ apis:
     url: openapi/expedia-group-room-type-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 - aid: expedia-group:expedia-group-shopping-api
   name: Expedia Group Shopping API
   description: The EPS shopping APIs provide you with access to live rates & availability.
@@ -730,44 +310,14 @@ apis:
     url: openapi/expedia-group-shopping-api-openapi.yml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/rapid
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-bookings.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-content.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-geography.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-manage-booking.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-notifications.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-rapid-shopping.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/docs/products/fraud-prevention
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchasescreen.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-fraud-protection-orderpurchaseupdate.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/supply/lodging
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-property.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-plan.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-rate-verification-thresholds.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-lodging-product-room-type-amenities.yaml
   - type: Documentation
     url: https://expediaconnectivity.com/developer
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-deposit-deposit.yaml
   - type: Documentation
     url: https://developers.expediagroup.com/analytics
-  - type: X-NaftikoCapability
-    url: capabilities/expedia-loyalty-loyalty.yaml
 common:
   - type: AgenticAccess
     url: agentic-access/expedia-group-agentic-access.yml
