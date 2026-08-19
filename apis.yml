@@ -29,7 +29,7 @@ created: '2024-06-07'
 modified: '2026-05-19'
 position: Consumer
 access: 3rd-Party
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: expedia-group:expedia-group-bookings-api
   name: Expedia Group Bookings API
