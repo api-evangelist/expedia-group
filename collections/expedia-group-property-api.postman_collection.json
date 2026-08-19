@@ -1,0 +1,273 @@
+{
+  "item": [
+    {
+      "id": "59ab9984-13f7-41c4-882a-ba936e875f69",
+      "name": "Property",
+      "description": {
+        "content": "The property resource",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "81c48562-abb7-436b-8ee6-0b709cc227dd",
+          "name": "Expedia Group Obtain a list of properties",
+          "request": {
+            "name": "Expedia Group Obtain a list of properties",
+            "description": {},
+            "url": {
+              "path": [
+                "products",
+                "properties"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Status filter. String. Only supported value is \"all\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Pagination offset. Integer starting at 0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Pagination limit. Integer between 1 and 200."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.expedia.eps.product-v2+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fb90c472-d94d-4cbb-bed4-bd8fa211ccf0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v2+json"
+                }
+              ],
+              "body": "{\n  \"entity\": [\n    {\n      \"address\": {\n        \"city\": \"string\",\n        \"countryCode\": \"string\",\n        \"line1\": \"string\",\n        \"line2\": \"string\",\n        \"postalCode\": \"string\",\n        \"state\": \"string\"\n      },\n      \"allowedAgeCategories\": [\n        \"ChildAgeB\",\n        \"Adult\"\n      ],\n      \"baseAllocationEnabled\": false,\n      \"cancellationTime\": \"string\",\n      \"currency\": \"string\",\n      \"distributionModels\": [\n        \"ExpediaCollect\",\n        \"ExpediaCollect\"\n      ],\n      \"name\": \"string\",\n      \"partnerCode\": \"string\",\n      \"pricingModel\": \"PerDayPricing\",\n      \"rateAcquisitionType\": \"NetRate\",\n      \"ratePlanLinkageEnabled\": false,\n      \"reservationCutOff\": {\n        \"day\": \"sameDay\",\n        \"time\": \"string\"\n      },\n      \"resourceId\": 5456,\n      \"status\": \"Onboarding\",\n      \"taxInclusive\": false,\n      \"timezone\": \"string\"\n    },\n    {\n      \"address\": {\n        \"city\": \"string\",\n        \"countryCode\": \"string\",\n        \"line1\": \"string\",\n        \"line2\": \"string\",\n        \"postalCode\": \"string\",\n        \"state\": \"string\"\n      },\n      \"allowedAgeCategories\": [\n        \"ChildAgeD\",\n        \"Adult\"\n      ],\n      \"baseAllocationEnabled\": false,\n      \"cancellationTime\": \"string\",\n      \"currency\": \"string\",\n      \"distributionModels\": [\n        \"HotelCollect\",\n        \"ExpediaCollect\"\n      ],\n      \"name\": \"string\",\n      \"partnerCode\": \"string\",\n      \"pricingModel\": \"OccupancyBasedPricing\",\n      \"rateAcquisitionType\": \"NetRate\",\n      \"ratePlanLinkageEnabled\": false,\n      \"reservationCutOff\": {\n        \"day\": \"sameDay\",\n        \"time\": \"string\"\n      },\n      \"resourceId\": 3240,\n      \"status\": \"UnderConversion\",\n      \"taxInclusive\": false,\n      \"timezone\": \"string\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"code\": 2237,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 2752,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aab7b30f-d44a-4f4d-aa95-767a58010937",
+          "name": "Expedia Group Read a single property",
+          "request": {
+            "name": "Expedia Group Read a single property",
+            "description": {},
+            "url": {
+              "path": [
+                "products",
+                "properties",
+                ":propertyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Expedia Property ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.expedia.eps.product-v2+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f09ca94c-4d00-41e5-9686-c519d10c2458",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "properties",
+                    ":propertyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v2+json"
+                }
+              ],
+              "body": "{\n  \"entity\": {\n    \"address\": {\n      \"city\": \"string\",\n      \"countryCode\": \"string\",\n      \"line1\": \"string\",\n      \"line2\": \"string\",\n      \"postalCode\": \"string\",\n      \"state\": \"string\"\n    },\n    \"allowedAgeCategories\": [\n      \"ChildAgeB\",\n      \"Infant\"\n    ],\n    \"baseAllocationEnabled\": false,\n    \"cancellationTime\": \"string\",\n    \"currency\": \"string\",\n    \"distributionModels\": [\n      \"ExpediaCollect\",\n      \"ExpediaCollect\"\n    ],\n    \"name\": \"string\",\n    \"partnerCode\": \"string\",\n    \"pricingModel\": \"PerDayPricing\",\n    \"rateAcquisitionType\": \"SellLAR\",\n    \"ratePlanLinkageEnabled\": false,\n    \"reservationCutOff\": {\n      \"day\": \"nextDay\",\n      \"time\": \"string\"\n    },\n    \"resourceId\": 6042,\n    \"status\": \"Onboarding\",\n    \"taxInclusive\": false,\n    \"timezone\": \"string\"\n  },\n  \"errors\": [\n    {\n      \"code\": 3326,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 1697,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://services.expediapartnercentral.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1b00f304-e483-4faa-85d2-a01cc71d27bd",
+    "name": "Expedia Group EPS Deposit Bookings Property API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We've also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.\n\nContact Support:\n Name: Expedia Partner Services\n Email: eqcss@expedia.com",
+      "type": "text/plain"
+    }
+  }
+}

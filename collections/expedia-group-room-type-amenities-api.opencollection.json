@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Expedia Group EPS Deposit Bookings Room Type Amenities API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Room Type Amenities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Expedia Group Read a single room type's amenities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes/:roomTypeId/amenities",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              },
+              {
+                "name": "roomTypeId",
+                "value": "",
+                "type": "path",
+                "description": "Room type resource ID. Integer"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Read a single room type's amenities"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Set room type amenities to an existing room type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes/:roomTypeId/amenities",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property Id"
+              },
+              {
+                "name": "roomTypeId",
+                "value": "",
+                "type": "path",
+                "description": "Room type resource ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Set room type amenities to an existing room type"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

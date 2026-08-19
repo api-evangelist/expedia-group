@@ -1,0 +1,1385 @@
+{
+  "item": [
+    {
+      "id": "3130ab45-3bc5-4db8-a659-02b7fe1da34a",
+      "name": "Deposit",
+      "description": {
+        "content": "The Deposit resource",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "14deb43d-2a01-4a5a-abb0-ca14452ecffb",
+          "name": "Expedia Group Obtain the deposit policy for a given property",
+          "request": {
+            "name": "Expedia Group Obtain the deposit policy for a given property",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":propertyId",
+                "depositPolicy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Expedia Property ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e8c3bbed-9a8b-4db4-9bb1-d0fc576d8098",
+              "name": "Success. The property has a deposit policy and it was returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entity\": {\n    \"defaultPolicy\": {\n      \"payments\": [\n        {\n          \"type\": \"PERCENTAGE\",\n          \"when\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"value\": 9486.018692005218\n        },\n        {\n          \"type\": \"NIGHT\",\n          \"when\": {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"value\": 8565.710184386962\n        }\n      ],\n      \"description\": \"string\"\n    },\n    \"exceptionPolicies\": [\n      {\n        \"description\": \"string\",\n        \"payments\": [\n          {\n            \"type\": \"REMAINDER\",\n            \"when\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 5975.377869007854\n          },\n          {\n            \"type\": \"REMAINDER\",\n            \"when\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 675.8297250001599\n          }\n        ],\n        \"dateRanges\": [\n          {\n            \"endDate\": \"1957-02-24\",\n            \"startDate\": \"2008-03-23\",\n            \"daysOfWeek\": \"SUN\"\n          },\n          {\n            \"endDate\": \"1947-03-11\",\n            \"startDate\": \"1994-08-05\",\n            \"daysOfWeek\": \"THU\"\n          }\n        ]\n      },\n      {\n        \"description\": \"string\",\n        \"payments\": [\n          {\n            \"type\": \"NIGHT\",\n            \"when\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 6888.679969030502\n          },\n          {\n            \"type\": \"PERCENTAGE\",\n            \"when\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": 6350.453782279674\n          }\n        ],\n        \"dateRanges\": [\n          {\n            \"endDate\": \"2020-09-29\",\n            \"startDate\": \"2002-11-26\",\n            \"daysOfWeek\": \"SUN\"\n          },\n          {\n            \"endDate\": \"2021-09-28\",\n            \"startDate\": \"1953-05-27\",\n            \"daysOfWeek\": \"SUN\"\n          }\n        ]\n      }\n    ],\n    \"_links\": {\n      \"ratePlans\": [\n        {\n          \"href\": \"string\"\n        },\n        {\n          \"href\": \"string\"\n        }\n      ],\n      \"self\": {\n        \"href\": \"string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4624d588-375a-4520-8644-b03129af7c2c",
+              "name": "Unauthorized. Invalid credentials were used to perform the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3894,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 7481,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d6b293d-f6a8-4eb7-afa4-418ff474da02",
+              "name": "Forbidden. The authenticated user is not authorized to perform this request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f45daa31-f542-418a-92a6-58ac4f99c0a0",
+              "name": "Not Found. The property does not have a deposit policy defined.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "633e286b-85b3-4f6e-8b7d-a35ae792304c",
+              "name": "Internal Server Error. A system error occurred while processing the request. Retrying the request will likely yield to the same result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16024123-6780-4f2f-9c38-01c0a0646cfb",
+              "name": "Service Unavailable. A temporary system error occurred while processing the request. You can retry the request later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3064a3bb-0840-4e24-8e0e-2ea6e9535885",
+          "name": "Expedia Group Create/update the deposit policy for a given property",
+          "request": {
+            "name": "Expedia Group Create/update the deposit policy for a given property",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":propertyId",
+                "depositPolicy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Expedia Property ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"defaultPolicy\": {\n    \"payments\": [\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      }\n    ],\n    \"description\": \"<string>\"\n  },\n  \"exceptionPolicies\": [\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"_links\": {\n    \"ratePlans\": [\n      {\n        \"href\": \"<URL>\"\n      },\n      {\n        \"href\": \"<URL>\"\n      }\n    ],\n    \"self\": {\n      \"href\": \"<URL>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "da4741bb-ba46-422b-bc7c-8283929c0268",
+              "name": "Created. The property didn't have a deposit policy, therefore it was created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"defaultPolicy\": {\n    \"payments\": [\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      }\n    ],\n    \"description\": \"<string>\"\n  },\n  \"exceptionPolicies\": [\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"_links\": {\n    \"ratePlans\": [\n      {\n        \"href\": \"<URL>\"\n      },\n      {\n        \"href\": \"<URL>\"\n      }\n    ],\n    \"self\": {\n      \"href\": \"<URL>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6454a22d-c058-451b-8dc6-267887d017dc",
+              "name": "NoContent. The property already had a deposit policy defined, and it was updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"defaultPolicy\": {\n    \"payments\": [\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      }\n    ],\n    \"description\": \"<string>\"\n  },\n  \"exceptionPolicies\": [\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"_links\": {\n    \"ratePlans\": [\n      {\n        \"href\": \"<URL>\"\n      },\n      {\n        \"href\": \"<URL>\"\n      }\n    ],\n    \"self\": {\n      \"href\": \"<URL>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "117c3862-0e95-4f42-ba63-d5849e3c94b7",
+              "name": "Bad Request. An error occurred because the request is invalid. The error code and description contained in the payload of the response will give more information as to what was wrong with the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"defaultPolicy\": {\n    \"payments\": [\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      }\n    ],\n    \"description\": \"<string>\"\n  },\n  \"exceptionPolicies\": [\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"_links\": {\n    \"ratePlans\": [\n      {\n        \"href\": \"<URL>\"\n      },\n      {\n        \"href\": \"<URL>\"\n      }\n    ],\n    \"self\": {\n      \"href\": \"<URL>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea935a4d-9837-465f-8e3d-f62d426ea7b8",
+              "name": "Unauthorized. Invalid credentials were used to perform the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"defaultPolicy\": {\n    \"payments\": [\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      }\n    ],\n    \"description\": \"<string>\"\n  },\n  \"exceptionPolicies\": [\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"_links\": {\n    \"ratePlans\": [\n      {\n        \"href\": \"<URL>\"\n      },\n      {\n        \"href\": \"<URL>\"\n      }\n    ],\n    \"self\": {\n      \"href\": \"<URL>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "897fd421-b20e-41c9-b4d7-f72fc1e1bea5",
+              "name": "Forbidden. The authenticated user is not authorized to perform this request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"defaultPolicy\": {\n    \"payments\": [\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      }\n    ],\n    \"description\": \"<string>\"\n  },\n  \"exceptionPolicies\": [\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"_links\": {\n    \"ratePlans\": [\n      {\n        \"href\": \"<URL>\"\n      },\n      {\n        \"href\": \"<URL>\"\n      }\n    ],\n    \"self\": {\n      \"href\": \"<URL>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70e8eca2-b540-4b2c-9712-a382c49c81e8",
+              "name": "Internal Server Error. A system error occurred while processing the request. Retrying the request will likely yield to the same result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"defaultPolicy\": {\n    \"payments\": [\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      }\n    ],\n    \"description\": \"<string>\"\n  },\n  \"exceptionPolicies\": [\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"_links\": {\n    \"ratePlans\": [\n      {\n        \"href\": \"<URL>\"\n      },\n      {\n        \"href\": \"<URL>\"\n      }\n    ],\n    \"self\": {\n      \"href\": \"<URL>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4a5b327-37ec-4788-8ae4-5967bc0c36f2",
+              "name": "Service Unavailable. A temporary system error occurred while processing the request. You can retry the request later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"defaultPolicy\": {\n    \"payments\": [\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"when\": {\n          \"type\": \"<string>\",\n          \"value\": \"<integer>\"\n        },\n        \"value\": \"<double>\"\n      }\n    ],\n    \"description\": \"<string>\"\n  },\n  \"exceptionPolicies\": [\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"description\": \"<string>\",\n      \"payments\": [\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"when\": {\n            \"type\": \"<string>\",\n            \"value\": \"<integer>\"\n          },\n          \"value\": \"<double>\"\n        }\n      ],\n      \"dateRanges\": [\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        },\n        {\n          \"endDate\": \"<date>\",\n          \"startDate\": \"<date>\",\n          \"daysOfWeek\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"_links\": {\n    \"ratePlans\": [\n      {\n        \"href\": \"<URL>\"\n      },\n      {\n        \"href\": \"<URL>\"\n      }\n    ],\n    \"self\": {\n      \"href\": \"<URL>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "801e39c3-da61-48d7-8146-7001f6f86004",
+          "name": "Expedia Group Delete the deposit policy for a given property",
+          "request": {
+            "name": "Expedia Group Delete the deposit policy for a given property",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":propertyId",
+                "depositPolicy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Expedia Property ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b72f943f-619f-4251-ae36-1fa6d9d425d0",
+              "name": "No Content. The property had a deposit policy and it was successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "12dc85ef-5c11-490f-8fa4-d45164a662d8",
+              "name": "Unauthorized. Invalid credentials were used to perform the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ae0b4fe-b2e6-4fc4-a3cd-13a9d1658c62",
+              "name": "Forbidden. The authenticated user is not authorized to perform this request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff896739-c9d9-4b51-bbc7-84148965ba45",
+              "name": "Not Found. The property did not have a deposit policy, therefore nothing was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28301420-ec96-4cc1-8cef-408cc319fe30",
+              "name": "Internal Server Error. A system error occurred while processing the request. Retrying the request will likely yield to the same result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70160464-faa7-47c7-b611-0f6628e42671",
+              "name": "Service Unavailable. A temporary system error occurred while processing the request. You can retry the request later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "depositPolicy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Unique transaction ID",
+                  "key": "Transaction-ID",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 3928,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4507,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://services.expediapartnercentral.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a1d903c6-f664-4d15-94dc-c7be1d5eb233",
+    "name": "Expedia Group EPS Bookings Deposit API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We've also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.\n\nContact Support:\n Name: Expedia Partner Services\n Email: eqcss@expedia.com",
+      "type": "text/plain"
+    }
+  }
+}

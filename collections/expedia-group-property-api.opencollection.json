@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Expedia Group EPS Deposit Bookings Property API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Property",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Expedia Group Obtain a list of properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/products/properties",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status filter. String. Only supported value is \"all\"."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset. Integer starting at 0"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit. Integer between 1 and 200."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Obtain a list of properties"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Read a single property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/products/properties/:propertyId",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Read a single property"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

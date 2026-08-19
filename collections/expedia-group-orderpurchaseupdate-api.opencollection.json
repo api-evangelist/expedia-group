@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Expedia Group EPS Deposit Bookings OrderPurchaseUpdate API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OrderPurchaseUpdate",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Expedia Group Send an update for a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://services.expediapartnercentral.com/order/purchase/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The Order Purchase Update API is called when the status of the order has changed.\n\nFor example, if the customer cancels the reservation, changes reservation in any way, or adds additional products or travelers to the reservation, the Order Purchase Update API is called to notify Expedia Group about the change.\n\nThe Order Purchase Update API is also called when the merchant cancels or changes an order based on a Fraud recommendation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,452 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Expedia Group EPS Deposit Bookings Shopping API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shopping",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Expedia Group Get property room rates and availability",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/properties/availability",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "checkin",
+                "value": "2024-08-01",
+                "type": "query",
+                "description": "Check-in date, in ISO 8601 format (YYYY-MM-DD). This can be up to 365 days in the future. Some partner configurations may extend this up to 500 days.\n"
+              },
+              {
+                "name": "checkout",
+                "value": "2024-08-03",
+                "type": "query",
+                "description": "Check-out date, in ISO 8601 format (YYYY-MM-DD). Total length of stay cannot exceed 28 nights or 365 nights depending on Vacation Rental configurations.\n"
+              },
+              {
+                "name": "currency",
+                "value": "USD",
+                "type": "query",
+                "description": "Requested currency for the rates, in ISO 4217 format<br><br>\nCurrency Options: [https://developers.expediagroup.com/docs/rapid/resources/reference/currency-options](https://developers.expediagroup.com/docs/rapid/resources/reference/currency-options)\n"
+              },
+              {
+                "name": "country_code",
+                "value": "US",
+                "type": "query",
+                "description": "The country code of the traveler's point of sale, in ISO 3166-1 alpha-2 format. This should represent the country where the shopping transaction is taking place.<br>\nFor more information see: [https://www.iso.org/obp/ui/#search/code/](https://www.iso.org/obp/ui/#search/code/)\n"
+              },
+              {
+                "name": "language",
+                "value": "en-US",
+                "type": "query",
+                "description": "Desired language for the response as a subset of BCP47 format that only uses hyphenated pairs of two-digit language and country codes. Use only ISO 639-1 alpha-2 language codes and ISO 3166-1 alpha-2 country codes. See [https://www.w3.org/International/articles/language-tags/](https://www.w3.org/International/articles/language-tags/)<br>\nLanguage Options: [https://developers.expediagroup.com/docs/rapid/resources/reference/language-options](https://developers.expediagroup.com/docs/rapid/resources/reference/language-options)\n"
+              },
+              {
+                "name": "occupancy",
+                "value": "2",
+                "type": "query",
+                "description": "Defines the requested occupancy for a single room. Each room must have at least 1 adult occupant.<br>\nFormat: `numberOfAdults[-firstChildAge[,nextChildAge]]`<br>\nTo request multiple rooms (of the same type), include one instance of occupancy for each room requested. Up to 8 rooms may be requested or booked at once.<br>\nExamples:\n* 2 adults, one 9-year-old and one 4-year-old would be represented by `occupancy=2-9,4`.<br>\n* A multi-room request to lodge an additional 2 adults would be represented by `occupancy=2-9,4&occupancy=2`\n"
+              },
+              {
+                "name": "property_id",
+                "value": "20321",
+                "type": "query",
+                "description": "The ID of the property you want to search for. You can provide 1 to 250 property_id parameters.\n"
+              },
+              {
+                "name": "rate_plan_count",
+                "value": "1",
+                "type": "query",
+                "description": "The number of rates to return per property. The rates with the best value will be returned, e.g. a rate_plan_count=4 will return the best 4 rates, but the rates are not ordered from lowest to highest or vice versa in the response. Generally lowest rates will be prioritized.<br><br>\nThe value must be between 1 and 250.\n"
+              },
+              {
+                "name": "sales_channel",
+                "value": "website",
+                "type": "query",
+                "description": "You must provide the sales channel for the display of rates. EPS dynamically provides the best content for optimal conversion on each sales channel. If you have a sales channel that is not currently supported in this list, please contact our support team.<br>\n* `website` - Standard website accessed from the customer's computer\n* `agent_tool` - Your own agent tool used by your call center or retail store agent\n* `mobile_app` - An application installed on a phone or tablet device\n* `mobile_web` - A web browser application on a phone or tablet device\n* `meta` - Rates will be passed to and displayed on a 3rd party comparison website\n* `cache` - Rates will be used to populate a local cache\n"
+              },
+              {
+                "name": "sales_environment",
+                "value": "hotel_only",
+                "type": "query",
+                "description": "You must provide the sales environment in which rates will be sold. EPS dynamically provides the best content for optimal conversion. If you have a sales environment that is not currently supported in this list, please contact our support team.<br>\n* `hotel_package` - Use when selling the hotel with a transport product, e.g. flight & hotel.\n* `hotel_only` - Use when selling the hotel as an individual product.\n* `loyalty` - Use when you are selling the hotel as part of a loyalty program and the price is converted to points.\n"
+              },
+              {
+                "name": "amenity_category",
+                "value": "swimming_pool",
+                "type": "query",
+                "description": "Single amenity category. Send multiple instances of this parameter to request rates that match multiple amenity categories.<br>\nSee the Amenity Categories section of the\n[Content Reference Lists](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists)\nfor a list of values.\n"
+              },
+              {
+                "name": "exclusion",
+                "value": "refundable_damage_deposit",
+                "type": "query",
+                "description": "Single exclusion type. Send multiple instances of this parameter to request multiple exclusions.<br>\n* `refundable_damage_deposit` - Excludes rates with refundable damage deposits from the response.\n"
+              },
+              {
+                "name": "filter",
+                "value": "expedia_collect",
+                "type": "query",
+                "description": "Single filter type. Send multiple instances of this parameter to request multiple filters.<br>\n* `refundable` - Filters results to only show fully refundable rates.\n* `expedia_collect` - Filters results to only show rates where payment is collected by Expedia at the time of booking. These properties can be eligible for payments via Expedia Affiliate Collect(EAC).\n* `property_collect` - Filters results to only show rates where payment is collected by the property after booking. This can include rates that require a deposit by the property, dependent upon the deposit policies.\n* `loyalty` - Filters results to only show rates that are eligible for loyalty points.\n"
+              },
+              {
+                "name": "include",
+                "value": "unavailable_reason",
+                "type": "query",
+                "description": "Modify the response by including types of responses that are not provided by default.<br>\n* `unavailable_reason` - When a property is unavailable for an actionable reason, return a response with that reason - See [Unavailable Reason Codes](https://developers.expediagroup.com/docs/rapid/resources/reference/unavailable-reason-codes) for possible values.\n* `sale_scenario.mobile_promotion` - Enable the `mobile_promotion` flag under the `room.rate.sale_scenario` section of the response.\n* `rooms.rates.marketing_fee_incentives` - When a rate has a marketing fee incentive applied, the response will include the `marketing_fee_incentives` array if this flag is provided in the request.\n"
+              },
+              {
+                "name": "rate_option",
+                "value": "",
+                "type": "query",
+                "description": "Request specific rate options for each property. Send multiple instances of this parameter to request multiple rate options.\nAccepted values:<br>\n* `member` - Return member rates for each property. This feature must be enabled and requires a user to be logged in to request these rates.\n* `net_rates` - Return net rates for each property. This feature must be enabled to request these rates.\n* `cross_sell` - Identify if the traffic is coming from a cross sell booking. Where the traveler has booked another service (flight, car, activities...) before hotel.\n"
+              },
+              {
+                "name": "travel_purpose",
+                "value": "leisure",
+                "type": "query",
+                "description": "This parameter is to specify the travel purpose of the booking. This may impact available rate plans, pricing, or tax calculations.\n* `leisure`\n* `business`\n"
+              },
+              {
+                "name": "billing_terms",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.\n"
+              },
+              {
+                "name": "payment_terms",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.\n"
+              },
+              {
+                "name": "partner_point_of_sale",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+              },
+              {
+                "name": "platform_name",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+              }
+            ]
+          },
+          "docs": "Returns rates on available room types for specified properties (maximum of 250 properties per request).  The response includes rate details such as promos, whether the rate is refundable, cancellation penalties and a full price breakdown to meet the price display requirements for your market.\n_Note_: If there are no available rooms, the response will be an empty array.\n* Multiple rooms of the same type may be requested by including multiple instances of the `occupancy` parameter.\n* The `nightly`"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Get additional property room rates and availability",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/properties/:property_id/availability",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "property_id",
+                "value": "19248",
+                "type": "path",
+                "description": "Expedia Property ID.<br>\n"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "A hashed collection of query parameters. Used to maintain state across calls. This token is provided as part of the `additional_rates` link from the shop response, or the `shop` link on a `sold_out` price check response. It is also provided from the `shop_for_change` link on an itinerary retrieve."
+              },
+              {
+                "name": "checkin",
+                "value": "2024-08-01",
+                "type": "query",
+                "description": "Check-in date, in ISO 8601 format (YYYY-MM-DD). This can be up to 365 days in the future. Some partner configurations may extend this up to 500 days.<br>\nNote: Only needed for hard change if desired check-in date is different than original booking.\nIf specified must also specify `checkout`.\n"
+              },
+              {
+                "name": "checkout",
+                "value": "2024-08-03",
+                "type": "query",
+                "description": "Check-out date, in ISO 8601 format (YYYY-MM-DD). Total length of stay cannot exceed 28 nights or 365 nights depending on Vacation Rental configurations.<br>\nNote: Only needed for hard change if desired check-out date is different than original booking.\nIf specified must also specify `checkin`.<br>\n"
+              },
+              {
+                "name": "exclusion",
+                "value": "refundable_damage_deposit",
+                "type": "query",
+                "description": "Single exclusion type. Send multiple instances of this parameter to request multiple exclusions.<br>\nNote: Optional parameter for use with hard change requests. <br>\n* `refundable_damage_deposit` - Excludes rates with refundable damage deposits from the response.\n"
+              },
+              {
+                "name": "filter",
+                "value": "refundable,expedia_collect",
+                "type": "query",
+                "description": "Single filter type. Send multiple instances of this parameter to request multiple filters.<br>\nNote: Optional parameter for use with hard change requests.<br>\nThis parameter cannot be set to `property_collect` if the existing booking is `expedia_collect` and vice versa.<br>\n* `refundable` - Filters results to only show fully refundable rates.\n* `expedia_collect` - Filters results to only show rates where payment is collected by Expedia at the time of booking. These properties can be eligible for payments via Expedia Affiliate Collect(EAC).\n* `property_collect` - Filters results to only show rates where payment is collected by the property after booking. This can include rates that require a deposit by the property, dependent upon the deposit policies.\n* `loyalty` - Filters results to only show rates that are eligible for loyalty points.\n"
+              },
+              {
+                "name": "include",
+                "value": "sale_scenario.mobile_promotion",
+                "type": "query",
+                "description": "Modify the response by including types of responses that are not provided by default.<br>\n* `sale_scenario.mobile_promotion` - Enable the `mobile_promotion` flag under the `sale_scenario` section of the response.\n"
+              },
+              {
+                "name": "occupancy",
+                "value": "",
+                "type": "query",
+                "description": "Defines the requested occupancy for a single room. Each room must have at least 1 adult occupant.<br>\nFormat: `numberOfAdults[-firstChildAge[,nextChildAge]]`<br>\nTo request multiple rooms (of the same type), include one instance of occupancy for each room requested. Up to 8 rooms may be requested or booked at once.<br>\nNote: Only needed for hard change if desired occupancy is different than original booking.<br>\nExamples:\n* 2 adults, one 9-year-old and one 4-year-old would be represented by `occupancy=2-9,4`.<br>\n* A multi-room request to lodge an additional 2 adults would be represented by `occupancy=2-9,4&occupancy=2`\n"
+              },
+              {
+                "name": "rate_option",
+                "value": "member,net_rates",
+                "type": "query",
+                "description": "Request specific rate options for each property. Send multiple instances of this parameter to request multiple rate options.\nNote: Optional parameter for use with hard change requests.<br>\nAccepted values:<br>\n* `member` - Return member rates for each property. This feature must be enabled and requires a user to be logged in to request these rates.\n* `net_rates` - Return net rates for each property. This feature must be enabled to request these rates.\n* `cross_sell` - Identify if the traffic is coming from a cross sell booking. Where the traveler has booked another service (flight, car, activities...) before hotel.\n"
+              },
+              {
+                "name": "sales_channel",
+                "value": "",
+                "type": "query",
+                "description": "Provide the sales channel if you wish to override the sales_channel provided in the previous call. EPS dynamically provides the best content for optimal conversion on each sales channel.<br>\nNote: Must specify this value for hard change requests.<br>\n* `website` - Standard website accessed from the customer's computer\n* `agent_tool` - Your own agent tool used by your call center or retail store agent\n* `mobile_app` - An application installed on a phone or tablet device\n* `mobile_web` - A web browser application on a phone or tablet device\n* `meta` - Rates will be passed to and displayed on a 3rd party comparison website\n* `cache` - Rates will be used to populate a local cache\n"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Determines the returned currency type throughout the response <br>\nNote: This parameter is only valid for hard change requests and is ignored in all other cases\n"
+              }
+            ]
+          },
+          "docs": "Returns additional rates on available room types, using the parameters of the previous call.  The response includes rate details such as promos, whether the rate is refundable, cancellation penalties and a full price breakdown to meet the price display requirements for your market.\n_Note_: If there are no available rooms, the response will be an empty array.\n* The `nightly` array includes each individual night's charges. When the total price includes fees, charges, or adjustments that are not di"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Price-Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/properties/:property_id/rooms/:room_id/rates/:rate_id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "property_id",
+                "value": "19248",
+                "type": "path",
+                "description": "Expedia Property ID.<br>\n"
+              },
+              {
+                "name": "room_id",
+                "value": "123abc",
+                "type": "path",
+                "description": "Room ID of a property.<br>\n"
+              },
+              {
+                "name": "rate_id",
+                "value": "123abc",
+                "type": "path",
+                "description": "Rate ID of a room.<br>\n"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "A hashed collection of query parameters. Used to maintain state across calls. This token is provided as part of the price check link from the shop response."
+              }
+            ]
+          },
+          "docs": "Confirms the price returned by the Property Availability response. Use this API to verify a previously-selected rate is still valid before booking. If the price is matched, the response returns a link to request a booking. If the price has changed, the response returns new price details and a booking link for the new price. If the rate is no longer available, the response will return a new Property Availability request link to search again for different rates. In the event of a price change, go "
+        },
+        {
+          "info": {
+            "name": "Expedia Group Get Accepted Payment Types - EPS MOR Only",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/properties/:property_id/payment-options",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              }
+            ],
+            "params": [
+              {
+                "name": "property_id",
+                "value": "19248",
+                "type": "path",
+                "description": "Expedia Property ID.<br>\n"
+              },
+              {
+                "name": "token",
+                "value": "MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m",
+                "type": "query",
+                "description": "Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.\n"
+              }
+            ]
+          },
+          "docs": "Returns the accepted payment options.  Use this API to power your checkout page and display valid forms of payment, ensuring a smooth booking.\n"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Get a calendar of availability dates for properties. This is currently a Vrbo property only feature.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/calendars/availability",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "property_id",
+                "value": "property_id=1234&property_id=5678",
+                "type": "query",
+                "description": "The ID of the property you want to search for. You can provide 1 to 250 property_id parameters.\n"
+              },
+              {
+                "name": "start_date",
+                "value": "2023-01-15",
+                "type": "query",
+                "description": "The first day of availability information to be returned, in ISO 8601 format (YYYY-MM-DD), up to 500 days in the future from the current date.\n"
+              },
+              {
+                "name": "end_date",
+                "value": "2023-12-17",
+                "type": "query",
+                "description": "The last day of availability information to be returned, in ISO 8601 format (YYYY-MM-DD). This must be 365 days or less from the start_date.\n"
+              }
+            ]
+          },
+          "docs": "Returns availability information for the specified properties (maximum of 25 properties per request).\n The response includes per day information about the property's availability, information about if check-in or check-out is available for the day,\n  and information regarding the stay constraints.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

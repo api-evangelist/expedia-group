@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Expedia Group EPS Deposit Bookings Room Type API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Room Type",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Expedia Group Obtain a list of room types for a given property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Obtain a list of room types for a given property"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Creates a new room type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Creates a new room type"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Read a single room type from a given property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes/:roomTypeId",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              },
+              {
+                "name": "roomTypeId",
+                "value": "",
+                "type": "path",
+                "description": "Room type resource ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Read a single room type from a given property"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Modify an existing room type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes/:roomTypeId",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              },
+              {
+                "name": "roomTypeId",
+                "value": "",
+                "type": "path",
+                "description": "Room type resource ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Modify an existing room type"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Patch an existing room type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes/:roomTypeId",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property Id"
+              },
+              {
+                "name": "roomTypeId",
+                "value": "",
+                "type": "path",
+                "description": "Room type resource ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Patch an existing room type"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,759 @@
+{
+  "item": [
+    {
+      "id": "67614341-5069-46f7-ac41-6fcb655a9843",
+      "name": "Loyalty",
+      "description": {
+        "content": "Template Loyalty Earn API",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7bcd245b-4a97-4d44-bcf8-4bd89f0cf2ed",
+          "name": "loyalty Transactions",
+          "request": {
+            "name": "loyalty Transactions",
+            "description": {
+              "content": "Get loyalty earn transactions for the requested transaction date range. <br>\nThe response is a list of transactions sorted from the newest transaction date to the oldest.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "loyalty",
+                "earn",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "itinerary_id",
+                  "value": "<string>",
+                  "description": "Itinerary Number"
+                },
+                {
+                  "disabled": false,
+                  "key": "membership_id",
+                  "value": "<string>",
+                  "description": "Loyalty / Membership ID Number"
+                },
+                {
+                  "disabled": false,
+                  "key": "transaction_type",
+                  "value": "<string>",
+                  "description": "Transaction Type. Possible values: Purchase, Modification, Cancel, Award"
+                },
+                {
+                  "disabled": false,
+                  "key": "transaction_date_start",
+                  "value": "<date>",
+                  "description": "(Required) Start date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "transaction_date_end",
+                  "value": "<date>",
+                  "description": "(Required) End date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "0",
+                  "description": "Number of records to query from"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "1a3b53a0-dcc6-4e0d-a2b5-dfcc9f26bb52",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loyalty",
+                    "earn",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "itinerary_id",
+                      "value": "72564500000000"
+                    },
+                    {
+                      "key": "membership_id",
+                      "value": "456178230"
+                    },
+                    {
+                      "key": "transaction_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "transaction_date_start",
+                      "value": "2023-09-17"
+                    },
+                    {
+                      "key": "transaction_date_end",
+                      "value": "2023-09-18"
+                    },
+                    {
+                      "key": "from",
+                      "value": "1000"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Contains a single link to get the immediate next set of results. \nThis header will be missing when there are no further results\n",
+                  "key": "link",
+                  "value": "/loyalty/earn/transactions?from=1000"
+                },
+                {
+                  "disabled": false,
+                  "description": "Url of the call made",
+                  "key": "url",
+                  "value": "/loyalty/earn/transactions?from=1000&transaction_type=AWARD"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"transaction_id\": \"d78fd53a7ed573b9c9731c569fae096f7a508e7ae586aaa29be96b11e94abb36\",\n      \"transaction_type\": \"AWARD\",\n      \"transaction_date\": \"2023-10-21\",\n      \"transaction_datetime\": \"2023-10-21 00:00:00\",\n      \"award_date\": \"2023-10-21\",\n      \"itinerary\": {\n        \"id\": \"72564500000000\",\n        \"package_indicator\": \"Standalone\",\n        \"booking_item\": {\n          \"id\": \"1329922272\",\n          \"product_line\": \"Lodging\",\n          \"begin_use_date\": \"2023-10-17\",\n          \"end_use_date\": \"2023-10-20\",\n          \"booking_date\": \"2023-10-01\"\n        }\n      },\n      \"loyalty\": {\n        \"program_name\": \"Alaska\",\n        \"member\": {\n          \"id\": \"456178230\",\n          \"tier\": \"Standard\",\n          \"last_name\": \"Doe\"\n        },\n        \"points\": {\n          \"point_definition\": \"2X_09032020_Alaska\",\n          \"pending\": {\n            \"total\": -100.11,\n            \"base\": -90.01,\n            \"bonus\": -10.1\n          },\n          \"awarded\": {\n            \"total\": 100.11,\n            \"base\": 90.01,\n            \"bonus\": 10.1\n          }\n        }\n      },\n      \"pricing\": [\n        {\n          \"gross_booking_value\": 231.19,\n          \"base_price\": 190.12,\n          \"currency\": \"USD\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f30f84c3-36da-40c3-a836-1ced428880b3",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loyalty",
+                    "earn",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "itinerary_id",
+                      "value": "72564500000000"
+                    },
+                    {
+                      "key": "membership_id",
+                      "value": "456178230"
+                    },
+                    {
+                      "key": "transaction_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "transaction_date_start",
+                      "value": "2023-09-17"
+                    },
+                    {
+                      "key": "transaction_date_end",
+                      "value": "2023-09-18"
+                    },
+                    {
+                      "key": "from",
+                      "value": "1000"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"BAD_REQUEST\",\n  \"message\": \"Transaction type not supported. Supported transactions types are: [PURCHASE, MODIFICATION, AWARD, CANCEL]\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61602706-bbfe-41b0-af08-e474564ce9c9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loyalty",
+                    "earn",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "itinerary_id",
+                      "value": "72564500000000"
+                    },
+                    {
+                      "key": "membership_id",
+                      "value": "456178230"
+                    },
+                    {
+                      "key": "transaction_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "transaction_date_start",
+                      "value": "2023-09-17"
+                    },
+                    {
+                      "key": "transaction_date_end",
+                      "value": "2023-09-18"
+                    },
+                    {
+                      "key": "from",
+                      "value": "1000"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Provides an example of the Authorization header.",
+                  "key": "WWW-Authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Data required to authenticate your request is missing or inaccurate\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55c40c3e-a1f9-41c1-85b0-b61395f05302",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loyalty",
+                    "earn",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "itinerary_id",
+                      "value": "72564500000000"
+                    },
+                    {
+                      "key": "membership_id",
+                      "value": "456178230"
+                    },
+                    {
+                      "key": "transaction_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "transaction_date_start",
+                      "value": "2023-09-17"
+                    },
+                    {
+                      "key": "transaction_date_end",
+                      "value": "2023-09-18"
+                    },
+                    {
+                      "key": "from",
+                      "value": "1000"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"FORBIDDEN\",\n  \"message\": \"Your request could not be authorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15ba681c-3f51-4314-a671-0833e4024301",
+              "name": "Unknown Internal Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loyalty",
+                    "earn",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "itinerary_id",
+                      "value": "72564500000000"
+                    },
+                    {
+                      "key": "membership_id",
+                      "value": "456178230"
+                    },
+                    {
+                      "key": "transaction_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "transaction_date_start",
+                      "value": "2023-09-17"
+                    },
+                    {
+                      "key": "transaction_date_end",
+                      "value": "2023-09-18"
+                    },
+                    {
+                      "key": "from",
+                      "value": "1000"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INTERNAL_ERROR\",\n  \"message\": \"An internal server error has occurred.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9895cab2-d719-4e30-a9e6-d8a8b4c49d31",
+          "name": "loyalty Last Update",
+          "request": {
+            "name": "loyalty Last Update",
+            "description": {
+              "content": "Get the last update datetime for loyalty earn transactions.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "loyalty",
+                "earn",
+                "last_update"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "625cf29e-34ab-4f72-8c02-171fbd6ced0c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loyalty",
+                    "earn",
+                    "last_update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "/loyalty/earn/last_update",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"last_update\": \"2023-10-18 12:23:01\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1114972-453a-41c6-b172-1d299fc161d0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loyalty",
+                    "earn",
+                    "last_update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Provides an example of the Authorization header.",
+                  "key": "WWW-Authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Data required to authenticate your request is missing or inaccurate\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08adbc76-d971-4fd2-8a93-16ceb22d1265",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loyalty",
+                    "earn",
+                    "last_update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"FORBIDDEN\",\n  \"message\": \"Your request could not be authorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "faf7bf8a-9a12-4dff-bda5-1567ba07723f",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loyalty",
+                    "earn",
+                    "last_update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"NOT FOUND\",\n  \"message\": \"There is no data for the given request.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da9e9aa0-c9f2-47c3-b499-b2c64eedabe0",
+              "name": "Unknown Internal Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "loyalty",
+                    "earn",
+                    "last_update"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INTERNAL_ERROR\",\n  \"message\": \"An internal server error has occurred.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://services.expediapartnercentral.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a5b63073-2eeb-4329-9df5-3c97e13c6725",
+    "name": "Expedia Group EPS Deposit Bookings Loyalty API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We've also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.\n\nContact Support:\n Name: Expedia Partner Services\n Email: eqcss@expedia.com",
+      "type": "text/plain"
+    }
+  }
+}

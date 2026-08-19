@@ -1,0 +1,396 @@
+{
+  "item": [
+    {
+      "id": "b216a5c2-47f6-43db-994c-6771f9d1bc00",
+      "name": "Notifications",
+      "description": {
+        "content": "Requests test notifications and undelivered notifications.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "13eefc08-6085-4dad-bb0e-cd7e579893b3",
+          "name": "Expedia Group Request Undelivered Notifications",
+          "request": {
+            "name": "Expedia Group Request Undelivered Notifications",
+            "description": {
+              "content": "Use this API to fetch undelivered notifications. Up to 25 notifications are returned with each call.\nEach undelivered notification will be returned only once.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "undeliverable",
+                  "value": "<boolean>",
+                  "description": "(Required) Undeliverable notifications are returned when this parameter is set to `true`."
+                },
+                {
+                  "disabled": false,
+                  "key": "billing_terms",
+                  "value": "<string>",
+                  "description": "This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "partner_point_of_sale",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "payment_terms",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "platform_name",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "f5d3590a-b07d-4ea1-ad46-fb134e5df26f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "undeliverable",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"event_id\": \"e02d6f41-4708-476f-915d-8a7032942e94\",\n    \"event_type\": \"itinerary.agent.change\",\n    \"event_time\": \"2018-04-28T20:31:03.423Z\",\n    \"itinerary_id\": \"1204309424793\",\n    \"email\": \"alice@example.com\",\n    \"message\": \"An agent changed this itinerary.\",\n    \"affiliate_reference_id\": \"R194193582\"\n  },\n  {\n    \"event_id\": \"fe97op1b-595a-406e-8e0e-90108d5cb4a1\",\n    \"event_type\": \"itinerary.agent.cancel\",\n    \"event_time\": \"2018-05-24T04:08:50.839Z\",\n    \"itinerary_id\": \"1204329124126\",\n    \"email\": \"bob@example.com\",\n    \"message\": \"An agent canceled one or more rooms on this itinerary.\",\n    \"affiliate_reference_id\": \"\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23e19b42-ef3d-4a77-bdbb-b02dc026d783",
+          "name": "Expedia Group Request Test Notification",
+          "request": {
+            "name": "Expedia Group Request Test Notification",
+            "description": {
+              "content": "This request triggers a test notification according to the specified event_type.\nAll event types supported by the Notifications API are available to test.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "billing_terms",
+                  "value": "<string>",
+                  "description": "This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "partner_point_of_sale",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "payment_terms",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "platform_name",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "815813c8-4c63-42c1-a646-629938ae2060",
+              "name": "No Content - Test notification has been sent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event_type\": \"itinerary.agent.create\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "34dc5d55-39a0-4b74-aa3f-9e91379a33b0",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event_type\": \"itinerary.agent.create\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_input\",\n  \"message\": \"An invalid request was sent in, please check the nested errors for details.\",\n  \"errors\": [\n    {\n      \"type\": \"event_type.not_supported\",\n      \"message\": \"Event type is not supported. Supported event types are: [itinerary.agent.create, itinerary.agent.change, itinerary.agent.cancel, itinerary.supplier.confirm, itinerary.supplier.cancel, itinerary.fraud.cancel]\",\n      \"fields\": [\n        {\n          \"name\": \"event_type\",\n          \"type\": \"path\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://services.expediapartnercentral.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "547a266a-8f72-4ab5-b8aa-659291b1e7ca",
+    "name": "Expedia Group EPS Deposit Bookings Notifications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We've also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.\n\nContact Support:\n Name: Expedia Partner Services\n Email: eqcss@expedia.com",
+      "type": "text/plain"
+    }
+  }
+}

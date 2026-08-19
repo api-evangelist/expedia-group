@@ -1,0 +1,387 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Expedia Group EPS Deposit Bookings Manage Booking API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Manage Booking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Expedia Group Search for and retrieve Bookings with Affiliate Reference Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/itineraries",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "affiliate_reference_id",
+                "value": "111A222BB33344CC5555",
+                "type": "query",
+                "description": "The affilliate reference id value. This field supports a maximum of 28 characters.\n"
+              },
+              {
+                "name": "email",
+                "value": "test@example.com",
+                "type": "query",
+                "description": "Email associated with the booking. Special characters in the local part or domain should be encoded.<br>\n"
+              },
+              {
+                "name": "include",
+                "value": "history",
+                "type": "query",
+                "description": "Options for which information to return in the response. The value must be lower case.\n  * history - Include itinerary history, showing details of the changes made to this itinerary\n"
+              }
+            ]
+          },
+          "docs": "This can be called directly without a token when an affiliate reference id is provided. It returns details about bookings associated with an affiliate reference id, along with cancel links to cancel the bookings.\n\n<i>Note: Newly created itineraries may sometimes have a small delay between the time of creation and the time that the itinerary can be retrieved. If you receive no results while trying to search for an itinerary that was successfully created, or if you receive a response with two fiel"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Retrieve Booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/itineraries/:itinerary_id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "itinerary_id",
+                "value": "8955599932111",
+                "type": "path",
+                "description": "This parameter is used only to prefix the token value - no ID value is used.<br>\n"
+              },
+              {
+                "name": "token",
+                "value": "MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m",
+                "type": "query",
+                "description": "Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.\n"
+              },
+              {
+                "name": "email",
+                "value": "test@example.com",
+                "type": "query",
+                "description": "Email associated with the booking. Special characters in the local part or domain should be encoded. (Email is required if the token is not provided the request) <br>\n"
+              },
+              {
+                "name": "include",
+                "value": "history",
+                "type": "query",
+                "description": "Options for which information to return in the response. The value must be lower case.\n  * history - Include itinerary history, showing details of the changes made to this itinerary\n"
+              }
+            ]
+          },
+          "docs": "This API call returns itinerary details and links to resume or cancel the booking. There are two methods to retrieve a booking:\n* Using the link included in the original Book response, example: https://api.ean.com/v3/itineraries/8955599932111?token=QldfCGlcUA4GXVlSAQ4W\n* Using the email of the booking. If the email contains special characters, they must be encoded to successfully retrieve the booking. Example: https://api.ean.com/v3/itineraries/8955599932111?email=customer@email.com\n\n<i>Note: Ne"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Cancel Held Booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://services.expediapartnercentral.com/itineraries/:itinerary_id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "itinerary_id",
+                "value": "8955599932111",
+                "type": "path",
+                "description": "This parameter is used only to prefix the token value - no ID value is used.<br>\n"
+              },
+              {
+                "name": "token",
+                "value": "MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m",
+                "type": "query",
+                "description": "Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.\n"
+              }
+            ]
+          },
+          "docs": "This link will be available in a held booking response.\n"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Change details of a room.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://services.expediapartnercentral.com/itineraries/:itinerary_id/rooms/:room_id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "itinerary_id",
+                "value": "8955599932111",
+                "type": "path",
+                "description": "This parameter is used only to prefix the token value - no ID value is used.<br>\n"
+              },
+              {
+                "name": "room_id",
+                "value": "123abc",
+                "type": "path",
+                "description": "Room ID of a property.<br>\n"
+              },
+              {
+                "name": "token",
+                "value": "MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m",
+                "type": "query",
+                "description": "Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This link will be available in the retrieve response. Changes in smoking preference and special request will be passed along to the property and are not guaranteed.\n"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Cancel a room.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://services.expediapartnercentral.com/itineraries/:itinerary_id/rooms/:room_id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "itinerary_id",
+                "value": "8955599932111",
+                "type": "path",
+                "description": "This parameter is used only to prefix the token value - no ID value is used.<br>\n"
+              },
+              {
+                "name": "room_id",
+                "value": "123abc",
+                "type": "path",
+                "description": "Room ID of a property.<br>\n"
+              },
+              {
+                "name": "token",
+                "value": "MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m",
+                "type": "query",
+                "description": "Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.\n"
+              }
+            ]
+          },
+          "docs": "This link will be available in the retrieve response.\n"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Commit a change of itinerary that may require additional payment or refund.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://services.expediapartnercentral.com/itineraries/:itinerary_id/rooms/:room_id/pricing",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "itinerary_id",
+                "value": "8955599932111",
+                "type": "path",
+                "description": "This parameter is used only to prefix the token value - no ID value is used.<br>\n"
+              },
+              {
+                "name": "room_id",
+                "value": "123abc",
+                "type": "path",
+                "description": "Room ID of a property.<br>\n"
+              },
+              {
+                "name": "token",
+                "value": "MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m",
+                "type": "query",
+                "description": "Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This link will be available in the change response to confirm and complete the change transaction.\n\nIf additional charges are due, a payment must be submitted with this request. Note that Two-Factor \nAuthentication is not supported at this time.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

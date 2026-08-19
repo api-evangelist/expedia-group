@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Expedia Group EPS Bookings Deposit API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deposit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Expedia Group Obtain the deposit policy for a given property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/depositPolicy",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Obtain the deposit policy for a given property"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Create/update the deposit policy for a given property",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/depositPolicy",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Create/update the deposit policy for a given property"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Delete the deposit policy for a given property",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/depositPolicy",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Delete the deposit policy for a given property"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

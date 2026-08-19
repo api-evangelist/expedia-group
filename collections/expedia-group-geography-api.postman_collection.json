@@ -1,0 +1,3972 @@
+{
+  "item": [
+    {
+      "id": "3dd9444d-8afc-4332-805e-9f6651e9b926",
+      "name": "Geography",
+      "description": {
+        "content": "The EPS Geography API provides geography content for regions around the world.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "35d860d7-3723-4325-9525-f004dede88e3",
+          "name": "Expedia Group Regions",
+          "request": {
+            "name": "Expedia Group Regions",
+            "description": {
+              "content": "Returns the geographic definition and property mappings of regions matching the specified parameters.<br><br>\nTo request all regions in the world, omit the `ancestor` query parameter. To request all regions in a specific\ncontinent, country or other level, specify the ID of that region as the `ancestor`. Refer to the list of\n[top level regions](https://developers.expediagroup.com/docs/rapid/lodging/geography/geography-reference-lists).\n<br><br>\nThe response is a paginated list of regions. See the `Link` header in the 200 response section.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "regions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "(Required) Options for which content to return in the response. This parameter can be supplied multiple times with different values. The standard and details options cannot be requested together. The value must be lower case.\n  * standard - Include the metadata and basic hierarchy of each region.\n  * details - Include the metadata, coordinates and full hierarchy of each region.\n  * property_ids - Include the list of property IDs within the bounding polygon of each region.\n  * property_ids_expanded - Include the list of property IDs within the bounding polygon of each region and property IDs from the surrounding area if minimal properties are within the region.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "(Required) Options for which content to return in the response. This parameter can be supplied multiple times with different values. The standard and details options cannot be requested together. The value must be lower case.\n  * standard - Include the metadata and basic hierarchy of each region.\n  * details - Include the metadata, coordinates and full hierarchy of each region.\n  * property_ids - Include the list of property IDs within the bounding polygon of each region.\n  * property_ids_expanded - Include the list of property IDs within the bounding polygon of each region and property IDs from the surrounding area if minimal properties are within the region.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "language",
+                  "value": "<string>",
+                  "description": "(Required) Desired language for the response as a subset of BCP47 format that only uses hyphenated pairs of two-digit language and country codes. Use only ISO 639-1 alpha-2 language codes and ISO 3166-1 alpha-2 country codes. See [https://www.w3.org/International/articles/language-tags/](https://www.w3.org/International/articles/language-tags/)\n\nLanguage Options: [https://developers.expediagroup.com/docs/rapid/resources/reference/language-options](https://developers.expediagroup.com/docs/rapid/resources/reference/language-options)\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "ancestor_id",
+                  "value": "<string>",
+                  "description": "Search for regions whose ancestors include the requested ancestor region ID. Refer to the list of [top level regions](https://developers.expediagroup.com/docs/rapid/lodging/geography/geography-reference-lists).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "area",
+                  "value": "<string>",
+                  "description": "Filter the results to regions that intersect with a specified area.<br><br>\nThe area may be defined in one of two ways:\n  * radius,region_id\n  * radius,latitude,longitude\n\nRadius combined with region id would search an area that extends the number of kilometers out from the boundaries of the region in all directions.<br>\nRadius combined with a single point, specified by a latitude, longitude pair would search an area in a circle with the specified radius and the point as the center.<br>\nRadius should be specified in non-negative whole kilometers, decimals will return an error. A radius of 0 is allowed.<br>\nWhen specifying the area parameter, there will be a limit of 100 results, which can be narrowed further by the limit parameter.<br>\nDue to the number of results, unless `point_of_interest` is specified as the only type, regions of type `point_of_interest`\nwill not be included in a request that filters to an area.<br><br>\nAn example use case would be searching for the closest 3 airports within 50 kilometers of a specified point.<br>\n  `&type=airport&limit=3&area=50,37.227924,-93.310036`\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "country_code",
+                  "value": "<string>",
+                  "description": "Filter the results to a specified ISO 3166-1 alpha-2 country code.\n\nFor more information see: [https://www.iso.org/obp/ui/#search/code/](https://www.iso.org/obp/ui/#search/code/)\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "country_code",
+                  "value": "<string>",
+                  "description": "Filter the results to a specified ISO 3166-1 alpha-2 country code.\n\nFor more information see: [https://www.iso.org/obp/ui/#search/code/](https://www.iso.org/obp/ui/#search/code/)\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "country_subdivision_code",
+                  "value": "<string>",
+                  "description": "Filter the results down to only the ISO 3166-2 country subdivision."
+                },
+                {
+                  "disabled": false,
+                  "key": "country_subdivision_code",
+                  "value": "<string>",
+                  "description": "Filter the results down to only the ISO 3166-2 country subdivision."
+                },
+                {
+                  "disabled": false,
+                  "key": "iata_location_code",
+                  "value": "<string>",
+                  "description": "Search for regions by the requested 3-character IATA location code, which will apply to both iata_airport_code and iata_airport_metro_code. The code must be upper case.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>",
+                  "description": "Limit the number of results returned.\nUsing the area parameter will impose a max value of 100 for this whether specified or not.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "supply_source",
+                  "value": "<string>",
+                  "description": "Options for which supply source you would like returned in the geography response. This parameter may only be supplied once and will return all properties that match the requested supply source. An error is thrown if the parameter is provided multiple times.\n  * `expedia` - Standard Expedia supply.\n  * `vrbo` - VRBO supply - This option is restricted to partners who have VRBO supply enabled for their profile. See [Vacation Rentals](https://developers.expediagroup.com/docs/rapid/lodging/vacation-rentals) for more information.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter the results to a specified region type.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter the results to a specified region type.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "billing_terms",
+                  "value": "<string>",
+                  "description": "This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "partner_point_of_sale",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "payment_terms",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "platform_name",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                "key": "Accept-Encoding",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                "key": "User-Agent",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                "key": "Customer-Session-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "f05fb2df-3ed1-4718-9ec5-cc7784a75d49",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "ancestor_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "area",
+                      "value": "3,602962"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "US"
+                    },
+                    {
+                      "key": "country_subdivision_code",
+                      "value": "US-MO"
+                    },
+                    {
+                      "key": "iata_location_code",
+                      "value": "SGF"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per day.",
+                  "key": "Rate-Limit-Day",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the daily time window.",
+                  "key": "Rate-Limit-Day-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.",
+                  "key": "Rate-Limit-Day-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per minute.",
+                  "key": "Rate-Limit-Minute",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the per minute time window.",
+                  "key": "Rate-Limit-Minute-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.",
+                  "key": "Rate-Limit-Minute-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.",
+                  "key": "Rate-Limit-Reduction-Status",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Contains a single link to get the immediate next page of results, and follows the\n[IETF standard](https://tools.ietf.org/html/rfc5988). To get the next page of results, simply follow\nthe `next` URL in this header without modifying it. This header will be missing when there are no\nfurther pages. If the link expires, there will be an `expires` link-extension that is the UTC date the\nlink will expire, in ISO 8601 format.\n",
+                  "key": "Link",
+                  "value": "<https://test.ean.com/v3/regions?token=Q11RF1Vda1JREAQQCQMFVgpRDVQDDFsAFgJVgYBDQYAUw==>; rel=\"next\"; expires=2023-06-29T20:15:05.324083439Z"
+                },
+                {
+                  "disabled": false,
+                  "description": "Header that returns the pagination total results.",
+                  "key": "Pagination-Total-Results",
+                  "value": "2801"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"602962\",\n    \"type\": \"multi_city_vicinity\",\n    \"name\": \"Springfield\",\n    \"name_full\": \"Springfield, Missouri, United States of America\",\n    \"descriptor\": \"and vicinity\",\n    \"country_code\": \"US\",\n    \"country_subdivision_code\": \"US-MO\",\n    \"coordinates\": {\n      \"center_longitude\": -93.310036,\n      \"center_latitude\": 37.227924,\n      \"bounding_polygon\": {\n        \"type\": \"Polygon\",\n        \"coordinates\": [\n          [\n            [\n              -93.446782,\n              37.169329\n            ],\n            [\n              -93.4244,\n              37.169432\n            ],\n            [\n              -93.371097,\n              37.168636\n            ],\n            [\n              -93.376295,\n              37.139236\n            ],\n            [\n              -93.361419,\n              37.138634\n            ],\n            [\n              -93.347109,\n              37.100601\n            ],\n            [\n              -93.215792,\n              37.095905\n            ],\n            [\n              -93.215259,\n              37.138013\n            ],\n            [\n              -93.189332,\n              37.141503\n            ],\n            [\n              -93.191278,\n              37.333322\n            ],\n            [\n              -93.438268,\n              37.339372\n            ],\n            [\n              -93.446782,\n              37.169329\n            ]\n          ]\n        ]\n      }\n    },\n    \"ancestors\": [\n      {\n        \"id\": \"227\",\n        \"type\": \"province_state\"\n      },\n      {\n        \"id\": \"201\",\n        \"type\": \"country\"\n      },\n      {\n        \"id\": \"500001\",\n        \"type\": \"continent\"\n      }\n    ],\n    \"descendants\": {\n      \"point_of_interest\": [\n        \"6064841\",\n        \"6064853\"\n      ]\n    }\n  },\n  {\n    \"id\": \"6064841\",\n    \"type\": \"point_of_interest\",\n    \"name\": \"American National Fish and Wildlife Museum\",\n    \"name_full\": \"American National Fish and Wildlife Museum, Springfield, Missouri, United States of America\",\n    \"country_code\": \"US\",\n    \"country_subdivision_code\": \"US-MO\",\n    \"coordinates\": {\n      \"center_longitude\": -93.29635,\n      \"center_latitude\": 37.1826\n    },\n    \"ancestors\": [\n      {\n        \"id\": \"602962\",\n        \"type\": \"multi_city_vicinity\"\n      },\n      {\n        \"id\": \"227\",\n        \"type\": \"province_state\"\n      },\n      {\n        \"id\": \"201\",\n        \"type\": \"country\"\n      },\n      {\n        \"id\": \"500001\",\n        \"type\": \"continent\"\n      }\n    ]\n  },\n  {\n    \"id\": \"4605779\",\n    \"type\": \"airport\",\n    \"name\": \"Springfield, MO (SGF-Springfield-Branson National)\",\n    \"name_full\": \"Springfield, MO, United States (SGF-Springfield-Branson National)\",\n    \"iata_airport_code\": \"SGF\",\n    \"country_code\": \"US\",\n    \"country_subdivision_code\": \"US-MO\",\n    \"coordinates\": {\n      \"center_longitude\": -93.382095,\n      \"center_latitude\": 37.24233\n    },\n    \"associations\": {\n      \"multi_city_vicinity\": [\n        \"6058734\"\n      ]\n    },\n    \"ancestors\": [\n      {\n        \"id\": \"602962\",\n        \"type\": \"multi_city_vicinity\"\n      },\n      {\n        \"id\": \"227\",\n        \"type\": \"province_state\"\n      },\n      {\n        \"id\": \"201\",\n        \"type\": \"country\"\n      },\n      {\n        \"id\": \"500001\",\n        \"type\": \"continent\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "468d41e1-19cb-43ce-aba8-dbdeda0e34cd",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "ancestor_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "area",
+                      "value": "3,602962"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "US"
+                    },
+                    {
+                      "key": "country_subdivision_code",
+                      "value": "US-MO"
+                    },
+                    {
+                      "key": "iata_location_code",
+                      "value": "SGF"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per day.",
+                  "key": "Rate-Limit-Day",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the daily time window.",
+                  "key": "Rate-Limit-Day-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.",
+                  "key": "Rate-Limit-Day-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per minute.",
+                  "key": "Rate-Limit-Minute",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the per minute time window.",
+                  "key": "Rate-Limit-Minute-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.",
+                  "key": "Rate-Limit-Minute-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.",
+                  "key": "Rate-Limit-Reduction-Status",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_input\",\n  \"message\": \"An invalid request was sent in, please check the nested errors for details.\",\n  \"errors\": [\n    {\n      \"type\": \"include.invalid\",\n      \"message\": \"Include is invalid. Accepted include values are: [details, property_ids, property_ids_expanded, standard]\",\n      \"fields\": [\n        {\n          \"name\": \"include\",\n          \"type\": \"querystring\",\n          \"value\": \"STANDARD\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29e9e28d-dcd4-4820-b896-7d94403eb709",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "ancestor_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "area",
+                      "value": "3,602962"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "US"
+                    },
+                    {
+                      "key": "country_subdivision_code",
+                      "value": "US-MO"
+                    },
+                    {
+                      "key": "iata_location_code",
+                      "value": "SGF"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Provides an example of the Authorization header.",
+                  "key": "WWW-Authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"request_unauthenticated\",\n  \"message\": \"Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.\",\n  \"fields\": [\n    {\n      \"name\": \"apikey\",\n      \"type\": \"header\",\n      \"value\": \"jaj3982k239dka328e\"\n    },\n    {\n      \"name\": \"signature\",\n      \"type\": \"header\",\n      \"value\": \"129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b\"\n    },\n    {\n      \"name\": \"timestamp\",\n      \"type\": \"header\",\n      \"value\": 198284729\n    },\n    {\n      \"name\": \"servertimestamp\",\n      \"type\": \"server\",\n      \"value\": 198284729\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36e71837-7043-41fc-88ae-9f8aaa4b6560",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "ancestor_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "area",
+                      "value": "3,602962"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "US"
+                    },
+                    {
+                      "key": "country_subdivision_code",
+                      "value": "US-MO"
+                    },
+                    {
+                      "key": "iata_location_code",
+                      "value": "SGF"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"request_unauthorized\",\n  \"message\": \"Your request could not be authorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51aeac62-e520-4502-ab93-257034a60150",
+              "name": "Gone",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "ancestor_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "area",
+                      "value": "3,602962"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "US"
+                    },
+                    {
+                      "key": "country_subdivision_code",
+                      "value": "US-MO"
+                    },
+                    {
+                      "key": "iata_location_code",
+                      "value": "SGF"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per day.",
+                  "key": "Rate-Limit-Day",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the daily time window.",
+                  "key": "Rate-Limit-Day-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.",
+                  "key": "Rate-Limit-Day-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per minute.",
+                  "key": "Rate-Limit-Minute",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the per minute time window.",
+                  "key": "Rate-Limit-Minute-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.",
+                  "key": "Rate-Limit-Minute-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.",
+                  "key": "Rate-Limit-Reduction-Status",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"link.expired\",\n  \"message\": \"The link that you followed has expired and this paginated session is now gone. Please restart the regions call from the beginning.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "930a3ac8-3987-4bd2-9c53-6236dfb9b27c",
+              "name": "Upgrade Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "ancestor_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "area",
+                      "value": "3,602962"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "US"
+                    },
+                    {
+                      "key": "country_subdivision_code",
+                      "value": "US-MO"
+                    },
+                    {
+                      "key": "iata_location_code",
+                      "value": "SGF"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Upgrade Required (RFC 2817)",
+              "code": 426,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"upgrade_required\",\n  \"message\": \"This service requires the use of TLS.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6acab20e-8b88-493c-816f-1a12d39b4cfc",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "ancestor_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "area",
+                      "value": "3,602962"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "US"
+                    },
+                    {
+                      "key": "country_subdivision_code",
+                      "value": "US-MO"
+                    },
+                    {
+                      "key": "iata_location_code",
+                      "value": "SGF"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per day.",
+                  "key": "Rate-Limit-Day",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the daily time window.",
+                  "key": "Rate-Limit-Day-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.",
+                  "key": "Rate-Limit-Day-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per minute.",
+                  "key": "Rate-Limit-Minute",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the per minute time window.",
+                  "key": "Rate-Limit-Minute-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.",
+                  "key": "Rate-Limit-Minute-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.",
+                  "key": "Rate-Limit-Reduction-Status",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"too_many_requests\",\n  \"message\": \"You have reached your capacity for this type of request.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1adff3db-0896-4290-b81d-4d0e9115135c",
+              "name": "Internal Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "ancestor_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "area",
+                      "value": "3,602962"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "US"
+                    },
+                    {
+                      "key": "country_subdivision_code",
+                      "value": "US-MO"
+                    },
+                    {
+                      "key": "iata_location_code",
+                      "value": "SGF"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per day.",
+                  "key": "Rate-Limit-Day",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the daily time window.",
+                  "key": "Rate-Limit-Day-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.",
+                  "key": "Rate-Limit-Day-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per minute.",
+                  "key": "Rate-Limit-Minute",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the per minute time window.",
+                  "key": "Rate-Limit-Minute-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.",
+                  "key": "Rate-Limit-Minute-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.",
+                  "key": "Rate-Limit-Reduction-Status",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"internal_error\",\n  \"message\": \"An internal server error has occurred. Please discard any previously received results in this pagination and restart the pagination from the beginning.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36737dab-4c07-48bf-b8cf-dd9b9a61bee8",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "ancestor_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "area",
+                      "value": "3,602962"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "US"
+                    },
+                    {
+                      "key": "country_subdivision_code",
+                      "value": "US-MO"
+                    },
+                    {
+                      "key": "iata_location_code",
+                      "value": "SGF"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"service_unavailable\",\n  \"message\": \"This service is currently unavailable.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9fa533b2-36c9-4c25-b20d-5d353ad0f974",
+          "name": "Expedia Group Region",
+          "request": {
+            "name": "Expedia Group Region",
+            "description": {
+              "content": "Returns the geographic definition and property mappings for the requested Region ID. The response is a single JSON formatted region object.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "regions",
+                ":region_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "language",
+                  "value": "<string>",
+                  "description": "(Required) Desired language for the response as a subset of BCP47 format that only uses hyphenated pairs of two-digit language and country codes. Use only ISO 639-1 alpha-2 language codes and ISO 3166-1 alpha-2 country codes. See [https://www.w3.org/International/articles/language-tags/](https://www.w3.org/International/articles/language-tags/)\n\nLanguage Options: [https://developers.expediagroup.com/docs/rapid/resources/reference/language-options](https://developers.expediagroup.com/docs/rapid/resources/reference/language-options)\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "(Required) Options for which content to return in the response. This parameter can be supplied multiple times with different values. The value must be lower case.\n  * details - Include the metadata, coordinates and full hierarchy of the region.\n  * property_ids - Include the list of property IDs within the bounding polygon of the region.\n  * property_ids_expanded - Include the list of property IDs within the bounding polygon of the region and property IDs from the surrounding area if minimal properties are within the region.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "(Required) Options for which content to return in the response. This parameter can be supplied multiple times with different values. The value must be lower case.\n  * details - Include the metadata, coordinates and full hierarchy of the region.\n  * property_ids - Include the list of property IDs within the bounding polygon of the region.\n  * property_ids_expanded - Include the list of property IDs within the bounding polygon of the region and property IDs from the surrounding area if minimal properties are within the region.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "billing_terms",
+                  "value": "<string>",
+                  "description": "This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "partner_point_of_sale",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "payment_terms",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "platform_name",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "supply_source",
+                  "value": "<string>",
+                  "description": "Options for which supply source you would like returned in the geography response. This parameter may only be supplied once and will return all properties that match the requested supply source. An error is thrown if the parameter is provided multiple times.\n  * `expedia` - Standard Expedia supply.\n  * `vrbo` - VRBO supply - This option is restricted to partners who have VRBO supply enabled for their profile. See [Vacation Rentals](https://developers.expediagroup.com/docs/rapid/lodging/vacation-rentals) for more information.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region_id",
+                  "description": "(Required) ID of the region to retrieve.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                "key": "Accept-Encoding",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                "key": "Customer-Session-Id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                "key": "User-Agent",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "1ab7f390-aa93-4bc0-9298-c70c5ce35b75",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions",
+                    ":region_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region_id",
+                      "description": "(Required) ID of the region to retrieve.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per day.",
+                  "key": "Rate-Limit-Day",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the daily time window.",
+                  "key": "Rate-Limit-Day-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.",
+                  "key": "Rate-Limit-Day-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per minute.",
+                  "key": "Rate-Limit-Minute",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the per minute time window.",
+                  "key": "Rate-Limit-Minute-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.",
+                  "key": "Rate-Limit-Minute-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.",
+                  "key": "Rate-Limit-Reduction-Status",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Header that returns the pagination total results.",
+                  "key": "Pagination-Total-Results",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"178309\",\n  \"type\": \"multi_city_vicinity\",\n  \"name\": \"Chicago\",\n  \"name_full\": \"Chicago, Illinois, United States of America\",\n  \"descriptor\": \"and vicinity\",\n  \"country_code\": \"US\",\n  \"country_subdivision_code\": \"US-IL\",\n  \"coordinates\": {\n    \"center_longitude\": -87.62813,\n    \"center_latitude\": 41.88078,\n    \"bounding_polygon\": {\n      \"type\": \"MultiPolygon\",\n      \"coordinates\": [\n        [\n          [\n            [\n              -90.859069,\n              38.503453\n            ],\n            [\n              -90.853202,\n              38.508207\n            ],\n            [\n              -90.81246,\n              38.493525\n            ],\n            [\n              -90.845915,\n              38.481057\n            ],\n            [\n              -90.857717,\n              38.48231\n            ],\n            [\n              -90.859069,\n              38.503453\n            ]\n          ]\n        ],\n        [\n          [\n            [\n              -90.907324,\n              38.796858\n            ],\n            [\n              -90.895084,\n              38.852815\n            ],\n            [\n              -90.793246,\n              38.824804\n            ],\n            [\n              -90.800455,\n              38.809497\n            ],\n            [\n              -90.905098,\n              38.77501\n            ],\n            [\n              -90.907324,\n              38.796858\n            ]\n          ]\n        ],\n        [\n          [\n            [\n              -90.160125,\n              38.456535\n            ],\n            [\n              -90.153095,\n              38.455189\n            ],\n            [\n              -90.153836,\n              38.465606\n            ],\n            [\n              -90.149344,\n              38.465929\n            ],\n            [\n              -90.149547,\n              38.47438\n            ],\n            [\n              -90.153305,\n              38.474261\n            ],\n            [\n              -90.160125,\n              38.456535\n            ]\n          ]\n        ]\n      ]\n    }\n  },\n  \"ancestors\": [\n    {\n      \"id\": \"215\",\n      \"type\": \"province_state\"\n    },\n    {\n      \"id\": \"201\",\n      \"type\": \"country\"\n    },\n    {\n      \"id\": \"500001\",\n      \"type\": \"continent\"\n    }\n  ],\n  \"descendants\": {\n    \"high_level_region\": [\n      \"6330730\"\n    ],\n    \"city\": [\n      \"10014\",\n      \"9975\"\n    ]\n  },\n  \"property_ids\": [\n    \"37242\",\n    \"859343\"\n  ],\n  \"property_ids_expanded\": [\n    \"37242\",\n    \"859343\",\n    \"48972\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6212b05-efbe-4770-89ae-8dbf4715061e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions",
+                    ":region_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region_id",
+                      "description": "(Required) ID of the region to retrieve.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per day.",
+                  "key": "Rate-Limit-Day",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the daily time window.",
+                  "key": "Rate-Limit-Day-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.",
+                  "key": "Rate-Limit-Day-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per minute.",
+                  "key": "Rate-Limit-Minute",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the per minute time window.",
+                  "key": "Rate-Limit-Minute-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.",
+                  "key": "Rate-Limit-Minute-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.",
+                  "key": "Rate-Limit-Reduction-Status",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_input\",\n  \"message\": \"An invalid request was sent in, please check the nested errors for details.\",\n  \"errors\": [\n    {\n      \"type\": \"include.invalid\",\n      \"message\": \"Include is invalid. Accepted include values are: [details, property_ids, property_ids_expanded]\",\n      \"fields\": [\n        {\n          \"name\": \"include\",\n          \"type\": \"querystring\",\n          \"value\": \"DETAILS\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7302936e-f561-4d6b-8913-48551568af9a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions",
+                    ":region_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region_id",
+                      "description": "(Required) ID of the region to retrieve.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Provides an example of the Authorization header.",
+                  "key": "WWW-Authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"request_unauthenticated\",\n  \"message\": \"Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.\",\n  \"fields\": [\n    {\n      \"name\": \"apikey\",\n      \"type\": \"header\",\n      \"value\": \"jaj3982k239dka328e\"\n    },\n    {\n      \"name\": \"signature\",\n      \"type\": \"header\",\n      \"value\": \"129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b\"\n    },\n    {\n      \"name\": \"timestamp\",\n      \"type\": \"header\",\n      \"value\": 198284729\n    },\n    {\n      \"name\": \"servertimestamp\",\n      \"type\": \"server\",\n      \"value\": 198284729\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ac175e6-7b5a-4e37-901d-f0a2173ed67b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions",
+                    ":region_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region_id",
+                      "description": "(Required) ID of the region to retrieve.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"request_unauthorized\",\n  \"message\": \"Your request could not be authorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a7c9f5f-8b36-473a-a9b9-7543550df5ea",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions",
+                    ":region_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region_id",
+                      "description": "(Required) ID of the region to retrieve.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per day.",
+                  "key": "Rate-Limit-Day",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the daily time window.",
+                  "key": "Rate-Limit-Day-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.",
+                  "key": "Rate-Limit-Day-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per minute.",
+                  "key": "Rate-Limit-Minute",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the per minute time window.",
+                  "key": "Rate-Limit-Minute-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.",
+                  "key": "Rate-Limit-Minute-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.",
+                  "key": "Rate-Limit-Reduction-Status",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"region.not_found\",\n  \"message\": \"The requested region could not be found.\",\n  \"fields\": [\n    {\n      \"name\": \"region_id\",\n      \"type\": \"path\",\n      \"value\": \"29384729424\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33d713f4-53e0-433e-be5b-fc5bddf48492",
+              "name": "Upgrade Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions",
+                    ":region_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region_id",
+                      "description": "(Required) ID of the region to retrieve.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Upgrade Required (RFC 2817)",
+              "code": 426,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"upgrade_required\",\n  \"message\": \"This service requires the use of TLS.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bce273a1-c51d-49b5-b064-e5afc77e19fe",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions",
+                    ":region_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region_id",
+                      "description": "(Required) ID of the region to retrieve.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per day.",
+                  "key": "Rate-Limit-Day",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the daily time window.",
+                  "key": "Rate-Limit-Day-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.",
+                  "key": "Rate-Limit-Day-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per minute.",
+                  "key": "Rate-Limit-Minute",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the per minute time window.",
+                  "key": "Rate-Limit-Minute-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.",
+                  "key": "Rate-Limit-Minute-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.",
+                  "key": "Rate-Limit-Reduction-Status",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"too_many_requests\",\n  \"message\": \"You have reached your capacity for this type of request.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b5d81cf1-8d33-494f-a76b-061aaa859b8f",
+              "name": "Unknown Internal Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions",
+                    ":region_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region_id",
+                      "description": "(Required) ID of the region to retrieve.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"unknown_internal_error\",\n  \"message\": \"An internal server error has occurred.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6112835-f968-4a36-9b4d-3066953e08b4",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "regions",
+                    ":region_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "language",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "include",
+                      "value": "details"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region_id",
+                      "description": "(Required) ID of the region to retrieve.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response format that the client would like to receive back. This must be `application/json`.\n",
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"service_unavailable\",\n  \"message\": \"This service is currently unavailable.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "80ca2dff-2289-4df1-aac4-4f711528a969",
+          "name": "Expedia Group Properties within Polygon",
+          "request": {
+            "name": "Expedia Group Properties within Polygon",
+            "description": {
+              "content": "Returns the properties within an custom polygon that represents a multi-city area or smaller.\nThe coordinates of the polygon should be in [GeoJSON format](https://tools.ietf.org/html/rfc7946) and the polygon must conform to the following restrictions:\n  * Polygon size - diagonal distance of the polygon must be less than 500km\n  * Polygon type - only single polygons are supported\n  * Number of coordinates - must be <= 2000\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "properties",
+                "geography"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "(Required) Options for which content to return in the response. The value must be lower case.\n  * property_ids - Include the property IDs.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "billing_terms",
+                  "value": "<string>",
+                  "description": "This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "partner_point_of_sale",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "payment_terms",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "platform_name",
+                  "value": "<string>",
+                  "description": "This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "supply_source",
+                  "value": "<string>",
+                  "description": "Options for which supply source you would like returned in the geography response. This parameter may only be supplied once and will return all properties that match the requested supply source. An error is thrown if the parameter is provided multiple times.\n  * `expedia` - Standard Expedia supply.\n  * `vrbo` - VRBO supply - This option is restricted to partners who have VRBO supply enabled for their profile. See [Vacation Rentals](https://developers.expediagroup.com/docs/rapid/lodging/vacation-rentals) for more information.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                "key": "Accept-Encoding",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                "key": "Customer-Session-Id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                "key": "User-Agent",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"coordinates\": [\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ],\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ]\n  ],\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2eb362a8-de85-468a-b926-45fad17cca61",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    "geography"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "property_ids"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coordinates\": [\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ],\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ]\n  ],\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per day.",
+                  "key": "Rate-Limit-Day",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the daily time window.",
+                  "key": "Rate-Limit-Day-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.",
+                  "key": "Rate-Limit-Day-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per minute.",
+                  "key": "Rate-Limit-Minute",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the per minute time window.",
+                  "key": "Rate-Limit-Minute-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.",
+                  "key": "Rate-Limit-Minute-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.",
+                  "key": "Rate-Limit-Reduction-Status",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"9777\": {\n    \"property_id\": \"9777\"\n  },\n  \"34347\": {\n    \"property_id\": \"34347\"\n  },\n  \"430764\": {\n    \"property_id\": \"430764\"\n  },\n  \"1223181\": {\n    \"property_id\": \"1223181\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3149b35f-8f2d-4b3c-9190-fe04b41f538f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    "geography"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "property_ids"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coordinates\": [\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ],\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ]\n  ],\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per day.",
+                  "key": "Rate-Limit-Day",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the daily time window.",
+                  "key": "Rate-Limit-Day-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.",
+                  "key": "Rate-Limit-Day-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per minute.",
+                  "key": "Rate-Limit-Minute",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the per minute time window.",
+                  "key": "Rate-Limit-Minute-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.",
+                  "key": "Rate-Limit-Minute-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.",
+                  "key": "Rate-Limit-Reduction-Status",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"invalid_input\",\n  \"message\": \"An invalid request was sent in, please check the nested errors for details.\",\n  \"errors\": [\n    {\n      \"type\": \"polygon.coordinates_required\",\n      \"message\": \"The polygon must have coordinates.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e5475bc-a1b9-4796-9ae9-5ffb25e7b466",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    "geography"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "property_ids"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coordinates\": [\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ],\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ]\n  ],\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "disabled": false,
+                  "description": "Provides an example of the Authorization header.",
+                  "key": "WWW-Authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"request_unauthenticated\",\n  \"message\": \"Data required to authenticate your request is missing or inaccurate. Ensure that your request follows the guidelines in our documentation.\",\n  \"fields\": [\n    {\n      \"name\": \"apikey\",\n      \"type\": \"header\",\n      \"value\": \"jaj3982k239dka328e\"\n    },\n    {\n      \"name\": \"signature\",\n      \"type\": \"header\",\n      \"value\": \"129d75332614a5bdbe0c7eb540e95a65f9d85a5b53dabb38d19b37fad6312a2bd25c12ee5a82831d55112087e1b\"\n    },\n    {\n      \"name\": \"timestamp\",\n      \"type\": \"header\",\n      \"value\": 198284729\n    },\n    {\n      \"name\": \"servertimestamp\",\n      \"type\": \"server\",\n      \"value\": 198284729\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96a23fb4-b92f-4a9f-85d5-83e43a218d33",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    "geography"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "property_ids"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coordinates\": [\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ],\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ]\n  ],\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"request_unauthorized\",\n  \"message\": \"Your request could not be authorized.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1059bf1c-0c76-421e-bd97-254707447a9e",
+              "name": "Upgrade Required",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    "geography"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "property_ids"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coordinates\": [\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ],\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ]\n  ],\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Upgrade Required (RFC 2817)",
+              "code": 426,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"upgrade_required\",\n  \"message\": \"This service requires the use of TLS.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "439a6b68-8147-44b0-a84e-5da58665e285",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    "geography"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "property_ids"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coordinates\": [\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ],\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ]\n  ],\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per day.",
+                  "key": "Rate-Limit-Day",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the daily time window.",
+                  "key": "Rate-Limit-Day-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the daily capacity resets.",
+                  "key": "Rate-Limit-Day-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Reserved for future use. Optional header for request capacity per minute.",
+                  "key": "Rate-Limit-Minute",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the remaining capacity, as a percentage, for the per minute time window.",
+                  "key": "Rate-Limit-Minute-Remaining",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header for the timestamp, as the number of milliseconds since the Unix Epoch, when the per minute capacity resets.",
+                  "key": "Rate-Limit-Minute-Reset",
+                  "value": "4037.5446308309915"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that indicates the state (inactive, active) of minute capacity reduction triggered once all daily capacity has been used.",
+                  "key": "Rate-Limit-Reduction-Status",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"too_many_requests\",\n  \"message\": \"You have reached your capacity for this type of request.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a17c3ef-430f-4a7f-8f47-fd7e3b6dc05f",
+              "name": "Unknown Internal Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    "geography"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "property_ids"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coordinates\": [\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ],\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ]\n  ],\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"unknown_internal_error\",\n  \"message\": \"An internal server error has occurred.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "520229d3-6c3a-4e6b-abbb-bd787e32cd29",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    "geography"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "property_ids"
+                    },
+                    {
+                      "key": "billing_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partner_point_of_sale",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_terms",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "platform_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supply_source",
+                      "value": "vrbo"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the response encoding that the client would like to receive back. This must be `gzip`.\n",
+                    "key": "Accept-Encoding",
+                    "value": "gzip"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Insert your own unique value for each user session, beginning with the first API call.\nContinue to pass the same value for each subsequent API call during the user's session, using a new value for every new customer session.<br>\nIncluding this value greatly eases EPS's internal debugging process for issues with partner requests, as it explicitly links together request paths for individual user's session.\n",
+                    "key": "Customer-Session-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The `User-Agent` header string from the customer's request, as captured by your integration. If you are building an application then the `User-Agent` value should be `{app name}/{app version}`.\n",
+                    "key": "User-Agent",
+                    "value": "TravelNow/3.30.112"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"coordinates\": [\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ],\n    [\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ],\n      [\n        \"<number>\",\n        \"<number>\"\n      ]\n    ]\n  ],\n  \"type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Optional header that provides information about where the request was processed.",
+                  "key": "Region",
+                  "value": "us-west-2"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"service_unavailable\",\n  \"message\": \"This service is currently unavailable.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://services.expediapartnercentral.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6b4ae9c4-72e5-4132-b95c-ccb250690540",
+    "name": "Expedia Group EPS Deposit Bookings Geography API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We've also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.\n\nContact Support:\n Name: Expedia Partner Services\n Email: eqcss@expedia.com",
+      "type": "text/plain"
+    }
+  }
+}

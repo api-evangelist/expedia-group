@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Expedia Group EPS Deposit Bookings Rate Verification Thresholds API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rate Verification Thresholds",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Expedia Group Read a single room type's rate verification thresholds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes/:roomTypeId/rateThresholds",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              },
+              {
+                "name": "roomTypeId",
+                "value": "",
+                "type": "path",
+                "description": "Room type resource ID. Integer"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Read a single room type's rate verification thresholds"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

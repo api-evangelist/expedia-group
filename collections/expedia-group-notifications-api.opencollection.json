@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Expedia Group EPS Deposit Bookings Notifications API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Expedia Group Request Undelivered Notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/notifications",
+            "params": [
+              {
+                "name": "undeliverable",
+                "value": "",
+                "type": "query",
+                "description": "Undeliverable notifications are returned when this parameter is set to `true`."
+              },
+              {
+                "name": "billing_terms",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.\n"
+              },
+              {
+                "name": "partner_point_of_sale",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+              },
+              {
+                "name": "payment_terms",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.\n"
+              },
+              {
+                "name": "platform_name",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+              }
+            ]
+          },
+          "docs": "Use this API to fetch undelivered notifications. Up to 25 notifications are returned with each call.\nEach undelivered notification will be returned only once.\n"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Request Test Notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://services.expediapartnercentral.com/notifications",
+            "params": [
+              {
+                "name": "billing_terms",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is to specify the terms of how a resulting booking should be billed. If this field is needed, the value for this will be provided to you separately.\n"
+              },
+              {
+                "name": "partner_point_of_sale",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is to specify what point of sale is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+              },
+              {
+                "name": "payment_terms",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is to specify what terms should be used when being paid for a resulting booking. If this field is needed, the value for this will be provided to you separately.\n"
+              },
+              {
+                "name": "platform_name",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is to specify what platform is being used to shop and book. If this field is needed, the value for this will be provided to you separately.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This request triggers a test notification according to the specified event_type.\nAll event types supported by the Notifications API are available to test.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,170 @@
+{
+  "item": [
+    {
+      "id": "3ee6344c-5ac2-4f9b-85f1-7e573dfd4392",
+      "name": "Rate Verification Thresholds",
+      "description": {
+        "content": "Manage room types Rate Verification Thresholds",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0e050c66-8c1a-496f-ba4c-f3da9f0c28c5",
+          "name": "Expedia Group Read a single room type's rate verification thresholds",
+          "request": {
+            "name": "Expedia Group Read a single room type's rate verification thresholds",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":propertyId",
+                "roomTypes",
+                ":roomTypeId",
+                "rateThresholds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Expedia Property ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "roomTypeId",
+                  "description": "(Required) Room type resource ID. Integer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.expedia.eps.product-v2+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f1275fe8-0e1b-460d-8880-9e777a6092dd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "roomTypes",
+                    ":roomTypeId",
+                    "rateThresholds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "roomTypeId",
+                      "description": "(Required) Room type resource ID. Integer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v2+json"
+                }
+              ],
+              "body": "{\n  \"entity\": {\n    \"_links\": {\n      \"self\": {\n        \"href\": \"string\"\n      }\n    },\n    \"maxAmount\": 7229.951846745055,\n    \"minAmount\": 4025.4756411687476,\n    \"source\": \"RecentBookings\",\n    \"type\": \"NetRate\"\n  },\n  \"errors\": [\n    {\n      \"code\": 1153,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 900,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://services.expediapartnercentral.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "85067aa6-64bb-4b8b-82a0-cb988ec20d7c",
+    "name": "Expedia Group EPS Deposit Bookings Rate Verification Thresholds API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We've also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.\n\nContact Support:\n Name: Expedia Partner Services\n Email: eqcss@expedia.com",
+      "type": "text/plain"
+    }
+  }
+}

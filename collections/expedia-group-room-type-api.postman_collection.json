@@ -1,0 +1,1004 @@
+{
+  "item": [
+    {
+      "id": "a8747d15-17fe-473d-b27e-92c9f8069827",
+      "name": "Room Type",
+      "description": {
+        "content": "Manage room types",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d14eb978-85cc-49f8-adda-7ad1ab37492a",
+          "name": "Expedia Group Obtain a list of room types for a given property",
+          "request": {
+            "name": "Expedia Group Obtain a list of room types for a given property",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":propertyId",
+                "roomTypes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Expedia Property ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.expedia.eps.product-v3+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "569019c3-ac5d-4a5d-8faa-75f9141ca80e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "roomTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v3+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v3+json"
+                }
+              ],
+              "body": "[\n  {\n    \"ageCategories\": [\n      {\n        \"category\": \"ChildAgeA\",\n        \"minAge\": 8100\n      },\n      {\n        \"category\": \"Infant\",\n        \"minAge\": 9021\n      }\n    ],\n    \"bedrooms\": [\n      {\n        \"bedding\": [\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"count\": 3025\n      },\n      {\n        \"bedding\": [\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"count\": 5094\n      }\n    ],\n    \"floorSize\": {\n      \"squareFeet\": 6049,\n      \"squareMeters\": 8769\n    },\n    \"maxOccupancy\": {\n      \"adults\": 9968,\n      \"children\": 7414,\n      \"total\": 2541\n    },\n    \"name\": {\n      \"attributes\": {\n        \"typeOfRoom\": \"string\",\n        \"accessibility\": false,\n        \"area\": \"string\",\n        \"bedroomDetails\": \"string\",\n        \"customLabel\": \"string\",\n        \"featuredAmenity\": \"string\",\n        \"includeBedType\": false,\n        \"includeSmokingPref\": true,\n        \"roomClass\": \"string\",\n        \"view\": \"string\"\n      },\n      \"value\": \"string\"\n    },\n    \"partnerCode\": \"string\",\n    \"smokingPreferences\": [\n      \"Smoking\",\n      \"Smoking\"\n    ],\n    \"resourceId\": 8910,\n    \"status\": \"Active\",\n    \"extraBedding\": [\n      {\n        \"quantity\": 7773,\n        \"size\": \"Twin Xl\",\n        \"surcharge\": {\n          \"type\": \"Unknown\",\n          \"amount\": 2485.4029722646333\n        },\n        \"type\": \"Day Bed\"\n      },\n      {\n        \"quantity\": 4462,\n        \"size\": \"Twin Xl\",\n        \"surcharge\": {\n          \"type\": \"Unknown\",\n          \"amount\": 7691.680767150414\n        },\n        \"type\": \"Sofa Bed\"\n      }\n    ],\n    \"livingRooms\": [\n      {\n        \"bedding\": [\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"count\": 8430\n      },\n      {\n        \"bedding\": [\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"count\": 6330\n      }\n    ],\n    \"regulatoryRecords\": {\n      \"category\": \"HOTEL_OR_BNB\",\n      \"records\": [\n        {\n          \"registrationNumber\": \"string\",\n          \"expiry\": \"string\",\n          \"registrationNumberType\": \"LICENSE_ID\"\n        },\n        {\n          \"registrationNumber\": \"string\",\n          \"expiry\": \"string\",\n          \"registrationNumberType\": \"HOTEL_LICENSE\"\n        }\n      ]\n    },\n    \"views\": [\n      \"Canal View\",\n      \"Valley View\"\n    ],\n    \"wheelchairAccessibility\": false,\n    \"_links\": {\n      \"self\": {\n        \"href\": \"string\"\n      }\n    }\n  },\n  {\n    \"ageCategories\": [\n      {\n        \"category\": \"ChildAgeB\",\n        \"minAge\": 1477\n      },\n      {\n        \"category\": \"ChildAgeD\",\n        \"minAge\": 5093\n      }\n    ],\n    \"bedrooms\": [\n      {\n        \"bedding\": [\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"count\": 6832\n      },\n      {\n        \"bedding\": [\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"count\": 5934\n      }\n    ],\n    \"floorSize\": {\n      \"squareFeet\": 794,\n      \"squareMeters\": 5922\n    },\n    \"maxOccupancy\": {\n      \"adults\": 5182,\n      \"children\": 7191,\n      \"total\": 7822\n    },\n    \"name\": {\n      \"attributes\": {\n        \"typeOfRoom\": \"string\",\n        \"accessibility\": false,\n        \"area\": \"string\",\n        \"bedroomDetails\": \"string\",\n        \"customLabel\": \"string\",\n        \"featuredAmenity\": \"string\",\n        \"includeBedType\": true,\n        \"includeSmokingPref\": true,\n        \"roomClass\": \"string\",\n        \"view\": \"string\"\n      },\n      \"value\": \"string\"\n    },\n    \"partnerCode\": \"string\",\n    \"smokingPreferences\": [\n      \"Smoking\",\n      \"Smoking\"\n    ],\n    \"resourceId\": 3853,\n    \"status\": \"Inactive\",\n    \"extraBedding\": [\n      {\n        \"quantity\": 394,\n        \"size\": \"Crib\",\n        \"surcharge\": {\n          \"type\": \"Per Night\",\n          \"amount\": 7623.524081104455\n        },\n        \"type\": \"Day Bed\"\n      },\n      {\n        \"quantity\": 6162,\n        \"size\": \"Twin\",\n        \"surcharge\": {\n          \"type\": \"Free\",\n          \"amount\": 9011.320071787637\n        },\n        \"type\": \"Rollaway Bed\"\n      }\n    ],\n    \"livingRooms\": [\n      {\n        \"bedding\": [\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"count\": 1645\n      },\n      {\n        \"bedding\": [\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"option\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"count\": 7844\n      }\n    ],\n    \"regulatoryRecords\": {\n      \"category\": \"PRIMARY_HOME\",\n      \"records\": [\n        {\n          \"registrationNumber\": \"string\",\n          \"expiry\": \"string\",\n          \"registrationNumberType\": \"LICENSE_NUMBER\"\n        },\n        {\n          \"registrationNumber\": \"string\",\n          \"expiry\": \"string\",\n          \"registrationNumberType\": \"LICENSE_ID\"\n        }\n      ]\n    },\n    \"views\": [\n      \"Park View\",\n      \"Bay View\"\n    ],\n    \"wheelchairAccessibility\": true,\n    \"_links\": {\n      \"self\": {\n        \"href\": \"string\"\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29d5e15d-51ad-42ef-828d-bd80b35b052c",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "roomTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v3+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v3+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 4544,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 4543,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "896d6040-8f04-4c6c-abf6-537710b3a750",
+          "name": "Expedia Group Creates a new room type",
+          "request": {
+            "name": "Expedia Group Creates a new room type",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":propertyId",
+                "roomTypes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Expedia Property ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.expedia.eps.product-v3+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.expedia.eps.product-v3+json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ageCategories\": [\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    }\n  ],\n  \"bedrooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"floorSize\": {\n    \"squareFeet\": \"<integer>\",\n    \"squareMeters\": \"<integer>\"\n  },\n  \"maxOccupancy\": {\n    \"adults\": \"<integer>\",\n    \"children\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"name\": {\n    \"attributes\": {\n      \"typeOfRoom\": \"<string>\",\n      \"accessibility\": \"<boolean>\",\n      \"area\": \"<string>\",\n      \"bedroomDetails\": \"<string>\",\n      \"customLabel\": \"<string>\",\n      \"featuredAmenity\": \"<string>\",\n      \"includeBedType\": \"<boolean>\",\n      \"includeSmokingPref\": \"<boolean>\",\n      \"roomClass\": \"<string>\",\n      \"view\": \"<string>\"\n    },\n    \"value\": \"<string>\"\n  },\n  \"partnerCode\": \"<string>\",\n  \"smokingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"extraBedding\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    }\n  ],\n  \"livingRooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"regulatoryRecords\": {\n    \"category\": \"<string>\",\n    \"records\": [\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      },\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      }\n    ]\n  },\n  \"views\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wheelchairAccessibility\": \"<boolean>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "115a9651-5181-414d-8783-3e94b11245b5",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "roomTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v3+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ageCategories\": [\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    }\n  ],\n  \"bedrooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"floorSize\": {\n    \"squareFeet\": \"<integer>\",\n    \"squareMeters\": \"<integer>\"\n  },\n  \"maxOccupancy\": {\n    \"adults\": \"<integer>\",\n    \"children\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"name\": {\n    \"attributes\": {\n      \"typeOfRoom\": \"<string>\",\n      \"accessibility\": \"<boolean>\",\n      \"area\": \"<string>\",\n      \"bedroomDetails\": \"<string>\",\n      \"customLabel\": \"<string>\",\n      \"featuredAmenity\": \"<string>\",\n      \"includeBedType\": \"<boolean>\",\n      \"includeSmokingPref\": \"<boolean>\",\n      \"roomClass\": \"<string>\",\n      \"view\": \"<string>\"\n    },\n    \"value\": \"<string>\"\n  },\n  \"partnerCode\": \"<string>\",\n  \"smokingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"extraBedding\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    }\n  ],\n  \"livingRooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"regulatoryRecords\": {\n    \"category\": \"<string>\",\n    \"records\": [\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      },\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      }\n    ]\n  },\n  \"views\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wheelchairAccessibility\": \"<boolean>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v3+json"
+                }
+              ],
+              "body": "{\n  \"ageCategories\": [\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    }\n  ],\n  \"bedrooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"floorSize\": {\n    \"squareFeet\": \"<integer>\",\n    \"squareMeters\": \"<integer>\"\n  },\n  \"maxOccupancy\": {\n    \"adults\": \"<integer>\",\n    \"children\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"name\": {\n    \"attributes\": {\n      \"typeOfRoom\": \"<string>\",\n      \"accessibility\": \"<boolean>\",\n      \"area\": \"<string>\",\n      \"bedroomDetails\": \"<string>\",\n      \"customLabel\": \"<string>\",\n      \"featuredAmenity\": \"<string>\",\n      \"includeBedType\": \"<boolean>\",\n      \"includeSmokingPref\": \"<boolean>\",\n      \"roomClass\": \"<string>\",\n      \"view\": \"<string>\"\n    },\n    \"value\": \"<string>\"\n  },\n  \"partnerCode\": \"<string>\",\n  \"smokingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"extraBedding\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    }\n  ],\n  \"livingRooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"regulatoryRecords\": {\n    \"category\": \"<string>\",\n    \"records\": [\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      },\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      }\n    ]\n  },\n  \"views\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wheelchairAccessibility\": \"<boolean>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd5f14a6-841c-4798-8c80-f32a1c8d7180",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "roomTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v3+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ageCategories\": [\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    }\n  ],\n  \"bedrooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"floorSize\": {\n    \"squareFeet\": \"<integer>\",\n    \"squareMeters\": \"<integer>\"\n  },\n  \"maxOccupancy\": {\n    \"adults\": \"<integer>\",\n    \"children\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"name\": {\n    \"attributes\": {\n      \"typeOfRoom\": \"<string>\",\n      \"accessibility\": \"<boolean>\",\n      \"area\": \"<string>\",\n      \"bedroomDetails\": \"<string>\",\n      \"customLabel\": \"<string>\",\n      \"featuredAmenity\": \"<string>\",\n      \"includeBedType\": \"<boolean>\",\n      \"includeSmokingPref\": \"<boolean>\",\n      \"roomClass\": \"<string>\",\n      \"view\": \"<string>\"\n    },\n    \"value\": \"<string>\"\n  },\n  \"partnerCode\": \"<string>\",\n  \"smokingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"extraBedding\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    }\n  ],\n  \"livingRooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"regulatoryRecords\": {\n    \"category\": \"<string>\",\n    \"records\": [\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      },\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      }\n    ]\n  },\n  \"views\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wheelchairAccessibility\": \"<boolean>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v3+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2642,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 8222,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "072ca752-8499-4137-9a0b-c3f4eeddad9d",
+          "name": "Expedia Group Read a single room type from a given property",
+          "request": {
+            "name": "Expedia Group Read a single room type from a given property",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":propertyId",
+                "roomTypes",
+                ":roomTypeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Expedia Property ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "roomTypeId",
+                  "description": "(Required) Room type resource ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.expedia.eps.product-v3+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "acc55729-0671-408e-98c5-f7bf4ebb9f85",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "roomTypes",
+                    ":roomTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "roomTypeId",
+                      "description": "(Required) Room type resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v3+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v3+json"
+                }
+              ],
+              "body": "{\n  \"ageCategories\": [\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    }\n  ],\n  \"bedrooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"floorSize\": {\n    \"squareFeet\": \"<integer>\",\n    \"squareMeters\": \"<integer>\"\n  },\n  \"maxOccupancy\": {\n    \"adults\": \"<integer>\",\n    \"children\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"name\": {\n    \"attributes\": {\n      \"typeOfRoom\": \"<string>\",\n      \"accessibility\": \"<boolean>\",\n      \"area\": \"<string>\",\n      \"bedroomDetails\": \"<string>\",\n      \"customLabel\": \"<string>\",\n      \"featuredAmenity\": \"<string>\",\n      \"includeBedType\": \"<boolean>\",\n      \"includeSmokingPref\": \"<boolean>\",\n      \"roomClass\": \"<string>\",\n      \"view\": \"<string>\"\n    },\n    \"value\": \"<string>\"\n  },\n  \"partnerCode\": \"<string>\",\n  \"smokingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"extraBedding\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    }\n  ],\n  \"livingRooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"regulatoryRecords\": {\n    \"category\": \"<string>\",\n    \"records\": [\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      },\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      }\n    ]\n  },\n  \"views\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wheelchairAccessibility\": \"<boolean>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "587bfe2f-5cad-4af6-956a-b0c491745039",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "roomTypes",
+                    ":roomTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "roomTypeId",
+                      "description": "(Required) Room type resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v3+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v3+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2642,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 8222,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c3dd095-1811-460a-8c99-661f92e00733",
+          "name": "Expedia Group Modify an existing room type",
+          "request": {
+            "name": "Expedia Group Modify an existing room type",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":propertyId",
+                "roomTypes",
+                ":roomTypeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Expedia Property ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "roomTypeId",
+                  "description": "(Required) Room type resource ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.expedia.eps.product-v3+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.expedia.eps.product-v3+json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ageCategories\": [\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    }\n  ],\n  \"bedrooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"floorSize\": {\n    \"squareFeet\": \"<integer>\",\n    \"squareMeters\": \"<integer>\"\n  },\n  \"maxOccupancy\": {\n    \"adults\": \"<integer>\",\n    \"children\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"name\": {\n    \"attributes\": {\n      \"typeOfRoom\": \"<string>\",\n      \"accessibility\": \"<boolean>\",\n      \"area\": \"<string>\",\n      \"bedroomDetails\": \"<string>\",\n      \"customLabel\": \"<string>\",\n      \"featuredAmenity\": \"<string>\",\n      \"includeBedType\": \"<boolean>\",\n      \"includeSmokingPref\": \"<boolean>\",\n      \"roomClass\": \"<string>\",\n      \"view\": \"<string>\"\n    },\n    \"value\": \"<string>\"\n  },\n  \"partnerCode\": \"<string>\",\n  \"smokingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"extraBedding\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    }\n  ],\n  \"livingRooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"regulatoryRecords\": {\n    \"category\": \"<string>\",\n    \"records\": [\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      },\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      }\n    ]\n  },\n  \"views\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wheelchairAccessibility\": \"<boolean>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e513182c-44d0-4cb3-b627-eaad8590a39d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "roomTypes",
+                    ":roomTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "roomTypeId",
+                      "description": "(Required) Room type resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v3+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ageCategories\": [\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    }\n  ],\n  \"bedrooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"floorSize\": {\n    \"squareFeet\": \"<integer>\",\n    \"squareMeters\": \"<integer>\"\n  },\n  \"maxOccupancy\": {\n    \"adults\": \"<integer>\",\n    \"children\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"name\": {\n    \"attributes\": {\n      \"typeOfRoom\": \"<string>\",\n      \"accessibility\": \"<boolean>\",\n      \"area\": \"<string>\",\n      \"bedroomDetails\": \"<string>\",\n      \"customLabel\": \"<string>\",\n      \"featuredAmenity\": \"<string>\",\n      \"includeBedType\": \"<boolean>\",\n      \"includeSmokingPref\": \"<boolean>\",\n      \"roomClass\": \"<string>\",\n      \"view\": \"<string>\"\n    },\n    \"value\": \"<string>\"\n  },\n  \"partnerCode\": \"<string>\",\n  \"smokingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"extraBedding\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    }\n  ],\n  \"livingRooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"regulatoryRecords\": {\n    \"category\": \"<string>\",\n    \"records\": [\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      },\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      }\n    ]\n  },\n  \"views\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wheelchairAccessibility\": \"<boolean>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v3+json"
+                }
+              ],
+              "body": "{\n  \"ageCategories\": [\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    }\n  ],\n  \"bedrooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"floorSize\": {\n    \"squareFeet\": \"<integer>\",\n    \"squareMeters\": \"<integer>\"\n  },\n  \"maxOccupancy\": {\n    \"adults\": \"<integer>\",\n    \"children\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"name\": {\n    \"attributes\": {\n      \"typeOfRoom\": \"<string>\",\n      \"accessibility\": \"<boolean>\",\n      \"area\": \"<string>\",\n      \"bedroomDetails\": \"<string>\",\n      \"customLabel\": \"<string>\",\n      \"featuredAmenity\": \"<string>\",\n      \"includeBedType\": \"<boolean>\",\n      \"includeSmokingPref\": \"<boolean>\",\n      \"roomClass\": \"<string>\",\n      \"view\": \"<string>\"\n    },\n    \"value\": \"<string>\"\n  },\n  \"partnerCode\": \"<string>\",\n  \"smokingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"extraBedding\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    }\n  ],\n  \"livingRooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"regulatoryRecords\": {\n    \"category\": \"<string>\",\n    \"records\": [\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      },\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      }\n    ]\n  },\n  \"views\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wheelchairAccessibility\": \"<boolean>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba3abf4b-d6f3-490e-932e-c63e6c73a9d4",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "roomTypes",
+                    ":roomTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "roomTypeId",
+                      "description": "(Required) Room type resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v3+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ageCategories\": [\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    }\n  ],\n  \"bedrooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"floorSize\": {\n    \"squareFeet\": \"<integer>\",\n    \"squareMeters\": \"<integer>\"\n  },\n  \"maxOccupancy\": {\n    \"adults\": \"<integer>\",\n    \"children\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"name\": {\n    \"attributes\": {\n      \"typeOfRoom\": \"<string>\",\n      \"accessibility\": \"<boolean>\",\n      \"area\": \"<string>\",\n      \"bedroomDetails\": \"<string>\",\n      \"customLabel\": \"<string>\",\n      \"featuredAmenity\": \"<string>\",\n      \"includeBedType\": \"<boolean>\",\n      \"includeSmokingPref\": \"<boolean>\",\n      \"roomClass\": \"<string>\",\n      \"view\": \"<string>\"\n    },\n    \"value\": \"<string>\"\n  },\n  \"partnerCode\": \"<string>\",\n  \"smokingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"extraBedding\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    }\n  ],\n  \"livingRooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"regulatoryRecords\": {\n    \"category\": \"<string>\",\n    \"records\": [\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      },\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      }\n    ]\n  },\n  \"views\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wheelchairAccessibility\": \"<boolean>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v3+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2642,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 8222,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9cda8276-303d-4c28-8011-d962ab0ea2bb",
+          "name": "Expedia Group Patch an existing room type",
+          "request": {
+            "name": "Expedia Group Patch an existing room type",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":propertyId",
+                "roomTypes",
+                ":roomTypeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Expedia Property Id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "roomTypeId",
+                  "description": "(Required) Room type resource ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.expedia.eps.product-v3+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.expedia.eps.product-v3+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ageCategories\": [\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    }\n  ],\n  \"bedrooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"floorSize\": {\n    \"squareFeet\": \"<integer>\",\n    \"squareMeters\": \"<integer>\"\n  },\n  \"maxOccupancy\": {\n    \"adults\": \"<integer>\",\n    \"children\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"name\": {\n    \"attributes\": {\n      \"typeOfRoom\": \"<string>\",\n      \"accessibility\": \"<boolean>\",\n      \"area\": \"<string>\",\n      \"bedroomDetails\": \"<string>\",\n      \"customLabel\": \"<string>\",\n      \"featuredAmenity\": \"<string>\",\n      \"includeBedType\": \"<boolean>\",\n      \"includeSmokingPref\": \"<boolean>\",\n      \"roomClass\": \"<string>\",\n      \"view\": \"<string>\"\n    },\n    \"value\": \"<string>\"\n  },\n  \"partnerCode\": \"<string>\",\n  \"smokingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"extraBedding\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    }\n  ],\n  \"livingRooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"regulatoryRecords\": {\n    \"category\": \"<string>\",\n    \"records\": [\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      },\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      }\n    ]\n  },\n  \"views\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wheelchairAccessibility\": \"<boolean>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "725aae47-a4be-4326-b6bc-6747c20b201c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "roomTypes",
+                    ":roomTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property Id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "roomTypeId",
+                      "description": "(Required) Room type resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v3+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ageCategories\": [\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    }\n  ],\n  \"bedrooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"floorSize\": {\n    \"squareFeet\": \"<integer>\",\n    \"squareMeters\": \"<integer>\"\n  },\n  \"maxOccupancy\": {\n    \"adults\": \"<integer>\",\n    \"children\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"name\": {\n    \"attributes\": {\n      \"typeOfRoom\": \"<string>\",\n      \"accessibility\": \"<boolean>\",\n      \"area\": \"<string>\",\n      \"bedroomDetails\": \"<string>\",\n      \"customLabel\": \"<string>\",\n      \"featuredAmenity\": \"<string>\",\n      \"includeBedType\": \"<boolean>\",\n      \"includeSmokingPref\": \"<boolean>\",\n      \"roomClass\": \"<string>\",\n      \"view\": \"<string>\"\n    },\n    \"value\": \"<string>\"\n  },\n  \"partnerCode\": \"<string>\",\n  \"smokingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"extraBedding\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    }\n  ],\n  \"livingRooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"regulatoryRecords\": {\n    \"category\": \"<string>\",\n    \"records\": [\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      },\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      }\n    ]\n  },\n  \"views\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wheelchairAccessibility\": \"<boolean>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v3+json"
+                }
+              ],
+              "body": "{\n  \"ageCategories\": [\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    }\n  ],\n  \"bedrooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"floorSize\": {\n    \"squareFeet\": \"<integer>\",\n    \"squareMeters\": \"<integer>\"\n  },\n  \"maxOccupancy\": {\n    \"adults\": \"<integer>\",\n    \"children\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"name\": {\n    \"attributes\": {\n      \"typeOfRoom\": \"<string>\",\n      \"accessibility\": \"<boolean>\",\n      \"area\": \"<string>\",\n      \"bedroomDetails\": \"<string>\",\n      \"customLabel\": \"<string>\",\n      \"featuredAmenity\": \"<string>\",\n      \"includeBedType\": \"<boolean>\",\n      \"includeSmokingPref\": \"<boolean>\",\n      \"roomClass\": \"<string>\",\n      \"view\": \"<string>\"\n    },\n    \"value\": \"<string>\"\n  },\n  \"partnerCode\": \"<string>\",\n  \"smokingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"extraBedding\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    }\n  ],\n  \"livingRooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"regulatoryRecords\": {\n    \"category\": \"<string>\",\n    \"records\": [\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      },\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      }\n    ]\n  },\n  \"views\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wheelchairAccessibility\": \"<boolean>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d629148-5e8b-4d0d-ba58-917fe1f31e2e",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "roomTypes",
+                    ":roomTypeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property Id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "roomTypeId",
+                      "description": "(Required) Room type resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v3+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ageCategories\": [\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"minAge\": \"<integer>\"\n    }\n  ],\n  \"bedrooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"floorSize\": {\n    \"squareFeet\": \"<integer>\",\n    \"squareMeters\": \"<integer>\"\n  },\n  \"maxOccupancy\": {\n    \"adults\": \"<integer>\",\n    \"children\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"name\": {\n    \"attributes\": {\n      \"typeOfRoom\": \"<string>\",\n      \"accessibility\": \"<boolean>\",\n      \"area\": \"<string>\",\n      \"bedroomDetails\": \"<string>\",\n      \"customLabel\": \"<string>\",\n      \"featuredAmenity\": \"<string>\",\n      \"includeBedType\": \"<boolean>\",\n      \"includeSmokingPref\": \"<boolean>\",\n      \"roomClass\": \"<string>\",\n      \"view\": \"<string>\"\n    },\n    \"value\": \"<string>\"\n  },\n  \"partnerCode\": \"<string>\",\n  \"smokingPreferences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"resourceId\": \"<long>\",\n  \"status\": \"<string>\",\n  \"extraBedding\": [\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<integer>\",\n      \"size\": \"<string>\",\n      \"surcharge\": {\n        \"type\": \"<string>\",\n        \"amount\": \"<double>\"\n      },\n      \"type\": \"<string>\"\n    }\n  ],\n  \"livingRooms\": [\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    },\n    {\n      \"bedding\": [\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"option\": [\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"quantity\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"size\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"count\": \"<integer>\"\n    }\n  ],\n  \"regulatoryRecords\": {\n    \"category\": \"<string>\",\n    \"records\": [\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      },\n      {\n        \"registrationNumber\": \"<string>\",\n        \"expiry\": \"<string>\",\n        \"registrationNumberType\": \"<string>\"\n      }\n    ]\n  },\n  \"views\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"wheelchairAccessibility\": \"<boolean>\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v3+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2642,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 8222,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://services.expediapartnercentral.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4a20bfcb-9351-49bf-b7ac-cece5221230a",
+    "name": "Expedia Group EPS Deposit Bookings Room Type API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We've also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.\n\nContact Support:\n Name: Expedia Partner Services\n Email: eqcss@expedia.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,316 @@
+{
+  "item": [
+    {
+      "id": "96a4d2ff-aa05-48c7-9122-a89b23806271",
+      "name": "Room Type Amenities",
+      "description": {
+        "content": "Manage room type amenities",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ca8a8291-ca34-44ca-8f1f-1611a0271372",
+          "name": "Expedia Group Read a single room type's amenities",
+          "request": {
+            "name": "Expedia Group Read a single room type's amenities",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":propertyId",
+                "roomTypes",
+                ":roomTypeId",
+                "amenities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Expedia Property ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "roomTypeId",
+                  "description": "(Required) Room type resource ID. Integer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.expedia.eps.product-v2+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0609d489-ea7b-4ba5-9322-cd7a6848ddea",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "roomTypes",
+                    ":roomTypeId",
+                    "amenities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "roomTypeId",
+                      "description": "(Required) Room type resource ID. Integer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v2+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v2+json"
+                }
+              ],
+              "body": "{\n  \"entity\": [\n    {\n      \"code\": \"string\",\n      \"detailCode\": \"string\",\n      \"value\": 1984.3764802398478\n    },\n    {\n      \"code\": \"string\",\n      \"detailCode\": \"string\",\n      \"value\": 4308.139667030946\n    }\n  ],\n  \"errors\": [\n    {\n      \"code\": 1565,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 1461,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b1dd8b0-0094-4a44-8278-eeb963cdacb3",
+          "name": "Expedia Group Set room type amenities to an existing room type",
+          "request": {
+            "name": "Expedia Group Set room type amenities to an existing room type",
+            "description": {},
+            "url": {
+              "path": [
+                "properties",
+                ":propertyId",
+                "roomTypes",
+                ":roomTypeId",
+                "amenities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "propertyId",
+                  "description": "(Required) Expedia Property Id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "roomTypeId",
+                  "description": "(Required) Room type resource ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.expedia.eps.product-v2+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.expedia.eps.product-v2+json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"code\": \"<string>\",\n    \"detailCode\": \"<string>\",\n    \"value\": \"<number>\"\n  },\n  {\n    \"code\": \"<string>\",\n    \"detailCode\": \"<string>\",\n    \"value\": \"<number>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "425804d6-1a4e-4779-9f5f-7ea229636578",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "properties",
+                    ":propertyId",
+                    "roomTypes",
+                    ":roomTypeId",
+                    "amenities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "propertyId",
+                      "description": "(Required) Expedia Property Id"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "roomTypeId",
+                      "description": "(Required) Room type resource ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.expedia.eps.product-v2+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"code\": \"<string>\",\n    \"detailCode\": \"<string>\",\n    \"value\": \"<number>\"\n  },\n  {\n    \"code\": \"<string>\",\n    \"detailCode\": \"<string>\",\n    \"value\": \"<number>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.expedia.eps.product-v2+json"
+                }
+              ],
+              "body": "{\n  \"entity\": [\n    {\n      \"code\": \"<string>\",\n      \"detailCode\": \"<string>\",\n      \"value\": \"<number>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"detailCode\": \"<string>\",\n      \"value\": \"<number>\"\n    }\n  ],\n  \"errors\": [\n    {\n      \"code\": 2682,\n      \"message\": \"string\"\n    },\n    {\n      \"code\": 9054,\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://services.expediapartnercentral.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3cfa436f-e82a-4f47-b76d-5af30f81c996",
+    "name": "Expedia Group EPS Deposit Bookings Room Type Amenities API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We've also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.\n\nContact Support:\n Name: Expedia Partner Services\n Email: eqcss@expedia.com",
+      "type": "text/plain"
+    }
+  }
+}

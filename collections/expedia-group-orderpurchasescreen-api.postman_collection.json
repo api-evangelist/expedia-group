@@ -1,0 +1,624 @@
+{
+  "item": [
+    {
+      "id": "c53df93c-e3bd-4adb-8e4b-cc5d47b2de20",
+      "name": "OrderPurchaseScreen",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "83137ced-b8ee-4ed8-aaa3-0121a58a6a1d",
+          "name": "Expedia Group Run fraud screening for one transaction",
+          "request": {
+            "name": "Expedia Group Run fraud screening for one transaction",
+            "description": {
+              "content": "The Order Purchase API gives a Fraud recommendation for a transaction. A recommendation can be Accept, Reject, or Review. A transaction is marked as Review whenever there are insufficient signals to recommend Accept or Reject. These incidents are manually reviewed, and a corrected recommendation is made asynchronously. ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order",
+                "purchase",
+                "screen"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"site_info\": {\n      \"country_code\": \"<string>\",\n      \"agent_assisted\": \"<boolean>\"\n    },\n    \"device_details\": {\n      \"ip_address\": \"<string>\",\n      \"source\": \"<string>\",\n      \"device_box\": \"<string>\"\n    },\n    \"customer_account\": {\n      \"account_type\": \"<string>\",\n      \"name\": {\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"title\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"email_address\": \"<email>\",\n      \"user_id\": \"<string>\",\n      \"telephones\": [\n        {\n          \"country_access_code\": \"<string>\",\n          \"area_code\": \"<string>\",\n          \"phone_number\": \"<string>\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"<string>\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        },\n        {\n          \"country_access_code\": \"<string>\",\n          \"area_code\": \"<string>\",\n          \"phone_number\": \"<string>\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"<string>\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        }\n      ],\n      \"address\": {\n        \"address_line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip_code\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"address_type\": \"<string>\",\n        \"address_line2\": \"<string>\"\n      },\n      \"registered_time\": \"<dateTime>\"\n    },\n    \"transaction_details\": {\n      \"order_id\": \"<string>\",\n      \"current_order_status\": \"<string>\",\n      \"order_type\": \"<string>\",\n      \"travel_products\": [\n        {\n          \"price\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"<string>\",\n          \"inventory_type\": \"<string>\",\n          \"inventory_source\": \"<string>\",\n          \"travelers_references\": [\n            \"<string>\"\n          ],\n          \"pay_later\": \"<boolean>\"\n        }\n      ],\n      \"travelers\": [\n        {\n          \"traveler_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"primary\": \"<boolean>\",\n          \"email_address\": \"<email>\",\n          \"telephones\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"age\": \"<number>\",\n          \"birth_date\": \"<dateTime>\",\n          \"citizenship_country_code\": \"<string>\",\n          \"traveler_id\": \"<string>\"\n        }\n      ],\n      \"payments\": [\n        {\n          \"brand\": \"<string>\",\n          \"method\": \"<string>\",\n          \"billing_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"billing_email_address\": \"<email>\",\n          \"billing_address\": {\n            \"zip_code\": 9527.342067953288,\n            \"address_line1\": 6607.551988285285,\n            \"city\": 7929,\n            \"country_code\": true\n          },\n          \"reason\": \"<string>\",\n          \"authorized_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"verified_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"three_digits_secure_criteria\": {\n            \"probable_flag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"transaction_model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"operations\": {\n            \"verify\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize_reversal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"capture\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"extensions\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\",\n            \"key_2\": \"<string>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fd635728-f4e9-4542-92fe-86e9e524793a",
+              "name": "The OrderPurchaseScreenRequest was successfully received and the order screening is complete.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "purchase",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"site_info\": {\n      \"country_code\": \"USA\",\n      \"agent_assisted\": \"<boolean>\"\n    },\n    \"device_details\": {\n      \"ip_address\": \"192.168.32.48\",\n      \"source\": \"<string>\",\n      \"device_box\": \"<string>\"\n    },\n    \"customer_account\": {\n      \"account_type\": \"STANDARD\",\n      \"name\": {\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"title\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"email_address\": \"<email>\",\n      \"user_id\": \"<string>\",\n      \"telephones\": [\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        },\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        }\n      ],\n      \"address\": {\n        \"address_line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip_code\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"address_type\": \"<string>\",\n        \"address_line2\": \"<string>\"\n      },\n      \"registered_time\": \"<dateTime>\"\n    },\n    \"transaction_details\": {\n      \"order_id\": \"1000000234\",\n      \"current_order_status\": \"<string>\",\n      \"order_type\": \"CREATE\",\n      \"travel_products\": [\n        {\n          \"price\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"<string>\",\n          \"inventory_type\": \"<string>\",\n          \"inventory_source\": \"<string>\",\n          \"travelers_references\": [\n            \"<string>\"\n          ],\n          \"pay_later\": \"<boolean>\"\n        }\n      ],\n      \"travelers\": [\n        {\n          \"traveler_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"primary\": \"<boolean>\",\n          \"email_address\": \"<email>\",\n          \"telephones\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"age\": \"<number>\",\n          \"birth_date\": \"<dateTime>\",\n          \"citizenship_country_code\": \"<string>\",\n          \"traveler_id\": \"<string>\"\n        }\n      ],\n      \"payments\": [\n        {\n          \"brand\": \"<string>\",\n          \"method\": \"<string>\",\n          \"billing_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"billing_email_address\": \"<email>\",\n          \"billing_address\": {\n            \"zip_code\": \"string\",\n            \"address_line1\": 2329,\n            \"city\": \"string\",\n            \"country_code\": 2388.519123955033\n          },\n          \"reason\": \"<string>\",\n          \"authorized_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"verified_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"three_digits_secure_criteria\": {\n            \"probable_flag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"transaction_model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"operations\": {\n            \"verify\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize_reversal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"capture\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"extensions\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"risk_id\": \"1234567\",\n  \"decision\": \"ACCEPT\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b971cb6-a52e-4332-9554-520d23b3bfcb",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "purchase",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"site_info\": {\n      \"country_code\": \"USA\",\n      \"agent_assisted\": \"<boolean>\"\n    },\n    \"device_details\": {\n      \"ip_address\": \"192.168.32.48\",\n      \"source\": \"<string>\",\n      \"device_box\": \"<string>\"\n    },\n    \"customer_account\": {\n      \"account_type\": \"STANDARD\",\n      \"name\": {\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"title\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"email_address\": \"<email>\",\n      \"user_id\": \"<string>\",\n      \"telephones\": [\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        },\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        }\n      ],\n      \"address\": {\n        \"address_line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip_code\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"address_type\": \"<string>\",\n        \"address_line2\": \"<string>\"\n      },\n      \"registered_time\": \"<dateTime>\"\n    },\n    \"transaction_details\": {\n      \"order_id\": \"1000000234\",\n      \"current_order_status\": \"<string>\",\n      \"order_type\": \"CREATE\",\n      \"travel_products\": [\n        {\n          \"price\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"<string>\",\n          \"inventory_type\": \"<string>\",\n          \"inventory_source\": \"<string>\",\n          \"travelers_references\": [\n            \"<string>\"\n          ],\n          \"pay_later\": \"<boolean>\"\n        }\n      ],\n      \"travelers\": [\n        {\n          \"traveler_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"primary\": \"<boolean>\",\n          \"email_address\": \"<email>\",\n          \"telephones\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"age\": \"<number>\",\n          \"birth_date\": \"<dateTime>\",\n          \"citizenship_country_code\": \"<string>\",\n          \"traveler_id\": \"<string>\"\n        }\n      ],\n      \"payments\": [\n        {\n          \"brand\": \"<string>\",\n          \"method\": \"<string>\",\n          \"billing_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"billing_email_address\": \"<email>\",\n          \"billing_address\": {\n            \"zip_code\": \"string\",\n            \"address_line1\": 2329,\n            \"city\": \"string\",\n            \"country_code\": 2388.519123955033\n          },\n          \"reason\": \"<string>\",\n          \"authorized_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"verified_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"three_digits_secure_criteria\": {\n            \"probable_flag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"transaction_model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"operations\": {\n            \"verify\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize_reversal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"capture\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"extensions\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"BAD_REQUEST\",\n  \"message\": \"An input validation error was encountered. Please see causes for more details.\",\n  \"causes\": [\n    {\n      \"code\": \"MISSING_MANDATORY_PARAM\",\n      \"field\": \"$.transaction.customer_account.account_type\",\n      \"message\": \"The value of a field should not be null.\"\n    },\n    {\n      \"code\": \"MISSING_MANDATORY_PARAM\",\n      \"field\": \"$.transaction.customer_account.account_type\",\n      \"message\": \"The value of a field should not be null.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "526aa70d-3f1d-43a8-b267-d1b5daf1bcb9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "purchase",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"site_info\": {\n      \"country_code\": \"USA\",\n      \"agent_assisted\": \"<boolean>\"\n    },\n    \"device_details\": {\n      \"ip_address\": \"192.168.32.48\",\n      \"source\": \"<string>\",\n      \"device_box\": \"<string>\"\n    },\n    \"customer_account\": {\n      \"account_type\": \"STANDARD\",\n      \"name\": {\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"title\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"email_address\": \"<email>\",\n      \"user_id\": \"<string>\",\n      \"telephones\": [\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        },\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        }\n      ],\n      \"address\": {\n        \"address_line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip_code\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"address_type\": \"<string>\",\n        \"address_line2\": \"<string>\"\n      },\n      \"registered_time\": \"<dateTime>\"\n    },\n    \"transaction_details\": {\n      \"order_id\": \"1000000234\",\n      \"current_order_status\": \"<string>\",\n      \"order_type\": \"CREATE\",\n      \"travel_products\": [\n        {\n          \"price\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"<string>\",\n          \"inventory_type\": \"<string>\",\n          \"inventory_source\": \"<string>\",\n          \"travelers_references\": [\n            \"<string>\"\n          ],\n          \"pay_later\": \"<boolean>\"\n        }\n      ],\n      \"travelers\": [\n        {\n          \"traveler_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"primary\": \"<boolean>\",\n          \"email_address\": \"<email>\",\n          \"telephones\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"age\": \"<number>\",\n          \"birth_date\": \"<dateTime>\",\n          \"citizenship_country_code\": \"<string>\",\n          \"traveler_id\": \"<string>\"\n        }\n      ],\n      \"payments\": [\n        {\n          \"brand\": \"<string>\",\n          \"method\": \"<string>\",\n          \"billing_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"billing_email_address\": \"<email>\",\n          \"billing_address\": {\n            \"zip_code\": \"string\",\n            \"address_line1\": 2329,\n            \"city\": \"string\",\n            \"country_code\": 2388.519123955033\n          },\n          \"reason\": \"<string>\",\n          \"authorized_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"verified_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"three_digits_secure_criteria\": {\n            \"probable_flag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"transaction_model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"operations\": {\n            \"verify\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize_reversal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"capture\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"extensions\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Invalid EG token provided. Please provide a valid token in the Authorization header.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f3ea994-c5ab-4aac-86a5-bcf43682c948",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "purchase",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"site_info\": {\n      \"country_code\": \"USA\",\n      \"agent_assisted\": \"<boolean>\"\n    },\n    \"device_details\": {\n      \"ip_address\": \"192.168.32.48\",\n      \"source\": \"<string>\",\n      \"device_box\": \"<string>\"\n    },\n    \"customer_account\": {\n      \"account_type\": \"STANDARD\",\n      \"name\": {\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"title\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"email_address\": \"<email>\",\n      \"user_id\": \"<string>\",\n      \"telephones\": [\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        },\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        }\n      ],\n      \"address\": {\n        \"address_line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip_code\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"address_type\": \"<string>\",\n        \"address_line2\": \"<string>\"\n      },\n      \"registered_time\": \"<dateTime>\"\n    },\n    \"transaction_details\": {\n      \"order_id\": \"1000000234\",\n      \"current_order_status\": \"<string>\",\n      \"order_type\": \"CREATE\",\n      \"travel_products\": [\n        {\n          \"price\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"<string>\",\n          \"inventory_type\": \"<string>\",\n          \"inventory_source\": \"<string>\",\n          \"travelers_references\": [\n            \"<string>\"\n          ],\n          \"pay_later\": \"<boolean>\"\n        }\n      ],\n      \"travelers\": [\n        {\n          \"traveler_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"primary\": \"<boolean>\",\n          \"email_address\": \"<email>\",\n          \"telephones\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"age\": \"<number>\",\n          \"birth_date\": \"<dateTime>\",\n          \"citizenship_country_code\": \"<string>\",\n          \"traveler_id\": \"<string>\"\n        }\n      ],\n      \"payments\": [\n        {\n          \"brand\": \"<string>\",\n          \"method\": \"<string>\",\n          \"billing_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"billing_email_address\": \"<email>\",\n          \"billing_address\": {\n            \"zip_code\": \"string\",\n            \"address_line1\": 2329,\n            \"city\": \"string\",\n            \"country_code\": 2388.519123955033\n          },\n          \"reason\": \"<string>\",\n          \"authorized_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"verified_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"three_digits_secure_criteria\": {\n            \"probable_flag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"transaction_model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"operations\": {\n            \"verify\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize_reversal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"capture\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"extensions\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"FORBIDDEN\",\n  \"message\": \"Insufficient permissions to perform the request.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6783c34c-a883-4e22-9ce6-b58574760a99",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "purchase",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"site_info\": {\n      \"country_code\": \"USA\",\n      \"agent_assisted\": \"<boolean>\"\n    },\n    \"device_details\": {\n      \"ip_address\": \"192.168.32.48\",\n      \"source\": \"<string>\",\n      \"device_box\": \"<string>\"\n    },\n    \"customer_account\": {\n      \"account_type\": \"STANDARD\",\n      \"name\": {\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"title\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"email_address\": \"<email>\",\n      \"user_id\": \"<string>\",\n      \"telephones\": [\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        },\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        }\n      ],\n      \"address\": {\n        \"address_line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip_code\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"address_type\": \"<string>\",\n        \"address_line2\": \"<string>\"\n      },\n      \"registered_time\": \"<dateTime>\"\n    },\n    \"transaction_details\": {\n      \"order_id\": \"1000000234\",\n      \"current_order_status\": \"<string>\",\n      \"order_type\": \"CREATE\",\n      \"travel_products\": [\n        {\n          \"price\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"<string>\",\n          \"inventory_type\": \"<string>\",\n          \"inventory_source\": \"<string>\",\n          \"travelers_references\": [\n            \"<string>\"\n          ],\n          \"pay_later\": \"<boolean>\"\n        }\n      ],\n      \"travelers\": [\n        {\n          \"traveler_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"primary\": \"<boolean>\",\n          \"email_address\": \"<email>\",\n          \"telephones\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"age\": \"<number>\",\n          \"birth_date\": \"<dateTime>\",\n          \"citizenship_country_code\": \"<string>\",\n          \"traveler_id\": \"<string>\"\n        }\n      ],\n      \"payments\": [\n        {\n          \"brand\": \"<string>\",\n          \"method\": \"<string>\",\n          \"billing_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"billing_email_address\": \"<email>\",\n          \"billing_address\": {\n            \"zip_code\": \"string\",\n            \"address_line1\": 2329,\n            \"city\": \"string\",\n            \"country_code\": 2388.519123955033\n          },\n          \"reason\": \"<string>\",\n          \"authorized_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"verified_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"three_digits_secure_criteria\": {\n            \"probable_flag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"transaction_model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"operations\": {\n            \"verify\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize_reversal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"capture\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"extensions\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"The requested resource does not exist.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fa000f1-e25f-4d83-9473-391833b075e4",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "purchase",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"site_info\": {\n      \"country_code\": \"USA\",\n      \"agent_assisted\": \"<boolean>\"\n    },\n    \"device_details\": {\n      \"ip_address\": \"192.168.32.48\",\n      \"source\": \"<string>\",\n      \"device_box\": \"<string>\"\n    },\n    \"customer_account\": {\n      \"account_type\": \"STANDARD\",\n      \"name\": {\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"title\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"email_address\": \"<email>\",\n      \"user_id\": \"<string>\",\n      \"telephones\": [\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        },\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        }\n      ],\n      \"address\": {\n        \"address_line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip_code\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"address_type\": \"<string>\",\n        \"address_line2\": \"<string>\"\n      },\n      \"registered_time\": \"<dateTime>\"\n    },\n    \"transaction_details\": {\n      \"order_id\": \"1000000234\",\n      \"current_order_status\": \"<string>\",\n      \"order_type\": \"CREATE\",\n      \"travel_products\": [\n        {\n          \"price\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"<string>\",\n          \"inventory_type\": \"<string>\",\n          \"inventory_source\": \"<string>\",\n          \"travelers_references\": [\n            \"<string>\"\n          ],\n          \"pay_later\": \"<boolean>\"\n        }\n      ],\n      \"travelers\": [\n        {\n          \"traveler_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"primary\": \"<boolean>\",\n          \"email_address\": \"<email>\",\n          \"telephones\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"age\": \"<number>\",\n          \"birth_date\": \"<dateTime>\",\n          \"citizenship_country_code\": \"<string>\",\n          \"traveler_id\": \"<string>\"\n        }\n      ],\n      \"payments\": [\n        {\n          \"brand\": \"<string>\",\n          \"method\": \"<string>\",\n          \"billing_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"billing_email_address\": \"<email>\",\n          \"billing_address\": {\n            \"zip_code\": \"string\",\n            \"address_line1\": 2329,\n            \"city\": \"string\",\n            \"country_code\": 2388.519123955033\n          },\n          \"reason\": \"<string>\",\n          \"authorized_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"verified_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"three_digits_secure_criteria\": {\n            \"probable_flag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"transaction_model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"operations\": {\n            \"verify\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize_reversal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"capture\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"extensions\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"TOO_MANY_REQUESTS\",\n  \"message\": \"The request failed because the server resources for this client have been exhausted.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "74ffa92c-704c-4157-a9b9-c5a43ddf9d7e",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "purchase",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"site_info\": {\n      \"country_code\": \"USA\",\n      \"agent_assisted\": \"<boolean>\"\n    },\n    \"device_details\": {\n      \"ip_address\": \"192.168.32.48\",\n      \"source\": \"<string>\",\n      \"device_box\": \"<string>\"\n    },\n    \"customer_account\": {\n      \"account_type\": \"STANDARD\",\n      \"name\": {\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"title\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"email_address\": \"<email>\",\n      \"user_id\": \"<string>\",\n      \"telephones\": [\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        },\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        }\n      ],\n      \"address\": {\n        \"address_line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip_code\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"address_type\": \"<string>\",\n        \"address_line2\": \"<string>\"\n      },\n      \"registered_time\": \"<dateTime>\"\n    },\n    \"transaction_details\": {\n      \"order_id\": \"1000000234\",\n      \"current_order_status\": \"<string>\",\n      \"order_type\": \"CREATE\",\n      \"travel_products\": [\n        {\n          \"price\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"<string>\",\n          \"inventory_type\": \"<string>\",\n          \"inventory_source\": \"<string>\",\n          \"travelers_references\": [\n            \"<string>\"\n          ],\n          \"pay_later\": \"<boolean>\"\n        }\n      ],\n      \"travelers\": [\n        {\n          \"traveler_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"primary\": \"<boolean>\",\n          \"email_address\": \"<email>\",\n          \"telephones\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"age\": \"<number>\",\n          \"birth_date\": \"<dateTime>\",\n          \"citizenship_country_code\": \"<string>\",\n          \"traveler_id\": \"<string>\"\n        }\n      ],\n      \"payments\": [\n        {\n          \"brand\": \"<string>\",\n          \"method\": \"<string>\",\n          \"billing_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"billing_email_address\": \"<email>\",\n          \"billing_address\": {\n            \"zip_code\": \"string\",\n            \"address_line1\": 2329,\n            \"city\": \"string\",\n            \"country_code\": 2388.519123955033\n          },\n          \"reason\": \"<string>\",\n          \"authorized_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"verified_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"three_digits_secure_criteria\": {\n            \"probable_flag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"transaction_model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"operations\": {\n            \"verify\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize_reversal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"capture\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"extensions\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INTERNAL_SERVER_ERROR\",\n  \"message\": \"The server encountered an internal error.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9cda406-fbb9-42e6-84d8-3135f23211d9",
+              "name": "Bad gateway",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "purchase",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"site_info\": {\n      \"country_code\": \"USA\",\n      \"agent_assisted\": \"<boolean>\"\n    },\n    \"device_details\": {\n      \"ip_address\": \"192.168.32.48\",\n      \"source\": \"<string>\",\n      \"device_box\": \"<string>\"\n    },\n    \"customer_account\": {\n      \"account_type\": \"STANDARD\",\n      \"name\": {\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"title\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"email_address\": \"<email>\",\n      \"user_id\": \"<string>\",\n      \"telephones\": [\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        },\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        }\n      ],\n      \"address\": {\n        \"address_line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip_code\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"address_type\": \"<string>\",\n        \"address_line2\": \"<string>\"\n      },\n      \"registered_time\": \"<dateTime>\"\n    },\n    \"transaction_details\": {\n      \"order_id\": \"1000000234\",\n      \"current_order_status\": \"<string>\",\n      \"order_type\": \"CREATE\",\n      \"travel_products\": [\n        {\n          \"price\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"<string>\",\n          \"inventory_type\": \"<string>\",\n          \"inventory_source\": \"<string>\",\n          \"travelers_references\": [\n            \"<string>\"\n          ],\n          \"pay_later\": \"<boolean>\"\n        }\n      ],\n      \"travelers\": [\n        {\n          \"traveler_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"primary\": \"<boolean>\",\n          \"email_address\": \"<email>\",\n          \"telephones\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"age\": \"<number>\",\n          \"birth_date\": \"<dateTime>\",\n          \"citizenship_country_code\": \"<string>\",\n          \"traveler_id\": \"<string>\"\n        }\n      ],\n      \"payments\": [\n        {\n          \"brand\": \"<string>\",\n          \"method\": \"<string>\",\n          \"billing_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"billing_email_address\": \"<email>\",\n          \"billing_address\": {\n            \"zip_code\": \"string\",\n            \"address_line1\": 2329,\n            \"city\": \"string\",\n            \"country_code\": 2388.519123955033\n          },\n          \"reason\": \"<string>\",\n          \"authorized_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"verified_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"three_digits_secure_criteria\": {\n            \"probable_flag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"transaction_model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"operations\": {\n            \"verify\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize_reversal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"capture\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"extensions\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"BAD_GATEWAY\",\n  \"message\": \"The server received an invalid response from an upstream server.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95b3a0a7-9630-493c-95d6-17a16dbcb050",
+              "name": "Retryable Order Purchase Screen Failure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "purchase",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"site_info\": {\n      \"country_code\": \"USA\",\n      \"agent_assisted\": \"<boolean>\"\n    },\n    \"device_details\": {\n      \"ip_address\": \"192.168.32.48\",\n      \"source\": \"<string>\",\n      \"device_box\": \"<string>\"\n    },\n    \"customer_account\": {\n      \"account_type\": \"STANDARD\",\n      \"name\": {\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"title\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"email_address\": \"<email>\",\n      \"user_id\": \"<string>\",\n      \"telephones\": [\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        },\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        }\n      ],\n      \"address\": {\n        \"address_line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip_code\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"address_type\": \"<string>\",\n        \"address_line2\": \"<string>\"\n      },\n      \"registered_time\": \"<dateTime>\"\n    },\n    \"transaction_details\": {\n      \"order_id\": \"1000000234\",\n      \"current_order_status\": \"<string>\",\n      \"order_type\": \"CREATE\",\n      \"travel_products\": [\n        {\n          \"price\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"<string>\",\n          \"inventory_type\": \"<string>\",\n          \"inventory_source\": \"<string>\",\n          \"travelers_references\": [\n            \"<string>\"\n          ],\n          \"pay_later\": \"<boolean>\"\n        }\n      ],\n      \"travelers\": [\n        {\n          \"traveler_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"primary\": \"<boolean>\",\n          \"email_address\": \"<email>\",\n          \"telephones\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"age\": \"<number>\",\n          \"birth_date\": \"<dateTime>\",\n          \"citizenship_country_code\": \"<string>\",\n          \"traveler_id\": \"<string>\"\n        }\n      ],\n      \"payments\": [\n        {\n          \"brand\": \"<string>\",\n          \"method\": \"<string>\",\n          \"billing_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"billing_email_address\": \"<email>\",\n          \"billing_address\": {\n            \"zip_code\": \"string\",\n            \"address_line1\": 2329,\n            \"city\": \"string\",\n            \"country_code\": 2388.519123955033\n          },\n          \"reason\": \"<string>\",\n          \"authorized_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"verified_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"three_digits_secure_criteria\": {\n            \"probable_flag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"transaction_model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"operations\": {\n            \"verify\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize_reversal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"capture\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"extensions\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"RETRYABLE_ORDER_PURCHASE_SCREEN_FAILURE\",\n  \"message\": \"A temporary internal error occurred. You can safely retry your call using the same order details.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99198350-f1a2-4c7f-b7d4-127ee0cbf831",
+              "name": "Gateway timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "purchase",
+                    "screen"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction\": {\n    \"site_info\": {\n      \"country_code\": \"USA\",\n      \"agent_assisted\": \"<boolean>\"\n    },\n    \"device_details\": {\n      \"ip_address\": \"192.168.32.48\",\n      \"source\": \"<string>\",\n      \"device_box\": \"<string>\"\n    },\n    \"customer_account\": {\n      \"account_type\": \"STANDARD\",\n      \"name\": {\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"middle_name\": \"<string>\",\n        \"title\": \"<string>\",\n        \"suffix\": \"<string>\"\n      },\n      \"email_address\": \"<email>\",\n      \"user_id\": \"<string>\",\n      \"telephones\": [\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        },\n        {\n          \"country_access_code\": \"1\",\n          \"area_code\": \"1\",\n          \"phone_number\": \"1234567\",\n          \"type\": \"<string>\",\n          \"platform_type\": \"<string>\",\n          \"extension_number\": \"89\",\n          \"preference_rank\": \"<number>\",\n          \"last_verified_date_time\": \"<dateTime>\",\n          \"verified_flag\": \"<boolean>\"\n        }\n      ],\n      \"address\": {\n        \"address_line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"state\": \"<string>\",\n        \"zip_code\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"address_type\": \"<string>\",\n        \"address_line2\": \"<string>\"\n      },\n      \"registered_time\": \"<dateTime>\"\n    },\n    \"transaction_details\": {\n      \"order_id\": \"1000000234\",\n      \"current_order_status\": \"<string>\",\n      \"order_type\": \"CREATE\",\n      \"travel_products\": [\n        {\n          \"price\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"type\": \"<string>\",\n          \"inventory_type\": \"<string>\",\n          \"inventory_source\": \"<string>\",\n          \"travelers_references\": [\n            \"<string>\"\n          ],\n          \"pay_later\": \"<boolean>\"\n        }\n      ],\n      \"travelers\": [\n        {\n          \"traveler_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"primary\": \"<boolean>\",\n          \"email_address\": \"<email>\",\n          \"telephones\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"age\": \"<number>\",\n          \"birth_date\": \"<dateTime>\",\n          \"citizenship_country_code\": \"<string>\",\n          \"traveler_id\": \"<string>\"\n        }\n      ],\n      \"payments\": [\n        {\n          \"brand\": \"<string>\",\n          \"method\": \"<string>\",\n          \"billing_name\": {\n            \"first_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"last_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"middle_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"title\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"suffix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"billing_email_address\": \"<email>\",\n          \"billing_address\": {\n            \"zip_code\": \"string\",\n            \"address_line1\": 2329,\n            \"city\": \"string\",\n            \"country_code\": 2388.519123955033\n          },\n          \"reason\": \"<string>\",\n          \"authorized_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"verified_amount\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"currency_code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"three_digits_secure_criteria\": {\n            \"probable_flag\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"transaction_model\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"operations\": {\n            \"verify\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"authorize_reversal\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"capture\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refunds\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"extensions\": {\n            \"key_0\": \"<string>\",\n            \"key_1\": \"<string>\"\n          }\n        }\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"GATEWAY_TIMEOUT\",\n  \"message\": \"The server timed out while trying to complete the request.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://services.expediapartnercentral.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "631dfe67-924f-40dc-af14-23fdd688670e",
+    "name": "Expedia Group EPS Deposit Bookings OrderPurchaseScreen API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We've also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.\n\nContact Support:\n Name: Expedia Partner Services\n Email: eqcss@expedia.com",
+      "type": "text/plain"
+    }
+  }
+}

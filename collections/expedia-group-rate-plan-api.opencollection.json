@@ -1,0 +1,247 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Expedia Group EPS Deposit Bookings Rate Plan API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rate Plan",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Expedia Group Obtain a list of rate plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes/:roomTypeId/ratePlans",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              },
+              {
+                "name": "roomTypeId",
+                "value": "",
+                "type": "path",
+                "description": "Room type resource ID"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status filter. String. Only supported value is \"all\"."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Obtain a list of rate plans"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Creates a new rate plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes/:roomTypeId/ratePlans",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              },
+              {
+                "name": "roomTypeId",
+                "value": "",
+                "type": "path",
+                "description": "Room type resource ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Creates a new rate plan"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Read a single rate plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes/:roomTypeId/ratePlans/:ratePlanId",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              },
+              {
+                "name": "roomTypeId",
+                "value": "",
+                "type": "path",
+                "description": "Room type resource ID"
+              },
+              {
+                "name": "ratePlanId",
+                "value": "",
+                "type": "path",
+                "description": "Rate plan resource ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Read a single rate plan"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Modify an existing rate plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes/:roomTypeId/ratePlans/:ratePlanId",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              },
+              {
+                "name": "roomTypeId",
+                "value": "",
+                "type": "path",
+                "description": "Room type resource ID"
+              },
+              {
+                "name": "ratePlanId",
+                "value": "",
+                "type": "path",
+                "description": "Rate plan resource ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Modify an existing rate plan"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Patch an existing rate plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes/:roomTypeId/ratePlans/:ratePlanId",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              },
+              {
+                "name": "roomTypeId",
+                "value": "",
+                "type": "path",
+                "description": "Room type resource ID"
+              },
+              {
+                "name": "ratePlanId",
+                "value": "",
+                "type": "path",
+                "description": "Rate plan resource ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Patch an existing rate plan"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Delete an existing rate plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://services.expediapartnercentral.com/properties/:propertyId/roomTypes/:roomTypeId/ratePlans/:ratePlanId",
+            "params": [
+              {
+                "name": "propertyId",
+                "value": "",
+                "type": "path",
+                "description": "Expedia Property ID"
+              },
+              {
+                "name": "roomTypeId",
+                "value": "",
+                "type": "path",
+                "description": "Room type resource ID"
+              },
+              {
+                "name": "ratePlanId",
+                "value": "",
+                "type": "path",
+                "description": "Rate plan resource ID"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Expedia Group Delete an existing rate plan"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

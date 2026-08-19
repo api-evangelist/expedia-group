@@ -1,0 +1,233 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Expedia Group EPS Deposit Bookings API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bookings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Expedia Group Register Payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://services.expediapartnercentral.com/payment-sessions",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "token",
+                "value": "MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m",
+                "type": "query",
+                "description": "Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<b>This link only applies to transactions where EPS takes the customer's payment information. This includes both Expedia Collect and Property Collect transactions.</b><br>\nThis link will be available in the Price Check response if payment registration is required. It returns a payment session ID and a link to create a booking. This will be the first step in the booking flow only if you've opted into Two-Factor Authentication to comply with the September 2019 EU Regulations for PSD2. Learn more w"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Create Booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://services.expediapartnercentral.com/itineraries",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "token",
+                "value": "MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m",
+                "type": "query",
+                "description": "Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This link will be available in the Price Check response or in the register payments response when Two-Factor Authentication is used. It returns an itinerary id and links to retrieve reservation details, cancel a held booking, resume a held booking or complete payment session. Please note that depending on the state of the booking, the response will contain only the applicable link(s).\n"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Resume Booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://services.expediapartnercentral.com/itineraries/:itinerary_id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "itinerary_id",
+                "value": "8955599932111",
+                "type": "path",
+                "description": "This parameter is used only to prefix the token value - no ID value is used.<br>\n"
+              },
+              {
+                "name": "token",
+                "value": "MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m",
+                "type": "query",
+                "description": "Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.\n"
+              }
+            ]
+          },
+          "docs": "This link will be available in the booking response after creating a held booking.\n"
+        },
+        {
+          "info": {
+            "name": "Expedia Group Complete Payment Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://services.expediapartnercentral.com/itineraries/:itinerary_id/payment-sessions",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json"
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": "gzip"
+              },
+              {
+                "name": "Customer-Ip",
+                "value": ""
+              },
+              {
+                "name": "Customer-Session-Id",
+                "value": ""
+              },
+              {
+                "name": "User-Agent",
+                "value": "TravelNow/3.30.112"
+              },
+              {
+                "name": "Test",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "itinerary_id",
+                "value": "8955599932111",
+                "type": "path",
+                "description": "This parameter is used only to prefix the token value - no ID value is used.<br>\n"
+              },
+              {
+                "name": "token",
+                "value": "MY5S3j36cOcLfLBZjPYQ1abhfc8CqmjmFVzkk7euvWaunE57LLeDgaxm516m",
+                "type": "query",
+                "description": "Provided as part of the link object and used to maintain state across calls. This simplifies each subsequent call by limiting the amount of information required at each step and reduces the potential for errors. Token values cannot be viewed or changed.\n"
+              }
+            ]
+          },
+          "docs": "<b>This link only applies to transactions where EPS takes the customer's payment information. This includes both Expedia Collect and Property Collect transactions.</b><br>\nThis link will be available in the booking response only if you've opted into Two-Factor Authentication to comply with the September 2019 EU Regulations for PSD2. It should be called after Two-Factor Authentication has been completed by the customer in order to finalize the payment and complete the booking or hold attempt. Lea"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

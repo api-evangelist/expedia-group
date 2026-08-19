@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Expedia Group EPS Deposit Bookings Loyalty API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Loyalty",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "loyaltyTransactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/loyalty/earn/transactions",
+            "params": [
+              {
+                "name": "itinerary_id",
+                "value": "72564500000000",
+                "type": "query",
+                "description": "Itinerary Number"
+              },
+              {
+                "name": "membership_id",
+                "value": "456178230",
+                "type": "query",
+                "description": "Loyalty / Membership ID Number"
+              },
+              {
+                "name": "transaction_type",
+                "value": "",
+                "type": "query",
+                "description": "Transaction Type. Possible values: Purchase, Modification, Cancel, Award"
+              },
+              {
+                "name": "transaction_date_start",
+                "value": "2023-09-17",
+                "type": "query",
+                "description": "Start date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)"
+              },
+              {
+                "name": "transaction_date_end",
+                "value": "2023-09-18",
+                "type": "query",
+                "description": "End date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)"
+              },
+              {
+                "name": "from",
+                "value": "1000",
+                "type": "query",
+                "description": "Number of records to query from"
+              },
+              {
+                "name": "page_size",
+                "value": "500",
+                "type": "query",
+                "description": "Number of records per page"
+              }
+            ]
+          },
+          "docs": "Get loyalty earn transactions for the requested transaction date range. <br>\nThe response is a list of transactions sorted from the newest transaction date to the oldest.\n"
+        },
+        {
+          "info": {
+            "name": "loyaltyLastUpdate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://services.expediapartnercentral.com/loyalty/earn/last_update"
+          },
+          "docs": "Get the last update datetime for loyalty earn transactions.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
