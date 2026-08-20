@@ -152,6 +152,8 @@ apis:
   description: Requests test notifications and undelivered notifications.
   humanURL: https://developers.expediagroup.com/docs/products/rapid
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
