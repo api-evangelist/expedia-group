@@ -1,16 +1,16 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Expedia Group EPS Deposit Bookings Rate Verification Thresholds API
-  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
+  title: Expedia Group Product Rate Verification Thresholds API
+  description: 'The Product API will enable Expedia lodging partners to read, create and edit room types and rate plans via APIs, without having to use Partner Central or contact their market manager. </br><br/>To start experimenting, please use your existing EQC credentials and properties.
+
+    '
   contact:
-    name: Expedia Partner Services
+    name: Lodging Connectivity
     url: https://expediaconnectivity.com/developer
     email: eqcss@expedia.com
-  version: '1.0'
+  version: '2.0'
 servers:
 - url: https://services.expediapartnercentral.com/
-security:
-- Basic: []
 tags:
 - name: Rate Verification Thresholds
   description: Manage room types Rate Verification Thresholds
@@ -40,11 +40,16 @@ paths:
           content:
             application/vnd.expedia.eps.product-v2+json:
               schema:
-                $ref: '#/components/schemas/ResponseWrapperDTO«RateVerificationThresholdsDTO»'
+                $ref: '#/components/schemas/ResponseWrapperDTO_RateVerificationThresholdsDTO'
       security:
       - Basic: []
 components:
   schemas:
+    RateVerificationThresholdsDTOLinks:
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/LinkDTO'
     RateVerificationThresholdsDTO:
       type: object
       properties:
@@ -70,20 +75,7 @@ components:
           enum:
           - NetRate
           - SellLAR
-    RateVerificationThresholdsDTOLinks:
-      type: object
-      properties:
-        self:
-          $ref: '#/components/schemas/LinkDTO'
-    ErrorDTO:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-    ResponseWrapperDTO«RateVerificationThresholdsDTO»:
+    ResponseWrapperDTO_RateVerificationThresholdsDTO:
       type: object
       properties:
         entity:
@@ -98,6 +90,14 @@ components:
         href:
           type: string
           description: The link's URL.
+    ErrorDTO:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
   securitySchemes:
     Basic:
       type: http

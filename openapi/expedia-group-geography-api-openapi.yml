@@ -1,16 +1,10 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Expedia Group EPS Deposit Bookings Geography API
-  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
-  contact:
-    name: Expedia Partner Services
-    url: https://expediaconnectivity.com/developer
-    email: eqcss@expedia.com
-  version: '1.0'
+  title: Expedia Group Rapid Geography API
+  description: EPS Rapid V3
+  version: v3
 servers:
-- url: https://services.expediapartnercentral.com/
-security:
-- Basic: []
+- url: https://test.ean.com/v3
 tags:
 - name: Geography
   description: The EPS Geography API provides geography content for regions around the world.
@@ -1352,30 +1346,33 @@ paths:
       - rapidAuth: []
 components:
   schemas:
-    Field:
+    Error:
       type: object
       properties:
-        name:
-          type: string
-          description: The field that had an error.
         type:
           type: string
-          description: The type of the field that had an error.
-        value:
+          description: The error type.
+        message:
           type: string
-          description: The value of the field that had an error.
-      description: An individual field that had an error.
-    CoordinatesRegion:
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+        errors:
+          type: array
+          description: An array of all the actual errors that occured.
+          items:
+            $ref: '#/components/schemas/ErrorIndividual'
+      description: The overall class of error that occured.
+    PropertyGeography:
       type: object
       properties:
-        center_longitude:
-          type: number
-          description: Center Longitude.
-        center_latitude:
-          type: number
-          description: Center Latitude.
-        bounding_polygon:
-          $ref: '#/components/schemas/BoundingPolygon'
+        property_id:
+          type: string
+          description: Unique Expedia property ID.
+      description: A property object.
     PolygonCoordinates:
       type: array
       description: An array of linear ring coordinate arrays that combine to make up a single [Polygon](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.6) in geojson format. If there is more than one linear ring at this level, the first is the outer boundary and the remaining linear rings are interior rings or holes.
@@ -1390,28 +1387,17 @@ components:
           description: Individual coordinates as a geojson Point, in longitude, latitude order (x,y).
           items:
             type: number
-    ErrorIndividual:
+    BoundingPolygon:
       type: object
       properties:
         type:
           type: string
-          description: The error type.
-        message:
-          type: string
-          description: A human readable message giving details about this error.
-        fields:
-          type: array
-          description: Details about the specific fields that had an error.
-          items:
-            $ref: '#/components/schemas/Field'
-      description: An individual error.
-    PropertyGeography:
-      type: object
-      properties:
-        property_id:
-          type: string
-          description: Unique Expedia property ID.
-      description: A property object.
+          description: Type of bounding polygon.
+      discriminator:
+        propertyName: type
+        mapping:
+          Polygon: '#/components/schemas/Polygon'
+          MultiPolygon: '#/components/schemas/MultiPolygon'
     PropertiesGeoJsonRequest:
       required:
       - coordinates
@@ -1451,6 +1437,34 @@ components:
             - 37.339372
           - - -93.446782
             - 37.169329
+    ErrorIndividual:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+      description: An individual error.
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The field that had an error.
+        type:
+          type: string
+          description: The type of the field that had an error.
+        value:
+          type: string
+          description: The value of the field that had an error.
+      description: An individual field that had an error.
     Ancestors:
       type: object
       properties:
@@ -1461,17 +1475,6 @@ components:
           type: string
           description: Region type of ancestor region.
       description: A region ancestor.
-    BoundingPolygon:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Type of bounding polygon.
-      discriminator:
-        propertyName: type
-        mapping:
-          Polygon: '#/components/schemas/Polygon'
-          MultiPolygon: '#/components/schemas/MultiPolygon'
     Region:
       type: object
       properties:
@@ -1545,26 +1548,17 @@ components:
           description: A list of regional tags.
           items:
             type: string
-    Error:
+    CoordinatesRegion:
       type: object
       properties:
-        type:
-          type: string
-          description: The error type.
-        message:
-          type: string
-          description: A human readable message giving details about this error.
-        fields:
-          type: array
-          description: Details about the specific fields that had an error.
-          items:
-            $ref: '#/components/schemas/Field'
-        errors:
-          type: array
-          description: An array of all the actual errors that occured.
-          items:
-            $ref: '#/components/schemas/ErrorIndividual'
-      description: The overall class of error that occured.
+        center_longitude:
+          type: number
+          description: Center Longitude.
+        center_latitude:
+          type: number
+          description: Center Latitude.
+        bounding_polygon:
+          $ref: '#/components/schemas/BoundingPolygon'
   headers:
     Region:
       description: Optional header that provides information about where the request was processed.
@@ -1574,6 +1568,8 @@ components:
         type: string
         example: us-west-2
   securitySchemes:
-    Basic:
-      type: http
-      scheme: basic
+    rapidAuth:
+      type: apiKey
+      description: The custom generated authentication header. Refer to our [signature authentication](https://developers.expediagroup.com/docs/rapid/resources/reference/signature-authentication) page for full details.
+      name: Authorization
+      in: header

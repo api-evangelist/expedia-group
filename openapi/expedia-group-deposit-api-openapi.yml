@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Expedia Group EPS Bookings Deposit API
+  title: Expedia Group EPS Deposit API
   description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
   contact:
     name: Expedia Partner Services
@@ -271,78 +271,43 @@ paths:
       - Basic: []
 components:
   schemas:
-    ExceptionPolicy:
+    Error:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+          format: int32
+        message:
+          type: string
+          description: Error message
+      description: An object describing an error returned by the service.
+    ErrorResponse:
+      required:
+      - errors
+      type: object
+      properties:
+        errors:
+          type: array
+          description: List of errors.
+          items:
+            $ref: '#/components/schemas/Error'
+    DefaultPolicy:
+      required:
+      - payments
       type: object
       properties:
         description:
           type: string
-          description: Exception policy description. This field is optional.
+          description: Default policy description. This field is optional.
         payments:
           type: array
           description: List of payment policies. Up to 4 payment policies can be defined.
           items:
             $ref: '#/components/schemas/PaymentPolicy'
-        dateRanges:
-          type: array
-          description: List of date range during which the exception policy applies. One exception can contain from 1 to 15 date ranges maximum.
-          items:
-            $ref: '#/components/schemas/DateRange'
-    Deposit:
-      type: object
-      properties:
-        defaultPolicy:
-          $ref: '#/components/schemas/DefaultPolicy'
-        exceptionPolicies:
-          type: array
-          description: Optional. Up to 4 exception policies can be defined. List of policies that override the default policy for the date range(s) specified in the exception. Order in the array of exception policies matters. The order of the elements in this array determines the order in which the policies should be applied in case of date overlap between exceptions.
-          items:
-            $ref: '#/components/schemas/ExceptionPolicy'
-        _links:
-          $ref: '#/components/schemas/Links'
-    Link:
-      required:
-      - href
-      type: object
-      properties:
-        href:
-          type: string
-          description: The fully-qualified URL of the resource.
-          format: URL
-      description: Object describing a single link to a resource to which this deposit policy is linked to.
-    Links:
-      required:
-      - ratePlans
-      - self
-      type: object
-      properties:
-        self:
-          $ref: '#/components/schemas/Link'
-        ratePlans:
-          type: array
-          description: Collection of links to the rate plans (active and inactive) on which this deposit policy is applicable.
-          items:
-            $ref: '#/components/schemas/Link'
-      description: Object describing links to other resources to which this deposit policy is linked to.
-    PaymentPolicy:
-      required:
-      - type
-      - when
-      type: object
-      properties:
-        type:
-          type: string
-          description: Defines the type of payment policy.
-          enum:
-          - NIGHT
-          - AMOUNT
-          - PERCENTAGE
-          - REMAINDER
-        value:
-          type: number
-          description: Indicates the amount of money that must be paid. If type is REMAINDER, value cannot be specified. If type is either NIGHT or PERCENTAGE then the number must be whole (no fractional digits).
-          format: double
-        when:
-          $ref: '#/components/schemas/PaymentTime'
     SuccessfulGetResponse:
       required:
       - entity
@@ -375,30 +340,48 @@ components:
           - FRI
           - SAT
           - SUN
-    ErrorResponse:
+    Links:
       required:
-      - errors
+      - ratePlans
+      - self
       type: object
       properties:
-        errors:
+        self:
+          $ref: '#/components/schemas/Link'
+        ratePlans:
           type: array
-          description: List of errors.
+          description: Collection of links to the rate plans (active and inactive) on which this deposit policy is applicable.
           items:
-            $ref: '#/components/schemas/Error'
-    Error:
-      required:
-      - code
-      - message
+            $ref: '#/components/schemas/Link'
+      description: Object describing links to other resources to which this deposit policy is linked to.
+    ExceptionPolicy:
       type: object
       properties:
-        code:
-          type: integer
-          description: Error code
-          format: int32
-        message:
+        description:
           type: string
-          description: Error message
-      description: An object describing an error returned by the service.
+          description: Exception policy description. This field is optional.
+        payments:
+          type: array
+          description: List of payment policies. Up to 4 payment policies can be defined.
+          items:
+            $ref: '#/components/schemas/PaymentPolicy'
+        dateRanges:
+          type: array
+          description: List of date range during which the exception policy applies. One exception can contain from 1 to 15 date ranges maximum.
+          items:
+            $ref: '#/components/schemas/DateRange'
+    Deposit:
+      type: object
+      properties:
+        defaultPolicy:
+          $ref: '#/components/schemas/DefaultPolicy'
+        exceptionPolicies:
+          type: array
+          description: Optional. Up to 4 exception policies can be defined. List of policies that override the default policy for the date range(s) specified in the exception. Order in the array of exception policies matters. The order of the elements in this array determines the order in which the policies should be applied in case of date overlap between exceptions.
+          items:
+            $ref: '#/components/schemas/ExceptionPolicy'
+        _links:
+          $ref: '#/components/schemas/Links'
     PaymentTime:
       required:
       - type
@@ -416,19 +399,36 @@ components:
           description: Only present if type is DAYS_PRIOR. Indicates the number of days prior to arrival that the customer must pay the deposit.
           format: int32
       description: 'Order of payments in the array matters. Payments must be specified in chronological order: UPON_BOOKING followed by DAYS_PRIOR followed by UPON_ARRIVAL.'
-    DefaultPolicy:
+    Link:
       required:
-      - payments
+      - href
       type: object
       properties:
-        description:
+        href:
           type: string
-          description: Default policy description. This field is optional.
-        payments:
-          type: array
-          description: List of payment policies. Up to 4 payment policies can be defined.
-          items:
-            $ref: '#/components/schemas/PaymentPolicy'
+          description: The fully-qualified URL of the resource.
+          format: URL
+      description: Object describing a single link to a resource to which this deposit policy is linked to.
+    PaymentPolicy:
+      required:
+      - type
+      - when
+      type: object
+      properties:
+        type:
+          type: string
+          description: Defines the type of payment policy.
+          enum:
+          - NIGHT
+          - AMOUNT
+          - PERCENTAGE
+          - REMAINDER
+        value:
+          type: number
+          description: Indicates the amount of money that must be paid. If type is REMAINDER, value cannot be specified. If type is either NIGHT or PERCENTAGE then the number must be whole (no fractional digits).
+          format: double
+        when:
+          $ref: '#/components/schemas/PaymentTime'
   securitySchemes:
     Basic:
       type: http

@@ -1,16 +1,16 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Expedia Group EPS Deposit Bookings Property API
-  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
+  title: Expedia Group Product Property API
+  description: 'The Product API will enable Expedia lodging partners to read, create and edit room types and rate plans via APIs, without having to use Partner Central or contact their market manager. </br><br/>To start experimenting, please use your existing EQC credentials and properties.
+
+    '
   contact:
-    name: Expedia Partner Services
+    name: Lodging Connectivity
     url: https://expediaconnectivity.com/developer
     email: eqcss@expedia.com
-  version: '1.0'
+  version: '2.0'
 servers:
 - url: https://services.expediapartnercentral.com/
-security:
-- Basic: []
 tags:
 - name: Property
   description: The property resource
@@ -45,7 +45,7 @@ paths:
           content:
             application/vnd.expedia.eps.product-v2+json:
               schema:
-                $ref: '#/components/schemas/ResponseWrapperDTO«List«PropertyDTO»»'
+                $ref: '#/components/schemas/ResponseWrapperDTO_List_PropertyDTO'
       security:
       - Basic: []
   /products/properties/{propertyId}:
@@ -67,32 +67,11 @@ paths:
           content:
             application/vnd.expedia.eps.product-v2+json:
               schema:
-                $ref: '#/components/schemas/ResponseWrapperDTO«PropertyDTO»'
+                $ref: '#/components/schemas/ResponseWrapperDTO_PropertyDTO'
       security:
       - Basic: []
 components:
   schemas:
-    PropertyAddressDTO:
-      type: object
-      properties:
-        city:
-          type: string
-          description: City in which the property is located
-        countryCode:
-          type: string
-          description: ISO 3166-1 Alpha 3 country code, for the country where the property is located
-        line1:
-          type: string
-          description: First line of address
-        line2:
-          type: string
-          description: Second line of address, not always available
-        postalCode:
-          type: string
-          description: Postal or State Code, might not be available
-        state:
-          type: string
-          description: State/Province, which is optional and thus might not be available
     PropertyDTO:
       type: object
       properties:
@@ -170,34 +149,6 @@ components:
         timezone:
           type: string
           description: Descriptive information about property timezone configuration in Expedia system. Description will start by a GMT offset, followed by a friendly name.
-    ErrorDTO:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-    ResponseWrapperDTO«List«PropertyDTO»»:
-      type: object
-      properties:
-        entity:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyDTO'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDTO'
-    ResponseWrapperDTO«PropertyDTO»:
-      type: object
-      properties:
-        entity:
-          $ref: '#/components/schemas/PropertyDTO'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDTO'
     CutOffDTO:
       type: object
       properties:
@@ -210,6 +161,55 @@ components:
         time:
           type: string
           description: Indicates at which time we’ll stop making inventory available for same day reservations
+    PropertyAddressDTO:
+      type: object
+      properties:
+        city:
+          type: string
+          description: City in which the property is located
+        countryCode:
+          type: string
+          description: ISO 3166-1 Alpha 3 country code, for the country where the property is located
+        line1:
+          type: string
+          description: First line of address
+        line2:
+          type: string
+          description: Second line of address, not always available
+        postalCode:
+          type: string
+          description: Postal or State Code, might not be available
+        state:
+          type: string
+          description: State/Province, which is optional and thus might not be available
+    ResponseWrapperDTO_PropertyDTO:
+      type: object
+      properties:
+        entity:
+          $ref: '#/components/schemas/PropertyDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDTO'
+    ResponseWrapperDTO_List_PropertyDTO:
+      type: object
+      properties:
+        entity:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDTO'
+    ErrorDTO:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
   securitySchemes:
     Basic:
       type: http

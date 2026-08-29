@@ -1,16 +1,14 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Expedia Group EPS Deposit Bookings OrderPurchaseUpdate API
-  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
+  title: Expedia Group Fraud Prevention Service Order Purchase Update API
+  version: v2
+  description: Fraud & Risk APIs to detect fraud
   contact:
-    name: Expedia Partner Services
-    url: https://expediaconnectivity.com/developer
-    email: eqcss@expedia.com
-  version: '1.0'
+    name: Risk Tech Verge
+    email: RiskTechVerge@expedia.com
+  x-eg-lifecycle: PLANNED
 servers:
-- url: https://services.expediapartnercentral.com/
-security:
-- Basic: []
+- url: https://api.sandbox.expediagroup.com/fraud-prevention/v2
 tags:
 - name: OrderPurchaseUpdate
 paths:
@@ -150,6 +148,49 @@ paths:
                 $ref: '#/components/schemas/BadRequestError'
 components:
   schemas:
+    Error:
+      description: The object used to describe an error, containing both human-readable and machine-readable information.
+      type: object
+      properties:
+        code:
+          description: Snake cased all caps error code interpreted from the HTTP status code that can programmatically be acted upon.
+          type: string
+          example: BAD_REQUEST
+          enum:
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - NOT_FOUND
+          - ORDER_PURCHASE_UPDATE_NOT_FOUND
+          - TOO_MANY_REQUESTS
+          - INTERNAL_SERVER_ERROR
+          - BAD_GATEWAY
+          - RETRYABLE_ORDER_PURCHASE_SCREEN_FAILURE
+          - RETRYABLE_ORDER_PURCHASE_UPDATE_FAILURE
+          - GATEWAY_TIMEOUT
+          - BAD_REQUEST
+        message:
+          description: A human-readable explanation of the error, specific to this error occurrence.
+          type: string
+          example: An input validation error was encountered. Please see causes for more details.
+      required:
+      - code
+      - message
+    InternalServerError:
+      description: Indicates that the API encountered an unexpected condition that prevented it from fulfilling the request. Sometimes used as a generic catch-allerror type when no other error types can be used. Retrying the same request will usually result in the same error. Please reach out to support team as next step for this error resolution.
+      example:
+        code: INTERNAL_SERVER_ERROR
+        message: The server encountered an internal error.
+      allOf:
+      - $ref: '#/components/schemas/Error'
+    OrderPurchaseUpdateResponse:
+      title: OrderPurchaseUpdateResponse
+      type: object
+      properties:
+        risk_id:
+          type: string
+          description: Unique identifier of transaction that was updated.
+          maxLength: 200
+          example: '1234567'
     RetryableOrderPurchaseUpdateFailure:
       description: 'Indicates that the API is either down for maintenance or overloaded and cannot fulfill the request at the current time. This is a temporary error and retrying the same request after a certain delay could eventually result in success.
 
@@ -159,6 +200,37 @@ components:
       example:
         code: RETRYABLE_ORDER_PURCHASE_UPDATE_FAILURE
         message: A temporary internal error occurred. You can safely retry your call using the same order details.
+      allOf:
+      - $ref: '#/components/schemas/Error'
+    UpdateType:
+      title: UpdateType
+      description: Transaction type associated with the update event.
+      type: string
+      enum:
+      - ORDER_UPDATE
+      - CHARGEBACK_FEEDBACK
+      - INSULT_FEEDBACK
+      - REFUND_UPDATE
+      - PAYMENT_UPDATE
+    UnauthorizedError:
+      description: Indicates that the token sent in the 'Authorization' header is either invalid or missing. Please check the value in the token field along with the token expiration time before retrying.
+      example:
+        code: UNAUTHORIZED
+        message: Invalid EG token provided. Please provide a valid token in the Authorization header.
+      allOf:
+      - $ref: '#/components/schemas/Error'
+    TooManyRequestsError:
+      description: Indicates that the API cannot fulfill the request because server resources have been exhausted. Perhaps the client has sent too many requests in a given amount of time or has reached some specific quota. Please check the rate limits for the product and adjust as necessary before retries. If you believe the rate limit was incorrect or if you need a different rate limit, please reach out to the <support team> regarding the next steps.
+      example:
+        code: TOO_MANY_REQUESTS
+        message: The request failed because the server resources for this client have been exhausted.
+      allOf:
+      - $ref: '#/components/schemas/Error'
+    GatewayTimeoutError:
+      description: Indicates that the API gateway has issues completing the request on time. Request can be retried if it is idempotent, If the issue persists, please reach out to support. For non-idempotent requests, please reach out to <support team> to know the status of your request before attempting retries.
+      example:
+        code: GATEWAY_TIMEOUT
+        message: The server timed out while trying to complete the request.
       allOf:
       - $ref: '#/components/schemas/Error'
     BadRequestError:
@@ -193,36 +265,6 @@ components:
                 message:
                   type: string
                   example: The value of a field should not be null.
-    BadGatewayError:
-      description: Indicates that the server received an invalid response from the upstream server. Causes could be incorrectly configured target server at gateway, EOF exception, incorrectly configured keep-alive timeouts. Please reach out to support team as next step for this error resolution.
-      example:
-        code: BAD_GATEWAY
-        message: The server received an invalid response from an upstream server.
-      allOf:
-      - $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Indicates that the API encountered an unexpected condition that prevented it from fulfilling the request. Sometimes used as a generic catch-allerror type when no other error types can be used. Retrying the same request will usually result in the same error. Please reach out to support team as next step for this error resolution.
-      example:
-        code: INTERNAL_SERVER_ERROR
-        message: The server encountered an internal error.
-      allOf:
-      - $ref: '#/components/schemas/Error'
-    TooManyRequestsError:
-      description: Indicates that the API cannot fulfill the request because server resources have been exhausted. Perhaps the client has sent too many requests in a given amount of time or has reached some specific quota. Please check the rate limits for the product and adjust as necessary before retries. If you believe the rate limit was incorrect or if you need a different rate limit, please reach out to the <support team> regarding the next steps.
-      example:
-        code: TOO_MANY_REQUESTS
-        message: The request failed because the server resources for this client have been exhausted.
-      allOf:
-      - $ref: '#/components/schemas/Error'
-    OrderPurchaseUpdateResponse:
-      title: OrderPurchaseUpdateResponse
-      type: object
-      properties:
-        risk_id:
-          type: string
-          description: Unique identifier of transaction that was updated.
-          maxLength: 200
-          example: '1234567'
     OrderPurchaseUpdateNotFoundError:
       description: Indicates that the API cannot find the resource that is either being requested or against which the operation is being performed.
       example:
@@ -230,23 +272,20 @@ components:
         message: The request failed because the Order Screen event for this booking is missing. Please send a new Order Screen event again.
       allOf:
       - $ref: '#/components/schemas/Error'
-    GatewayTimeoutError:
-      description: Indicates that the API gateway has issues completing the request on time. Request can be retried if it is idempotent, If the issue persists, please reach out to support. For non-idempotent requests, please reach out to <support team> to know the status of your request before attempting retries.
+    ForbiddenError:
+      description: Indicates that the API cannot fulfill the request because while the client is correctly authenticated, the client doesn't have the permission to execute the specified operation. This error type does not imply that the request is valid, or that the resource against which the operation being performed exists or satisfies other pre-conditions.
       example:
-        code: GATEWAY_TIMEOUT
-        message: The server timed out while trying to complete the request.
+        code: FORBIDDEN
+        message: Insufficient permissions to perform the request.
       allOf:
       - $ref: '#/components/schemas/Error'
-    UpdateType:
-      title: UpdateType
-      description: Transaction type associated with the update event.
-      type: string
-      enum:
-      - ORDER_UPDATE
-      - CHARGEBACK_FEEDBACK
-      - INSULT_FEEDBACK
-      - REFUND_UPDATE
-      - PAYMENT_UPDATE
+    BadGatewayError:
+      description: Indicates that the server received an invalid response from the upstream server. Causes could be incorrectly configured target server at gateway, EOF exception, incorrectly configured keep-alive timeouts. Please reach out to support team as next step for this error resolution.
+      example:
+        code: BAD_GATEWAY
+        message: The server received an invalid response from an upstream server.
+      allOf:
+      - $ref: '#/components/schemas/Error'
     OrderPurchaseUpdateRequest:
       title: OrderPurchaseUpdateRequest
       description: 'The `type` field value is used as a discriminator, with the following mapping:
@@ -282,48 +321,18 @@ components:
           INSULT_FEEDBACK: InsultFeedback
           REFUND_UPDATE: RefundUpdate
           PAYMENT_UPDATE: PaymentUpdate
-    UnauthorizedError:
-      description: Indicates that the token sent in the 'Authorization' header is either invalid or missing. Please check the value in the token field along with the token expiration time before retrying.
-      example:
-        code: UNAUTHORIZED
-        message: Invalid EG token provided. Please provide a valid token in the Authorization header.
-      allOf:
-      - $ref: '#/components/schemas/Error'
-    Error:
-      description: The object used to describe an error, containing both human-readable and machine-readable information.
-      type: object
-      properties:
-        code:
-          description: Snake cased all caps error code interpreted from the HTTP status code that can programmatically be acted upon.
-          type: string
-          example: BAD_REQUEST
-          enum:
-          - UNAUTHORIZED
-          - FORBIDDEN
-          - NOT_FOUND
-          - ORDER_PURCHASE_UPDATE_NOT_FOUND
-          - TOO_MANY_REQUESTS
-          - INTERNAL_SERVER_ERROR
-          - BAD_GATEWAY
-          - RETRYABLE_ORDER_PURCHASE_SCREEN_FAILURE
-          - RETRYABLE_ORDER_PURCHASE_UPDATE_FAILURE
-          - GATEWAY_TIMEOUT
-          - BAD_REQUEST
-        message:
-          description: A human-readable explanation of the error, specific to this error occurrence.
-          type: string
-          example: An input validation error was encountered. Please see causes for more details.
-      required:
-      - code
-      - message
-    ForbiddenError:
-      description: Indicates that the API cannot fulfill the request because while the client is correctly authenticated, the client doesn't have the permission to execute the specified operation. This error type does not imply that the request is valid, or that the resource against which the operation being performed exists or satisfies other pre-conditions.
-      example:
-        code: FORBIDDEN
-        message: Insufficient permissions to perform the request.
-      allOf:
-      - $ref: '#/components/schemas/Error'
   securitySchemes:
-    Basic:
-      type: http
-      scheme: basic
+    orderPurchaseScreenAuth:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.expediagroup.com/identity/oauth2/v3/token?grant_type=client_credentials
+          scopes:
+            fraudandrisk.fraud.order-purchase-screen: Use Fraud Systems for screening orders
+    orderPurchaseUpdateAuth:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.expediagroup.com/identity/oauth2/v3/token?grant_type=client_credentials
+          scopes:
+            fraudandrisk.fraud.order-purchase-update: Use Fraud Systems for updating orders

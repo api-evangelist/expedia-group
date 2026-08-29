@@ -1,16 +1,10 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Expedia Group EPS Deposit Bookings Notifications API
-  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
-  contact:
-    name: Expedia Partner Services
-    url: https://expediaconnectivity.com/developer
-    email: eqcss@expedia.com
-  version: '1.0'
+  title: Expedia Group Rapid Notifications API
+  description: EPS Rapid V3
+  version: v3
 servers:
-- url: https://services.expediapartnercentral.com/
-security:
-- Basic: []
+- url: https://test.ean.com/v3
 tags:
 - name: Notifications
   description: Requests test notifications and undelivered notifications.
@@ -164,19 +158,36 @@ paths:
       - rapidAuth: []
 components:
   schemas:
-    Field:
+    TestNotificationRequest:
+      required:
+      - event_type
       type: object
       properties:
-        name:
+        event_type:
           type: string
-          description: The field that had an error.
+          description: The event type for which the test notification is requested.
+      example:
+        event_type: itinerary.agent.create
+    Error:
+      type: object
+      properties:
         type:
           type: string
-          description: The type of the field that had an error.
-        value:
+          description: The error type.
+        message:
           type: string
-          description: The value of the field that had an error.
-      description: An individual field that had an error.
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+        errors:
+          type: array
+          description: An array of all the actual errors that occured.
+          items:
+            $ref: '#/components/schemas/ErrorIndividual'
+      description: The overall class of error that occured.
     ErrorIndividual:
       type: object
       properties:
@@ -192,16 +203,19 @@ components:
           items:
             $ref: '#/components/schemas/Field'
       description: An individual error.
-    TestNotificationRequest:
-      required:
-      - event_type
+    Field:
       type: object
       properties:
-        event_type:
+        name:
           type: string
-          description: The event type for which the test notification is requested.
-      example:
-        event_type: itinerary.agent.create
+          description: The field that had an error.
+        type:
+          type: string
+          description: The type of the field that had an error.
+        value:
+          type: string
+          description: The value of the field that had an error.
+      description: An individual field that had an error.
     Notification:
       type: object
       properties:
@@ -227,26 +241,6 @@ components:
           type: string
           description: The Affiliate Reference ID of the affected booking
       description: A notification.
-    Error:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The error type.
-        message:
-          type: string
-          description: A human readable message giving details about this error.
-        fields:
-          type: array
-          description: Details about the specific fields that had an error.
-          items:
-            $ref: '#/components/schemas/Field'
-        errors:
-          type: array
-          description: An array of all the actual errors that occured.
-          items:
-            $ref: '#/components/schemas/ErrorIndividual'
-      description: The overall class of error that occured.
   headers:
     Region:
       description: Optional header that provides information about where the request was processed.
@@ -256,6 +250,8 @@ components:
         type: string
         example: us-west-2
   securitySchemes:
-    Basic:
-      type: http
-      scheme: basic
+    rapidAuth:
+      type: apiKey
+      description: The custom generated authentication header. Refer to our [signature authentication](https://developers.expediagroup.com/docs/rapid/resources/reference/signature-authentication) page for full details.
+      name: Authorization
+      in: header

@@ -1,16 +1,10 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Expedia Group EPS Deposit Bookings Manage Booking API
-  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
-  contact:
-    name: Expedia Partner Services
-    url: https://expediaconnectivity.com/developer
-    email: eqcss@expedia.com
-  version: '1.0'
+  title: Expedia Group Rapid Manage Booking API
+  description: EPS Rapid V3
+  version: v3
 servers:
-- url: https://services.expediapartnercentral.com/
-security:
-- Basic: []
+- url: https://test.ean.com/v3
 tags:
 - name: Manage Booking
   description: Retrieve existing itineraries or cancel existing rooms.
@@ -3277,126 +3271,26 @@ paths:
       - rapidAuth: []
 components:
   schemas:
-    ItineraryHistoryItem:
+    RateHistory:
       type: object
       properties:
-        history_id:
+        id:
           type: string
-          description: Itinerary history id for particular change.
-        event_timestamp:
-          type: string
-          description: Date and time in UTC of the change event, in extended ISO 8601 format.
-        event_type:
-          type: string
-          enum:
-          - adjustment
-          - coupon
-        amount:
-          $ref: '#/components/schemas/Amount'
-        agent_id:
-          type: integer
-          description: An agent user id number associated with a modification.
-      description: An itinerary history change event, representing a charge or refund made to the itinerary and not a specific room.
-    DepositItinerary:
-      type: object
-      properties:
-        currency:
-          type: string
-          description: The currency of the deposit.
-        value:
-          type: string
-          description: The amount required as deposit.
-        due:
-          type: string
-          description: The due date/time of the deposit.
-      description: The deposit policy associated with the itinerary.
-    Link:
-      type: object
-      properties:
-        method:
-          type: string
-          description: The request method used to access the link.
-        href:
-          type: string
-          description: The URL for the link. This can be absolute or relative.
-        expires:
-          type: string
-          description: If the link expires, this will be the UTC date the link will expire, in ISO 8601 format.
-      description: An individual link.
-    TraderDetails:
-      type: array
-      description: An array of traders.
-      items:
-        required:
-        - contact_message
-        type: object
-        properties:
-          name:
-            $ref: '#/components/schemas/TraderName'
-          address:
-            $ref: '#/components/schemas/TraderAddress'
-          business_register_name:
-            type: string
-            description: 'Name of the register where the trader is registered, and is related to the `business_register_number`
-
-              '
-            example: A real business register name
-          business_register_number:
-            type: string
-            description: 'Business registration number
-
-              '
-            example: 792837491b
-          self_certification:
-            type: boolean
-            description: 'Certification that the trader has confirmed their commitment to only offer products or services that
-
-              comply with the applicable rules of Union law.
-
-              '
-            example: true
-          contact_message:
-            $ref: '#/components/schemas/TraderContactMessage'
-          right_to_withdraw_message:
-            $ref: '#/components/schemas/TraderRightToWithdrawMessage'
-          email:
-            type: string
-            description: The trader email address.
-            example: travel@support.expedia.com
-          phone:
-            type: string
-            description: The trader phone number.
-            example: 0330-123-1235
-        description: Information of the professional entity that sells the property inventory or related services.
-    MerchantOfRecord:
-      type: string
-      description: '* `expedia` - Payment is taken by Expedia.
-
-        * `property` - Payment is taken by the property.
-
-        '
-      enum:
-      - expedia
-      - property
-    FeesPricingInformation:
-      type: object
-      properties:
-        mandatory_fee:
-          $ref: '#/components/schemas/ChargeCalculated'
-        resort_fee:
-          $ref: '#/components/schemas/ChargeCalculated'
-        mandatory_tax:
-          $ref: '#/components/schemas/ChargeCalculated'
-      description: 'The fees collected by the property. The values for each type of fee are the total for that type.
-
-
-        Mandatory fees are collected by the property at check-in or check-out.
-
-        Resort fees are charged for amenities and extras and collected by the property at check-in or check-out.
-
-        Mandatory taxes are taxes collected by the property at check-in or check-out.
-
-        '
+          description: The id of the rate.
+        promotions:
+          $ref: '#/components/schemas/PromotionsItinerary'
+        cancel_penalties:
+          type: array
+          description: The cancel penalties associated with the itinerary.
+          items:
+            $ref: '#/components/schemas/CancelPenalty'
+        deposits:
+          type: array
+          items:
+            $ref: '#/components/schemas/DepositItinerary'
+        pricing:
+          $ref: '#/components/schemas/PricingInformation'
+      description: The rate information associated with the itinerary.
     ItineraryLinks:
       type: object
       properties:
@@ -3407,53 +3301,6 @@ components:
       additionalProperties:
         $ref: '#/components/schemas/Link'
       description: A map of links, including links to resume or cancel a held booking. This is only included for held bookings.
-    TraderTermsAndConditions:
-      type: string
-      description: The url linking to the full text terms and conditions.
-      example: https://www.expedia.com/terms_and_conditions
-    TraderAddress:
-      type: object
-      properties:
-        line_1:
-          type: string
-          description: First line of customer's street address.
-          example: 555 1st St
-        line_2:
-          type: string
-          description: Second line of customer's street address.
-          example: 10th Floor
-        line_3:
-          type: string
-          description: Third line of customer's street address.
-          example: Unit 12
-        city:
-          type: string
-          description: Customer's city.
-          example: Seattle
-        state_province_code:
-          type: string
-          description: Customer's state or province code.
-          example: WA
-        postal_code:
-          type: string
-          description: Customer's postal code.
-          example: '98121'
-        country_code:
-          type: string
-          description: Customer's country code, in two-letter ISO 3166-1 alpha-2 format.
-          example: US
-      description: The trader address.
-    BillingContact:
-      type: object
-      properties:
-        given_name:
-          type: string
-          description: First/given name of the payment type account holder.
-        family_name:
-          type: string
-          description: Last/family name of the payment type account holder.
-        address:
-          $ref: '#/components/schemas/Address_1'
     ErrorIndividual:
       type: object
       properties:
@@ -3469,142 +3316,68 @@ components:
           items:
             $ref: '#/components/schemas/Field'
       description: An individual error.
-    TraderName:
-      type: string
-      description: The trader name.
-      example: Expedia
-    ConfirmationId:
-      type: object
-      properties:
-        expedia:
-          type: string
-          description: The expedia confirmation id.
-        property:
-          type: string
-          description: The property confirmation id.
-      description: The confirmation ids.
-    RoomItinerary:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The room id.
-        confirmation_id:
-          $ref: '#/components/schemas/ConfirmationId'
-        bed_group_id:
-          type: string
-          description: Unique identifier for a bed type.
-        checkin:
-          type: string
-          description: The check-in date of the itinerary.
-        checkout:
-          type: string
-          description: The check-out date of the itinerary.
-        number_of_adults:
-          type: number
-          description: The number of adults staying in the room.
-        child_ages:
-          type: array
-          description: The ages of children for the room.
-          items:
-            type: number
-        given_name:
-          type: string
-          description: The first name of the main guest staying in the room.
-        family_name:
-          type: string
-          description: The last name of the main guest staying in the room.
-        status:
-          $ref: '#/components/schemas/StatusItinerary'
-        special_request:
-          type: string
-          description: Any special request info associated with the room.
-        smoking:
-          type: boolean
-          description: Indicates if the room is smoking or non-smoking.
-        loyalty_id:
-          type: string
-          description: Deprecated. Please use the loyalty id inside the loyalty object.
-        loyalty:
-          $ref: '#/components/schemas/Loyalty'
-        rate:
-          $ref: '#/components/schemas/RateItinerary'
-        links:
-          $ref: '#/components/schemas/RoomItineraryLinks'
-      description: The room information.
-    Amount:
-      type: object
-      properties:
-        value:
-          type: string
-          description: The value of the amount object. Decimal point inline with correct precision.
-        currency:
-          type: string
-          description: Currency of the amount object.
-      description: The monetary amount.
-    Error:
+    PaymentRequestWithPhone:
+      required:
+      - billing_contact
+      - type
       type: object
       properties:
         type:
           type: string
-          description: The error type.
-        message:
+          description: Identifier for the type of payment. If affiliate_collect, cardholder information is not required as EPS will not be processing the payment.
+          enum:
+          - corporate_card
+          - customer_card
+          - virtual_card
+          - affiliate_collect
+        number:
           type: string
-          description: A human readable message giving details about this error.
-        fields:
-          type: array
-          description: Details about the specific fields that had an error.
-          items:
-            $ref: '#/components/schemas/Field'
-        errors:
-          type: array
-          description: An array of all the actual errors that occured.
-          items:
-            $ref: '#/components/schemas/ErrorIndividual'
-      description: The overall class of error that occured.
-    OfferType:
-      type: string
-      description: The type of offer this value add promotion is.
-      enum:
-      - buy_one_get_one_free
-      - credit
-      - discount
-      - free
-      - voucher
-    NightChargeType:
-      type: string
-      description: "The price breakout type.\n  * `base_rate` - The room rate without any taxes and fees applied.\n  * `tax_and_service_fee` - Tax recovery charges, service fees, and taxes. Ensure that you capture these values and display as:\n                            \"Taxes and Fees\"\n  * `extra_person_fee` - A per night fee that is charged by a hotel for additional adults over the nightly rate. This fee is included as part of the total.\n  * `property_fee` - The property fee surcharge type must be displayed beginning on the initial hotel room selection page, immediately after your hotel search results page. This placement is required by the U.S. Federal Trade Commission (FTC).\n                     Display this surcharge as \"Property Fee\" on your room selection page, as described above, and in all subsequent price breakdowns for the following Points of Sale:\n                     * `US`\n                     * `Canada`\n                     * `Brazil`\n                     * `LATAM`\n  * `sales_tax` - Taxes that must be displayed by certain jurisdictional laws. Ensure that you capture these values and display as \"Taxes\".\n  * `adjustment` - This is the amount that the individual night have been adjusted/discounted.\n  * `recovery_charges_and_fees` - Tax recovery charges, service fees, and taxes. Ensure that you capture these values and display as:\n                                  \"Taxes and Fees\"\n  * `traveler_service_fee` - Fee charged by Vrbo to support use of online tools, services and functions on its platform which enable guest self service. May be displayed as 'Traveler Service Fee' or 'Service Fee' any time fees are broken out for display on partner sites.\n"
-      enum:
-      - base_rate
-      - tax_and_service_fee
-      - extra_person_fee
-      - property_fee
-      - sales_tax
-      - adjustment
-      - recovery_charges_and_fees
-      - traveler_service_fee
-    TraderInformation:
-      required:
-      - terms_and_conditions
+          description: Card number. Required for credit card transactions.
+        security_code:
+          type: string
+          description: CVV/CSV code from the back of the customer's card. Required for credit card transactions.
+        expiration_month:
+          type: string
+          description: Two-digit month the credit card will expire. Required for credit card transactions.
+        expiration_year:
+          type: string
+          description: Year the credit card will expire. Required for credit card transactions.
+        billing_contact:
+          $ref: '#/components/schemas/BillingContactRequestWithPhone'
+        third_party_authentication:
+          $ref: '#/components/schemas/ThirdPartyAuthRequest'
+        enrollment_date:
+          type: string
+          description: Date the payment account was enrolled in the cardholder's account with the merchant, in ISO 8601 format (YYYY-MM-DD).
+    Field:
       type: object
       properties:
-        traders:
-          $ref: '#/components/schemas/TraderDetails'
-        terms_and_conditions:
-          $ref: '#/components/schemas/TraderTermsAndConditions'
-      description: The professional entity or entities that sells the property inventory or related services.
-    Loyalty:
+        name:
+          type: string
+          description: The field that had an error.
+        type:
+          type: string
+          description: The type of the field that had an error.
+        value:
+          type: string
+          description: The value of the field that had an error.
+      description: An individual field that had an error.
+    Phone:
       type: object
       properties:
-        member_id:
+        country_code:
           type: string
-          description: The identifier for the individual associated with a loyalty program.
-          example: ABC123
-        program_id:
+          description: The numerical portion of the country code from the phone number. Do not include the leading '+' character.
+          example: '1'
+        area_code:
           type: string
-          description: The identifier for the loyalty program.
-          example: SN
-      description: A loyalty object for a loyalty program.
+          description: The area code of the phone number.
+          example: '487'
+        number:
+          type: string
+          description: The remaining digits of the phone number.
+          example: '5550077'
+      description: The entire phone number must be represented across the three fields in this object.
     Totals:
       type: object
       properties:
@@ -3651,166 +3424,173 @@ components:
         * `property_fees` - provides the total of the fees collected by the property.
 
         '
-    SupplyContact:
+    ValueAdd:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the value add promotion.
+        description:
+          type: string
+          description: A localized description of the value add promotion.
+        category:
+          $ref: '#/components/schemas/CategoryValueAdd'
+        offer_type:
+          $ref: '#/components/schemas/OfferType'
+        frequency:
+          $ref: '#/components/schemas/Frequency'
+        person_count:
+          type: number
+          description: Indicates how many guests the value add promotion applies to.
+      description: An individual value add.
+    TraderContactMessage:
+      type: string
+      description: The trader contact message.
+      example: This property is managed by a professional host. The provision of housing is linked to their trade, business or profession.
+    StayType:
+      type: string
+      description: The price breakout type.
+      enum:
+      - base_rate
+      - tax_and_service_fee
+      - extra_person_fee
+      - property_fee
+      - sales_tax
+      - adjustment
+      - recovery_charges_and_fees
+      - traveler_service_fee
+    TraderRightToWithdrawMessage:
+      type: string
+      description: The trader right to withdraw message.
+      example: If you cancel your booking, you'll be subject to the property's cancellation policy. In accordance with EU regulations about consumer rights, property booking services are not subject to the right to withdraw.
+    Address_1:
+      type: object
+      properties:
+        line_1:
+          type: string
+          description: First line of street address.
+          example: 555 1st St.
+        line_2:
+          type: string
+          description: Second line of street address.
+          example: 10th Floor
+        line_3:
+          type: string
+          description: Third line of street address.
+          example: Unit 12
+        city:
+          type: string
+          description: City where address is located.
+          example: Seattle
+        state_province_code:
+          type: string
+          description: State or province code of address, if applicable.
+          example: WA
+        postal_code:
+          type: string
+          description: Postal code of address, if applicable.
+          example: '98121'
+        country_code:
+          type: string
+          description: Country code, in two-letter ISO 3166-1 alpha-2 format.
+          example: US
+    RoomItineraryLinks:
+      type: object
+      properties:
+        cancel:
+          $ref: '#/components/schemas/Link'
+        change:
+          $ref: '#/components/schemas/Link'
+        shop_for_change:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: "A map of links -\n* `cancel` - Cancel the booking for this room\n* `change` - A PUT call to modify the details of the booking for this room (soft change)\n* `shop_for_change` - Shop for rates to evaluate for possible rebooking. This shop call will show the estimated financial impact of the change.<br>\n  Current parameters supported in shop for change: `checkin`, `checkout`, `occupancy` See: [additional rates](#get-/properties/-property_id-/availability)\n"
+    Link:
+      type: object
+      properties:
+        method:
+          type: string
+          description: The request method used to access the link.
+        href:
+          type: string
+          description: The URL for the link. This can be absolute or relative.
+        expires:
+          type: string
+          description: If the link expires, this will be the UTC date the link will expire, in ISO 8601 format.
+      description: An individual link.
+    Essential:
       type: object
       properties:
         name:
           type: string
-          description: The contact name.
-          example: Pat Host
-        phone:
-          $ref: '#/components/schemas/Phone'
-        email:
+          description: The name of the essential item.
+          example: access
+        instructions:
           type: string
-          description: Email address for the contact.
-          example: pat_host@ilovevrbo.com
-        address:
-          $ref: '#/components/schemas/Address_1'
-      description: The supply contact information. Note that full details may not be displayed until a short time prior to checkin.
-    ChargeCalculated:
-      type: object
-      properties:
-        billable_currency:
-          $ref: '#/components/schemas/Amount'
-        request_currency:
-          $ref: '#/components/schemas/Amount'
-      description: An object representing a charge. Information about the charge is provided in both the billable currency and the request currency.
-    BillingContactRequestWithPhone:
-      required:
-      - address
-      - family_name
-      - given_name
-      type: object
-      properties:
-        given_name:
-          type: string
-          description: First/given name of the payment type account holder. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        family_name:
-          type: string
-          description: Last/family name of the payment type account holder. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        phone:
-          $ref: '#/components/schemas/PhoneRequest'
-        address:
-          $ref: '#/components/schemas/BillingContactRequestAddress'
-    Itinerary:
-      type: object
-      properties:
-        itinerary_id:
-          type: string
-          description: The itinerary id.
-        property_id:
-          type: string
-          description: The property id.
-        links:
-          $ref: '#/components/schemas/ItineraryLinks'
-        email:
-          type: string
-          description: Email address for the customer.
-        phone:
-          $ref: '#/components/schemas/Phone'
-        rooms:
+          description: The instructions for use of the essential item.
+          example: Use the smart lock located at the side door for access.
+        additional_info:
+          type: object
+          additionalProperties:
+            type: string
+          description: A map of additional information that needs to be conveyed to customer.
+          example:
+            access_type: Smart lock
+            access_code: '12345'
+        images:
           type: array
+          description: An array of images needed for the essential item.
           items:
-            $ref: '#/components/schemas/RoomItinerary'
-        billing_contact:
-          $ref: '#/components/schemas/BillingContact'
-        adjustment:
-          $ref: '#/components/schemas/Adjustment'
-        creation_date_time:
+            $ref: '#/components/schemas/Image_1'
+    Error:
+      type: object
+      properties:
+        type:
           type: string
-          description: The creation date/time of the booking.
-        affiliate_reference_id:
+          description: The error type.
+        message:
           type: string
-          description: Your unique reference value. This field supports from 3 to a maximum of 28 characters.
-        affiliate_metadata:
-          type: string
-          description: Field that stores up to 256 characters of additional metadata with the itinerary, uniqueness is not required.
-        conversations:
-          $ref: '#/components/schemas/Conversations'
-        trader_information:
-          $ref: '#/components/schemas/TraderInformation'
-        essential_information:
-          $ref: '#/components/schemas/EssentialInformation'
-        travel_purpose:
-          type: string
-          description: 'Value potentially passed in during the availability request to indicate the purpose of the trip designated
-
-            by the traveler.
-
-            '
-          enum:
-          - leisure
-          - business
-          - unspecified
-        itinerary_history:
+          description: A human readable message giving details about this error.
+        fields:
           type: array
+          description: Details about the specific fields that had an error.
           items:
-            $ref: '#/components/schemas/ItineraryHistoryItem'
-        room_history:
+            $ref: '#/components/schemas/Field'
+        errors:
           type: array
-          description: An array of rooms each containing an array of room history events.
+          description: An array of all the actual errors that occured.
+          items:
+            $ref: '#/components/schemas/ErrorIndividual'
+      description: The overall class of error that occured.
+    PricingInformation:
+      type: object
+      properties:
+        nightly:
+          type: array
+          description: Array of arrays of amount objects. Each sub-array of amount objects represents a single night's charges.
           items:
             type: array
             items:
-              $ref: '#/components/schemas/RoomHistoryItem'
-      description: The itinerary object.
-    Field:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The field that had an error.
-        type:
-          type: string
-          description: The type of the field that had an error.
-        value:
-          type: string
-          description: The value of the field that had an error.
-      description: An individual field that had an error.
-    Frequency:
+              $ref: '#/components/schemas/NightCharge'
+        stay:
+          type: array
+          description: Array of amount objects. Details any charges that apply to the entire stay (not divided per-night). Any per-room adjustments are applied to the `base_rate` amount within this object.
+          items:
+            $ref: '#/components/schemas/Stay'
+        totals:
+          $ref: '#/components/schemas/Totals'
+        fees:
+          $ref: '#/components/schemas/FeesPricingInformation'
+      description: The pricing information object.
+    TraderTermsAndConditions:
       type: string
-      description: The frequency of when this applies.
-      enum:
-      - unknown
-      - per_night
-      - per_day
-      - per_stay
-      - per_week
-      - round_trip
-      - one_way
-    PaymentRequestWithPhone:
-      required:
-      - billing_contact
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          description: Identifier for the type of payment. If affiliate_collect, cardholder information is not required as EPS will not be processing the payment.
-          enum:
-          - corporate_card
-          - customer_card
-          - virtual_card
-          - affiliate_collect
-        number:
-          type: string
-          description: Card number. Required for credit card transactions.
-        security_code:
-          type: string
-          description: CVV/CSV code from the back of the customer's card. Required for credit card transactions.
-        expiration_month:
-          type: string
-          description: Two-digit month the credit card will expire. Required for credit card transactions.
-        expiration_year:
-          type: string
-          description: Year the credit card will expire. Required for credit card transactions.
-        billing_contact:
-          $ref: '#/components/schemas/BillingContactRequestWithPhone'
-        third_party_authentication:
-          $ref: '#/components/schemas/ThirdPartyAuthRequest'
-        enrollment_date:
-          type: string
-          description: Date the payment account was enrolled in the cardholder's account with the merchant, in ISO 8601 format (YYYY-MM-DD).
+      description: The url linking to the full text terms and conditions.
+      example: https://www.expedia.com/terms_and_conditions
+    TraderName:
+      type: string
+      description: The trader name.
+      example: Expedia
     ThirdPartyAuthRequest:
       required:
       - cavv
@@ -3878,52 +3658,100 @@ components:
             2 - Fully authenticated SecureCode transaction
 
             '
-    Stay:
+    TraderAddress:
       type: object
       properties:
-        type:
-          $ref: '#/components/schemas/StayType'
-        value:
+        line_1:
           type: string
-          description: The value of the amount object. Decimal point inline with correct precision.
+          description: First line of customer's street address.
+          example: 555 1st St
+        line_2:
+          type: string
+          description: Second line of customer's street address.
+          example: 10th Floor
+        line_3:
+          type: string
+          description: Third line of customer's street address.
+          example: Unit 12
+        city:
+          type: string
+          description: Customer's city.
+          example: Seattle
+        state_province_code:
+          type: string
+          description: Customer's state or province code.
+          example: WA
+        postal_code:
+          type: string
+          description: Customer's postal code.
+          example: '98121'
+        country_code:
+          type: string
+          description: Customer's country code, in two-letter ISO 3166-1 alpha-2 format.
+          example: US
+      description: The trader address.
+    RoomItinerary:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The room id.
+        confirmation_id:
+          $ref: '#/components/schemas/ConfirmationId'
+        bed_group_id:
+          type: string
+          description: Unique identifier for a bed type.
+        checkin:
+          type: string
+          description: The check-in date of the itinerary.
+        checkout:
+          type: string
+          description: The check-out date of the itinerary.
+        number_of_adults:
+          type: number
+          description: The number of adults staying in the room.
+        child_ages:
+          type: array
+          description: The ages of children for the room.
+          items:
+            type: number
+        given_name:
+          type: string
+          description: The first name of the main guest staying in the room.
+        family_name:
+          type: string
+          description: The last name of the main guest staying in the room.
+        status:
+          $ref: '#/components/schemas/StatusItinerary'
+        special_request:
+          type: string
+          description: Any special request info associated with the room.
+        smoking:
+          type: boolean
+          description: Indicates if the room is smoking or non-smoking.
+        loyalty_id:
+          type: string
+          description: Deprecated. Please use the loyalty id inside the loyalty object.
+        loyalty:
+          $ref: '#/components/schemas/Loyalty'
+        rate:
+          $ref: '#/components/schemas/RateItinerary'
+        links:
+          $ref: '#/components/schemas/RoomItineraryLinks'
+      description: The room information.
+    DepositItinerary:
+      type: object
+      properties:
         currency:
           type: string
-          description: Currency of the amount object.
-    EssentialInformation:
-      type: object
-      properties:
-        contact:
-          $ref: '#/components/schemas/SupplyContact'
-        essentials:
-          type: array
-          items:
-            $ref: '#/components/schemas/Essential'
-        update_available_date:
+          description: The currency of the deposit.
+        value:
           type: string
-          description: The date and time when new essential information is available for retrieval, in extended ISO 8601 format, with ±hh:mm timezone offset.
-          example: '2022-08-12T11:59:00-08:00'
-      description: Essential information, including the supply contact information and any other essential information.
-    NonrefundableDateRange:
-      type: object
-      properties:
-        start:
+          description: The amount required as deposit.
+        due:
           type: string
-          description: Start date of nonrefundable date range in ISO 8601 format.
-        end:
-          type: string
-          description: End date of nonrefundable date range in ISO 8601 format.
-    RoomItineraryLinks:
-      type: object
-      properties:
-        cancel:
-          $ref: '#/components/schemas/Link'
-        change:
-          $ref: '#/components/schemas/Link'
-        shop_for_change:
-          $ref: '#/components/schemas/Link'
-      additionalProperties:
-        $ref: '#/components/schemas/Link'
-      description: "A map of links -\n* `cancel` - Cancel the booking for this room\n* `change` - A PUT call to modify the details of the booking for this room (soft change)\n* `shop_for_change` - Shop for rates to evaluate for possible rebooking. This shop call will show the estimated financial impact of the change.<br>\n  Current parameters supported in shop for change: `checkin`, `checkout`, `occupancy` See: [additional rates](#get-/properties/-property_id-/availability)\n"
+          description: The due date/time of the deposit.
+      description: The deposit policy associated with the itinerary.
     CancelPenalty:
       type: object
       properties:
@@ -3945,6 +3773,66 @@ components:
         percent:
           type: string
           description: Percentage of total booking charged for as penalty. A thirty percent penalty would be returned as 30%
+    TraderInformation:
+      required:
+      - terms_and_conditions
+      type: object
+      properties:
+        traders:
+          $ref: '#/components/schemas/TraderDetails'
+        terms_and_conditions:
+          $ref: '#/components/schemas/TraderTermsAndConditions'
+      description: The professional entity or entities that sells the property inventory or related services.
+    PhoneRequest:
+      required:
+      - country_code
+      - number
+      type: object
+      properties:
+        country_code:
+          type: string
+          description: The numerical portion of the country code from the phone number. Do not include the leading '+' character. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        area_code:
+          type: string
+          description: The area code of the phone number. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        number:
+          type: string
+          description: The remaining digits of the phone number. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+      description: The entire phone number must be represented across the three fields in this object. The entire phone number should not exceed 25 characters.
+    Loyalty:
+      type: object
+      properties:
+        member_id:
+          type: string
+          description: The identifier for the individual associated with a loyalty program.
+          example: ABC123
+        program_id:
+          type: string
+          description: The identifier for the loyalty program.
+          example: SN
+      description: A loyalty object for a loyalty program.
+    Stay:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/StayType'
+        value:
+          type: string
+          description: The value of the amount object. Decimal point inline with correct precision.
+        currency:
+          type: string
+          description: Currency of the amount object.
+    BillingContact:
+      type: object
+      properties:
+        given_name:
+          type: string
+          description: First/given name of the payment type account holder.
+        family_name:
+          type: string
+          description: Last/family name of the payment type account holder.
+        address:
+          $ref: '#/components/schemas/Address_1'
     Adjustment:
       type: object
       properties:
@@ -3958,6 +3846,439 @@ components:
           type: string
           description: The currency of the adjustment.
       description: Any price adjustments associated with this itinerary.
+    RateItinerary:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the rate.
+        merchant_of_record:
+          $ref: '#/components/schemas/MerchantOfRecord'
+        refundable:
+          type: boolean
+          description: Indicates whether the itinerary is refundable or not.
+        cancel_refund:
+          $ref: '#/components/schemas/CancelRefund'
+        amenities:
+          type: array
+          items:
+            type: string
+            description: The amenity id associated with the itinerary.
+        promotions:
+          $ref: '#/components/schemas/PromotionsItinerary'
+        cancel_penalties:
+          type: array
+          description: The cancel penalties associated with the itinerary.
+          items:
+            $ref: '#/components/schemas/CancelPenalty'
+        nonrefundable_date_ranges:
+          type: array
+          description: 'A list of date exceptions. Dates within these ranges provide no refund on cancellation, regardless of
+
+            cancel penalty windows. Nonrefundable range begins at 00:00:00 on the start date, and ends at 23:59:59 on
+
+            the end date, in the local time zone of the property.
+
+            '
+          items:
+            $ref: '#/components/schemas/NonrefundableDateRange'
+        deposits:
+          type: array
+          items:
+            $ref: '#/components/schemas/DepositItinerary'
+        card_on_file_limit:
+          $ref: '#/components/schemas/Amount'
+        refundable_damage_deposit:
+          $ref: '#/components/schemas/Amount'
+        pricing:
+          $ref: '#/components/schemas/PricingInformation'
+      description: The rate information associated with the itinerary.
+    MerchantOfRecord:
+      type: string
+      description: '* `expedia` - Payment is taken by Expedia.
+
+        * `property` - Payment is taken by the property.
+
+        '
+      enum:
+      - expedia
+      - property
+    Conversations:
+      type: object
+      properties:
+        links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Contains urls for links to initiate conversations via EPS.
+      description: Details about initiating conversations.
+    NightCharge:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/NightChargeType'
+        value:
+          type: string
+          description: The value of the amount object. Decimal point inline with correct precision.
+        currency:
+          type: string
+          description: Currency of the amount object.
+    CategoryValueAdd:
+      type: string
+      description: The general category that this value add promotion falls into.
+      enum:
+      - food_and_beverage
+      - entertainment
+      - service
+      - activity
+      - credit
+    TraderDetails:
+      type: array
+      description: An array of traders.
+      items:
+        required:
+        - contact_message
+        type: object
+        properties:
+          name:
+            $ref: '#/components/schemas/TraderName'
+          address:
+            $ref: '#/components/schemas/TraderAddress'
+          business_register_name:
+            type: string
+            description: 'Name of the register where the trader is registered, and is related to the `business_register_number`
+
+              '
+            example: A real business register name
+          business_register_number:
+            type: string
+            description: 'Business registration number
+
+              '
+            example: 792837491b
+          self_certification:
+            type: boolean
+            description: 'Certification that the trader has confirmed their commitment to only offer products or services that
+
+              comply with the applicable rules of Union law.
+
+              '
+            example: true
+          contact_message:
+            $ref: '#/components/schemas/TraderContactMessage'
+          right_to_withdraw_message:
+            $ref: '#/components/schemas/TraderRightToWithdrawMessage'
+          email:
+            type: string
+            description: The trader email address.
+            example: travel@support.expedia.com
+          phone:
+            type: string
+            description: The trader phone number.
+            example: 0330-123-1235
+        description: Information of the professional entity that sells the property inventory or related services.
+    ConfirmationId:
+      type: object
+      properties:
+        expedia:
+          type: string
+          description: The expedia confirmation id.
+        property:
+          type: string
+          description: The property confirmation id.
+      description: The confirmation ids.
+    NightChargeType:
+      type: string
+      description: "The price breakout type.\n  * `base_rate` - The room rate without any taxes and fees applied.\n  * `tax_and_service_fee` - Tax recovery charges, service fees, and taxes. Ensure that you capture these values and display as:\n                            \"Taxes and Fees\"\n  * `extra_person_fee` - A per night fee that is charged by a hotel for additional adults over the nightly rate. This fee is included as part of the total.\n  * `property_fee` - The property fee surcharge type must be displayed beginning on the initial hotel room selection page, immediately after your hotel search results page. This placement is required by the U.S. Federal Trade Commission (FTC).\n                     Display this surcharge as \"Property Fee\" on your room selection page, as described above, and in all subsequent price breakdowns for the following Points of Sale:\n                     * `US`\n                     * `Canada`\n                     * `Brazil`\n                     * `LATAM`\n  * `sales_tax` - Taxes that must be displayed by certain jurisdictional laws. Ensure that you capture these values and display as \"Taxes\".\n  * `adjustment` - This is the amount that the individual night have been adjusted/discounted.\n  * `recovery_charges_and_fees` - Tax recovery charges, service fees, and taxes. Ensure that you capture these values and display as:\n                                  \"Taxes and Fees\"\n  * `traveler_service_fee` - Fee charged by Vrbo to support use of online tools, services and functions on its platform which enable guest self service. May be displayed as 'Traveler Service Fee' or 'Service Fee' any time fees are broken out for display on partner sites.\n"
+      enum:
+      - base_rate
+      - tax_and_service_fee
+      - extra_person_fee
+      - property_fee
+      - sales_tax
+      - adjustment
+      - recovery_charges_and_fees
+      - traveler_service_fee
+    ChangeRoomDetailsRequest:
+      type: object
+      properties:
+        given_name:
+          type: string
+          description: First name of room guest. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        family_name:
+          type: string
+          description: Last name of room guest. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        smoking:
+          type: boolean
+          description: Specify if the guest would prefer a smoking room. This field is only a request and the property is not guaranteed to honor it, it will not override any non-smoking policies by the hotel.
+        special_request:
+          type: string
+          description: Special requests to send to hotel (not guaranteed). Do not use this field to communicate B2B customer service requests or pass any sensitive personal or financial information (PII). Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        loyalty_id:
+          type: string
+          description: Deprecated. Please use the loyalty id inside the loyalty object.
+        loyalty:
+          $ref: '#/components/schemas/Loyalty'
+      example:
+        given_name: John
+        family_name: Smith
+        smoking: false
+        special_request: Top floor or away from street please
+        loyalty_id: ABC123
+        loyalty:
+          member_id: ABD123
+          program_id: SN
+    FeesPricingInformation:
+      type: object
+      properties:
+        mandatory_fee:
+          $ref: '#/components/schemas/ChargeCalculated'
+        resort_fee:
+          $ref: '#/components/schemas/ChargeCalculated'
+        mandatory_tax:
+          $ref: '#/components/schemas/ChargeCalculated'
+      description: 'The fees collected by the property. The values for each type of fee are the total for that type.
+
+
+        Mandatory fees are collected by the property at check-in or check-out.
+
+        Resort fees are charged for amenities and extras and collected by the property at check-in or check-out.
+
+        Mandatory taxes are taxes collected by the property at check-in or check-out.
+
+        '
+    Charge:
+      type: object
+      properties:
+        billable_currency:
+          $ref: '#/components/schemas/Amount'
+        request_currency:
+          $ref: '#/components/schemas/Amount'
+      description: An object representing a charge. Information about the charge is provided in both the billable currency and the request currency.
+    SupplyContact:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The contact name.
+          example: Pat Host
+        phone:
+          $ref: '#/components/schemas/Phone'
+        email:
+          type: string
+          description: Email address for the contact.
+          example: pat_host@ilovevrbo.com
+        address:
+          $ref: '#/components/schemas/Address_1'
+      description: The supply contact information. Note that full details may not be displayed until a short time prior to checkin.
+    CommitChangeRoomRequestBody:
+      type: object
+      properties:
+        change_reference_id:
+          type: string
+          description: 'Your optional identifier for the change being executed. Only unique per itinerary.
+
+            Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+
+            '
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentRequestWithPhone'
+      example:
+        change_reference_id: v1-John
+        payments:
+        - type: customer_card
+          number: '4111111111111111'
+          security_code: '123'
+          expiration_month: 08
+          expiration_year: '2025'
+          billing_contact:
+            given_name: John
+            family_name: Smith
+            address:
+              line_1: 555 1st St
+              line_2: 10th Floor
+              line_3: Unit 12
+              city: Seattle
+              state_province_code: WA
+              postal_code: '98121'
+              country_code: US
+          third_party_authentication:
+            cavv: jELUbgG+Tgj0AREBDMLeCad+oIs=
+            eci: '05'
+            three_ds_version: 2.2.0
+            ds_transaction_id: ac01cc2b-c1a1-4981-8c6f-400d4eec88de
+            pa_res_status: Y
+            ve_res_status: C
+            xid: 47133847-13be-4ae3-9be9-e4053b9c83c0
+            cavv_algorithm: '3'
+            ucaf_indicator: '0'
+          enrollment_date: '2018-09-15'
+    PromotionsItinerary:
+      type: object
+      properties:
+        value_adds:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ValueAdd'
+          description: Promotions provided by the property that add value to the stay, but don’t affect the booking price (i.e., ski lift tickets or premium wifi).
+      description: Promotions that apply to the booked room.
+    ItineraryHistoryItem:
+      type: object
+      properties:
+        history_id:
+          type: string
+          description: Itinerary history id for particular change.
+        event_timestamp:
+          type: string
+          description: Date and time in UTC of the change event, in extended ISO 8601 format.
+        event_type:
+          type: string
+          enum:
+          - adjustment
+          - coupon
+        amount:
+          $ref: '#/components/schemas/Amount'
+        agent_id:
+          type: integer
+          description: An agent user id number associated with a modification.
+      description: An itinerary history change event, representing a charge or refund made to the itinerary and not a specific room.
+    EssentialInformation:
+      type: object
+      properties:
+        contact:
+          $ref: '#/components/schemas/SupplyContact'
+        essentials:
+          type: array
+          items:
+            $ref: '#/components/schemas/Essential'
+        update_available_date:
+          type: string
+          description: The date and time when new essential information is available for retrieval, in extended ISO 8601 format, with ±hh:mm timezone offset.
+          example: '2022-08-12T11:59:00-08:00'
+      description: Essential information, including the supply contact information and any other essential information.
+    Frequency:
+      type: string
+      description: The frequency of when this applies.
+      enum:
+      - unknown
+      - per_night
+      - per_day
+      - per_stay
+      - per_week
+      - round_trip
+      - one_way
+    Image_1:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The url of the image.
+          example: https://www.expedia.com/logo.svg
+        width:
+          type: string
+          description: The width of the image.
+          example: '144'
+        height:
+          type: string
+          description: The height of the image.
+          example: '32'
+    Itinerary:
+      type: object
+      properties:
+        itinerary_id:
+          type: string
+          description: The itinerary id.
+        property_id:
+          type: string
+          description: The property id.
+        links:
+          $ref: '#/components/schemas/ItineraryLinks'
+        email:
+          type: string
+          description: Email address for the customer.
+        phone:
+          $ref: '#/components/schemas/Phone'
+        rooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoomItinerary'
+        billing_contact:
+          $ref: '#/components/schemas/BillingContact'
+        adjustment:
+          $ref: '#/components/schemas/Adjustment'
+        creation_date_time:
+          type: string
+          description: The creation date/time of the booking.
+        affiliate_reference_id:
+          type: string
+          description: Your unique reference value. This field supports from 3 to a maximum of 28 characters.
+        affiliate_metadata:
+          type: string
+          description: Field that stores up to 256 characters of additional metadata with the itinerary, uniqueness is not required.
+        conversations:
+          $ref: '#/components/schemas/Conversations'
+        trader_information:
+          $ref: '#/components/schemas/TraderInformation'
+        essential_information:
+          $ref: '#/components/schemas/EssentialInformation'
+        travel_purpose:
+          type: string
+          description: 'Value potentially passed in during the availability request to indicate the purpose of the trip designated
+
+            by the traveler.
+
+            '
+          enum:
+          - leisure
+          - business
+          - unspecified
+        itinerary_history:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItineraryHistoryItem'
+        room_history:
+          type: array
+          description: An array of rooms each containing an array of room history events.
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/RoomHistoryItem'
+      description: The itinerary object.
+    BillingContactRequestAddress:
+      required:
+      - country_code
+      type: object
+      properties:
+        line_1:
+          type: string
+          description: First line of customer's street address. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+        line_2:
+          type: string
+          description: Second line of customer's street address. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+        line_3:
+          type: string
+          description: Third line of customer's street address. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+        city:
+          type: string
+          description: Customer's city. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+        state_province_code:
+          type: string
+          description: Customer's state or province code. Mandatory for AU, CA and US. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+        postal_code:
+          type: string
+          description: Customer's postal code. Mandatory for CA, GB, and US. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+        country_code:
+          type: string
+          description: Customer's country code, in two-letter ISO 3166-1 alpha-2 format. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
+    StatusItinerary:
+      type: string
+      description: The booking status of the room.
+      enum:
+      - pending
+      - booked
+      - canceled
     RoomHistoryItem:
       type: object
       properties:
@@ -4035,6 +4356,15 @@ components:
         rate:
           $ref: '#/components/schemas/RateHistory'
       description: A room history event, representing a change made to a specific room.
+    OfferType:
+      type: string
+      description: The type of offer this value add promotion is.
+      enum:
+      - buy_one_get_one_free
+      - credit
+      - discount
+      - free
+      - voucher
     CancelRefund:
       type: object
       properties:
@@ -4045,74 +4375,34 @@ components:
           type: string
           description: The currency of the refund amount.
       description: The refund information for cancelling the itinerary.
-    TraderRightToWithdrawMessage:
-      type: string
-      description: The trader right to withdraw message.
-      example: If you cancel your booking, you'll be subject to the property's cancellation policy. In accordance with EU regulations about consumer rights, property booking services are not subject to the right to withdraw.
-    Conversations:
-      type: object
-      properties:
-        links:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/Link'
-          description: Contains urls for links to initiate conversations via EPS.
-      description: Details about initiating conversations.
-    ValueAdd:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the value add promotion.
-        description:
-          type: string
-          description: A localized description of the value add promotion.
-        category:
-          $ref: '#/components/schemas/CategoryValueAdd'
-        offer_type:
-          $ref: '#/components/schemas/OfferType'
-        frequency:
-          $ref: '#/components/schemas/Frequency'
-        person_count:
-          type: number
-          description: Indicates how many guests the value add promotion applies to.
-      description: An individual value add.
-    BillingContactRequestAddress:
+    BillingContactRequestWithPhone:
       required:
-      - country_code
+      - address
+      - family_name
+      - given_name
       type: object
       properties:
-        line_1:
+        given_name:
           type: string
-          description: First line of customer's street address. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
-        line_2:
+          description: First/given name of the payment type account holder. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        family_name:
           type: string
-          description: Second line of customer's street address. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
-        line_3:
-          type: string
-          description: Third line of customer's street address. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
-        city:
-          type: string
-          description: Customer's city. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
-        state_province_code:
-          type: string
-          description: Customer's state or province code. Mandatory for AU, CA and US. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
-        postal_code:
-          type: string
-          description: Customer's postal code. Mandatory for CA, GB, and US. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
-        country_code:
-          type: string
-          description: Customer's country code, in two-letter ISO 3166-1 alpha-2 format. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
-    PromotionsItinerary:
+          description: Last/family name of the payment type account holder. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        phone:
+          $ref: '#/components/schemas/PhoneRequest'
+        address:
+          $ref: '#/components/schemas/BillingContactRequestAddress'
+    Amount:
       type: object
       properties:
-        value_adds:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ValueAdd'
-          description: Promotions provided by the property that add value to the stay, but don’t affect the booking price (i.e., ski lift tickets or premium wifi).
-      description: Promotions that apply to the booked room.
-    Charge:
+        value:
+          type: string
+          description: The value of the amount object. Decimal point inline with correct precision.
+        currency:
+          type: string
+          description: Currency of the amount object.
+      description: The monetary amount.
+    ChargeCalculated:
       type: object
       properties:
         billable_currency:
@@ -4120,311 +4410,15 @@ components:
         request_currency:
           $ref: '#/components/schemas/Amount'
       description: An object representing a charge. Information about the charge is provided in both the billable currency and the request currency.
-    Address_1:
+    NonrefundableDateRange:
       type: object
       properties:
-        line_1:
+        start:
           type: string
-          description: First line of street address.
-          example: 555 1st St.
-        line_2:
+          description: Start date of nonrefundable date range in ISO 8601 format.
+        end:
           type: string
-          description: Second line of street address.
-          example: 10th Floor
-        line_3:
-          type: string
-          description: Third line of street address.
-          example: Unit 12
-        city:
-          type: string
-          description: City where address is located.
-          example: Seattle
-        state_province_code:
-          type: string
-          description: State or province code of address, if applicable.
-          example: WA
-        postal_code:
-          type: string
-          description: Postal code of address, if applicable.
-          example: '98121'
-        country_code:
-          type: string
-          description: Country code, in two-letter ISO 3166-1 alpha-2 format.
-          example: US
-    CategoryValueAdd:
-      type: string
-      description: The general category that this value add promotion falls into.
-      enum:
-      - food_and_beverage
-      - entertainment
-      - service
-      - activity
-      - credit
-    PricingInformation:
-      type: object
-      properties:
-        nightly:
-          type: array
-          description: Array of arrays of amount objects. Each sub-array of amount objects represents a single night's charges.
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/NightCharge'
-        stay:
-          type: array
-          description: Array of amount objects. Details any charges that apply to the entire stay (not divided per-night). Any per-room adjustments are applied to the `base_rate` amount within this object.
-          items:
-            $ref: '#/components/schemas/Stay'
-        totals:
-          $ref: '#/components/schemas/Totals'
-        fees:
-          $ref: '#/components/schemas/FeesPricingInformation'
-      description: The pricing information object.
-    Image_1:
-      type: object
-      properties:
-        url:
-          type: string
-          description: The url of the image.
-          example: https://www.expedia.com/logo.svg
-        width:
-          type: string
-          description: The width of the image.
-          example: '144'
-        height:
-          type: string
-          description: The height of the image.
-          example: '32'
-    NightCharge:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/NightChargeType'
-        value:
-          type: string
-          description: The value of the amount object. Decimal point inline with correct precision.
-        currency:
-          type: string
-          description: Currency of the amount object.
-    PhoneRequest:
-      required:
-      - country_code
-      - number
-      type: object
-      properties:
-        country_code:
-          type: string
-          description: The numerical portion of the country code from the phone number. Do not include the leading '+' character. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        area_code:
-          type: string
-          description: The area code of the phone number. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        number:
-          type: string
-          description: The remaining digits of the phone number. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-      description: The entire phone number must be represented across the three fields in this object. The entire phone number should not exceed 25 characters.
-    CommitChangeRoomRequestBody:
-      type: object
-      properties:
-        change_reference_id:
-          type: string
-          description: 'Your optional identifier for the change being executed. Only unique per itinerary.
-
-            Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-
-            '
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentRequestWithPhone'
-      example:
-        change_reference_id: v1-John
-        payments:
-        - type: customer_card
-          number: '4111111111111111'
-          security_code: '123'
-          expiration_month: 08
-          expiration_year: '2025'
-          billing_contact:
-            given_name: John
-            family_name: Smith
-            address:
-              line_1: 555 1st St
-              line_2: 10th Floor
-              line_3: Unit 12
-              city: Seattle
-              state_province_code: WA
-              postal_code: '98121'
-              country_code: US
-          third_party_authentication:
-            cavv: jELUbgG+Tgj0AREBDMLeCad+oIs=
-            eci: '05'
-            three_ds_version: 2.2.0
-            ds_transaction_id: ac01cc2b-c1a1-4981-8c6f-400d4eec88de
-            pa_res_status: Y
-            ve_res_status: C
-            xid: 47133847-13be-4ae3-9be9-e4053b9c83c0
-            cavv_algorithm: '3'
-            ucaf_indicator: '0'
-          enrollment_date: '2018-09-15'
-    StayType:
-      type: string
-      description: The price breakout type.
-      enum:
-      - base_rate
-      - tax_and_service_fee
-      - extra_person_fee
-      - property_fee
-      - sales_tax
-      - adjustment
-      - recovery_charges_and_fees
-      - traveler_service_fee
-    Phone:
-      type: object
-      properties:
-        country_code:
-          type: string
-          description: The numerical portion of the country code from the phone number. Do not include the leading '+' character.
-          example: '1'
-        area_code:
-          type: string
-          description: The area code of the phone number.
-          example: '487'
-        number:
-          type: string
-          description: The remaining digits of the phone number.
-          example: '5550077'
-      description: The entire phone number must be represented across the three fields in this object.
-    TraderContactMessage:
-      type: string
-      description: The trader contact message.
-      example: This property is managed by a professional host. The provision of housing is linked to their trade, business or profession.
-    StatusItinerary:
-      type: string
-      description: The booking status of the room.
-      enum:
-      - pending
-      - booked
-      - canceled
-    Essential:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the essential item.
-          example: access
-        instructions:
-          type: string
-          description: The instructions for use of the essential item.
-          example: Use the smart lock located at the side door for access.
-        additional_info:
-          type: object
-          additionalProperties:
-            type: string
-          description: A map of additional information that needs to be conveyed to customer.
-          example:
-            access_type: Smart lock
-            access_code: '12345'
-        images:
-          type: array
-          description: An array of images needed for the essential item.
-          items:
-            $ref: '#/components/schemas/Image_1'
-    RateHistory:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The id of the rate.
-        promotions:
-          $ref: '#/components/schemas/PromotionsItinerary'
-        cancel_penalties:
-          type: array
-          description: The cancel penalties associated with the itinerary.
-          items:
-            $ref: '#/components/schemas/CancelPenalty'
-        deposits:
-          type: array
-          items:
-            $ref: '#/components/schemas/DepositItinerary'
-        pricing:
-          $ref: '#/components/schemas/PricingInformation'
-      description: The rate information associated with the itinerary.
-    RateItinerary:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The id of the rate.
-        merchant_of_record:
-          $ref: '#/components/schemas/MerchantOfRecord'
-        refundable:
-          type: boolean
-          description: Indicates whether the itinerary is refundable or not.
-        cancel_refund:
-          $ref: '#/components/schemas/CancelRefund'
-        amenities:
-          type: array
-          items:
-            type: string
-            description: The amenity id associated with the itinerary.
-        promotions:
-          $ref: '#/components/schemas/PromotionsItinerary'
-        cancel_penalties:
-          type: array
-          description: The cancel penalties associated with the itinerary.
-          items:
-            $ref: '#/components/schemas/CancelPenalty'
-        nonrefundable_date_ranges:
-          type: array
-          description: 'A list of date exceptions. Dates within these ranges provide no refund on cancellation, regardless of
-
-            cancel penalty windows. Nonrefundable range begins at 00:00:00 on the start date, and ends at 23:59:59 on
-
-            the end date, in the local time zone of the property.
-
-            '
-          items:
-            $ref: '#/components/schemas/NonrefundableDateRange'
-        deposits:
-          type: array
-          items:
-            $ref: '#/components/schemas/DepositItinerary'
-        card_on_file_limit:
-          $ref: '#/components/schemas/Amount'
-        refundable_damage_deposit:
-          $ref: '#/components/schemas/Amount'
-        pricing:
-          $ref: '#/components/schemas/PricingInformation'
-      description: The rate information associated with the itinerary.
-    ChangeRoomDetailsRequest:
-      type: object
-      properties:
-        given_name:
-          type: string
-          description: First name of room guest. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        family_name:
-          type: string
-          description: Last name of room guest. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        smoking:
-          type: boolean
-          description: Specify if the guest would prefer a smoking room. This field is only a request and the property is not guaranteed to honor it, it will not override any non-smoking policies by the hotel.
-        special_request:
-          type: string
-          description: Special requests to send to hotel (not guaranteed). Do not use this field to communicate B2B customer service requests or pass any sensitive personal or financial information (PII). Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        loyalty_id:
-          type: string
-          description: Deprecated. Please use the loyalty id inside the loyalty object.
-        loyalty:
-          $ref: '#/components/schemas/Loyalty'
-      example:
-        given_name: John
-        family_name: Smith
-        smoking: false
-        special_request: Top floor or away from street please
-        loyalty_id: ABC123
-        loyalty:
-          member_id: ABD123
-          program_id: SN
+          description: End date of nonrefundable date range in ISO 8601 format.
   headers:
     Region:
       description: Optional header that provides information about where the request was processed.
@@ -4434,6 +4428,8 @@ components:
         type: string
         example: us-west-2
   securitySchemes:
-    Basic:
-      type: http
-      scheme: basic
+    rapidAuth:
+      type: apiKey
+      description: The custom generated authentication header. Refer to our [signature authentication](https://developers.expediagroup.com/docs/rapid/resources/reference/signature-authentication) page for full details.
+      name: Authorization
+      in: header

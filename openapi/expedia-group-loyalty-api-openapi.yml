@@ -1,16 +1,10 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Expedia Group EPS Deposit Bookings Loyalty API
-  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
-  contact:
-    name: Expedia Partner Services
-    url: https://expediaconnectivity.com/developer
-    email: eqcss@expedia.com
-  version: '1.0'
+  title: Expedia Group Earn Loyalty API
+  description: Loyalty earn API V1
+  version: v1
 servers:
-- url: https://services.expediapartnercentral.com/
-security:
-- Basic: []
+- url: https://test.analytics.ean.com/template/v1
 tags:
 - name: Loyalty
   description: Template Loyalty Earn API
@@ -308,72 +302,43 @@ paths:
       security:
       - oauth: []
 components:
-  parameters:
-    MembershipId:
-      name: membership_id
-      in: query
-      description: Loyalty / Membership ID Number
-      schema:
-        type: string
-      example: '456178230'
-    ItineraryId:
-      name: itinerary_id
-      in: query
-      description: Itinerary Number
-      schema:
-        type: string
-      example: '72564500000000'
-    From:
-      name: from
-      in: query
-      description: Number of records to query from
-      schema:
-        type: integer
-        default: 0
-      example: 1000
-    PageSize:
-      name: page_size
-      in: query
-      description: Number of records per page
-      schema:
-        type: integer
-        default: 500
-        oneOf:
-        - minimum: 1
-          maximum: 1000
-          exclusiveMinimum: true
-          exclusiveMaximum: true
-      example: 500
-    TransactionDateStart:
-      name: transaction_date_start
-      in: query
-      description: Start date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)
-      schema:
-        type: string
-        format: date
-      example: 2023-09-17
-      required: true
-    TransactionDateEnd:
-      name: transaction_date_end
-      in: query
-      description: End date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)
-      schema:
-        type: string
-        format: date
-      example: 2023-09-18
-      required: true
-    TransactionType:
-      name: transaction_type
-      in: query
-      description: 'Transaction Type. Possible values: Purchase, Modification, Cancel, Award'
-      schema:
-        type: string
-        enum:
-        - PURCHASE
-        - AWARD
-        - MODIFICATION
-        - CANCEL
   schemas:
+    Points:
+      type: object
+      properties:
+        point_definition:
+          type: string
+          description: Definition of the points applied as related to the Campaign(s) or Base Points
+        pending:
+          $ref: '#/components/schemas/PointDefinition'
+        awarded:
+          $ref: '#/components/schemas/PointDefinition'
+    Error:
+      description: The object used the describe an error, containing both human-readable and in a machine-readable information.
+      type: object
+      properties:
+        code:
+          description: Snake cased all caps error code interpreted from the HTTP status code that can programmatically be acted upon.
+          type: string
+          example: FORBIDDEN
+          enum:
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - NOT_FOUND
+          - TOO_MANY_REQUESTS
+          - INTERNAL_SERVER_ERROR
+          - BAD_GATEWAY
+          - SERVICE_UNAVAILABLE
+          - GATEWAY_TIMEOUT
+          - CONFLICT
+          - BAD_REQUEST
+        message:
+          description: A human-readable explanation of the error, specific to this error occurrence.
+          type: string
+          example: Your request could not be authorized.
+      required:
+      - code
+      - message
     Member:
       type: object
       properties:
@@ -387,56 +352,6 @@ components:
         last_name:
           type: string
           description: Last name
-    Loyalty:
-      type: object
-      properties:
-        program_name:
-          type: string
-          description: Name of Loyalty Program
-        member:
-          $ref: '#/components/schemas/Member'
-        points:
-          $ref: '#/components/schemas/Points'
-    Points:
-      type: object
-      properties:
-        point_definition:
-          type: string
-          description: Definition of the points applied as related to the Campaign(s) or Base Points
-        pending:
-          $ref: '#/components/schemas/PointDefinition'
-        awarded:
-          $ref: '#/components/schemas/PointDefinition'
-    BookingItem:
-      type: object
-      properties:
-        id:
-          type: string
-          format: number
-          description: Booking item id
-        product_line:
-          type: string
-          description: Line of business of the item
-        begin_use_date:
-          type: string
-          format: date
-          description: Check in or start of the booking date
-        end_use_date:
-          type: string
-          format: date
-          description: Check out or end of the booking date
-    PointDefinition:
-      type: object
-      properties:
-        total:
-          type: number
-          description: Total number of points ( base points + bonus points)
-        base:
-          type: number
-          description: Points where point code / definition refers to base points
-        bonus:
-          type: number
-          description: Points where point code / definition refers to bonus points
     LoyaltyTransactionsResponse:
       type: array
       items:
@@ -468,6 +383,48 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Pricing'
+    BookingItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: number
+          description: Booking item id
+        product_line:
+          type: string
+          description: Line of business of the item
+        begin_use_date:
+          type: string
+          format: date
+          description: Check in or start of the booking date
+        end_use_date:
+          type: string
+          format: date
+          description: Check out or end of the booking date
+    Pricing:
+      type: object
+      properties:
+        currency_code:
+          type: string
+          description: Currency Code
+        gross_booking_value:
+          type: number
+          description: Gross Booking Value of booking
+        base_price:
+          type: number
+          description: Base Price (what points are based off of)
+    PointDefinition:
+      type: object
+      properties:
+        total:
+          type: number
+          description: Total number of points ( base points + bonus points)
+        base:
+          type: number
+          description: Points where point code / definition refers to base points
+        bonus:
+          type: number
+          description: Points where point code / definition refers to bonus points
     Itinerary:
       type: object
       properties:
@@ -484,6 +441,16 @@ components:
           description: Whether or not the booking is a package
         booking_item:
           $ref: '#/components/schemas/BookingItem'
+    Loyalty:
+      type: object
+      properties:
+        program_name:
+          type: string
+          description: Name of Loyalty Program
+        member:
+          $ref: '#/components/schemas/Member'
+        points:
+          $ref: '#/components/schemas/Points'
     LoyaltyResponse:
       type: object
       properties:
@@ -495,45 +462,74 @@ components:
         last_update:
           type: string
           format: date-time
-    Pricing:
-      type: object
-      properties:
-        currency_code:
-          type: string
-          description: Currency Code
-        gross_booking_value:
-          type: number
-          description: Gross Booking Value of booking
-        base_price:
-          type: number
-          description: Base Price (what points are based off of)
-    Error:
-      description: The object used the describe an error, containing both human-readable and in a machine-readable information.
-      type: object
-      properties:
-        code:
-          description: Snake cased all caps error code interpreted from the HTTP status code that can programmatically be acted upon.
-          type: string
-          example: FORBIDDEN
-          enum:
-          - UNAUTHORIZED
-          - FORBIDDEN
-          - NOT_FOUND
-          - TOO_MANY_REQUESTS
-          - INTERNAL_SERVER_ERROR
-          - BAD_GATEWAY
-          - SERVICE_UNAVAILABLE
-          - GATEWAY_TIMEOUT
-          - CONFLICT
-          - BAD_REQUEST
-        message:
-          description: A human-readable explanation of the error, specific to this error occurrence.
-          type: string
-          example: Your request could not be authorized.
-      required:
-      - code
-      - message
+  parameters:
+    TransactionDateEnd:
+      name: transaction_date_end
+      in: query
+      description: End date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)
+      schema:
+        type: string
+        format: date
+      example: 2023-09-18
+      required: true
+    PageSize:
+      name: page_size
+      in: query
+      description: Number of records per page
+      schema:
+        type: integer
+        default: 500
+        oneOf:
+        - exclusiveMinimum: 1
+          exclusiveMaximum: 1000
+      example: 500
+    MembershipId:
+      name: membership_id
+      in: query
+      description: Loyalty / Membership ID Number
+      schema:
+        type: string
+      example: '456178230'
+    From:
+      name: from
+      in: query
+      description: Number of records to query from
+      schema:
+        type: integer
+        default: 0
+      example: 1000
+    TransactionDateStart:
+      name: transaction_date_start
+      in: query
+      description: Start date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)
+      schema:
+        type: string
+        format: date
+      example: 2023-09-17
+      required: true
+    ItineraryId:
+      name: itinerary_id
+      in: query
+      description: Itinerary Number
+      schema:
+        type: string
+      example: '72564500000000'
+    TransactionType:
+      name: transaction_type
+      in: query
+      description: 'Transaction Type. Possible values: Purchase, Modification, Cancel, Award'
+      schema:
+        type: string
+        enum:
+        - PURCHASE
+        - AWARD
+        - MODIFICATION
+        - CANCEL
   securitySchemes:
-    Basic:
-      type: http
-      scheme: basic
+    oauth:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://test.analytics.ean.com/template/v1/oauth/token
+          scopes:
+            demand-solutions.demand-api-wrappers-prod.all: Access to all Demand API Wrappers
