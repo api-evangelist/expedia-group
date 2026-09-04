@@ -40,7 +40,7 @@ x-api-posture: partner-gated
 x-api-posture-basis: observed
 created: '2024-06-07'
 modified: '2026-05-19'
-position: Consumer
+position: Consuming
 access: 3rd-Party
 specificationVersion: '0.23'
 apis:
