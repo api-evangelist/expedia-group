@@ -51,6 +51,8 @@ apis:
     rate and occupancy.
   humanURL: https://developers.expediagroup.com/docs/products/rapid
   tags:
+  - Booking
+  tags_raw:
   - Bookings
   properties:
   - type: OpenAPI
