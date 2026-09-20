@@ -1,0 +1,76 @@
+slug: expedia-group
+provider: Expedia Group
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Travel & Hospitality
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Bookings
+  spec_file: expedia-group-bookings-api-openapi.yml
+  capability_id: BC-4020.10
+  capability_id_l1: BC-4020
+  capability_name: Reservation Capture
+  confidence: 0.92
+  evidence: POST /itineraries postItinerary Expedia Group Create Booking; PUT /itineraries/{itinerary_id}
+    putResumeBooking Expedia Group Resume Booking
+  reason: Operations create and resume lodging itineraries with payment session registration — this is
+    reservation capture in the booking lifecycle, with booking-level payment as a secondary aspect.
+- tag: Manage Booking
+  spec_file: expedia-group-manage-booking-api-openapi.yml
+  capability_id: BC-4020.20
+  capability_id_l1: BC-4020
+  capability_name: Booking Modification & Cancellation
+  confidence: 0.9
+  evidence: DELETE /itineraries/{itinerary_id} deleteHeldBooking Expedia Group Cancel Held Booking; PUT
+    /itineraries/{itinerary_id}/rooms/{room_id} changeRoomDetails; commitChange Commit a change of itinerary
+    that may require additional payment or refund
+  reason: Operations retrieve, change and cancel existing bookings/rooms including refund-bearing changes
+    — voluntary booking modification and cancellation.
+- tag: Room Type
+  spec_file: expedia-group-room-type-api-openapi.yml
+  capability_id: BC-4000.10
+  capability_id_l1: BC-4000
+  capability_name: Lodging Product Management
+  confidence: 0.88
+  evidence: POST /properties/{propertyId}/roomTypes "Creates a new room type"; schemas RoomType, BedGroup,
+    Occupancy, Bedroom
+  reason: Full lifecycle management of accommodation room types — the canonical lodging product definition
+    capability.
+- tag: Loyalty
+  spec_file: expedia-group-loyalty-api-openapi.yml
+  capability_id: BC-4050.20
+  capability_id_l1: BC-4050
+  capability_name: Loyalty Earn Engine Operations
+  confidence: 0.85
+  evidence: 'GET /loyalty/earn/transactions loyaltyTransactions; schemas: Points, Member, PointDefinition,
+    LoyaltyTransactionsResponse'
+  reason: The API is explicitly 'Loyalty earn API' returning point-earning transactions per member against
+    bookings — operation of the loyalty earn engine.
+- tag: Rate Plan
+  spec_file: expedia-group-rate-plan-api-openapi.yml
+  capability_id: BC-4000.10
+  capability_id_l1: BC-4000
+  capability_name: Lodging Product Management
+  confidence: 0.82
+  evidence: POST /properties/{propertyId}/roomTypes/{roomTypeId}/ratePlans "Creates a new rate plan";
+    schemas RatePlanDTO, CancelPolicyDTO, DistributionRuleDTO
+  reason: CRUD over rate plans attached to room types is definition of lodging products (room types, rate
+    plans), matching Lodging Product Management explicitly.
+- tag: Property
+  spec_file: expedia-group-property-api-openapi.yml
+  capability_id: BC-4000.10
+  capability_id_l1: BC-4000
+  capability_name: Lodging Product Management
+  confidence: 0.75
+  evidence: '"The Product API will enable Expedia lodging partners to read, create and edit room types
+    and rate plans"; GET /products/properties "Obtain a list of properties"'
+  reason: Lodging product/property master records exposed by a lodging product API — accommodation product
+    definition, not booking or distribution wiring.
