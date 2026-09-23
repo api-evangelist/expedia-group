@@ -14,11 +14,10 @@ paths:
       operationId: loyaltyTransactions
       tags:
       - Loyalty
-      description: 'Get loyalty earn transactions for the requested transaction date range. <br>
+      description: 'Get loyalty earn transactions for the requested transaction date range.
 
-        The response is a list of transactions sorted from the newest transaction date to the oldest.
 
-        '
+        The response is a list of transactions sorted from the newest transaction date to the oldest.'
       parameters:
       - $ref: '#/components/parameters/ItineraryId'
       - $ref: '#/components/parameters/MembershipId'
@@ -235,14 +234,14 @@ paths:
                 message: An internal server error has occurred.
       security:
       - oauth: []
+      summary: Loyalty transactions
+      x-summary-source: derived
   /loyalty/earn/last_update:
     get:
       operationId: loyaltyLastUpdate
       tags:
       - Loyalty
-      description: 'Get the last update datetime for loyalty earn transactions.
-
-        '
+      description: Get the last update datetime for loyalty earn transactions.
       responses:
         '200':
           description: OK
@@ -301,8 +300,95 @@ paths:
                 message: An internal server error has occurred.
       security:
       - oauth: []
+      summary: Loyalty last update
+      x-summary-source: derived
 components:
+  parameters:
+    TransactionDateStart:
+      name: transaction_date_start
+      in: query
+      description: Start date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)
+      schema:
+        type: string
+        format: date
+      example: 2023-09-17
+      required: true
+    From:
+      name: from
+      in: query
+      description: Number of records to query from
+      schema:
+        type: integer
+        default: 0
+      example: 1000
+    TransactionDateEnd:
+      name: transaction_date_end
+      in: query
+      description: End date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)
+      schema:
+        type: string
+        format: date
+      example: 2023-09-18
+      required: true
+    TransactionType:
+      name: transaction_type
+      in: query
+      description: 'Transaction Type. Possible values: Purchase, Modification, Cancel, Award'
+      schema:
+        type: string
+        enum:
+        - PURCHASE
+        - AWARD
+        - MODIFICATION
+        - CANCEL
+    MembershipId:
+      name: membership_id
+      in: query
+      description: Loyalty / Membership ID Number
+      schema:
+        type: string
+      example: '456178230'
+    PageSize:
+      name: page_size
+      in: query
+      description: Number of records per page
+      schema:
+        type: integer
+        default: 500
+        oneOf:
+        - exclusiveMinimum: 1
+          exclusiveMaximum: 1000
+      example: 500
+    ItineraryId:
+      name: itinerary_id
+      in: query
+      description: Itinerary Number
+      schema:
+        type: string
+      example: '72564500000000'
   schemas:
+    Itinerary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: number
+          description: Itinerary Number
+        booking_date:
+          type: string
+          format: date
+          description: Date when the booking was made
+        package_indicator:
+          type: string
+          description: Whether or not the booking is a package
+        booking_item:
+          $ref: '#/components/schemas/BookingItem'
+    LoyaltyLastUpdateResponse:
+      type: object
+      properties:
+        last_update:
+          type: string
+          format: date-time
     Points:
       type: object
       properties:
@@ -313,45 +399,6 @@ components:
           $ref: '#/components/schemas/PointDefinition'
         awarded:
           $ref: '#/components/schemas/PointDefinition'
-    Error:
-      description: The object used the describe an error, containing both human-readable and in a machine-readable information.
-      type: object
-      properties:
-        code:
-          description: Snake cased all caps error code interpreted from the HTTP status code that can programmatically be acted upon.
-          type: string
-          example: FORBIDDEN
-          enum:
-          - UNAUTHORIZED
-          - FORBIDDEN
-          - NOT_FOUND
-          - TOO_MANY_REQUESTS
-          - INTERNAL_SERVER_ERROR
-          - BAD_GATEWAY
-          - SERVICE_UNAVAILABLE
-          - GATEWAY_TIMEOUT
-          - CONFLICT
-          - BAD_REQUEST
-        message:
-          description: A human-readable explanation of the error, specific to this error occurrence.
-          type: string
-          example: Your request could not be authorized.
-      required:
-      - code
-      - message
-    Member:
-      type: object
-      properties:
-        id:
-          type: string
-          format: number
-          description: Membership id
-        tier:
-          type: string
-          description: Name of Loyalty Program
-        last_name:
-          type: string
-          description: Last name
     LoyaltyTransactionsResponse:
       type: array
       items:
@@ -383,6 +430,84 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Pricing'
+    Loyalty:
+      type: object
+      properties:
+        program_name:
+          type: string
+          description: Name of Loyalty Program
+        member:
+          $ref: '#/components/schemas/Member'
+        points:
+          $ref: '#/components/schemas/Points'
+    PointDefinition:
+      type: object
+      properties:
+        total:
+          type: number
+          description: Total number of points ( base points + bonus points)
+        base:
+          type: number
+          description: Points where point code / definition refers to base points
+        bonus:
+          type: number
+          description: Points where point code / definition refers to bonus points
+    Pricing:
+      type: object
+      properties:
+        currency_code:
+          type: string
+          description: Currency Code
+        gross_booking_value:
+          type: number
+          description: Gross Booking Value of booking
+        base_price:
+          type: number
+          description: Base Price (what points are based off of)
+    Member:
+      type: object
+      properties:
+        id:
+          type: string
+          format: number
+          description: Membership id
+        tier:
+          type: string
+          description: Name of Loyalty Program
+        last_name:
+          type: string
+          description: Last name
+    Error:
+      description: The object used the describe an error, containing both human-readable and in a machine-readable information.
+      type: object
+      properties:
+        code:
+          description: Snake cased all caps error code interpreted from the HTTP status code that can programmatically be acted upon.
+          type: string
+          example: FORBIDDEN
+          enum:
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - NOT_FOUND
+          - TOO_MANY_REQUESTS
+          - INTERNAL_SERVER_ERROR
+          - BAD_GATEWAY
+          - SERVICE_UNAVAILABLE
+          - GATEWAY_TIMEOUT
+          - CONFLICT
+          - BAD_REQUEST
+        message:
+          description: A human-readable explanation of the error, specific to this error occurrence.
+          type: string
+          example: Your request could not be authorized.
+      required:
+      - code
+      - message
+    LoyaltyResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/LoyaltyTransactionsResponse'
     BookingItem:
       type: object
       properties:
@@ -401,130 +526,6 @@ components:
           type: string
           format: date
           description: Check out or end of the booking date
-    Pricing:
-      type: object
-      properties:
-        currency_code:
-          type: string
-          description: Currency Code
-        gross_booking_value:
-          type: number
-          description: Gross Booking Value of booking
-        base_price:
-          type: number
-          description: Base Price (what points are based off of)
-    PointDefinition:
-      type: object
-      properties:
-        total:
-          type: number
-          description: Total number of points ( base points + bonus points)
-        base:
-          type: number
-          description: Points where point code / definition refers to base points
-        bonus:
-          type: number
-          description: Points where point code / definition refers to bonus points
-    Itinerary:
-      type: object
-      properties:
-        id:
-          type: string
-          format: number
-          description: Itinerary Number
-        booking_date:
-          type: string
-          format: date
-          description: Date when the booking was made
-        package_indicator:
-          type: string
-          description: Whether or not the booking is a package
-        booking_item:
-          $ref: '#/components/schemas/BookingItem'
-    Loyalty:
-      type: object
-      properties:
-        program_name:
-          type: string
-          description: Name of Loyalty Program
-        member:
-          $ref: '#/components/schemas/Member'
-        points:
-          $ref: '#/components/schemas/Points'
-    LoyaltyResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/LoyaltyTransactionsResponse'
-    LoyaltyLastUpdateResponse:
-      type: object
-      properties:
-        last_update:
-          type: string
-          format: date-time
-  parameters:
-    TransactionDateEnd:
-      name: transaction_date_end
-      in: query
-      description: End date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)
-      schema:
-        type: string
-        format: date
-      example: 2023-09-18
-      required: true
-    PageSize:
-      name: page_size
-      in: query
-      description: Number of records per page
-      schema:
-        type: integer
-        default: 500
-        oneOf:
-        - exclusiveMinimum: 1
-          exclusiveMaximum: 1000
-      example: 500
-    MembershipId:
-      name: membership_id
-      in: query
-      description: Loyalty / Membership ID Number
-      schema:
-        type: string
-      example: '456178230'
-    From:
-      name: from
-      in: query
-      description: Number of records to query from
-      schema:
-        type: integer
-        default: 0
-      example: 1000
-    TransactionDateStart:
-      name: transaction_date_start
-      in: query
-      description: Start date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)
-      schema:
-        type: string
-        format: date
-      example: 2023-09-17
-      required: true
-    ItineraryId:
-      name: itinerary_id
-      in: query
-      description: Itinerary Number
-      schema:
-        type: string
-      example: '72564500000000'
-    TransactionType:
-      name: transaction_type
-      in: query
-      description: 'Transaction Type. Possible values: Purchase, Modification, Cancel, Award'
-      schema:
-        type: string
-        enum:
-        - PURCHASE
-        - AWARD
-        - MODIFICATION
-        - CANCEL
   securitySchemes:
     oauth:
       type: oauth2

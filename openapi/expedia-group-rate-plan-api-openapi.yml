@@ -1,9 +1,10 @@
 openapi: 3.2.0
 info:
   title: Expedia Group Product Rate Plan API
-  description: 'The Product API will enable Expedia lodging partners to read, create and edit room types and rate plans via APIs, without having to use Partner Central or contact their market manager. </br><br/>To start experimenting, please use your existing EQC credentials and properties.
+  description: 'The Product API will enable Expedia lodging partners to read, create and edit room types and rate plans via APIs, without having to use Partner Central or contact their market manager.
 
-    '
+
+    To start experimenting, please use your existing EQC credentials and properties.'
   contact:
     name: Lodging Connectivity
     url: https://expediaconnectivity.com/developer
@@ -231,66 +232,44 @@ paths:
       x-codegen-request-body-name: ratePlan
 components:
   schemas:
-    RateDerivationRuleDTO:
+    ServiceFeesPerPersonDTO:
       required:
-      - adjustmentType
-      - adjustmentValue
+      - ageCategory
       - dateEnd
       - dateStart
-      - exclusionDates
+      - isTaxable
       type: object
       properties:
-        adjustmentType:
+        ageCategory:
           type: string
-          description: Defines the type of adjustment made on the rate. Possible values are Percentage and Amount.
+          description: The age category for the service fees
           enum:
-          - Percentage
-          - Amount
-        adjustmentValue:
+          - Adult
+          - ChildAgeA
+          - ChildAgeB
+          - ChildAgeC
+          - ChildAgeD
+          - Infant
+        amountPerNight:
           type: number
-          description: Defines the actual adjustment being applied to the rate. Can take a positive or negative value, depending on the type of adjustment applied.
+          description: Per night service charge. Min value 0.000, accepts up to 3 decimal points
+          format: double
+        amountPerStay:
+          type: number
+          description: Per stay service charge. Min value 0.000, accepts up to 3 decimal points
           format: double
         dateEnd:
           type: string
-          description: Ending  date of the rate derivation rule. Format is YYYY-MM-DD.
+          description: Date at which this amount will be not effective anymore.
           format: date
         dateStart:
           type: string
-          description: Starting date of the rate derivation rule. Format is YYYY-MM-DD.
+          description: Date at which this fee started being applicable, can be in the past
           format: date
-        exclusionDates:
-          type: array
-          description: Periods of time during which the rate derivation rule does not apply.
-          items:
-            $ref: '#/components/schemas/PeriodDTO'
-    RatePlanDTOLinks:
-      type: object
-      properties:
-        depositPolicy:
-          $ref: '#/components/schemas/LinkDTO'
-        derivedRatePlans:
-          type: array
-          description: List of URLs that point to the derived Rate Plans. These Rate Plans have their rates and availability derived from this Rate Plan.
-          items:
-            $ref: '#/components/schemas/LinkDTO'
-        parentRatePlan:
-          $ref: '#/components/schemas/LinkDTO'
-        self:
-          $ref: '#/components/schemas/LinkDTO'
-    PeriodDTO:
-      required:
-      - dateEnd
-      - dateStart
-      type: object
-      properties:
-        dateEnd:
-          type: string
-          description: Ending date of the period. Format is YYYY-MM-DD.
-          format: date
-        dateStart:
-          type: string
-          description: Starting date of the period. Format is YYYY-MM-DD.
-          format: date
+        isTaxable:
+          type: boolean
+          description: 'If the service fee is taxable. Values: true/false'
+          example: false
     CompensationExceptionRuleDTO:
       type: object
       properties:
@@ -338,44 +317,15 @@ components:
           type: boolean
           description: For any exception, all 7 days of week are returned with a true/false indicator.
           example: false
-    ResponseWrapperDTO_List_RatePlanDTO:
+    ResponseWrapperDTO_RatePlanDTO:
       type: object
       properties:
         entity:
-          type: array
-          items:
-            $ref: '#/components/schemas/RatePlanDTO'
+          $ref: '#/components/schemas/RatePlanDTO'
         errors:
           type: array
           items:
             $ref: '#/components/schemas/ErrorDTO'
-    ServiceFeesPerStayDTO:
-      required:
-      - isTaxable
-      type: object
-      properties:
-        amountPerNight:
-          type: number
-          description: Per night service charge. Min value 0.000, accepts up to 3 decimal points
-          format: double
-        amountPerStay:
-          type: number
-          description: Per stay service charge. Min value 0.000, accepts up to 3 decimal points
-          format: double
-        isTaxable:
-          type: boolean
-          description: 'If the service fee is taxable. Values: true/false'
-          example: false
-        percent:
-          type: number
-          description: Percentage of the base rate. Value between 0 and 1, accepts up to 4 decimal points
-          format: double
-    LinkDTO:
-      type: object
-      properties:
-        href:
-          type: string
-          description: The link's URL.
     RatePlanDTO:
       required:
       - distributionRules
@@ -508,6 +458,136 @@ components:
           description: Array of value add inclusions. Value add inclusions are special features included with this rate. Breakfast, Internet, or parking inclusions are the most frequently used ones
           items:
             type: string
+    ErrorDTO:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    LinkDTO:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The link's URL.
+    PeriodDTO:
+      required:
+      - dateEnd
+      - dateStart
+      type: object
+      properties:
+        dateEnd:
+          type: string
+          description: Ending date of the period. Format is YYYY-MM-DD.
+          format: date
+        dateStart:
+          type: string
+          description: Starting date of the period. Format is YYYY-MM-DD.
+          format: date
+    ServiceFeesPerStayDTO:
+      required:
+      - isTaxable
+      type: object
+      properties:
+        amountPerNight:
+          type: number
+          description: Per night service charge. Min value 0.000, accepts up to 3 decimal points
+          format: double
+        amountPerStay:
+          type: number
+          description: Per stay service charge. Min value 0.000, accepts up to 3 decimal points
+          format: double
+        isTaxable:
+          type: boolean
+          description: 'If the service fee is taxable. Values: true/false'
+          example: false
+        percent:
+          type: number
+          description: Percentage of the base rate. Value between 0 and 1, accepts up to 4 decimal points
+          format: double
+    DistributionRuleDTO:
+      required:
+      - distributionModel
+      type: object
+      properties:
+        compensation:
+          $ref: '#/components/schemas/CompensationRuleDTO'
+        distributionModel:
+          type: string
+          description: 'Distribution model adopted by the rate plan, matching property configuration. ExpediaCollect: indicates that when customers book this rate plan, they will pay Expedia. HotelCollect: indicates that when customers book this rate plan, they will pay the property. Note: if a product can be sold as both ExpediaCollect and HotelCollect, there will be 2 distribution rules under the rate plan to indicate this'
+          enum:
+          - HotelCollect
+          - ExpediaCollect
+        expediaId:
+          type: string
+          description: String, min 1, max 50 characters. Expedia rate plan ID that will be specified in booking messages and that should be used to manage avail/rates if this set of distribution rules is marked as manageable.
+        manageable:
+          type: boolean
+          description: Cannot be provided in a create request. Default to yes for HotelCollect-only or ExpediaCollect-only rate plans. For ExpediaTravelerPreference rate plans, if rate acquisition type is net, ExpediaCollect will default to true; if rate acquisition type is Sell/LAR, HotelCollect will default to true.
+          readOnly: true
+          example: false
+        partnerCode:
+          type: string
+          description: Unique partner identifier for the rate plan. For a given room type, this code has to be unique per distribution model (e.g. for all ExpediaCollect rate plan distribution rules under this room, this code has to be unique). Uniqueness will be validated by Expedia during create or update operations. Accepted characters are a-z, A-Z, 0-9, '.', '_' and '-'
+    RatePlanDTOLinks:
+      type: object
+      properties:
+        depositPolicy:
+          $ref: '#/components/schemas/LinkDTO'
+        derivedRatePlans:
+          type: array
+          description: List of URLs that point to the derived Rate Plans. These Rate Plans have their rates and availability derived from this Rate Plan.
+          items:
+            $ref: '#/components/schemas/LinkDTO'
+        parentRatePlan:
+          $ref: '#/components/schemas/LinkDTO'
+        self:
+          $ref: '#/components/schemas/LinkDTO'
+    CompensationRuleDTO:
+      required:
+      - minAmount
+      - percent
+      type: object
+      properties:
+        exceptions:
+          type: array
+          description: Depending on the contractual agreement between Expedia and the partner, compensation can vary based on different criteria. This array of exceptions will reflect this
+          items:
+            $ref: '#/components/schemas/CompensationExceptionRuleDTO'
+        minAmount:
+          type: number
+          description: Minimum amount. Accepts up to 3 decimal points. Only applicable to ExpediaCollect distribution rules
+          format: double
+        percent:
+          type: number
+          description: Compensation percentage applied by default. Expressed as a value. Between 0 and 1, accepts up to 4 decimal points
+          format: double
+    CancelPolicyDTO:
+      type: object
+      properties:
+        defaultPenalties:
+          type: array
+          description: Default penalties' definition. Min 1, Max 3 penalties defined
+          items:
+            $ref: '#/components/schemas/PenaltyDTO'
+        exceptions:
+          type: array
+          description: List of exceptional cancel penalties defined for the Rate Plan
+          items:
+            $ref: '#/components/schemas/CancelPolicyExceptionDTO'
+    ResponseWrapperDTO_List_RatePlanDTO:
+      type: object
+      properties:
+        entity:
+          type: array
+          items:
+            $ref: '#/components/schemas/RatePlanDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDTO'
     PenaltyDTO:
       type: object
       properties:
@@ -536,145 +616,6 @@ components:
           - 80PercentCostOfStay
           - 90PercentCostOfStay
           - FullCostOfStay
-    ResponseWrapperDTO_RatePlanDTO:
-      type: object
-      properties:
-        entity:
-          $ref: '#/components/schemas/RatePlanDTO'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDTO'
-    RatePlanLinkageDTO:
-      required:
-      - deriveAvailabilityStatus
-      - deriveClosedToArrival
-      - deriveClosedToDeparture
-      - deriveLengthOfStayRestriction
-      - rateDerivationRules
-      type: object
-      properties:
-        deriveAvailabilityStatus:
-          type: boolean
-          description: Indicates if the rate plan availability status (open/close) is linked to parent or not.
-          example: false
-        deriveClosedToArrival:
-          type: boolean
-          description: Indicates if the restriction on close to arrival is derived from the parent Rate Plan or not.
-          example: false
-        deriveClosedToDeparture:
-          type: boolean
-          description: Indicates if the restriction on close to departure is derived from the parent Rate Plan or not.
-          example: false
-        deriveLengthOfStayRestriction:
-          type: boolean
-          description: Indicates if the restriction on minimum and maximum length of stay are derived from the parent Rate Plan or not.
-          example: false
-        rateDerivationRules:
-          type: array
-          description: Rules that describe how the rate and availability are derived from the parent Rate Plan.
-          items:
-            $ref: '#/components/schemas/RateDerivationRuleDTO'
-    DistributionRuleDTO:
-      required:
-      - distributionModel
-      type: object
-      properties:
-        compensation:
-          $ref: '#/components/schemas/CompensationRuleDTO'
-        distributionModel:
-          type: string
-          description: 'Distribution model adopted by the rate plan, matching property configuration. ExpediaCollect: indicates that when customers book this rate plan, they will pay Expedia. HotelCollect: indicates that when customers book this rate plan, they will pay the property. Note: if a product can be sold as both ExpediaCollect and HotelCollect, there will be 2 distribution rules under the rate plan to indicate this'
-          enum:
-          - HotelCollect
-          - ExpediaCollect
-        expediaId:
-          type: string
-          description: String, min 1, max 50 characters. Expedia rate plan ID that will be specified in booking messages and that should be used to manage avail/rates if this set of distribution rules is marked as manageable.
-        manageable:
-          type: boolean
-          description: Cannot be provided in a create request. Default to yes for HotelCollect-only or ExpediaCollect-only rate plans. For ExpediaTravelerPreference rate plans, if rate acquisition type is net, ExpediaCollect will default to true; if rate acquisition type is Sell/LAR, HotelCollect will default to true.
-          readOnly: true
-          example: false
-        partnerCode:
-          type: string
-          description: Unique partner identifier for the rate plan. For a given room type, this code has to be unique per distribution model (e.g. for all ExpediaCollect rate plan distribution rules under this room, this code has to be unique). Uniqueness will be validated by Expedia during create or update operations. Accepted characters are a-z, A-Z, 0-9, '.', '_' and '-'
-    CancelPolicyExceptionDTO:
-      required:
-      - endDate
-      - startDate
-      type: object
-      properties:
-        endDate:
-          type: string
-          description: 'Format: YYYY-MM-DD. Cancel penalty exception''s end date'
-          format: date
-        penalties:
-          type: array
-          description: Definition of the exception penalties applied
-          items:
-            $ref: '#/components/schemas/PenaltyDTO'
-        startDate:
-          type: string
-          description: 'Format: YYYY-MM-DD. Cancel penalty exception''s starting date'
-          format: date
-    CompensationRuleDTO:
-      required:
-      - minAmount
-      - percent
-      type: object
-      properties:
-        exceptions:
-          type: array
-          description: Depending on the contractual agreement between Expedia and the partner, compensation can vary based on different criteria. This array of exceptions will reflect this
-          items:
-            $ref: '#/components/schemas/CompensationExceptionRuleDTO'
-        minAmount:
-          type: number
-          description: Minimum amount. Accepts up to 3 decimal points. Only applicable to ExpediaCollect distribution rules
-          format: double
-        percent:
-          type: number
-          description: Compensation percentage applied by default. Expressed as a value. Between 0 and 1, accepts up to 4 decimal points
-          format: double
-    ServiceFeesPerPersonDTO:
-      required:
-      - ageCategory
-      - dateEnd
-      - dateStart
-      - isTaxable
-      type: object
-      properties:
-        ageCategory:
-          type: string
-          description: The age category for the service fees
-          enum:
-          - Adult
-          - ChildAgeA
-          - ChildAgeB
-          - ChildAgeC
-          - ChildAgeD
-          - Infant
-        amountPerNight:
-          type: number
-          description: Per night service charge. Min value 0.000, accepts up to 3 decimal points
-          format: double
-        amountPerStay:
-          type: number
-          description: Per stay service charge. Min value 0.000, accepts up to 3 decimal points
-          format: double
-        dateEnd:
-          type: string
-          description: Date at which this amount will be not effective anymore.
-          format: date
-        dateStart:
-          type: string
-          description: Date at which this fee started being applicable, can be in the past
-          format: date
-        isTaxable:
-          type: boolean
-          description: 'If the service fee is taxable. Values: true/false'
-          example: false
     AdditionalGuestAmountDTO:
       required:
       - ageCategory
@@ -706,27 +647,87 @@ components:
           type: number
           description: Min value 0.0, Max value 1.0
           format: double
-    ErrorDTO:
+    RatePlanLinkageDTO:
+      required:
+      - deriveAvailabilityStatus
+      - deriveClosedToArrival
+      - deriveClosedToDeparture
+      - deriveLengthOfStayRestriction
+      - rateDerivationRules
       type: object
       properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-    CancelPolicyDTO:
-      type: object
-      properties:
-        defaultPenalties:
+        deriveAvailabilityStatus:
+          type: boolean
+          description: Indicates if the rate plan availability status (open/close) is linked to parent or not.
+          example: false
+        deriveClosedToArrival:
+          type: boolean
+          description: Indicates if the restriction on close to arrival is derived from the parent Rate Plan or not.
+          example: false
+        deriveClosedToDeparture:
+          type: boolean
+          description: Indicates if the restriction on close to departure is derived from the parent Rate Plan or not.
+          example: false
+        deriveLengthOfStayRestriction:
+          type: boolean
+          description: Indicates if the restriction on minimum and maximum length of stay are derived from the parent Rate Plan or not.
+          example: false
+        rateDerivationRules:
           type: array
-          description: Default penalties' definition. Min 1, Max 3 penalties defined
+          description: Rules that describe how the rate and availability are derived from the parent Rate Plan.
+          items:
+            $ref: '#/components/schemas/RateDerivationRuleDTO'
+    CancelPolicyExceptionDTO:
+      required:
+      - endDate
+      - startDate
+      type: object
+      properties:
+        endDate:
+          type: string
+          description: 'Format: YYYY-MM-DD. Cancel penalty exception''s end date'
+          format: date
+        penalties:
+          type: array
+          description: Definition of the exception penalties applied
           items:
             $ref: '#/components/schemas/PenaltyDTO'
-        exceptions:
+        startDate:
+          type: string
+          description: 'Format: YYYY-MM-DD. Cancel penalty exception''s starting date'
+          format: date
+    RateDerivationRuleDTO:
+      required:
+      - adjustmentType
+      - adjustmentValue
+      - dateEnd
+      - dateStart
+      - exclusionDates
+      type: object
+      properties:
+        adjustmentType:
+          type: string
+          description: Defines the type of adjustment made on the rate. Possible values are Percentage and Amount.
+          enum:
+          - Percentage
+          - Amount
+        adjustmentValue:
+          type: number
+          description: Defines the actual adjustment being applied to the rate. Can take a positive or negative value, depending on the type of adjustment applied.
+          format: double
+        dateEnd:
+          type: string
+          description: Ending  date of the rate derivation rule. Format is YYYY-MM-DD.
+          format: date
+        dateStart:
+          type: string
+          description: Starting date of the rate derivation rule. Format is YYYY-MM-DD.
+          format: date
+        exclusionDates:
           type: array
-          description: List of exceptional cancel penalties defined for the Rate Plan
+          description: Periods of time during which the rate derivation rule does not apply.
           items:
-            $ref: '#/components/schemas/CancelPolicyExceptionDTO'
+            $ref: '#/components/schemas/PeriodDTO'
   securitySchemes:
     Basic:
       type: http

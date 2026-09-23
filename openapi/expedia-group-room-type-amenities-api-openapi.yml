@@ -1,9 +1,10 @@
 openapi: 3.2.0
 info:
   title: Expedia Group Product Room Type Amenities API
-  description: 'The Product API will enable Expedia lodging partners to read, create and edit room types and rate plans via APIs, without having to use Partner Central or contact their market manager. </br><br/>To start experimenting, please use your existing EQC credentials and properties.
+  description: 'The Product API will enable Expedia lodging partners to read, create and edit room types and rate plans via APIs, without having to use Partner Central or contact their market manager.
 
-    '
+
+    To start experimenting, please use your existing EQC credentials and properties.'
   contact:
     name: Lodging Connectivity
     url: https://expediaconnectivity.com/developer
@@ -82,20 +83,6 @@ paths:
       x-codegen-request-body-name: roomTypeAmenityDTOs
 components:
   schemas:
-    RoomTypeAmenityDTO:
-      required:
-      - code
-      type: object
-      properties:
-        code:
-          type: string
-          description: Uniquely identifies an amenity
-        detailCode:
-          type: string
-          description: Adds precision or qualifies the amenity. Mandatory for some amenity, optional for other and prohibited by the rest of the amenities.
-        value:
-          type: number
-          description: Number. Adds precision to the amenity. Mandatory for some amenity, optional for other and prohibited by the rest of the amenities.
     ErrorDTO:
       type: object
       properties:
@@ -115,6 +102,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ErrorDTO'
+    RoomTypeAmenityDTO:
+      required:
+      - code
+      type: object
+      properties:
+        code:
+          type: string
+          description: Uniquely identifies an amenity
+        detailCode:
+          type: string
+          description: Adds precision or qualifies the amenity. Mandatory for some amenity, optional for other and prohibited by the rest of the amenities.
+        value:
+          type: number
+          description: Number. Adds precision to the amenity. Mandatory for some amenity, optional for other and prohibited by the rest of the amenities.
   securitySchemes:
     Basic:
       type: http

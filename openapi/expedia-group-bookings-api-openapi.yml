@@ -14,11 +14,10 @@ paths:
       tags:
       - Bookings
       summary: Expedia Group Register Payments
-      description: '<b>This link only applies to transactions where EPS takes the customer''s payment information. This includes both Expedia Collect and Property Collect transactions.</b><br>
+      description: 'This link only applies to transactions where EPS takes the customer''s payment information. This includes both Expedia Collect and Property Collect transactions.
 
-        This link will be available in the Price Check response if payment registration is required. It returns a payment session ID and a link to create a booking. This will be the first step in the booking flow only if you''ve opted into Two-Factor Authentication to comply with the September 2019 EU Regulations for PSD2. Learn more with our [PSD2 Overview](https://developers.expediagroup.com/docs/rapid/lodging/booking/psd2-regulation)
 
-        '
+        This link will be available in the Price Check response if payment registration is required. It returns a payment session ID and a link to create a booking. This will be the first step in the booking flow only if you''ve opted into Two-Factor Authentication to comply with the September 2019 EU Regulations for PSD2. Learn more with our PSD2 Overview'
       operationId: postPaymentSessions
       parameters:
       - name: Accept
@@ -328,9 +327,7 @@ paths:
       tags:
       - Bookings
       summary: Expedia Group Create Booking
-      description: 'This link will be available in the Price Check response or in the register payments response when Two-Factor Authentication is used. It returns an itinerary id and links to retrieve reservation details, cancel a held booking, resume a held booking or complete payment session. Please note that depending on the state of the booking, the response will contain only the applicable link(s).
-
-        '
+      description: This link will be available in the Price Check response or in the register payments response when Two-Factor Authentication is used. It returns an itinerary id and links to retrieve reservation details, cancel a held booking, resume a held booking or complete payment session. Please note that depending on the state of the booking, the response will contain only the applicable link(s).
       operationId: postItinerary
       parameters:
       - name: Accept
@@ -773,9 +770,7 @@ paths:
       tags:
       - Bookings
       summary: Expedia Group Resume Booking
-      description: 'This link will be available in the booking response after creating a held booking.
-
-        '
+      description: This link will be available in the booking response after creating a held booking.
       operationId: putResumeBooking
       parameters:
       - name: Accept
@@ -1139,11 +1134,10 @@ paths:
       tags:
       - Bookings
       summary: Expedia Group Complete Payment Session
-      description: '<b>This link only applies to transactions where EPS takes the customer''s payment information. This includes both Expedia Collect and Property Collect transactions.</b><br>
+      description: 'This link only applies to transactions where EPS takes the customer''s payment information. This includes both Expedia Collect and Property Collect transactions.
 
-        This link will be available in the booking response only if you''ve opted into Two-Factor Authentication to comply with the September 2019 EU Regulations for PSD2. It should be called after Two-Factor Authentication has been completed by the customer in order to finalize the payment and complete the booking or hold attempt. Learn more with our [PSD2 Overview](https://developers.expediagroup.com/docs/rapid/lodging/booking/psd2-regulation)
 
-        '
+        This link will be available in the booking response only if you''ve opted into Two-Factor Authentication to comply with the September 2019 EU Regulations for PSD2. It should be called after Two-Factor Authentication has been completed by the customer in order to finalize the payment and complete the booking or hold attempt. Learn more with our PSD2 Overview'
       operationId: putCompletePaymentSession
       parameters:
       - name: Accept
@@ -1494,21 +1488,6 @@ paths:
       - rapidAuth: []
 components:
   schemas:
-    ErrorIndividual:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The error type.
-        message:
-          type: string
-          description: A human readable message giving details about this error.
-        fields:
-          type: array
-          description: Details about the specific fields that had an error.
-          items:
-            $ref: '#/components/schemas/Field'
-      description: An individual error.
     PaymentSessionsRequestCustomerAccountDetails:
       type: object
       properties:
@@ -1540,6 +1519,46 @@ components:
         account_purchases:
           type: number
           description: Number of purchases with this cardholder's account during the previous six months.
+    TraderAddress:
+      type: object
+      properties:
+        line_1:
+          type: string
+          description: First line of customer's street address.
+          example: 555 1st St
+        line_2:
+          type: string
+          description: Second line of customer's street address.
+          example: 10th Floor
+        line_3:
+          type: string
+          description: Third line of customer's street address.
+          example: Unit 12
+        city:
+          type: string
+          description: Customer's city.
+          example: Seattle
+        state_province_code:
+          type: string
+          description: Customer's state or province code.
+          example: WA
+        postal_code:
+          type: string
+          description: Customer's postal code.
+          example: '98121'
+        country_code:
+          type: string
+          description: Customer's country code, in two-letter ISO 3166-1 alpha-2 format.
+          example: US
+      description: The trader address.
+    TraderName:
+      type: string
+      description: The trader name.
+      example: Expedia
+    TraderRightToWithdrawMessage:
+      type: string
+      description: The trader right to withdraw message.
+      example: If you cancel your booking, you'll be subject to the property's cancellation policy. In accordance with EU regulations about consumer rights, property booking services are not subject to the right to withdraw.
     Field:
       type: object
       properties:
@@ -1553,6 +1572,16 @@ components:
           type: string
           description: The value of the field that had an error.
       description: An individual field that had an error.
+    TraderInformation:
+      required:
+      - terms_and_conditions
+      type: object
+      properties:
+        traders:
+          $ref: '#/components/schemas/TraderDetails'
+        terms_and_conditions:
+          $ref: '#/components/schemas/TraderTermsAndConditions'
+      description: The professional entity or entities that sells the property inventory or related services.
     PaymentRequest:
       required:
       - billing_contact
@@ -1586,59 +1615,142 @@ components:
         enrollment_date:
           type: string
           description: Date the payment account was enrolled in the cardholder's account with the merchant, in ISO 8601 format (YYYY-MM-DD).
-    TraderRightToWithdrawMessage:
-      type: string
-      description: The trader right to withdraw message.
-      example: If you cancel your booking, you'll be subject to the property's cancellation policy. In accordance with EU regulations about consumer rights, property booking services are not subject to the right to withdraw.
-    TraderContactMessage:
-      type: string
-      description: The trader contact message.
-      example: This property is managed by a professional host. The provision of housing is linked to their trade, business or profession.
-    PaymentSessionsLinks:
+    PaymentSessionsRequest:
+      required:
+      - browser_accept_header
+      - customer_account_details
+      - encoded_browser_metadata
+      - merchant_url
+      - payments
+      - preferred_challenge_window_size
+      - version
       type: object
       properties:
-        book:
+        version:
+          type: string
+          description: The version of the EgPayments.js library.
+        browser_accept_header:
+          type: string
+          description: The customer's browser accept header that was used in the booking request.
+        encoded_browser_metadata:
+          type: string
+          description: Encoded browser metadata, provided by the EgPayments.js library.
+        preferred_challenge_window_size:
+          type: string
+          description: "The preferred window size that needs to be displayed to the customer. Following are the possible values of this field:\n  * `extra_small`: 250 x 400\n  * `small`: 390 x 400\n  * `medium`: 600 x 400\n  * `large`: 500 x 600\n  * `full_screen`: Full screen\n"
+          enum:
+          - extra_small
+          - small
+          - medium
+          - large
+          - full_screen
+        merchant_url:
+          type: string
+          description: Fully qualified URL of merchant website or customer care site.
+        customer_account_details:
+          $ref: '#/components/schemas/PaymentSessionsRequestCustomerAccountDetails'
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentRequest'
+      example:
+        version: '1'
+        browser_accept_header: '*/*'
+        encoded_browser_metadata: ZW5jb2RlZF9icm93c2VyX21ldGFkYXRh
+        preferred_challenge_window_size: medium
+        merchant_url: https://server.adomainname.net
+        customer_account_details:
+          authentication_method: guest
+          authentication_timestamp: '2018-02-12T11:59:00.000Z'
+          create_date: '2018-09-15'
+          change_date: '2018-09-17'
+          password_change_date: '2018-09-17'
+          add_card_attempts: 1
+          account_purchases: 1
+        payments:
+        - type: customer_card
+          number: '4111111111111111'
+          security_code: '123'
+          expiration_month: 08
+          expiration_year: '2025'
+          billing_contact:
+            given_name: John
+            family_name: Smith
+            address:
+              line_1: 555 1st St
+              line_2: 10th Floor
+              line_3: Unit 12
+              city: Seattle
+              state_province_code: WA
+              postal_code: '98121'
+              country_code: US
+          enrollment_date: '2018-09-15'
+    ItineraryCreation:
+      type: object
+      properties:
+        itinerary_id:
+          type: string
+          description: The itinerary id.
+        links:
+          $ref: '#/components/schemas/ItineraryCreationLinks'
+        encoded_challenge_config:
+          type: string
+          description: The challenge config that is required to perform payment challenge. This field will be available when payment challenge is needed.
+        trader_information:
+          $ref: '#/components/schemas/TraderInformation'
+      description: The book response.
+    BillingContactRequest:
+      required:
+      - address
+      - family_name
+      - given_name
+      type: object
+      properties:
+        given_name:
+          type: string
+          description: First/given name of the payment type account holder. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        family_name:
+          type: string
+          description: Last/family name of the payment type account holder. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        address:
+          $ref: '#/components/schemas/BillingContactRequestAddress'
+    ItineraryCreationLinks:
+      type: object
+      properties:
+        retrieve:
+          $ref: '#/components/schemas/Link'
+        resume:
+          $ref: '#/components/schemas/Link'
+        complete_payment_session:
+          $ref: '#/components/schemas/Link'
+        cancel:
           $ref: '#/components/schemas/Link'
       additionalProperties:
         $ref: '#/components/schemas/Link'
-      description: A map of links, including links to create a booking.
-    Link:
+      description: A map of links, including links to retrieve a booking, resume a held booking, cancel a held booking, or complete a payment session if a challenge is used.
+    CreateItineraryRequestRoom:
+      required:
+      - family_name
+      - given_name
       type: object
       properties:
-        method:
+        given_name:
           type: string
-          description: The request method used to access the link.
-        href:
+          description: First name of room guest. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        family_name:
           type: string
-          description: The URL for the link. This can be absolute or relative.
-        expires:
+          description: Last name of room guest. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        smoking:
+          type: boolean
+          description: Specify if the guest would prefer a smoking room. This field is only a request and the property is not guaranteed to honor it, it will not override any non-smoking policies by the hotel.
+        special_request:
           type: string
-          description: If the link expires, this will be the UTC date the link will expire, in ISO 8601 format.
-      description: An individual link.
-    Error:
-      type: object
-      properties:
-        type:
+          description: Special requests to send to hotel (not guaranteed). Do not use this field to communicate B2B customer service requests or pass any sensitive personal or financial information (PII). Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        loyalty_id:
           type: string
-          description: The error type.
-        message:
-          type: string
-          description: A human readable message giving details about this error.
-        fields:
-          type: array
-          description: Details about the specific fields that had an error.
-          items:
-            $ref: '#/components/schemas/Field'
-        errors:
-          type: array
-          description: An array of all the actual errors that occured.
-          items:
-            $ref: '#/components/schemas/ErrorIndividual'
-      description: The overall class of error that occured.
-    TraderTermsAndConditions:
-      type: string
-      description: The url linking to the full text terms and conditions.
-      example: https://www.expedia.com/terms_and_conditions
+          description: Deprecated. Please use the loyalty id inside the loyalty object.
+        loyalty:
+          $ref: '#/components/schemas/Loyalty'
     CreateItineraryRequest:
       required:
       - email
@@ -1723,10 +1835,47 @@ components:
         affiliate_metadata: data_point_1:123|data_point2:This is data.
         tax_registration_number: '12345678910'
         traveler_handling_instructions: Please use the card provided for payment. Avoid cancelation as this is for a corporate traveler. Contact traveler if any issues.
-    TraderName:
+    CompletePaymentSessionLinks:
+      type: object
+      properties:
+        retrieve:
+          $ref: '#/components/schemas/Link'
+        resume:
+          $ref: '#/components/schemas/Link'
+        cancel:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: A map of links, including links to retrieve a booking, resume a held booking, or cancel a held booking.
+    TraderContactMessage:
       type: string
-      description: The trader name.
-      example: Expedia
+      description: The trader contact message.
+      example: This property is managed by a professional host. The provision of housing is linked to their trade, business or profession.
+    PaymentSessions:
+      type: object
+      properties:
+        payment_session_id:
+          type: string
+          description: The registered payment session ID.
+        encoded_init_config:
+          type: string
+          description: A base64 encoded object which contains configuration needed to perform device fingerprinting. It is used in conjunction with the provided Javascript library for PSD2.
+        links:
+          $ref: '#/components/schemas/PaymentSessionsLinks'
+      description: The payment registration response.
+    Link:
+      type: object
+      properties:
+        method:
+          type: string
+          description: The request method used to access the link.
+        href:
+          type: string
+          description: The URL for the link. This can be absolute or relative.
+        expires:
+          type: string
+          description: If the link expires, this will be the UTC date the link will expire, in ISO 8601 format.
+      description: An individual link.
     ThirdPartyAuthRequest:
       required:
       - cavv
@@ -1794,101 +1943,6 @@ components:
             2 - Fully authenticated SecureCode transaction
 
             '
-    TraderAddress:
-      type: object
-      properties:
-        line_1:
-          type: string
-          description: First line of customer's street address.
-          example: 555 1st St
-        line_2:
-          type: string
-          description: Second line of customer's street address.
-          example: 10th Floor
-        line_3:
-          type: string
-          description: Third line of customer's street address.
-          example: Unit 12
-        city:
-          type: string
-          description: Customer's city.
-          example: Seattle
-        state_province_code:
-          type: string
-          description: Customer's state or province code.
-          example: WA
-        postal_code:
-          type: string
-          description: Customer's postal code.
-          example: '98121'
-        country_code:
-          type: string
-          description: Customer's country code, in two-letter ISO 3166-1 alpha-2 format.
-          example: US
-      description: The trader address.
-    TraderInformation:
-      required:
-      - terms_and_conditions
-      type: object
-      properties:
-        traders:
-          $ref: '#/components/schemas/TraderDetails'
-        terms_and_conditions:
-          $ref: '#/components/schemas/TraderTermsAndConditions'
-      description: The professional entity or entities that sells the property inventory or related services.
-    Loyalty:
-      type: object
-      properties:
-        member_id:
-          type: string
-          description: The identifier for the individual associated with a loyalty program.
-          example: ABC123
-        program_id:
-          type: string
-          description: The identifier for the loyalty program.
-          example: SN
-      description: A loyalty object for a loyalty program.
-    PhoneRequest:
-      required:
-      - country_code
-      - number
-      type: object
-      properties:
-        country_code:
-          type: string
-          description: The numerical portion of the country code from the phone number. Do not include the leading '+' character. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        area_code:
-          type: string
-          description: The area code of the phone number. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        number:
-          type: string
-          description: The remaining digits of the phone number. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-      description: The entire phone number must be represented across the three fields in this object. The entire phone number should not exceed 25 characters.
-    ItineraryCreationLinks:
-      type: object
-      properties:
-        retrieve:
-          $ref: '#/components/schemas/Link'
-        resume:
-          $ref: '#/components/schemas/Link'
-        complete_payment_session:
-          $ref: '#/components/schemas/Link'
-        cancel:
-          $ref: '#/components/schemas/Link'
-      additionalProperties:
-        $ref: '#/components/schemas/Link'
-      description: A map of links, including links to retrieve a booking, resume a held booking, cancel a held booking, or complete a payment session if a challenge is used.
-    CompletePaymentSession:
-      type: object
-      properties:
-        itinerary_id:
-          type: string
-          description: The itinerary id.
-        links:
-          $ref: '#/components/schemas/CompletePaymentSessionLinks'
-        trader_information:
-          $ref: '#/components/schemas/TraderInformation'
-      description: The payment session response.
     TraderDetails:
       type: array
       description: An array of traders.
@@ -1934,114 +1988,6 @@ components:
             description: The trader phone number.
             example: 0330-123-1235
         description: Information of the professional entity that sells the property inventory or related services.
-    CompletePaymentSessionLinks:
-      type: object
-      properties:
-        retrieve:
-          $ref: '#/components/schemas/Link'
-        resume:
-          $ref: '#/components/schemas/Link'
-        cancel:
-          $ref: '#/components/schemas/Link'
-      additionalProperties:
-        $ref: '#/components/schemas/Link'
-      description: A map of links, including links to retrieve a booking, resume a held booking, or cancel a held booking.
-    PaymentSessions:
-      type: object
-      properties:
-        payment_session_id:
-          type: string
-          description: The registered payment session ID.
-        encoded_init_config:
-          type: string
-          description: A base64 encoded object which contains configuration needed to perform device fingerprinting. It is used in conjunction with the provided Javascript library for PSD2.
-        links:
-          $ref: '#/components/schemas/PaymentSessionsLinks'
-      description: The payment registration response.
-    ItineraryCreation:
-      type: object
-      properties:
-        itinerary_id:
-          type: string
-          description: The itinerary id.
-        links:
-          $ref: '#/components/schemas/ItineraryCreationLinks'
-        encoded_challenge_config:
-          type: string
-          description: The challenge config that is required to perform payment challenge. This field will be available when payment challenge is needed.
-        trader_information:
-          $ref: '#/components/schemas/TraderInformation'
-      description: The book response.
-    PaymentSessionsRequest:
-      required:
-      - browser_accept_header
-      - customer_account_details
-      - encoded_browser_metadata
-      - merchant_url
-      - payments
-      - preferred_challenge_window_size
-      - version
-      type: object
-      properties:
-        version:
-          type: string
-          description: The version of the EgPayments.js library.
-        browser_accept_header:
-          type: string
-          description: The customer's browser accept header that was used in the booking request.
-        encoded_browser_metadata:
-          type: string
-          description: Encoded browser metadata, provided by the EgPayments.js library.
-        preferred_challenge_window_size:
-          type: string
-          description: "The preferred window size that needs to be displayed to the customer. Following are the possible values of this field:\n  * `extra_small`: 250 x 400\n  * `small`: 390 x 400\n  * `medium`: 600 x 400\n  * `large`: 500 x 600\n  * `full_screen`: Full screen\n"
-          enum:
-          - extra_small
-          - small
-          - medium
-          - large
-          - full_screen
-        merchant_url:
-          type: string
-          description: Fully qualified URL of merchant website or customer care site.
-        customer_account_details:
-          $ref: '#/components/schemas/PaymentSessionsRequestCustomerAccountDetails'
-        payments:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentRequest'
-      example:
-        version: '1'
-        browser_accept_header: '*/*'
-        encoded_browser_metadata: ZW5jb2RlZF9icm93c2VyX21ldGFkYXRh
-        preferred_challenge_window_size: medium
-        merchant_url: https://server.adomainname.net
-        customer_account_details:
-          authentication_method: guest
-          authentication_timestamp: '2018-02-12T11:59:00.000Z'
-          create_date: '2018-09-15'
-          change_date: '2018-09-17'
-          password_change_date: '2018-09-17'
-          add_card_attempts: 1
-          account_purchases: 1
-        payments:
-        - type: customer_card
-          number: '4111111111111111'
-          security_code: '123'
-          expiration_month: 08
-          expiration_year: '2025'
-          billing_contact:
-            given_name: John
-            family_name: Smith
-            address:
-              line_1: 555 1st St
-              line_2: 10th Floor
-              line_3: Unit 12
-              city: Seattle
-              state_province_code: WA
-              postal_code: '98121'
-              country_code: US
-          enrollment_date: '2018-09-15'
     BillingContactRequestAddress:
       required:
       - country_code
@@ -2068,44 +2014,92 @@ components:
         country_code:
           type: string
           description: Customer's country code, in two-letter ISO 3166-1 alpha-2 format. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded. Only ISO-8859-1 compliant characters are allowed.
-    BillingContactRequest:
-      required:
-      - address
-      - family_name
-      - given_name
+    Loyalty:
       type: object
       properties:
-        given_name:
+        member_id:
           type: string
-          description: First/given name of the payment type account holder. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        family_name:
+          description: The identifier for the individual associated with a loyalty program.
+          example: ABC123
+        program_id:
           type: string
-          description: Last/family name of the payment type account holder. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        address:
-          $ref: '#/components/schemas/BillingContactRequestAddress'
-    CreateItineraryRequestRoom:
-      required:
-      - family_name
-      - given_name
+          description: The identifier for the loyalty program.
+          example: SN
+      description: A loyalty object for a loyalty program.
+    CompletePaymentSession:
       type: object
       properties:
-        given_name:
+        itinerary_id:
           type: string
-          description: First name of room guest. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        family_name:
+          description: The itinerary id.
+        links:
+          $ref: '#/components/schemas/CompletePaymentSessionLinks'
+        trader_information:
+          $ref: '#/components/schemas/TraderInformation'
+      description: The payment session response.
+    TraderTermsAndConditions:
+      type: string
+      description: The url linking to the full text terms and conditions.
+      example: https://www.expedia.com/terms_and_conditions
+    PaymentSessionsLinks:
+      type: object
+      properties:
+        book:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: A map of links, including links to create a booking.
+    ErrorIndividual:
+      type: object
+      properties:
+        type:
           type: string
-          description: Last name of room guest. Max 60 characters. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        smoking:
-          type: boolean
-          description: Specify if the guest would prefer a smoking room. This field is only a request and the property is not guaranteed to honor it, it will not override any non-smoking policies by the hotel.
-        special_request:
+          description: The error type.
+        message:
           type: string
-          description: Special requests to send to hotel (not guaranteed). Do not use this field to communicate B2B customer service requests or pass any sensitive personal or financial information (PII). Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
-        loyalty_id:
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+      description: An individual error.
+    PhoneRequest:
+      required:
+      - country_code
+      - number
+      type: object
+      properties:
+        country_code:
           type: string
-          description: Deprecated. Please use the loyalty id inside the loyalty object.
-        loyalty:
-          $ref: '#/components/schemas/Loyalty'
+          description: The numerical portion of the country code from the phone number. Do not include the leading '+' character. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        area_code:
+          type: string
+          description: The area code of the phone number. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+        number:
+          type: string
+          description: The remaining digits of the phone number. Special characters ("<", ">", "(", ")", and "&") entered in this field will be re-encoded.
+      description: The entire phone number must be represented across the three fields in this object. The entire phone number should not exceed 25 characters.
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+        errors:
+          type: array
+          description: An array of all the actual errors that occured.
+          items:
+            $ref: '#/components/schemas/ErrorIndividual'
+      description: The overall class of error that occured.
   headers:
     Region:
       description: Optional header that provides information about where the request was processed.

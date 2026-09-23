@@ -1,9 +1,10 @@
 openapi: 3.2.0
 info:
   title: Expedia Group Product Rate Verification Thresholds API
-  description: 'The Product API will enable Expedia lodging partners to read, create and edit room types and rate plans via APIs, without having to use Partner Central or contact their market manager. </br><br/>To start experimenting, please use your existing EQC credentials and properties.
+  description: 'The Product API will enable Expedia lodging partners to read, create and edit room types and rate plans via APIs, without having to use Partner Central or contact their market manager.
 
-    '
+
+    To start experimenting, please use your existing EQC credentials and properties.'
   contact:
     name: Lodging Connectivity
     url: https://expediaconnectivity.com/developer
@@ -45,6 +46,20 @@ paths:
       - Basic: []
 components:
   schemas:
+    LinkDTO:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The link's URL.
+    ErrorDTO:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
     RateVerificationThresholdsDTOLinks:
       type: object
       properties:
@@ -84,20 +99,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ErrorDTO'
-    LinkDTO:
-      type: object
-      properties:
-        href:
-          type: string
-          description: The link's URL.
-    ErrorDTO:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
   securitySchemes:
     Basic:
       type: http

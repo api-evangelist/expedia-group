@@ -1,7 +1,10 @@
 openapi: 3.2.0
 info:
   title: Expedia Group EPS Deposit API
-  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it. <br/><br/>To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
+  description: 'The EPS Deposit API manages the deposit policy for a property, offering operations to create/update, read and delete it.
+
+
+    To start experimenting, please use your existing EQC credentials and properties. We''ve also made the following test credentials available: EQCtest12933870 / ew67nk33 assigned to test property ID 12933870.'
   contact:
     name: Expedia Partner Services
     url: https://expediaconnectivity.com/developer
@@ -271,30 +274,6 @@ paths:
       - Basic: []
 components:
   schemas:
-    Error:
-      required:
-      - code
-      - message
-      type: object
-      properties:
-        code:
-          type: integer
-          description: Error code
-          format: int32
-        message:
-          type: string
-          description: Error message
-      description: An object describing an error returned by the service.
-    ErrorResponse:
-      required:
-      - errors
-      type: object
-      properties:
-        errors:
-          type: array
-          description: List of errors.
-          items:
-            $ref: '#/components/schemas/Error'
     DefaultPolicy:
       required:
       - payments
@@ -308,38 +287,6 @@ components:
           description: List of payment policies. Up to 4 payment policies can be defined.
           items:
             $ref: '#/components/schemas/PaymentPolicy'
-    SuccessfulGetResponse:
-      required:
-      - entity
-      type: object
-      properties:
-        entity:
-          $ref: '#/components/schemas/Deposit'
-    DateRange:
-      required:
-      - endDate
-      - startDate
-      type: object
-      properties:
-        startDate:
-          type: string
-          description: Starting date of the exception policy. Format is YYYY-MM-DD.
-          format: date
-        endDate:
-          type: string
-          description: Ending date of the exception policy. Format is YYYY-MM-DD.
-          format: date
-        daysOfWeek:
-          type: string
-          description: List of days of the week the exception policy is applicable.
-          enum:
-          - MON
-          - TUE
-          - WED
-          - THU
-          - FRI
-          - SAT
-          - SUN
     Links:
       required:
       - ratePlans
@@ -354,6 +301,16 @@ components:
           items:
             $ref: '#/components/schemas/Link'
       description: Object describing links to other resources to which this deposit policy is linked to.
+    ErrorResponse:
+      required:
+      - errors
+      type: object
+      properties:
+        errors:
+          type: array
+          description: List of errors.
+          items:
+            $ref: '#/components/schemas/Error'
     ExceptionPolicy:
       type: object
       properties:
@@ -382,23 +339,6 @@ components:
             $ref: '#/components/schemas/ExceptionPolicy'
         _links:
           $ref: '#/components/schemas/Links'
-    PaymentTime:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          description: Defines the type of payment time.
-          enum:
-          - DAYS_PRIOR
-          - UPON_ARRIVAL
-          - UPON_BOOKING
-        value:
-          type: integer
-          description: Only present if type is DAYS_PRIOR. Indicates the number of days prior to arrival that the customer must pay the deposit.
-          format: int32
-      description: 'Order of payments in the array matters. Payments must be specified in chronological order: UPON_BOOKING followed by DAYS_PRIOR followed by UPON_ARRIVAL.'
     Link:
       required:
       - href
@@ -409,6 +349,31 @@ components:
           description: The fully-qualified URL of the resource.
           format: URL
       description: Object describing a single link to a resource to which this deposit policy is linked to.
+    DateRange:
+      required:
+      - endDate
+      - startDate
+      type: object
+      properties:
+        startDate:
+          type: string
+          description: Starting date of the exception policy. Format is YYYY-MM-DD.
+          format: date
+        endDate:
+          type: string
+          description: Ending date of the exception policy. Format is YYYY-MM-DD.
+          format: date
+        daysOfWeek:
+          type: string
+          description: List of days of the week the exception policy is applicable.
+          enum:
+          - MON
+          - TUE
+          - WED
+          - THU
+          - FRI
+          - SAT
+          - SUN
     PaymentPolicy:
       required:
       - type
@@ -429,6 +394,44 @@ components:
           format: double
         when:
           $ref: '#/components/schemas/PaymentTime'
+    Error:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+          format: int32
+        message:
+          type: string
+          description: Error message
+      description: An object describing an error returned by the service.
+    PaymentTime:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: Defines the type of payment time.
+          enum:
+          - DAYS_PRIOR
+          - UPON_ARRIVAL
+          - UPON_BOOKING
+        value:
+          type: integer
+          description: Only present if type is DAYS_PRIOR. Indicates the number of days prior to arrival that the customer must pay the deposit.
+          format: int32
+      description: 'Order of payments in the array matters. Payments must be specified in chronological order: UPON_BOOKING followed by DAYS_PRIOR followed by UPON_ARRIVAL.'
+    SuccessfulGetResponse:
+      required:
+      - entity
+      type: object
+      properties:
+        entity:
+          $ref: '#/components/schemas/Deposit'
   securitySchemes:
     Basic:
       type: http

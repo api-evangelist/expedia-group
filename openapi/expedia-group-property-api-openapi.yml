@@ -1,9 +1,10 @@
 openapi: 3.2.0
 info:
   title: Expedia Group Product Property API
-  description: 'The Product API will enable Expedia lodging partners to read, create and edit room types and rate plans via APIs, without having to use Partner Central or contact their market manager. </br><br/>To start experimenting, please use your existing EQC credentials and properties.
+  description: 'The Product API will enable Expedia lodging partners to read, create and edit room types and rate plans via APIs, without having to use Partner Central or contact their market manager.
 
-    '
+
+    To start experimenting, please use your existing EQC credentials and properties.'
   contact:
     name: Lodging Connectivity
     url: https://expediaconnectivity.com/developer
@@ -72,6 +73,25 @@ paths:
       - Basic: []
 components:
   schemas:
+    ErrorDTO:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    ResponseWrapperDTO_List_PropertyDTO:
+      type: object
+      properties:
+        entity:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDTO'
     PropertyDTO:
       type: object
       properties:
@@ -149,18 +169,6 @@ components:
         timezone:
           type: string
           description: Descriptive information about property timezone configuration in Expedia system. Description will start by a GMT offset, followed by a friendly name.
-    CutOffDTO:
-      type: object
-      properties:
-        day:
-          type: string
-          description: Can be of same day or next day. Complements the time attribute
-          enum:
-          - sameDay
-          - nextDay
-        time:
-          type: string
-          description: Indicates at which time we’ll stop making inventory available for same day reservations
     PropertyAddressDTO:
       type: object
       properties:
@@ -191,25 +199,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ErrorDTO'
-    ResponseWrapperDTO_List_PropertyDTO:
+    CutOffDTO:
       type: object
       properties:
-        entity:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyDTO'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDTO'
-    ErrorDTO:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
+        day:
           type: string
+          description: Can be of same day or next day. Complements the time attribute
+          enum:
+          - sameDay
+          - nextDay
+        time:
+          type: string
+          description: Indicates at which time we’ll stop making inventory available for same day reservations
   securitySchemes:
     Basic:
       type: http

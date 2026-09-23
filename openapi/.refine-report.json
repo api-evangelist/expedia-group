@@ -33,7 +33,8 @@
     "expedia-fraud-protection-openapi-original.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
     "expedia-lodging-product-openapi-original.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0; renamed 6 component key(s) illegal in 3.x (e.g. ResponseWrapperDTO\u00abList\u00abPropertyDTO\u00bb\u00bb)",
     "expedia-loyalty-openapi-original.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "expedia-rapid-openapi-original.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0"
+    "expedia-rapid-openapi-original.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "expedia-group-bookings-api-openapi.yml: previously refined output, superseded by openapi/_original/",

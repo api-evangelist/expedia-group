@@ -16,9 +16,7 @@ paths:
       summary: Expedia Group Request Undelivered Notifications
       description: 'Use this API to fetch undelivered notifications. Up to 25 notifications are returned with each call.
 
-        Each undelivered notification will be returned only once.
-
-        '
+        Each undelivered notification will be returned only once.'
       operationId: requestUndeliveredNotifications
       parameters:
       - name: undeliverable
@@ -90,9 +88,7 @@ paths:
       summary: Expedia Group Request Test Notification
       description: 'This request triggers a test notification according to the specified event_type.
 
-        All event types supported by the Notifications API are available to test.
-
-        '
+        All event types supported by the Notifications API are available to test.'
       operationId: requestTestNotification
       parameters:
       - name: billing_terms
@@ -157,7 +153,40 @@ paths:
       security:
       - rapidAuth: []
 components:
+  headers:
+    Region:
+      description: Optional header that provides information about where the request was processed.
+      style: simple
+      explode: false
+      schema:
+        type: string
+        example: us-west-2
   schemas:
+    Notification:
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: Unique identifier for each message
+        event_type:
+          type: string
+          description: An indication of what event caused the notification. This value can be used for message handling and routing. Refer to the list of event types for more information.
+        event_time:
+          type: string
+          description: Timestamp of the event notification, in UTC
+        itinerary_id:
+          type: string
+          description: The Itinerary ID of the affected booking
+        email:
+          type: string
+          description: The customer e-mail address associated with the affected itinerary
+        message:
+          type: string
+          description: Description of event notification
+        affiliate_reference_id:
+          type: string
+          description: The Affiliate Reference ID of the affected booking
+      description: A notification.
     TestNotificationRequest:
       required:
       - event_type
@@ -168,26 +197,6 @@ components:
           description: The event type for which the test notification is requested.
       example:
         event_type: itinerary.agent.create
-    Error:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The error type.
-        message:
-          type: string
-          description: A human readable message giving details about this error.
-        fields:
-          type: array
-          description: Details about the specific fields that had an error.
-          items:
-            $ref: '#/components/schemas/Field'
-        errors:
-          type: array
-          description: An array of all the actual errors that occured.
-          items:
-            $ref: '#/components/schemas/ErrorIndividual'
-      description: The overall class of error that occured.
     ErrorIndividual:
       type: object
       properties:
@@ -216,39 +225,26 @@ components:
           type: string
           description: The value of the field that had an error.
       description: An individual field that had an error.
-    Notification:
+    Error:
       type: object
       properties:
-        event_id:
+        type:
           type: string
-          description: Unique identifier for each message
-        event_type:
-          type: string
-          description: An indication of what event caused the notification. This value can be used for message handling and routing. Refer to the list of event types for more information.
-        event_time:
-          type: string
-          description: Timestamp of the event notification, in UTC
-        itinerary_id:
-          type: string
-          description: The Itinerary ID of the affected booking
-        email:
-          type: string
-          description: The customer e-mail address associated with the affected itinerary
+          description: The error type.
         message:
           type: string
-          description: Description of event notification
-        affiliate_reference_id:
-          type: string
-          description: The Affiliate Reference ID of the affected booking
-      description: A notification.
-  headers:
-    Region:
-      description: Optional header that provides information about where the request was processed.
-      style: simple
-      explode: false
-      schema:
-        type: string
-        example: us-west-2
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+        errors:
+          type: array
+          description: An array of all the actual errors that occured.
+          items:
+            $ref: '#/components/schemas/ErrorIndividual'
+      description: The overall class of error that occured.
   securitySchemes:
     rapidAuth:
       type: apiKey
