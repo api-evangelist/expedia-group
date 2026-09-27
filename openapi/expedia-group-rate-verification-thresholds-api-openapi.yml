@@ -46,12 +46,6 @@ paths:
       - Basic: []
 components:
   schemas:
-    LinkDTO:
-      type: object
-      properties:
-        href:
-          type: string
-          description: The link's URL.
     ErrorDTO:
       type: object
       properties:
@@ -60,6 +54,21 @@ components:
           format: int32
         message:
           type: string
+    ResponseWrapperDTO_RateVerificationThresholdsDTO:
+      type: object
+      properties:
+        entity:
+          $ref: '#/components/schemas/RateVerificationThresholdsDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDTO'
+    LinkDTO:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The link's URL.
     RateVerificationThresholdsDTOLinks:
       type: object
       properties:
@@ -90,15 +99,6 @@ components:
           enum:
           - NetRate
           - SellLAR
-    ResponseWrapperDTO_RateVerificationThresholdsDTO:
-      type: object
-      properties:
-        entity:
-          $ref: '#/components/schemas/RateVerificationThresholdsDTO'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDTO'
   securitySchemes:
     Basic:
       type: http

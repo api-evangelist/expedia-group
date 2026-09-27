@@ -303,102 +303,7 @@ paths:
       summary: Loyalty last update
       x-summary-source: derived
 components:
-  parameters:
-    TransactionDateStart:
-      name: transaction_date_start
-      in: query
-      description: Start date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)
-      schema:
-        type: string
-        format: date
-      example: 2023-09-17
-      required: true
-    From:
-      name: from
-      in: query
-      description: Number of records to query from
-      schema:
-        type: integer
-        default: 0
-      example: 1000
-    TransactionDateEnd:
-      name: transaction_date_end
-      in: query
-      description: End date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)
-      schema:
-        type: string
-        format: date
-      example: 2023-09-18
-      required: true
-    TransactionType:
-      name: transaction_type
-      in: query
-      description: 'Transaction Type. Possible values: Purchase, Modification, Cancel, Award'
-      schema:
-        type: string
-        enum:
-        - PURCHASE
-        - AWARD
-        - MODIFICATION
-        - CANCEL
-    MembershipId:
-      name: membership_id
-      in: query
-      description: Loyalty / Membership ID Number
-      schema:
-        type: string
-      example: '456178230'
-    PageSize:
-      name: page_size
-      in: query
-      description: Number of records per page
-      schema:
-        type: integer
-        default: 500
-        oneOf:
-        - exclusiveMinimum: 1
-          exclusiveMaximum: 1000
-      example: 500
-    ItineraryId:
-      name: itinerary_id
-      in: query
-      description: Itinerary Number
-      schema:
-        type: string
-      example: '72564500000000'
   schemas:
-    Itinerary:
-      type: object
-      properties:
-        id:
-          type: string
-          format: number
-          description: Itinerary Number
-        booking_date:
-          type: string
-          format: date
-          description: Date when the booking was made
-        package_indicator:
-          type: string
-          description: Whether or not the booking is a package
-        booking_item:
-          $ref: '#/components/schemas/BookingItem'
-    LoyaltyLastUpdateResponse:
-      type: object
-      properties:
-        last_update:
-          type: string
-          format: date-time
-    Points:
-      type: object
-      properties:
-        point_definition:
-          type: string
-          description: Definition of the points applied as related to the Campaign(s) or Base Points
-        pending:
-          $ref: '#/components/schemas/PointDefinition'
-        awarded:
-          $ref: '#/components/schemas/PointDefinition'
     LoyaltyTransactionsResponse:
       type: array
       items:
@@ -430,16 +335,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Pricing'
-    Loyalty:
-      type: object
-      properties:
-        program_name:
-          type: string
-          description: Name of Loyalty Program
-        member:
-          $ref: '#/components/schemas/Member'
-        points:
-          $ref: '#/components/schemas/Points'
     PointDefinition:
       type: object
       properties:
@@ -477,6 +372,16 @@ components:
         last_name:
           type: string
           description: Last name
+    Loyalty:
+      type: object
+      properties:
+        program_name:
+          type: string
+          description: Name of Loyalty Program
+        member:
+          $ref: '#/components/schemas/Member'
+        points:
+          $ref: '#/components/schemas/Points'
     Error:
       description: The object used the describe an error, containing both human-readable and in a machine-readable information.
       type: object
@@ -508,6 +413,16 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/LoyaltyTransactionsResponse'
+    Points:
+      type: object
+      properties:
+        point_definition:
+          type: string
+          description: Definition of the points applied as related to the Campaign(s) or Base Points
+        pending:
+          $ref: '#/components/schemas/PointDefinition'
+        awarded:
+          $ref: '#/components/schemas/PointDefinition'
     BookingItem:
       type: object
       properties:
@@ -526,6 +441,91 @@ components:
           type: string
           format: date
           description: Check out or end of the booking date
+    LoyaltyLastUpdateResponse:
+      type: object
+      properties:
+        last_update:
+          type: string
+          format: date-time
+    Itinerary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: number
+          description: Itinerary Number
+        booking_date:
+          type: string
+          format: date
+          description: Date when the booking was made
+        package_indicator:
+          type: string
+          description: Whether or not the booking is a package
+        booking_item:
+          $ref: '#/components/schemas/BookingItem'
+  parameters:
+    TransactionType:
+      name: transaction_type
+      in: query
+      description: 'Transaction Type. Possible values: Purchase, Modification, Cancel, Award'
+      schema:
+        type: string
+        enum:
+        - PURCHASE
+        - AWARD
+        - MODIFICATION
+        - CANCEL
+    MembershipId:
+      name: membership_id
+      in: query
+      description: Loyalty / Membership ID Number
+      schema:
+        type: string
+      example: '456178230'
+    TransactionDateStart:
+      name: transaction_date_start
+      in: query
+      description: Start date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)
+      schema:
+        type: string
+        format: date
+      example: 2023-09-17
+      required: true
+    From:
+      name: from
+      in: query
+      description: Number of records to query from
+      schema:
+        type: integer
+        default: 0
+      example: 1000
+    TransactionDateEnd:
+      name: transaction_date_end
+      in: query
+      description: End date of the date range to filter transactions, ISO. 8601 format (YYYY-MM-DD)
+      schema:
+        type: string
+        format: date
+      example: 2023-09-18
+      required: true
+    PageSize:
+      name: page_size
+      in: query
+      description: Number of records per page
+      schema:
+        type: integer
+        default: 500
+        oneOf:
+        - exclusiveMinimum: 1
+          exclusiveMaximum: 1000
+      example: 500
+    ItineraryId:
+      name: itinerary_id
+      in: query
+      description: Itinerary Number
+      schema:
+        type: string
+      example: '72564500000000'
   securitySchemes:
     oauth:
       type: oauth2

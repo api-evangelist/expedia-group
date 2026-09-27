@@ -3511,116 +3511,12 @@ paths:
       - rapidAuth: []
 components:
   schemas:
-    VacationRentalDetails:
-      type: object
-      properties:
-        registry_number:
-          type: string
-          description: The property's registry number required by some jurisdictions.
-        private_host:
-          type: boolean
-          description: Indicates if a property has a private host.
-        property_manager:
-          $ref: '#/components/schemas/PropertyManager'
-        rental_agreement:
-          $ref: '#/components/schemas/RentalAgreement'
-        house_rules:
-          type: array
-          description: List of strings detailing house rules.
-          items:
-            type: string
-        enhanced_house_rules:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/EnhancedHouseRules'
-          description: Map of enhanced house rules.
-          example:
-            Children:
-              rule: Children allowed
-              additional_information:
-              - Children allowed under age 13.
-              - Multiple children must sleep on cots.
-            Pets:
-              rule: Pets allowed
-              additional_information:
-              - Pets must be kept on the balcony.
-        amenities:
-          $ref: '#/components/schemas/Amenity'
-        vrbo_srp_id:
-          type: string
-          description: The Vrbo srp needed for link-off.
-        listing_id:
-          type: string
-          description: The listing id for a Vrbo property.
-        listing_number:
-          type: string
-          description: The listing number for a Vrbo property.
-        listing_source:
-          type: string
-          description: The listing source.
-        listing_unit:
-          type: string
-          description: The specific unit.
-        ipm_name:
-          type: string
-          description: 'The name of the IPM used to build guest messaging to inform travelers of the name of the IPM who will charge
-
-            their card and/or send them a confirmation email.
-
-            '
-        unit_configurations:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/UnitConfiguration'
-          description: Map of the vacation rental unit configurations. The key value is the unit location.
-          example:
-            '1':
-            - type: TWIN_SINGLE_BED
-              description: Twin/Single bed(s) -
-              quantity: 1
-            - type: CHILD_BED
-              description: Child bed(s) -
-              quantity: 1
-            '2':
-            - type: QUEEN_BED
-              description: Queen bed(s) -
-              quantity: 1
-            Other1:
-            - type: CHILD_BED
-              description: Child bed(s) -
-              quantity: 3
-        free_text:
-          type: string
-          description: A free text description that could contain significantly unstructured information that could impact the booking and should be displayed to customers. This field could contain html break tags `<br>` that may make display challenging.
-      description: Details for vacation rental properties.
-    DescriptionsRoom:
-      type: object
-      properties:
-        overview:
-          type: string
-          description: Provides an overview of a room.
-      description: Descriptions of a room.
-    SpokenLanguage:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The language code as a subset of BCP47 format.
-        name:
-          type: string
-          description: Spoken language name.
-      description: An individual spoken language.
-    Localized:
+    RentalAgreement:
       type: object
       properties:
         links:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/Link'
-          description: Keyed by the language, a map of links to the property’s localized address(es) based on the primary language(s) spoken in the property’s country. Only languages supported by the Rapid API are provided.
-      description: Container for localized address information.
+          $ref: '#/components/schemas/RentalAgreementLinks'
+      description: Information about a vacation rentals rental agreement.
     Attribute:
       type: object
       properties:
@@ -3634,195 +3530,80 @@ components:
           type: string
           description: Attribute value.
       description: An individual attribute.
-    BedGroup:
+    GuestReviews:
       type: object
       properties:
-        id:
-          type: string
-          description: Unique identifier for a bed group.
-        description:
-          type: string
-          description: This is a display ready description of a bed configuration for this room.
-        configuration:
-          type: array
-          description: An array of bed configurations for this room.
-          items:
-            $ref: '#/components/schemas/BedGroupConfiguration'
-      description: An individual bed group.
-    Descriptions:
-      type: object
-      properties:
-        amenities:
-          type: string
-          description: Describes general building amenities at the property.
-        dining:
-          type: string
-          description: Describes dining accommodations at the property.
-        renovations:
-          type: string
-          description: Describes any recent room or property renovations.
-        national_ratings:
-          type: string
-          description: States the source of the property's star rating (such as a regional or national tourism agency) and any other ratings claimed.
-        business_amenities:
-          type: string
-          description: Describes any business-specific amenities at the property, e.g. conference rooms.
-        rooms:
-          type: string
-          description: Describes typical room amenities.
-        attractions:
-          type: string
-          description: Nearby attractions/areas, often including distances from the property.
-        location:
-          type: string
-          description: General location as entered by the property.
-        headline:
-          type: string
-          description: A headline description for the property.
-        general:
-          type: string
-          description: A general description of a vacation rental property.
-      description: Descriptions of a property.
-    AssociatedAirports:
-      type: object
-      properties:
-        preferred:
-          $ref: '#/components/schemas/Preferred'
-      description: Airports related to the property.
-    PropertyInactive:
-      type: object
-      properties:
-        property_id:
-          type: string
-          description: The property id of the inactive property
-    Field:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The field that had an error.
-        type:
-          type: string
-          description: The type of the field that had an error.
-        value:
-          type: string
-          description: The value of the field that had an error.
-      description: An individual field that had an error.
-    TripReason:
-      type: string
-      description: The reason category for this reviewer's trip.
-      enum:
-      - business
-      - leisure
-      - friends_and_family
-      - business_and_leisure
-    Address:
-      type: object
-      properties:
-        line_1:
-          type: string
-          description: Address line 1.
-          example: 123 Main St
-        line_2:
-          type: string
-          description: Address line 2.
-          example: Apt A
-        city:
-          type: string
-          description: City.
-          example: Springfield
-        state_province_code:
-          type: string
-          description: 2-letter or 3-letter state/province code for Australia, Canada and the USA.
-          example: MO
-        state_province_name:
-          type: string
-          description: Text name of the State/Province - more common for additional countries.
-          example: Missouri
-        postal_code:
-          type: string
-          description: Postal/zip code.
-          example: '65804'
-        country_code:
-          type: string
-          description: 2-letter country code, in ISO 3166-1 alpha-2 format.
-          example: US
-        obfuscation_required:
-          type: boolean
-          description: Flag to indicate whether a property address requires obfuscation before the property has been booked. If true, only the city, province, and country of the address can be shown to the customer.
-          example: false
-        localized:
-          $ref: '#/components/schemas/Localized'
-      description: Container for the property's address information.
-    Coordinates:
-      type: object
-      properties:
-        latitude:
-          type: number
-          description: The latitude of the property.
-        longitude:
-          type: number
-          description: The longitude of the property.
-      description: The coordinates of the property.
-    Fees:
-      type: object
-      properties:
-        mandatory:
-          type: string
-          description: Describes resort fees and other mandatory taxes or charges. May describe which services are covered by any fees, such as fitness centers or internet access.
-        optional:
-          type: string
-          description: Describes additional optional fees for items such as breakfast, wifi, parking, pets etc.
-      description: Information related to a property's fees.
-    UnitConfiguration:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Bed type.
-        description:
-          type: string
-          description: A description of the bed(s) in requested language.
-        quantity:
-          type: integer
-          description: The number of beds of this size.
-      description: A room configuration.
-    View:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Identifier for the view.
-        name:
-          type: string
-          description: View name.
-      description: An individual view.
-    PropertyManagerLinks:
-      type: object
-      properties:
-        image:
-          $ref: '#/components/schemas/Link'
-      additionalProperties:
-        $ref: '#/components/schemas/Link'
-      description: A map of links, including link to get image of the property manager.
-    Image:
-      type: object
-      properties:
-        hero_image:
-          type: boolean
-          description: Whether this image is a hero image or not.
-        category:
-          type: number
-          description: The category of the image.
-        caption:
-          type: string
-          description: The image caption.
-        links:
+        verified:
           type: object
-          additionalProperties:
-            $ref: '#/components/schemas/Link'
-          description: 'Contains urls for all of the image sizes available. Sizes may include: 70 px, 200px, 350 px, and 1,000 px'
-      description: An individual image. See our [image categories reference](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists) for current known caption and category values.
+          properties:
+            recent:
+              type: array
+              description: A collection of the guest reviews which have been verified, in order, starting with the newest.
+              items:
+                $ref: '#/components/schemas/Review'
+          description: A property's verified guest reviews.
+      description: A property's guest reviews.
+    Checkout:
+      type: object
+      properties:
+        time:
+          type: string
+          description: The time by which a guest must check out.
+      description: The property's check-out information.
+    Preferred:
+      type: object
+      properties:
+        iata_airport_code:
+          type: string
+          description: The airport's IATA code.
+      description: The preferred airport of the property.
+    BusinessModel:
+      type: object
+      properties:
+        expedia_collect:
+          type: boolean
+          description: Whether or not a payment for this property can be taken by Expedia at the time of booking.
+        property_collect:
+          type: boolean
+          description: Whether or not a payment for this property can be taken by the property upon arrival.
+      description: How and when the payment can be taken.
+    PropertyRating:
+      type: object
+      properties:
+        rating:
+          type: string
+          description: The rating assigned to this property. Returns a value between 0.0 and 5.0. A value of 0.0 or a blank value indicates no rating is available.
+        type:
+          type: string
+          description: Returns a value of either "Star" or "Alternate". Star indicates the rating is provided by the property’s local star rating authority. Alternate indicates that the rating is an Expedia-assigned value; an official rating was not available.
+      description: Information about the property's rating.
+    SpokenLanguage:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The language code as a subset of BCP47 format.
+        name:
+          type: string
+          description: Spoken language name.
+      description: An individual spoken language.
+    Brand:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Brand id.
+        name:
+          type: string
+          description: Brand name.
+      description: An individual brand.
+    DescriptionsRoom:
+      type: object
+      properties:
+        overview:
+          type: string
+          description: Provides an overview of a room.
+      description: Descriptions of a room.
     PropertyContent:
       type: object
       properties:
@@ -3925,36 +3706,289 @@ components:
           type: string
           description: The supply source of the property.
       description: An individual property object in the map of property objects.
-    BusinessModel:
+    Checkin:
       type: object
       properties:
-        expedia_collect:
+        24_hour:
+          type: string
+          description: Present if the property has 24-hour check-in.
+        begin_time:
+          type: string
+          description: The time at which a property begins to allow check-ins.
+        end_time:
+          type: string
+          description: The time at which a property stops allowing check-ins.
+        instructions:
+          type: string
+          description: The property's check-in policy.
+        special_instructions:
+          type: string
+          description: Any special instructions for checking into this property that may be specific to this property.
+        min_age:
+          type: number
+          description: The minimum age for a customer to be able to check-in at a property.
+      description: The property's check-in information.
+    Link:
+      type: object
+      properties:
+        method:
+          type: string
+          description: The request method used to access the link.
+        href:
+          type: string
+          description: The URL for the link. This can be absolute or relative.
+        expires:
+          type: string
+          description: If the link expires, this will be the UTC date the link will expire, in ISO 8601 format.
+      description: An individual link.
+    VacationRentalDetails:
+      type: object
+      properties:
+        registry_number:
+          type: string
+          description: The property's registry number required by some jurisdictions.
+        private_host:
           type: boolean
-          description: Whether or not a payment for this property can be taken by Expedia at the time of booking.
-        property_collect:
+          description: Indicates if a property has a private host.
+        property_manager:
+          $ref: '#/components/schemas/PropertyManager'
+        rental_agreement:
+          $ref: '#/components/schemas/RentalAgreement'
+        house_rules:
+          type: array
+          description: List of strings detailing house rules.
+          items:
+            type: string
+        enhanced_house_rules:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EnhancedHouseRules'
+          description: Map of enhanced house rules.
+          example:
+            Children:
+              rule: Children allowed
+              additional_information:
+              - Children allowed under age 13.
+              - Multiple children must sleep on cots.
+            Pets:
+              rule: Pets allowed
+              additional_information:
+              - Pets must be kept on the balcony.
+        amenities:
+          $ref: '#/components/schemas/Amenity'
+        vrbo_srp_id:
+          type: string
+          description: The Vrbo srp needed for link-off.
+        listing_id:
+          type: string
+          description: The listing id for a Vrbo property.
+        listing_number:
+          type: string
+          description: The listing number for a Vrbo property.
+        listing_source:
+          type: string
+          description: The listing source.
+        listing_unit:
+          type: string
+          description: The specific unit.
+        ipm_name:
+          type: string
+          description: 'The name of the IPM used to build guest messaging to inform travelers of the name of the IPM who will charge
+
+            their card and/or send them a confirmation email.
+
+            '
+        unit_configurations:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/UnitConfiguration'
+          description: Map of the vacation rental unit configurations. The key value is the unit location.
+          example:
+            '1':
+            - type: TWIN_SINGLE_BED
+              description: Twin/Single bed(s) -
+              quantity: 1
+            - type: CHILD_BED
+              description: Child bed(s) -
+              quantity: 1
+            '2':
+            - type: QUEEN_BED
+              description: Queen bed(s) -
+              quantity: 1
+            Other1:
+            - type: CHILD_BED
+              description: Child bed(s) -
+              quantity: 3
+        free_text:
+          type: string
+          description: A free text description that could contain significantly unstructured information that could impact the booking and should be displayed to customers. This field could contain html break tags `<br>` that may make display challenging.
+      description: Details for vacation rental properties.
+    PropertyManager:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the property manager.
+        links:
+          $ref: '#/components/schemas/PropertyManagerLinks'
+      description: Information about the property manager.
+    Attributes:
+      type: object
+      properties:
+        general:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Attribute'
+          description: Lists all of the general attributes about the property.
+        pets:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Attribute'
+          description: Lists all of the pet attributes about the property.
+      description: Attributes about the property. See our [attributes reference](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists) for current known attribute ID and name values.
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The field that had an error.
+        type:
+          type: string
+          description: The type of the field that had an error.
+        value:
+          type: string
+          description: The value of the field that had an error.
+      description: An individual field that had an error.
+    Coordinates:
+      type: object
+      properties:
+        latitude:
+          type: number
+          description: The latitude of the property.
+        longitude:
+          type: number
+          description: The longitude of the property.
+      description: The coordinates of the property.
+    AllInclusive:
+      type: object
+      properties:
+        all_rate_plans:
           type: boolean
-          description: Whether or not a payment for this property can be taken by the property upon arrival.
-      description: How and when the payment can be taken.
-    Theme:
+          description: Indicates if all rate plans at the property provide all-inclusive amenities.
+        some_rate_plans:
+          type: boolean
+          description: Indicates if some, but not all, rate plans at the property provide all-inclusive amenities.
+        details:
+          type: string
+          description: Details about amenities and services included in the all-inclusive rates.
+      description: Information about the all-inclusive rate plans available at the property.
+    Dates:
+      type: object
+      properties:
+        added:
+          type: string
+          description: The UTC date the property’s content was added to EPS, in ISO 8601 format
+        updated:
+          type: string
+          description: The UTC date the property’s content was updated by EPS, in ISO 8601 format.
+      description: Dates about the property.
+    BedGroup:
       type: object
       properties:
         id:
           type: string
-          description: Identifier for the theme.
-        name:
+          description: Unique identifier for a bed group.
+        description:
           type: string
-          description: Theme name.
-      description: An individual theme.
-    Brand:
+          description: This is a display ready description of a bed configuration for this room.
+        configuration:
+          type: array
+          description: An array of bed configurations for this room.
+          items:
+            $ref: '#/components/schemas/BedGroupConfiguration'
+      description: An individual bed group.
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+        errors:
+          type: array
+          description: An array of all the actual errors that occured.
+          items:
+            $ref: '#/components/schemas/ErrorIndividual'
+      description: The overall class of error that occured.
+    Descriptions:
+      type: object
+      properties:
+        amenities:
+          type: string
+          description: Describes general building amenities at the property.
+        dining:
+          type: string
+          description: Describes dining accommodations at the property.
+        renovations:
+          type: string
+          description: Describes any recent room or property renovations.
+        national_ratings:
+          type: string
+          description: States the source of the property's star rating (such as a regional or national tourism agency) and any other ratings claimed.
+        business_amenities:
+          type: string
+          description: Describes any business-specific amenities at the property, e.g. conference rooms.
+        rooms:
+          type: string
+          description: Describes typical room amenities.
+        attractions:
+          type: string
+          description: Nearby attractions/areas, often including distances from the property.
+        location:
+          type: string
+          description: General location as entered by the property.
+        headline:
+          type: string
+          description: A headline description for the property.
+        general:
+          type: string
+          description: A general description of a vacation rental property.
+      description: Descriptions of a property.
+    PropertyManagerLinks:
+      type: object
+      properties:
+        image:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: A map of links, including link to get image of the property manager.
+    TripReason:
+      type: string
+      description: The reason category for this reviewer's trip.
+      enum:
+      - business
+      - leisure
+      - friends_and_family
+      - business_and_leisure
+    PaymentType:
       type: object
       properties:
         id:
           type: string
-          description: Brand id.
+          description: The identifier of the payment type.
         name:
           type: string
-          description: Brand name.
-      description: An individual brand.
+          description: The name of the payment type.
+      description: An individual payment type.
     TravelCompanion:
       type: string
       description: The companion category for any travelers that accompanied this reviewer.
@@ -3965,12 +3999,6 @@ components:
       - self
       - friends
       - pet
-    RentalAgreement:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/RentalAgreementLinks'
-      description: Information about a vacation rentals rental agreement.
     Location:
       type: object
       properties:
@@ -3986,86 +4014,16 @@ components:
 
             '
       description: The property's location information.
-    AllInclusive:
-      type: object
-      properties:
-        all_rate_plans:
-          type: boolean
-          description: Indicates if all rate plans at the property provide all-inclusive amenities.
-        some_rate_plans:
-          type: boolean
-          description: Indicates if some, but not all, rate plans at the property provide all-inclusive amenities.
-        details:
-          type: string
-          description: Details about amenities and services included in the all-inclusive rates.
-      description: Information about the all-inclusive rate plans available at the property.
-    Policies:
-      type: object
-      properties:
-        know_before_you_go:
-          type: string
-          description: Description of information that may be helpful when planning a trip to this property.
-      description: Information about property policies that guests need to be aware of.
-    Amenity:
+    View:
       type: object
       properties:
         id:
           type: string
-          description: The amenity definition ID for this amenity.
+          description: Identifier for the view.
         name:
           type: string
-          description: Amenity name.
-        value:
-          type: string
-          description: Amenity value.
-        categories:
-          type: array
-          description: 'This is an optional field and will be present only if the amenity falls into one or more of these amenity categories.<br>
-
-            See the Amenity Categories section of the
-
-            [Content Reference Lists](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists)
-
-            for a list of values.
-
-            '
-          items:
-            type: string
-      description: An individual amenity.
-    MaxAllowed:
-      type: object
-      properties:
-        total:
-          type: number
-          description: Total maximum occupancy allowed.
-        children:
-          type: number
-          description: Maximum number of children allowed.
-        adults:
-          type: number
-          description: Maximum number of adults allowed.
-      description: Maximum occupancy counts.
-    Attributes:
-      type: object
-      properties:
-        general:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/Attribute'
-          description: Lists all of the general attributes about the property.
-        pets:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/Attribute'
-          description: Lists all of the pet attributes about the property.
-      description: Attributes about the property. See our [attributes reference](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists) for current known attribute ID and name values.
-    Preferred:
-      type: object
-      properties:
-        iata_airport_code:
-          type: string
-          description: The airport's IATA code.
-      description: The preferred airport of the property.
+          description: View name.
+      description: An individual view.
     RoomContent:
       type: object
       properties:
@@ -4102,21 +4060,44 @@ components:
         occupancy:
           $ref: '#/components/schemas/Occupancy'
       description: An individual room.
-    Chain:
+    Address:
       type: object
       properties:
-        id:
+        line_1:
           type: string
-          description: Chain id.
-        name:
+          description: Address line 1.
+          example: 123 Main St
+        line_2:
           type: string
-          description: Chain name.
-        brands:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/Brand'
-          description: Map of the chain's brands.
-      description: An individual chain.
+          description: Address line 2.
+          example: Apt A
+        city:
+          type: string
+          description: City.
+          example: Springfield
+        state_province_code:
+          type: string
+          description: 2-letter or 3-letter state/province code for Australia, Canada and the USA.
+          example: MO
+        state_province_name:
+          type: string
+          description: Text name of the State/Province - more common for additional countries.
+          example: Missouri
+        postal_code:
+          type: string
+          description: Postal/zip code.
+          example: '65804'
+        country_code:
+          type: string
+          description: 2-letter country code, in ISO 3166-1 alpha-2 format.
+          example: US
+        obfuscation_required:
+          type: boolean
+          description: Flag to indicate whether a property address requires obfuscation before the property has been booked. If true, only the city, province, and country of the address can be shown to the customer.
+          example: false
+        localized:
+          $ref: '#/components/schemas/Localized'
+      description: Container for the property's address information.
     BedGroupConfiguration:
       type: object
       properties:
@@ -4130,176 +4111,16 @@ components:
           type: number
           description: The number of this bed configuration in the room.
       description: An individual bed configuration.
-    Link:
+    Fees:
       type: object
       properties:
-        method:
+        mandatory:
           type: string
-          description: The request method used to access the link.
-        href:
+          description: Describes resort fees and other mandatory taxes or charges. May describe which services are covered by any fees, such as fitness centers or internet access.
+        optional:
           type: string
-          description: The URL for the link. This can be absolute or relative.
-        expires:
-          type: string
-          description: If the link expires, this will be the UTC date the link will expire, in ISO 8601 format.
-      description: An individual link.
-    RateContent:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for a rate.
-        amenities:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/Amenity'
-          description: This lists all of the Amenities available with a specific rate, including value adds, such as breakfast. See our [amenities reference](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists) for current known amenity ID and name values.
-        special_offer_description:
-          type: string
-          description: A text description of any special offers for this rate.
-      description: An individual rate.
-    Area:
-      type: object
-      properties:
-        square_meters:
-          type: number
-          description: The room's area, measured in square meters.
-        square_feet:
-          type: number
-          description: The room's area, measured in square feet.
-      description: Information about the area of the room.
-    PropertyRating:
-      type: object
-      properties:
-        rating:
-          type: string
-          description: The rating assigned to this property. Returns a value between 0.0 and 5.0. A value of 0.0 or a blank value indicates no rating is available.
-        type:
-          type: string
-          description: Returns a value of either "Star" or "Alternate". Star indicates the rating is provided by the property’s local star rating authority. Alternate indicates that the rating is an Expedia-assigned value; an official rating was not available.
-      description: Information about the property's rating.
-    Checkout:
-      type: object
-      properties:
-        time:
-          type: string
-          description: The time by which a guest must check out.
-      description: The property's check-out information.
-    EnhancedHouseRules:
-      type: object
-      properties:
-        rule:
-          type: string
-          description: Describes the house rule.
-          example: Children allowed.
-        additional_information:
-          type: array
-          description: List of strings detailing further information about the rule.
-          example:
-          - Children allowed ages 13-17
-          - Three children are possible if one is in a cot
-          items:
-            type: string
-    Ratings:
-      type: object
-      properties:
-        property:
-          $ref: '#/components/schemas/PropertyRating'
-        guest:
-          $ref: '#/components/schemas/GuestRating'
-      description: Various types of ratings for this property.
-    OnsitePayments:
-      type: object
-      properties:
-        currency:
-          type: string
-          description: The currency accepted at the property.
-        types:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/PaymentType'
-          description: The types of payments accepted at the property.
-      description: The property’s accepted forms of payments when onsite. See our [onsite payment types reference](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists) for current known payment type ID and name values.
-    Checkin:
-      type: object
-      properties:
-        24_hour:
-          type: string
-          description: Present if the property has 24-hour check-in.
-        begin_time:
-          type: string
-          description: The time at which a property begins to allow check-ins.
-        end_time:
-          type: string
-          description: The time at which a property stops allowing check-ins.
-        instructions:
-          type: string
-          description: The property's check-in policy.
-        special_instructions:
-          type: string
-          description: Any special instructions for checking into this property that may be specific to this property.
-        min_age:
-          type: number
-          description: The minimum age for a customer to be able to check-in at a property.
-      description: The property's check-in information.
-    CategoryProperty:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of the property's category.
-        name:
-          type: string
-          description: The property's category.
-      description: The property's category. See our [property categories reference](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists) for current known category ID and name values.
-    PropertyManager:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the property manager.
-        links:
-          $ref: '#/components/schemas/PropertyManagerLinks'
-      description: Information about the property manager.
-    Dates:
-      type: object
-      properties:
-        added:
-          type: string
-          description: The UTC date the property’s content was added to EPS, in ISO 8601 format
-        updated:
-          type: string
-          description: The UTC date the property’s content was updated by EPS, in ISO 8601 format.
-      description: Dates about the property.
-    RentalAgreementLinks:
-      type: object
-      properties:
-        rental_agreement:
-          $ref: '#/components/schemas/Link'
-      description: A map of links, including link to get the rental agreement.
-    GuestReviews:
-      type: object
-      properties:
-        verified:
-          type: object
-          properties:
-            recent:
-              type: array
-              description: A collection of the guest reviews which have been verified, in order, starting with the newest.
-              items:
-                $ref: '#/components/schemas/Review'
-          description: A property's verified guest reviews.
-      description: A property's guest reviews.
-    CategoryAge:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Age category name.
-        minimum_age:
-          type: number
-          description: Age category minimum age.
-      description: An age category.
+          description: Describes additional optional fees for items such as breakfast, wifi, parking, pets etc.
+      description: Information related to a property's fees.
     ErrorIndividual:
       type: object
       properties:
@@ -4315,55 +4136,85 @@ components:
           items:
             $ref: '#/components/schemas/Field'
       description: An individual error.
-    Statistic:
+    RateContent:
       type: object
       properties:
         id:
           type: string
-          description: The statistic definition ID for this statistic.
+          description: Unique identifier for a rate.
+        amenities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Amenity'
+          description: This lists all of the Amenities available with a specific rate, including value adds, such as breakfast. See our [amenities reference](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists) for current known amenity ID and name values.
+        special_offer_description:
+          type: string
+          description: A text description of any special offers for this rate.
+      description: An individual rate.
+    Occupancy:
+      type: object
+      properties:
+        max_allowed:
+          $ref: '#/components/schemas/MaxAllowed'
+        age_categories:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CategoryAge'
+          description: Map of the age categories used to determine the maximum children and adult occupancy.
+      description: Occupancy information.
+    Amenity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The amenity definition ID for this amenity.
         name:
           type: string
-          description: Statistic name.
+          description: Amenity name.
         value:
           type: string
-          description: Statistic value.
-      description: An individual statistic.
-    Review:
-      type: object
-      properties:
-        verification_source:
-          type: string
-          description: Where this review has been verified from.
-        title:
-          type: string
-          description: Title of this review.
-        date_submitted:
-          type: string
-          description: When this review was made, in ISO 8601 format.
-        rating:
-          type: string
-          description: The rating for this property given by the reviewer. Returns a value between 1.0 and 5.0.
-        reviewer_name:
-          type: string
-          description: The name of the person who wrote this review.
-        trip_reason:
-          $ref: '#/components/schemas/TripReason'
-        travel_companion:
-          $ref: '#/components/schemas/TravelCompanion'
-        text:
-          type: string
-          description: The text of the review itself.
-      description: A review object for a property.
-    PaymentType:
+          description: Amenity value.
+        categories:
+          type: array
+          description: 'This is an optional field and will be present only if the amenity falls into one or more of these amenity categories.<br>
+
+            See the Amenity Categories section of the
+
+            [Content Reference Lists](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists)
+
+            for a list of values.
+
+            '
+          items:
+            type: string
+      description: An individual amenity.
+    CategoryProperty:
       type: object
       properties:
         id:
           type: string
-          description: The identifier of the payment type.
+          description: The ID of the property's category.
         name:
           type: string
-          description: The name of the payment type.
-      description: An individual payment type.
+          description: The property's category.
+      description: The property's category. See our [property categories reference](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists) for current known category ID and name values.
+    Area:
+      type: object
+      properties:
+        square_meters:
+          type: number
+          description: The room's area, measured in square meters.
+        square_feet:
+          type: number
+          description: The room's area, measured in square feet.
+      description: Information about the area of the room.
+    Policies:
+      type: object
+      properties:
+        know_before_you_go:
+          type: string
+          description: Description of information that may be helpful when planning a trip to this property.
+      description: Information about property policies that guests need to be aware of.
     GuestRating:
       type: object
       properties:
@@ -4404,37 +4255,186 @@ components:
           type: string
           description: The percent of guests who recommend staying at this property.
       description: Rating information provided by guests who stayed at this property.
-    Error:
+    Ratings:
+      type: object
+      properties:
+        property:
+          $ref: '#/components/schemas/PropertyRating'
+        guest:
+          $ref: '#/components/schemas/GuestRating'
+      description: Various types of ratings for this property.
+    CategoryAge:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Age category name.
+        minimum_age:
+          type: number
+          description: Age category minimum age.
+      description: An age category.
+    RentalAgreementLinks:
+      type: object
+      properties:
+        rental_agreement:
+          $ref: '#/components/schemas/Link'
+      description: A map of links, including link to get the rental agreement.
+    MaxAllowed:
+      type: object
+      properties:
+        total:
+          type: number
+          description: Total maximum occupancy allowed.
+        children:
+          type: number
+          description: Maximum number of children allowed.
+        adults:
+          type: number
+          description: Maximum number of adults allowed.
+      description: Maximum occupancy counts.
+    Theme:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier for the theme.
+        name:
+          type: string
+          description: Theme name.
+      description: An individual theme.
+    EnhancedHouseRules:
+      type: object
+      properties:
+        rule:
+          type: string
+          description: Describes the house rule.
+          example: Children allowed.
+        additional_information:
+          type: array
+          description: List of strings detailing further information about the rule.
+          example:
+          - Children allowed ages 13-17
+          - Three children are possible if one is in a cot
+          items:
+            type: string
+    UnitConfiguration:
       type: object
       properties:
         type:
           type: string
-          description: The error type.
-        message:
+          description: Bed type.
+        description:
           type: string
-          description: A human readable message giving details about this error.
-        fields:
-          type: array
-          description: Details about the specific fields that had an error.
-          items:
-            $ref: '#/components/schemas/Field'
-        errors:
-          type: array
-          description: An array of all the actual errors that occured.
-          items:
-            $ref: '#/components/schemas/ErrorIndividual'
-      description: The overall class of error that occured.
-    Occupancy:
+          description: A description of the bed(s) in requested language.
+        quantity:
+          type: integer
+          description: The number of beds of this size.
+      description: A room configuration.
+    Image:
       type: object
       properties:
-        max_allowed:
-          $ref: '#/components/schemas/MaxAllowed'
-        age_categories:
+        hero_image:
+          type: boolean
+          description: Whether this image is a hero image or not.
+        category:
+          type: number
+          description: The category of the image.
+        caption:
+          type: string
+          description: The image caption.
+        links:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/CategoryAge'
-          description: Map of the age categories used to determine the maximum children and adult occupancy.
-      description: Occupancy information.
+            $ref: '#/components/schemas/Link'
+          description: 'Contains urls for all of the image sizes available. Sizes may include: 70 px, 200px, 350 px, and 1,000 px'
+      description: An individual image. See our [image categories reference](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists) for current known caption and category values.
+    AssociatedAirports:
+      type: object
+      properties:
+        preferred:
+          $ref: '#/components/schemas/Preferred'
+      description: Airports related to the property.
+    Localized:
+      type: object
+      properties:
+        links:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: Keyed by the language, a map of links to the property’s localized address(es) based on the primary language(s) spoken in the property’s country. Only languages supported by the Rapid API are provided.
+      description: Container for localized address information.
+    OnsitePayments:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: The currency accepted at the property.
+        types:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PaymentType'
+          description: The types of payments accepted at the property.
+      description: The property’s accepted forms of payments when onsite. See our [onsite payment types reference](https://developers.expediagroup.com/docs/rapid/lodging/content/content-reference-lists) for current known payment type ID and name values.
+    Review:
+      type: object
+      properties:
+        verification_source:
+          type: string
+          description: Where this review has been verified from.
+        title:
+          type: string
+          description: Title of this review.
+        date_submitted:
+          type: string
+          description: When this review was made, in ISO 8601 format.
+        rating:
+          type: string
+          description: The rating for this property given by the reviewer. Returns a value between 1.0 and 5.0.
+        reviewer_name:
+          type: string
+          description: The name of the person who wrote this review.
+        trip_reason:
+          $ref: '#/components/schemas/TripReason'
+        travel_companion:
+          $ref: '#/components/schemas/TravelCompanion'
+        text:
+          type: string
+          description: The text of the review itself.
+      description: A review object for a property.
+    Chain:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Chain id.
+        name:
+          type: string
+          description: Chain name.
+        brands:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Brand'
+          description: Map of the chain's brands.
+      description: An individual chain.
+    Statistic:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The statistic definition ID for this statistic.
+        name:
+          type: string
+          description: Statistic name.
+        value:
+          type: string
+          description: Statistic value.
+      description: An individual statistic.
+    PropertyInactive:
+      type: object
+      properties:
+        property_id:
+          type: string
+          description: The property id of the inactive property
   headers:
     Region:
       description: Optional header that provides information about where the request was processed.
