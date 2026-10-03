@@ -274,49 +274,47 @@ paths:
       - Basic: []
 components:
   schemas:
-    Error:
+    SuccessfulGetResponse:
       required:
-      - code
-      - message
+      - entity
       type: object
       properties:
-        code:
-          type: integer
-          description: Error code
-          format: int32
-        message:
-          type: string
-          description: Error message
-      description: An object describing an error returned by the service.
-    PaymentTime:
+        entity:
+          $ref: '#/components/schemas/Deposit'
+    ErrorResponse:
       required:
-      - type
+      - errors
       type: object
       properties:
-        type:
-          type: string
-          description: Defines the type of payment time.
-          enum:
-          - DAYS_PRIOR
-          - UPON_ARRIVAL
-          - UPON_BOOKING
-        value:
-          type: integer
-          description: Only present if type is DAYS_PRIOR. Indicates the number of days prior to arrival that the customer must pay the deposit.
-          format: int32
-      description: 'Order of payments in the array matters. Payments must be specified in chronological order: UPON_BOOKING followed by DAYS_PRIOR followed by UPON_ARRIVAL.'
-    Deposit:
-      type: object
-      properties:
-        defaultPolicy:
-          $ref: '#/components/schemas/DefaultPolicy'
-        exceptionPolicies:
+        errors:
           type: array
-          description: Optional. Up to 4 exception policies can be defined. List of policies that override the default policy for the date range(s) specified in the exception. Order in the array of exception policies matters. The order of the elements in this array determines the order in which the policies should be applied in case of date overlap between exceptions.
+          description: List of errors.
           items:
-            $ref: '#/components/schemas/ExceptionPolicy'
-        _links:
-          $ref: '#/components/schemas/Links'
+            $ref: '#/components/schemas/Error'
+    Links:
+      required:
+      - ratePlans
+      - self
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/Link'
+        ratePlans:
+          type: array
+          description: Collection of links to the rate plans (active and inactive) on which this deposit policy is applicable.
+          items:
+            $ref: '#/components/schemas/Link'
+      description: Object describing links to other resources to which this deposit policy is linked to.
+    Link:
+      required:
+      - href
+      type: object
+      properties:
+        href:
+          type: string
+          description: The fully-qualified URL of the resource.
+          format: URL
+      description: Object describing a single link to a resource to which this deposit policy is linked to.
     DateRange:
       required:
       - endDate
@@ -342,62 +340,20 @@ components:
           - FRI
           - SAT
           - SUN
-    DefaultPolicy:
+    Error:
       required:
-      - payments
+      - code
+      - message
       type: object
       properties:
-        description:
+        code:
+          type: integer
+          description: Error code
+          format: int32
+        message:
           type: string
-          description: Default policy description. This field is optional.
-        payments:
-          type: array
-          description: List of payment policies. Up to 4 payment policies can be defined.
-          items:
-            $ref: '#/components/schemas/PaymentPolicy'
-    ErrorResponse:
-      required:
-      - errors
-      type: object
-      properties:
-        errors:
-          type: array
-          description: List of errors.
-          items:
-            $ref: '#/components/schemas/Error'
-    Link:
-      required:
-      - href
-      type: object
-      properties:
-        href:
-          type: string
-          description: The fully-qualified URL of the resource.
-          format: URL
-      description: Object describing a single link to a resource to which this deposit policy is linked to.
-    SuccessfulGetResponse:
-      required:
-      - entity
-      type: object
-      properties:
-        entity:
-          $ref: '#/components/schemas/Deposit'
-    ExceptionPolicy:
-      type: object
-      properties:
-        description:
-          type: string
-          description: Exception policy description. This field is optional.
-        payments:
-          type: array
-          description: List of payment policies. Up to 4 payment policies can be defined.
-          items:
-            $ref: '#/components/schemas/PaymentPolicy'
-        dateRanges:
-          type: array
-          description: List of date range during which the exception policy applies. One exception can contain from 1 to 15 date ranges maximum.
-          items:
-            $ref: '#/components/schemas/DateRange'
+          description: Error message
+      description: An object describing an error returned by the service.
     PaymentPolicy:
       required:
       - type
@@ -418,20 +374,64 @@ components:
           format: double
         when:
           $ref: '#/components/schemas/PaymentTime'
-    Links:
+    PaymentTime:
       required:
-      - ratePlans
-      - self
+      - type
       type: object
       properties:
-        self:
-          $ref: '#/components/schemas/Link'
-        ratePlans:
+        type:
+          type: string
+          description: Defines the type of payment time.
+          enum:
+          - DAYS_PRIOR
+          - UPON_ARRIVAL
+          - UPON_BOOKING
+        value:
+          type: integer
+          description: Only present if type is DAYS_PRIOR. Indicates the number of days prior to arrival that the customer must pay the deposit.
+          format: int32
+      description: 'Order of payments in the array matters. Payments must be specified in chronological order: UPON_BOOKING followed by DAYS_PRIOR followed by UPON_ARRIVAL.'
+    ExceptionPolicy:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Exception policy description. This field is optional.
+        payments:
           type: array
-          description: Collection of links to the rate plans (active and inactive) on which this deposit policy is applicable.
+          description: List of payment policies. Up to 4 payment policies can be defined.
           items:
-            $ref: '#/components/schemas/Link'
-      description: Object describing links to other resources to which this deposit policy is linked to.
+            $ref: '#/components/schemas/PaymentPolicy'
+        dateRanges:
+          type: array
+          description: List of date range during which the exception policy applies. One exception can contain from 1 to 15 date ranges maximum.
+          items:
+            $ref: '#/components/schemas/DateRange'
+    DefaultPolicy:
+      required:
+      - payments
+      type: object
+      properties:
+        description:
+          type: string
+          description: Default policy description. This field is optional.
+        payments:
+          type: array
+          description: List of payment policies. Up to 4 payment policies can be defined.
+          items:
+            $ref: '#/components/schemas/PaymentPolicy'
+    Deposit:
+      type: object
+      properties:
+        defaultPolicy:
+          $ref: '#/components/schemas/DefaultPolicy'
+        exceptionPolicies:
+          type: array
+          description: Optional. Up to 4 exception policies can be defined. List of policies that override the default policy for the date range(s) specified in the exception. Order in the array of exception policies matters. The order of the elements in this array determines the order in which the policies should be applied in case of date overlap between exceptions.
+          items:
+            $ref: '#/components/schemas/ExceptionPolicy'
+        _links:
+          $ref: '#/components/schemas/Links'
   securitySchemes:
     Basic:
       type: http

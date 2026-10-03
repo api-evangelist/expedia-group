@@ -73,23 +73,29 @@ paths:
       - Basic: []
 components:
   schemas:
-    ErrorDTO:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-    ResponseWrapperDTO_PropertyDTO:
+    ResponseWrapperDTO_List_PropertyDTO:
       type: object
       properties:
         entity:
-          $ref: '#/components/schemas/PropertyDTO'
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
         errors:
           type: array
           items:
             $ref: '#/components/schemas/ErrorDTO'
+    CutOffDTO:
+      type: object
+      properties:
+        day:
+          type: string
+          description: Can be of same day or next day. Complements the time attribute
+          enum:
+          - sameDay
+          - nextDay
+        time:
+          type: string
+          description: Indicates at which time we’ll stop making inventory available for same day reservations
     PropertyDTO:
       type: object
       properties:
@@ -167,18 +173,6 @@ components:
         timezone:
           type: string
           description: Descriptive information about property timezone configuration in Expedia system. Description will start by a GMT offset, followed by a friendly name.
-    CutOffDTO:
-      type: object
-      properties:
-        day:
-          type: string
-          description: Can be of same day or next day. Complements the time attribute
-          enum:
-          - sameDay
-          - nextDay
-        time:
-          type: string
-          description: Indicates at which time we’ll stop making inventory available for same day reservations
     PropertyAddressDTO:
       type: object
       properties:
@@ -200,13 +194,19 @@ components:
         state:
           type: string
           description: State/Province, which is optional and thus might not be available
-    ResponseWrapperDTO_List_PropertyDTO:
+    ErrorDTO:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    ResponseWrapperDTO_PropertyDTO:
       type: object
       properties:
         entity:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyDTO'
+          $ref: '#/components/schemas/PropertyDTO'
         errors:
           type: array
           items:

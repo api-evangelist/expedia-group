@@ -154,26 +154,6 @@ paths:
       - rapidAuth: []
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The error type.
-        message:
-          type: string
-          description: A human readable message giving details about this error.
-        fields:
-          type: array
-          description: Details about the specific fields that had an error.
-          items:
-            $ref: '#/components/schemas/Field'
-        errors:
-          type: array
-          description: An array of all the actual errors that occured.
-          items:
-            $ref: '#/components/schemas/ErrorIndividual'
-      description: The overall class of error that occured.
     Notification:
       type: object
       properties:
@@ -209,19 +189,26 @@ components:
           description: The event type for which the test notification is requested.
       example:
         event_type: itinerary.agent.create
-    Field:
+    Error:
       type: object
       properties:
-        name:
-          type: string
-          description: The field that had an error.
         type:
           type: string
-          description: The type of the field that had an error.
-        value:
+          description: The error type.
+        message:
           type: string
-          description: The value of the field that had an error.
-      description: An individual field that had an error.
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+        errors:
+          type: array
+          description: An array of all the actual errors that occured.
+          items:
+            $ref: '#/components/schemas/ErrorIndividual'
+      description: The overall class of error that occured.
     ErrorIndividual:
       type: object
       properties:
@@ -237,6 +224,19 @@ components:
           items:
             $ref: '#/components/schemas/Field'
       description: An individual error.
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The field that had an error.
+        type:
+          type: string
+          description: The type of the field that had an error.
+        value:
+          type: string
+          description: The value of the field that had an error.
+      description: An individual field that had an error.
   headers:
     Region:
       description: Optional header that provides information about where the request was processed.

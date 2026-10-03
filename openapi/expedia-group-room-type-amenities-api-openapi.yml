@@ -83,14 +83,6 @@ paths:
       x-codegen-request-body-name: roomTypeAmenityDTOs
 components:
   schemas:
-    ErrorDTO:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
     RoomTypeAmenityDTO:
       required:
       - code
@@ -116,6 +108,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ErrorDTO'
+    ErrorDTO:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
   securitySchemes:
     Basic:
       type: http
