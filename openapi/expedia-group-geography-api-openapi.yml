@@ -1350,30 +1350,13 @@ paths:
       - rapidAuth: []
 components:
   schemas:
-    Ancestors:
+    PropertyGeography:
       type: object
       properties:
-        id:
+        property_id:
           type: string
-          description: Id of ancestor region.
-        type:
-          type: string
-          description: Region type of ancestor region.
-      description: A region ancestor.
-    PolygonCoordinates:
-      type: array
-      description: An array of linear ring coordinate arrays that combine to make up a single [Polygon](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.6) in geojson format. If there is more than one linear ring at this level, the first is the outer boundary and the remaining linear rings are interior rings or holes.
-      items:
-        minItems: 4
-        type: array
-        description: An array of Points making up a single linear ring in geojson format.
-        items:
-          maxItems: 2
-          minItems: 2
-          type: array
-          description: Individual coordinates as a geojson Point, in longitude, latitude order (x,y).
-          items:
-            type: number
+          description: Unique Expedia property ID.
+      description: A property object.
     BoundingPolygon:
       type: object
       properties:
@@ -1405,60 +1388,17 @@ components:
           items:
             $ref: '#/components/schemas/ErrorIndividual'
       description: The overall class of error that occured.
-    ErrorIndividual:
+    CoordinatesRegion:
       type: object
       properties:
-        type:
-          type: string
-          description: The error type.
-        message:
-          type: string
-          description: A human readable message giving details about this error.
-        fields:
-          type: array
-          description: Details about the specific fields that had an error.
-          items:
-            $ref: '#/components/schemas/Field'
-      description: An individual error.
-    PropertiesGeoJsonRequest:
-      required:
-      - coordinates
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          description: The geometry type. The only supported type is `Polygon`
-        coordinates:
-          $ref: '#/components/schemas/PolygonCoordinates'
-      description: GeoJSON geometry
-      example:
-        type: Polygon
-        coordinates:
-        - - - -93.446782
-            - 37.169329
-          - - -93.4244
-            - 37.169432
-          - - -93.371097
-            - 37.168636
-          - - -93.376295
-            - 37.139236
-          - - -93.361419
-            - 37.138634
-          - - -93.347109
-            - 37.100601
-          - - -93.215792
-            - 37.095905
-          - - -93.215259
-            - 37.138013
-          - - -93.189332
-            - 37.141503
-          - - -93.191278
-            - 37.333322
-          - - -93.438268
-            - 37.339372
-          - - -93.446782
-            - 37.169329
+        center_longitude:
+          type: number
+          description: Center Longitude.
+        center_latitude:
+          type: number
+          description: Center Latitude.
+        bounding_polygon:
+          $ref: '#/components/schemas/BoundingPolygon'
     Field:
       type: object
       properties:
@@ -1472,17 +1412,30 @@ components:
           type: string
           description: The value of the field that had an error.
       description: An individual field that had an error.
-    CoordinatesRegion:
+    Ancestors:
       type: object
       properties:
-        center_longitude:
-          type: number
-          description: Center Longitude.
-        center_latitude:
-          type: number
-          description: Center Latitude.
-        bounding_polygon:
-          $ref: '#/components/schemas/BoundingPolygon'
+        id:
+          type: string
+          description: Id of ancestor region.
+        type:
+          type: string
+          description: Region type of ancestor region.
+      description: A region ancestor.
+    PolygonCoordinates:
+      type: array
+      description: An array of linear ring coordinate arrays that combine to make up a single [Polygon](https://www.rfc-editor.org/rfc/rfc7946#section-3.1.6) in geojson format. If there is more than one linear ring at this level, the first is the outer boundary and the remaining linear rings are interior rings or holes.
+      items:
+        minItems: 4
+        type: array
+        description: An array of Points making up a single linear ring in geojson format.
+        items:
+          maxItems: 2
+          minItems: 2
+          type: array
+          description: Individual coordinates as a geojson Point, in longitude, latitude order (x,y).
+          items:
+            type: number
     Region:
       type: object
       properties:
@@ -1556,13 +1509,60 @@ components:
           description: A list of regional tags.
           items:
             type: string
-    PropertyGeography:
+    PropertiesGeoJsonRequest:
+      required:
+      - coordinates
+      - type
       type: object
       properties:
-        property_id:
+        type:
           type: string
-          description: Unique Expedia property ID.
-      description: A property object.
+          description: The geometry type. The only supported type is `Polygon`
+        coordinates:
+          $ref: '#/components/schemas/PolygonCoordinates'
+      description: GeoJSON geometry
+      example:
+        type: Polygon
+        coordinates:
+        - - - -93.446782
+            - 37.169329
+          - - -93.4244
+            - 37.169432
+          - - -93.371097
+            - 37.168636
+          - - -93.376295
+            - 37.139236
+          - - -93.361419
+            - 37.138634
+          - - -93.347109
+            - 37.100601
+          - - -93.215792
+            - 37.095905
+          - - -93.215259
+            - 37.138013
+          - - -93.189332
+            - 37.141503
+          - - -93.191278
+            - 37.333322
+          - - -93.438268
+            - 37.339372
+          - - -93.446782
+            - 37.169329
+    ErrorIndividual:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+      description: An individual error.
   headers:
     Region:
       description: Optional header that provides information about where the request was processed.

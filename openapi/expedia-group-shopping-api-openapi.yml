@@ -3130,209 +3130,17 @@ paths:
       - rapidAuth: []
 components:
   schemas:
-    RoomAvailability:
+    TraderInformation:
+      required:
+      - terms_and_conditions
       type: object
       properties:
-        id:
-          type: string
-          description: Unique Identifier for a room type.
-        room_name:
-          type: string
-          description: Name of the room type.
-        rates:
-          type: array
-          description: Array of objects containing rate information.
-          items:
-            $ref: '#/components/schemas/Rate'
-      description: The room information.
-    StayConstraints:
-      type: object
-      properties:
-        min_stay:
-          type: integer
-          description: The minimum number of days for a stay.
-          format: int32
-          example: 1
-        max_stay:
-          type: integer
-          description: The maximum number of days for a stay.
-          format: int32
-          example: 14
-    NightCharge:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/NightChargeType'
-        value:
-          type: string
-          description: The value of the amount object. Decimal point inline with correct precision.
-        currency:
-          type: string
-          description: Currency of the amount object.
-    Frequency:
-      type: string
-      description: The frequency of when this applies.
-      enum:
-      - unknown
-      - per_night
-      - per_day
-      - per_stay
-      - per_week
-      - round_trip
-      - one_way
-    Status:
-      type: string
-      description: Indicates the status of the rate. If the rate is still available then available will be returned. If the rate is no longer available at that price then price_changed will be returned. If the rate is no longer available at all then sold_out will be returned.
-      enum:
-      - available
-      - price_changed
-      - sold_out
-    AffiliateCollect:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Display name of payment option.
-      description: This option will be returned if a booking can be made using Expedia Affiliate Collect.
-    PropertyAvailability:
-      allOf:
-      - $ref: '#/components/schemas/Property'
-      - type: object
-        properties:
-          rooms:
-            type: array
-            description: Array of objects containing room information.
-            items:
-              $ref: '#/components/schemas/RoomAvailability'
-          links:
-            $ref: '#/components/schemas/PropertyAvailabilityLinks'
-        description: The rooms and rates for a property.
-    PropertyAvailabilityLinks:
-      type: object
-      properties:
-        additional_rates:
-          $ref: '#/components/schemas/Link'
-        recommendations:
-          $ref: '#/components/schemas/Link'
-      additionalProperties:
-        $ref: '#/components/schemas/Link'
-      description: A map of links, including links to request additional rates. Note that the recommendations feature has been retired and will return an error if the link is followed.
-      example:
-        additional_rates:
-          method: GET
-          href: /v3/properties/12345/availability?token=MY5S3j36cOcL
-    OfferType:
-      type: string
-      description: The type of offer this value add promotion is.
-      enum:
-      - buy_one_get_one_free
-      - credit
-      - discount
-      - free
-      - voucher
-    Totals:
-      type: object
-      properties:
-        inclusive:
-          $ref: '#/components/schemas/Charge'
-        exclusive:
-          $ref: '#/components/schemas/Charge'
-        property_inclusive:
-          $ref: '#/components/schemas/Charge'
-        inclusive_strikethrough:
-          $ref: '#/components/schemas/Charge'
-        strikethrough:
-          $ref: '#/components/schemas/Charge'
-        property_inclusive_strikethrough:
-          $ref: '#/components/schemas/Charge'
-        marketing_fee:
-          $ref: '#/components/schemas/Charge'
-        gross_profit:
-          $ref: '#/components/schemas/Charge'
-        minimum_selling_price:
-          $ref: '#/components/schemas/Charge'
-        property_fees:
-          $ref: '#/components/schemas/Charge'
-      description: 'The total price of charges, given various criteria.
-
-        * `inclusive` - provides the total price including taxes and fees. This does not include property collected fees such as resort, mandatory taxes, and mandatory fees.
-
-        * `exclusive` - provides the total price excluding taxes and fees.
-
-        * `property_inclusive` - provides the total price including taxes, fees, and property collected fees such as resort, mandatory taxes, and mandatory fees.
-
-        * `inclusive_strikethrough` - provides the tax `inclusive` total price with any property funded discounts added back. Can be used to merchandise the savings due to a discount.
-
-        * `strikethrough` - provides the tax `exclusive` total price with any property funded discounts added back. Can be used to merchandise the savings due to a discount.
-
-        * `property_inclusive_strikethrough` - provides the tax, fees, and property collected fees `inclusive` total price with any property funded discounts added back. Can be used to merchandise the savings due to a discount.
-
-        * `marketing_fee` - provides the potential owed earnings per transaction.
-
-        * `gross_profit` - provides the estimated gross profit per transaction.
-
-        * `minimum_selling_price` - provides the minimum selling price.
-
-        * `property_fees` - provides the total of the fees collected by the property.
-
-        '
-    CheckInValidity:
-      type: string
-      description: 'Enumeration indicating the capability of check-in on the date.
-
-
-        `CHECKIN_VALID`: The associated date is valid for check in.
-
-
-        `CHECKIN_INVALID`: Generic or Unknown reason for being not being a valid day for check in.
-
-
-        `CHECKIN_INVALID_DUE_TO_BEING_IN_PAST`: The associated date is not valid for check in due to being in the past.
-
-
-        `CHECKIN_INVALID_DUE_TO_MIN_PRIOR_NOTIFICATION`:  The associated date is not valid for check in because checking in on this date would not meet the owner''s minimum prior notification requirements.
-
-
-        `CHECKIN_INVALID_DUE_TO_MAX_FUTURE_BOOKING`: The associated date is not valid for check in because it is too far in the future.
-
-
-        `CHECKIN_INVALID_DUE_TO_NOT_AVAILABLE`: The associated date is not valid for check in because it is not available (ie. the date is already reserved).
-
-
-        `CHECKIN_INVALID_DUE_TO_NON_CHANGEOVER_DAY_OF_WEEK`: The associated date is not valid for check in because it falls on a day of the week that check in is prohibited.
-
-
-        `CHECKIN_INVALID_DUE_TO_CHANGEOVER_EXCLUSION`: The associated date is not valid for check in because check in was prohibited on that specific date.
-
-
-        `CHECKIN_INVALID_DUE_TO_MIN_STAY_NOT_ACHIEVABLE`: The associated date is not valid for check in because checking in on this date does not satisfy the minimum stay duration.
-
-
-        `CHECKIN_INVALID_DUE_TO_NO_VALID_CHECKOUT_WITHIN_CONSTRAINTS`: The associated date is not valid for check in because there is not an associated check out date that would allow the stay to satisfy stay constraints.
-
-        '
-      example: CHECKIN_VALID
-    PricingInformation:
-      type: object
-      properties:
-        nightly:
-          type: array
-          description: Array of arrays of amount objects. Each sub-array of amount objects represents a single night's charges.
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/NightCharge'
-        stay:
-          type: array
-          description: Array of amount objects. Details any charges that apply to the entire stay (not divided per-night). Any per-room adjustments are applied to the `base_rate` amount within this object.
-          items:
-            $ref: '#/components/schemas/Stay'
-        totals:
-          $ref: '#/components/schemas/Totals'
-        fees:
-          $ref: '#/components/schemas/FeesPricingInformation'
-      description: The pricing information object.
-    ChargeCalculated:
+        traders:
+          $ref: '#/components/schemas/TraderDetails'
+        terms_and_conditions:
+          $ref: '#/components/schemas/TraderTermsAndConditions'
+      description: The professional entity or entities that sells the property inventory or related services.
+    Charge:
       type: object
       properties:
         billable_currency:
@@ -3340,157 +3148,33 @@ components:
         request_currency:
           $ref: '#/components/schemas/Amount'
       description: An object representing a charge. Information about the charge is provided in both the billable currency and the request currency.
-    Deal:
+    FeesPricingInformation:
       type: object
       properties:
-        id:
-          type: string
-          description: Unique identifier for the deal.
-        description:
-          type: string
-          description: The description for the deal.
-      description: The deal that applies to this rate.
-    TraderRightToWithdrawMessage:
-      type: string
-      description: The trader right to withdraw message.
-      example: If you cancel your booking, you'll be subject to the property's cancellation policy. In accordance with EU regulations about consumer rights, property booking services are not subject to the right to withdraw.
-    CreditCardMerchant:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the merchant to use during 3rd party authorization for PSD2.
-      example:
-        name: TRAVEL RESERVATION
-    TraderDetails:
-      type: array
-      description: An array of traders.
-      items:
-        required:
-        - contact_message
-        type: object
-        properties:
-          name:
-            $ref: '#/components/schemas/TraderName'
-          address:
-            $ref: '#/components/schemas/TraderAddress'
-          business_register_name:
-            type: string
-            description: 'Name of the register where the trader is registered, and is related to the `business_register_number`
+        mandatory_fee:
+          $ref: '#/components/schemas/ChargeCalculated'
+        resort_fee:
+          $ref: '#/components/schemas/ChargeCalculated'
+        mandatory_tax:
+          $ref: '#/components/schemas/ChargeCalculated'
+      description: 'The fees collected by the property. The values for each type of fee are the total for that type.
 
-              '
-            example: A real business register name
-          business_register_number:
-            type: string
-            description: 'Business registration number
 
-              '
-            example: 792837491b
-          self_certification:
-            type: boolean
-            description: 'Certification that the trader has confirmed their commitment to only offer products or services that
+        Mandatory fees are collected by the property at check-in or check-out.
 
-              comply with the applicable rules of Union law.
+        Resort fees are charged for amenities and extras and collected by the property at check-in or check-out.
 
-              '
-            example: true
-          contact_message:
-            $ref: '#/components/schemas/TraderContactMessage'
-          right_to_withdraw_message:
-            $ref: '#/components/schemas/TraderRightToWithdrawMessage'
-          email:
-            type: string
-            description: The trader email address.
-            example: travel@support.expedia.com
-          phone:
-            type: string
-            description: The trader phone number.
-            example: 0330-123-1235
-        description: Information of the professional entity that sells the property inventory or related services.
-    PropertyCalendarAvailability:
+        Mandatory taxes are taxes collected by the property at check-in or check-out.
+
+        '
+    PaymentOption:
       type: object
       properties:
-        property_id:
-          type: string
-          description: Expedia property ID.
-          example: '123456'
-        days:
-          type: array
-          items:
-            $ref: '#/components/schemas/Day'
-    TraderName:
-      type: string
-      description: The trader name.
-      example: Expedia
-    Error:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The error type.
-        message:
-          type: string
-          description: A human readable message giving details about this error.
-        fields:
-          type: array
-          description: Details about the specific fields that had an error.
-          items:
-            $ref: '#/components/schemas/Field'
-        errors:
-          type: array
-          description: An array of all the actual errors that occured.
-          items:
-            $ref: '#/components/schemas/ErrorIndividual'
-      description: The overall class of error that occured.
-    CancelPenalty:
-      type: object
-      properties:
-        currency:
-          type: string
-          description: Currency of the amount object.
-        start:
-          type: string
-          description: Effective date and time of cancellation penalty in extended ISO 8601 format, with ±hh:mm timezone offset
-        end:
-          type: string
-          description: End date and time of cancellation penalty in extended ISO 8601 format, with ±hh:mm timezone offset
-        amount:
-          type: string
-          description: The monetary amount of the penalty.
-        nights:
-          type: string
-          description: Number of nights charged for as penalty.
-        percent:
-          type: string
-          description: Percentage of total booking charged for as penalty. A thirty percent penalty would be returned as 30%
-    Day:
-      type: object
-      properties:
-        date:
-          type: string
-          description: Date associated to the provided information.
-          format: date
-        available:
-          type: boolean
-          description: True if the property is available on the date.
-        checkin:
-          $ref: '#/components/schemas/CheckInValidity'
-        checkout:
-          $ref: '#/components/schemas/CheckOutValidity'
-        stay_constraints:
-          $ref: '#/components/schemas/StayConstraints'
-    CreditCard:
-      type: object
-      properties:
-        card_options:
-          type: array
-          items:
-            $ref: '#/components/schemas/CardOption'
-        merchant:
-          $ref: '#/components/schemas/CreditCardMerchant'
-        name:
-          type: string
-          description: Display name of payment option.
+        affiliate_collect:
+          $ref: '#/components/schemas/AffiliateCollect'
+        credit_card:
+          $ref: '#/components/schemas/CreditCard'
+      description: The payment option response.
     Rate:
       type: object
       properties:
@@ -3584,130 +3268,6 @@ components:
           items:
             $ref: '#/components/schemas/Deposit'
       description: A rate.
-    BedGroupAvailabilityLinks:
-      type: object
-      properties:
-        price_check:
-          $ref: '#/components/schemas/Link'
-      additionalProperties:
-        $ref: '#/components/schemas/Link'
-      description: A map of links, including links to confirm pricing and availability for the selected rate.
-    TraderInformation:
-      required:
-      - terms_and_conditions
-      type: object
-      properties:
-        traders:
-          $ref: '#/components/schemas/TraderDetails'
-        terms_and_conditions:
-          $ref: '#/components/schemas/TraderTermsAndConditions'
-      description: The professional entity or entities that sells the property inventory or related services.
-    FeesPricingInformation:
-      type: object
-      properties:
-        mandatory_fee:
-          $ref: '#/components/schemas/ChargeCalculated'
-        resort_fee:
-          $ref: '#/components/schemas/ChargeCalculated'
-        mandatory_tax:
-          $ref: '#/components/schemas/ChargeCalculated'
-      description: 'The fees collected by the property. The values for each type of fee are the total for that type.
-
-
-        Mandatory fees are collected by the property at check-in or check-out.
-
-        Resort fees are charged for amenities and extras and collected by the property at check-in or check-out.
-
-        Mandatory taxes are taxes collected by the property at check-in or check-out.
-
-        '
-    Stay:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/StayType'
-        value:
-          type: string
-          description: The value of the amount object. Decimal point inline with correct precision.
-        currency:
-          type: string
-          description: Currency of the amount object.
-    RateLinks:
-      type: object
-      properties:
-        payment_options:
-          $ref: '#/components/schemas/Link'
-      additionalProperties:
-        $ref: '#/components/schemas/Link'
-      description: A map of links, including a link to request payment options.
-    CategoryValueAdd:
-      type: string
-      description: The general category that this value add promotion falls into.
-      enum:
-      - food_and_beverage
-      - entertainment
-      - service
-      - activity
-      - credit
-    NonrefundableDateRange:
-      type: object
-      properties:
-        start:
-          type: string
-          description: Start date of nonrefundable date range in ISO 8601 format.
-        end:
-          type: string
-          description: End date of nonrefundable date range in ISO 8601 format.
-    BedGroupConfiguration:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of this bed configuration in the room.
-        size:
-          type: string
-          description: The size of this bed configuration in the room.
-        quantity:
-          type: number
-          description: The number of this bed configuration in the room.
-      description: An individual bed configuration.
-    RoomPriceCheck:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/StatusPriceCheck'
-        occupancy_pricing:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/PricingInformation'
-          description: A map of room information by occupancy.
-        links:
-          $ref: '#/components/schemas/RoomPriceCheckLinks'
-        card_on_file_limit:
-          $ref: '#/components/schemas/Amount'
-        refundable_damage_deposit:
-          $ref: '#/components/schemas/Amount'
-        deposits:
-          type: array
-          description: Array of deposits.
-          items:
-            $ref: '#/components/schemas/Deposit'
-        refund:
-          $ref: '#/components/schemas/Charge'
-        amount_owed:
-          $ref: '#/components/schemas/Charge'
-        penalty:
-          $ref: '#/components/schemas/Charge'
-        trader_information:
-          $ref: '#/components/schemas/TraderInformation'
-      description: The price check response.
-    StatusPriceCheck:
-      type: string
-      description: Indicates the status of the rate. If the rate is still available then available will be returned. If the rate is no longer available at that price then price_changed will be returned. If the rate is no longer available at all then sold_out will be returned.
-      enum:
-      - available
-      - price_changed
-      - sold_out
     TraderAddress:
       type: object
       properties:
@@ -3740,22 +3300,71 @@ components:
           description: Customer's country code, in two-letter ISO 3166-1 alpha-2 format.
           example: US
       description: The trader address.
-    BedGroupAvailability:
+    TraderRightToWithdrawMessage:
+      type: string
+      description: The trader right to withdraw message.
+      example: If you cancel your booking, you'll be subject to the property's cancellation policy. In accordance with EU regulations about consumer rights, property booking services are not subject to the right to withdraw.
+    Stay:
       type: object
       properties:
-        links:
-          $ref: '#/components/schemas/BedGroupAvailabilityLinks'
-        id:
+        type:
+          $ref: '#/components/schemas/StayType'
+        value:
           type: string
-          description: Unique identifier for a bed group.
-        description:
+          description: The value of the amount object. Decimal point inline with correct precision.
+        currency:
           type: string
-          description: This is a display ready description of a bed configuration for this room.
-        configuration:
-          type: array
-          description: The bed configuration for a given room. This array can be empty for the related bed group.
-          items:
-            $ref: '#/components/schemas/BedGroupConfiguration'
+          description: Currency of the amount object.
+    ChargeCalculated:
+      type: object
+      properties:
+        billable_currency:
+          $ref: '#/components/schemas/Amount'
+        request_currency:
+          $ref: '#/components/schemas/Amount'
+      description: An object representing a charge. Information about the charge is provided in both the billable currency and the request currency.
+    TraderName:
+      type: string
+      description: The trader name.
+      example: Expedia
+    StayType:
+      type: string
+      description: The price breakout type.
+      enum:
+      - base_rate
+      - tax_and_service_fee
+      - extra_person_fee
+      - property_fee
+      - sales_tax
+      - adjustment
+      - recovery_charges_and_fees
+      - traveler_service_fee
+    OfferType:
+      type: string
+      description: The type of offer this value add promotion is.
+      enum:
+      - buy_one_get_one_free
+      - credit
+      - discount
+      - free
+      - voucher
+    CategoryValueAdd:
+      type: string
+      description: The general category that this value add promotion falls into.
+      enum:
+      - food_and_beverage
+      - entertainment
+      - service
+      - activity
+      - credit
+    RateLinks:
+      type: object
+      properties:
+        payment_options:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: A map of links, including a link to request payment options.
     ValueAdd:
       type: object
       properties:
@@ -3775,33 +3384,6 @@ components:
           type: number
           description: Indicates how many guests the value add promotion applies to.
       description: An individual value add.
-    TraderContactMessage:
-      type: string
-      description: The trader contact message.
-      example: This property is managed by a professional host. The provision of housing is linked to their trade, business or profession.
-    Amount:
-      type: object
-      properties:
-        value:
-          type: string
-          description: The value of the amount object. Decimal point inline with correct precision.
-        currency:
-          type: string
-          description: Currency of the amount object.
-      description: The monetary amount.
-    Field:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The field that had an error.
-        type:
-          type: string
-          description: The type of the field that had an error.
-        value:
-          type: string
-          description: The value of the field that had an error.
-      description: An individual field that had an error.
     RoomPriceCheckLinks:
       type: object
       properties:
@@ -3821,37 +3403,151 @@ components:
         If this rate is still available for booking then a book link will be present if PSD2 is not a requirement for you or a payment_session link will be present if PSD2 is a requirement for you.
 
         '
-    PaymentOption:
-      type: object
-      properties:
-        affiliate_collect:
-          $ref: '#/components/schemas/AffiliateCollect'
-        credit_card:
-          $ref: '#/components/schemas/CreditCard'
-      description: The payment option response.
-    NightChargeType:
+    MerchantOfRecord:
       type: string
-      description: "The price breakout type.\n  * `base_rate` - The room rate without any taxes and fees applied.\n  * `tax_and_service_fee` - Tax recovery charges, service fees, and taxes. Ensure that you capture these values and display as:\n                            \"Taxes and Fees\"\n  * `extra_person_fee` - A per night fee that is charged by a hotel for additional adults over the nightly rate. This fee is included as part of the total.\n  * `property_fee` - The property fee surcharge type must be displayed beginning on the initial hotel room selection page, immediately after your hotel search results page. This placement is required by the U.S. Federal Trade Commission (FTC).\n                     Display this surcharge as \"Property Fee\" on your room selection page, as described above, and in all subsequent price breakdowns for the following Points of Sale:\n                     * `US`\n                     * `Canada`\n                     * `Brazil`\n                     * `LATAM`\n  * `sales_tax` - Taxes that must be displayed by certain jurisdictional laws. Ensure that you capture these values and display as \"Taxes\".\n  * `adjustment` - This is the amount that the individual night have been adjusted/discounted.\n  * `recovery_charges_and_fees` - Tax recovery charges, service fees, and taxes. Ensure that you capture these values and display as:\n                                  \"Taxes and Fees\"\n  * `traveler_service_fee` - Fee charged by Vrbo to support use of online tools, services and functions on its platform which enable guest self service. May be displayed as 'Traveler Service Fee' or 'Service Fee' any time fees are broken out for display on partner sites.\n"
+      description: '* `expedia` - Payment is taken by Expedia.
+
+        * `property` - Payment is taken by the property.
+
+        '
       enum:
-      - base_rate
-      - tax_and_service_fee
-      - extra_person_fee
-      - property_fee
-      - sales_tax
-      - adjustment
-      - recovery_charges_and_fees
-      - traveler_service_fee
-    Promotions:
+      - expedia
+      - property
+    ErrorIndividual:
       type: object
       properties:
-        value_adds:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+      description: An individual error.
+    StayConstraints:
+      type: object
+      properties:
+        min_stay:
+          type: integer
+          description: The minimum number of days for a stay.
+          format: int32
+          example: 1
+        max_stay:
+          type: integer
+          description: The maximum number of days for a stay.
+          format: int32
+          example: 14
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The error type.
+        message:
+          type: string
+          description: A human readable message giving details about this error.
+        fields:
+          type: array
+          description: Details about the specific fields that had an error.
+          items:
+            $ref: '#/components/schemas/Field'
+        errors:
+          type: array
+          description: An array of all the actual errors that occured.
+          items:
+            $ref: '#/components/schemas/ErrorIndividual'
+      description: The overall class of error that occured.
+    CreditCardMerchant:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the merchant to use during 3rd party authorization for PSD2.
+      example:
+        name: TRAVEL RESERVATION
+    RoomPriceCheck:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/StatusPriceCheck'
+        occupancy_pricing:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/ValueAdd'
-          description: A collection of value adds that apply to this rate.
-        deal:
-          $ref: '#/components/schemas/Deal'
-      description: Available promotions that apply to this rate.
+            $ref: '#/components/schemas/PricingInformation'
+          description: A map of room information by occupancy.
+        links:
+          $ref: '#/components/schemas/RoomPriceCheckLinks'
+        card_on_file_limit:
+          $ref: '#/components/schemas/Amount'
+        refundable_damage_deposit:
+          $ref: '#/components/schemas/Amount'
+        deposits:
+          type: array
+          description: Array of deposits.
+          items:
+            $ref: '#/components/schemas/Deposit'
+        refund:
+          $ref: '#/components/schemas/Charge'
+        amount_owed:
+          $ref: '#/components/schemas/Charge'
+        penalty:
+          $ref: '#/components/schemas/Charge'
+        trader_information:
+          $ref: '#/components/schemas/TraderInformation'
+      description: The price check response.
+    AffiliateCollect:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Display name of payment option.
+      description: This option will be returned if a booking can be made using Expedia Affiliate Collect.
+    PropertyAvailability:
+      allOf:
+      - $ref: '#/components/schemas/Property'
+      - type: object
+        properties:
+          rooms:
+            type: array
+            description: Array of objects containing room information.
+            items:
+              $ref: '#/components/schemas/RoomAvailability'
+          links:
+            $ref: '#/components/schemas/PropertyAvailabilityLinks'
+        description: The rooms and rates for a property.
+    Property:
+      type: object
+      properties:
+        property_id:
+          type: string
+          description: Expedia property ID.
+        status:
+          type: string
+          description: Helps determine which type of property response is returned.
+          enum:
+          - available
+          - partially_unavailable
+        score:
+          type: number
+          description: A score to sort properties where the higher the value the better. It can be used to:<br> * Sort the properties on the response<br> * Sort properties across multiple responses in parallel searches for large regions<br>
+      discriminator:
+        propertyName: status
+        mapping:
+          available: '#/components/schemas/PropertyAvailability'
+          partially_unavailable: '#/components/schemas/PropertyUnavailability'
+    CardOption:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Brand name for the accepted credit or debit card. Use this value to determine which cards to display on your checkout page.
+        processing_country:
+          type: string
+          description: The country in which the payment will be processed.
     Link:
       type: object
       properties:
@@ -3865,23 +3561,15 @@ components:
           type: string
           description: If the link expires, this will be the UTC date the link will expire, in ISO 8601 format.
       description: An individual link.
-    Charge:
+    NonrefundableDateRange:
       type: object
       properties:
-        billable_currency:
-          $ref: '#/components/schemas/Amount'
-        request_currency:
-          $ref: '#/components/schemas/Amount'
-      description: An object representing a charge. Information about the charge is provided in both the billable currency and the request currency.
-    CardOption:
-      type: object
-      properties:
-        name:
+        start:
           type: string
-          description: Brand name for the accepted credit or debit card. Use this value to determine which cards to display on your checkout page.
-        processing_country:
+          description: Start date of nonrefundable date range in ISO 8601 format.
+        end:
           type: string
-          description: The country in which the payment will be processed.
+          description: End date of nonrefundable date range in ISO 8601 format.
     Amenity:
       type: object
       properties:
@@ -3908,24 +3596,110 @@ components:
           items:
             type: string
       description: An individual amenity.
-    CheckOutValidity:
+    RoomAvailability:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique Identifier for a room type.
+        room_name:
+          type: string
+          description: Name of the room type.
+        rates:
+          type: array
+          description: Array of objects containing rate information.
+          items:
+            $ref: '#/components/schemas/Rate'
+      description: The room information.
+    BedGroupAvailabilityLinks:
+      type: object
+      properties:
+        price_check:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: A map of links, including links to confirm pricing and availability for the selected rate.
+    CancelPenalty:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: Currency of the amount object.
+        start:
+          type: string
+          description: Effective date and time of cancellation penalty in extended ISO 8601 format, with ±hh:mm timezone offset
+        end:
+          type: string
+          description: End date and time of cancellation penalty in extended ISO 8601 format, with ±hh:mm timezone offset
+        amount:
+          type: string
+          description: The monetary amount of the penalty.
+        nights:
+          type: string
+          description: Number of nights charged for as penalty.
+        percent:
+          type: string
+          description: Percentage of total booking charged for as penalty. A thirty percent penalty would be returned as 30%
+    Frequency:
       type: string
-      description: 'Enumeration indicating the capability of check-out on the date.
+      description: The frequency of when this applies.
+      enum:
+      - unknown
+      - per_night
+      - per_day
+      - per_stay
+      - per_week
+      - round_trip
+      - one_way
+    Field:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The field that had an error.
+        type:
+          type: string
+          description: The type of the field that had an error.
+        value:
+          type: string
+          description: The value of the field that had an error.
+      description: An individual field that had an error.
+    CheckInValidity:
+      type: string
+      description: 'Enumeration indicating the capability of check-in on the date.
 
 
-        `CHECKOUT_VALID`: The associated date is valid for check out.
+        `CHECKIN_VALID`: The associated date is valid for check in.
 
 
-        `CHECKOUT_INVALID`: The checkout validity value is invalid or unknown.
+        `CHECKIN_INVALID`: Generic or Unknown reason for being not being a valid day for check in.
 
 
-        `CHECKOUT_INVALID_DUE_TO_NON_CHANGEOVER_DAY_OF_WEEK`: The associated date is not valid for check out because it falls on a day of the week that check out is prohibited.
+        `CHECKIN_INVALID_DUE_TO_BEING_IN_PAST`: The associated date is not valid for check in due to being in the past.
 
 
-        `CHECKOUT_INVALID_DUE_TO_CHANGEOVER_EXCLUSION`: The associated date is not valid for check out because check out was prohibited on that specific date.
+        `CHECKIN_INVALID_DUE_TO_MIN_PRIOR_NOTIFICATION`:  The associated date is not valid for check in because checking in on this date would not meet the owner''s minimum prior notification requirements.
+
+
+        `CHECKIN_INVALID_DUE_TO_MAX_FUTURE_BOOKING`: The associated date is not valid for check in because it is too far in the future.
+
+
+        `CHECKIN_INVALID_DUE_TO_NOT_AVAILABLE`: The associated date is not valid for check in because it is not available (ie. the date is already reserved).
+
+
+        `CHECKIN_INVALID_DUE_TO_NON_CHANGEOVER_DAY_OF_WEEK`: The associated date is not valid for check in because it falls on a day of the week that check in is prohibited.
+
+
+        `CHECKIN_INVALID_DUE_TO_CHANGEOVER_EXCLUSION`: The associated date is not valid for check in because check in was prohibited on that specific date.
+
+
+        `CHECKIN_INVALID_DUE_TO_MIN_STAY_NOT_ACHIEVABLE`: The associated date is not valid for check in because checking in on this date does not satisfy the minimum stay duration.
+
+
+        `CHECKIN_INVALID_DUE_TO_NO_VALID_CHECKOUT_WITHIN_CONSTRAINTS`: The associated date is not valid for check in because there is not an associated check out date that would allow the stay to satisfy stay constraints.
 
         '
-      example: CHECKOUT_VALID
+      example: CHECKIN_VALID
     SaleScenario:
       type: object
       properties:
@@ -3969,21 +3743,68 @@ components:
 
             '
       description: Provides the special scenarios that need to be taken into account when using this rate.
-    ErrorIndividual:
+    TraderTermsAndConditions:
+      type: string
+      description: The url linking to the full text terms and conditions.
+      example: https://www.expedia.com/terms_and_conditions
+    TraderContactMessage:
+      type: string
+      description: The trader contact message.
+      example: This property is managed by a professional host. The provision of housing is linked to their trade, business or profession.
+    NightCharge:
       type: object
       properties:
         type:
+          $ref: '#/components/schemas/NightChargeType'
+        value:
           type: string
-          description: The error type.
-        message:
+          description: The value of the amount object. Decimal point inline with correct precision.
+        currency:
           type: string
-          description: A human readable message giving details about this error.
-        fields:
-          type: array
-          description: Details about the specific fields that had an error.
-          items:
-            $ref: '#/components/schemas/Field'
-      description: An individual error.
+          description: Currency of the amount object.
+    StatusPriceCheck:
+      type: string
+      description: Indicates the status of the rate. If the rate is still available then available will be returned. If the rate is no longer available at that price then price_changed will be returned. If the rate is no longer available at all then sold_out will be returned.
+      enum:
+      - available
+      - price_changed
+      - sold_out
+    Deposit:
+      type: object
+      properties:
+        value:
+          type: string
+          description: The amount that must be paid as a deposit.
+        due:
+          type: string
+          description: The due date in ISO 8601 format.
+        currency:
+          type: string
+          description: The currency for the deposit amount.
+      description: A deposit policy associated with the rate.
+    Day:
+      type: object
+      properties:
+        date:
+          type: string
+          description: Date associated to the provided information.
+          format: date
+        available:
+          type: boolean
+          description: True if the property is available on the date.
+        checkin:
+          $ref: '#/components/schemas/CheckInValidity'
+        checkout:
+          $ref: '#/components/schemas/CheckOutValidity'
+        stay_constraints:
+          $ref: '#/components/schemas/StayConstraints'
+    Status:
+      type: string
+      description: Indicates the status of the rate. If the rate is still available then available will be returned. If the rate is no longer available at that price then price_changed will be returned. If the rate is no longer available at all then sold_out will be returned.
+      enum:
+      - available
+      - price_changed
+      - sold_out
     MarketingFeeIncentive:
       type: object
       properties:
@@ -4001,56 +3822,20 @@ components:
           type: string
           description: The last stay date with the incentive applied in ISO 8601 format.
       description: An object representing one incentive source and the stay dates relevant to that particular incentive.
-    MerchantOfRecord:
-      type: string
-      description: '* `expedia` - Payment is taken by Expedia.
-
-        * `property` - Payment is taken by the property.
-
-        '
-      enum:
-      - expedia
-      - property
-    Deposit:
-      type: object
-      properties:
-        value:
-          type: string
-          description: The amount that must be paid as a deposit.
-        due:
-          type: string
-          description: The due date in ISO 8601 format.
-        currency:
-          type: string
-          description: The currency for the deposit amount.
-      description: A deposit policy associated with the rate.
-    TraderTermsAndConditions:
-      type: string
-      description: The url linking to the full text terms and conditions.
-      example: https://www.expedia.com/terms_and_conditions
-    Property:
+    PropertyCalendarAvailability:
       type: object
       properties:
         property_id:
           type: string
           description: Expedia property ID.
-        status:
-          type: string
-          description: Helps determine which type of property response is returned.
-          enum:
-          - available
-          - partially_unavailable
-        score:
-          type: number
-          description: A score to sort properties where the higher the value the better. It can be used to:<br> * Sort the properties on the response<br> * Sort properties across multiple responses in parallel searches for large regions<br>
-      discriminator:
-        propertyName: status
-        mapping:
-          available: '#/components/schemas/PropertyAvailability'
-          partially_unavailable: '#/components/schemas/PropertyUnavailability'
-    StayType:
+          example: '123456'
+        days:
+          type: array
+          items:
+            $ref: '#/components/schemas/Day'
+    NightChargeType:
       type: string
-      description: The price breakout type.
+      description: "The price breakout type.\n  * `base_rate` - The room rate without any taxes and fees applied.\n  * `tax_and_service_fee` - Tax recovery charges, service fees, and taxes. Ensure that you capture these values and display as:\n                            \"Taxes and Fees\"\n  * `extra_person_fee` - A per night fee that is charged by a hotel for additional adults over the nightly rate. This fee is included as part of the total.\n  * `property_fee` - The property fee surcharge type must be displayed beginning on the initial hotel room selection page, immediately after your hotel search results page. This placement is required by the U.S. Federal Trade Commission (FTC).\n                     Display this surcharge as \"Property Fee\" on your room selection page, as described above, and in all subsequent price breakdowns for the following Points of Sale:\n                     * `US`\n                     * `Canada`\n                     * `Brazil`\n                     * `LATAM`\n  * `sales_tax` - Taxes that must be displayed by certain jurisdictional laws. Ensure that you capture these values and display as \"Taxes\".\n  * `adjustment` - This is the amount that the individual night have been adjusted/discounted.\n  * `recovery_charges_and_fees` - Tax recovery charges, service fees, and taxes. Ensure that you capture these values and display as:\n                                  \"Taxes and Fees\"\n  * `traveler_service_fee` - Fee charged by Vrbo to support use of online tools, services and functions on its platform which enable guest self service. May be displayed as 'Traveler Service Fee' or 'Service Fee' any time fees are broken out for display on partner sites.\n"
       enum:
       - base_rate
       - tax_and_service_fee
@@ -4060,6 +3845,221 @@ components:
       - adjustment
       - recovery_charges_and_fees
       - traveler_service_fee
+    PricingInformation:
+      type: object
+      properties:
+        nightly:
+          type: array
+          description: Array of arrays of amount objects. Each sub-array of amount objects represents a single night's charges.
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/NightCharge'
+        stay:
+          type: array
+          description: Array of amount objects. Details any charges that apply to the entire stay (not divided per-night). Any per-room adjustments are applied to the `base_rate` amount within this object.
+          items:
+            $ref: '#/components/schemas/Stay'
+        totals:
+          $ref: '#/components/schemas/Totals'
+        fees:
+          $ref: '#/components/schemas/FeesPricingInformation'
+      description: The pricing information object.
+    BedGroupAvailability:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/BedGroupAvailabilityLinks'
+        id:
+          type: string
+          description: Unique identifier for a bed group.
+        description:
+          type: string
+          description: This is a display ready description of a bed configuration for this room.
+        configuration:
+          type: array
+          description: The bed configuration for a given room. This array can be empty for the related bed group.
+          items:
+            $ref: '#/components/schemas/BedGroupConfiguration'
+    CheckOutValidity:
+      type: string
+      description: 'Enumeration indicating the capability of check-out on the date.
+
+
+        `CHECKOUT_VALID`: The associated date is valid for check out.
+
+
+        `CHECKOUT_INVALID`: The checkout validity value is invalid or unknown.
+
+
+        `CHECKOUT_INVALID_DUE_TO_NON_CHANGEOVER_DAY_OF_WEEK`: The associated date is not valid for check out because it falls on a day of the week that check out is prohibited.
+
+
+        `CHECKOUT_INVALID_DUE_TO_CHANGEOVER_EXCLUSION`: The associated date is not valid for check out because check out was prohibited on that specific date.
+
+        '
+      example: CHECKOUT_VALID
+    BedGroupConfiguration:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of this bed configuration in the room.
+        size:
+          type: string
+          description: The size of this bed configuration in the room.
+        quantity:
+          type: number
+          description: The number of this bed configuration in the room.
+      description: An individual bed configuration.
+    CreditCard:
+      type: object
+      properties:
+        card_options:
+          type: array
+          items:
+            $ref: '#/components/schemas/CardOption'
+        merchant:
+          $ref: '#/components/schemas/CreditCardMerchant'
+        name:
+          type: string
+          description: Display name of payment option.
+    Deal:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the deal.
+        description:
+          type: string
+          description: The description for the deal.
+      description: The deal that applies to this rate.
+    PropertyAvailabilityLinks:
+      type: object
+      properties:
+        additional_rates:
+          $ref: '#/components/schemas/Link'
+        recommendations:
+          $ref: '#/components/schemas/Link'
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
+      description: A map of links, including links to request additional rates. Note that the recommendations feature has been retired and will return an error if the link is followed.
+      example:
+        additional_rates:
+          method: GET
+          href: /v3/properties/12345/availability?token=MY5S3j36cOcL
+    TraderDetails:
+      type: array
+      description: An array of traders.
+      items:
+        required:
+        - contact_message
+        type: object
+        properties:
+          name:
+            $ref: '#/components/schemas/TraderName'
+          address:
+            $ref: '#/components/schemas/TraderAddress'
+          business_register_name:
+            type: string
+            description: 'Name of the register where the trader is registered, and is related to the `business_register_number`
+
+              '
+            example: A real business register name
+          business_register_number:
+            type: string
+            description: 'Business registration number
+
+              '
+            example: 792837491b
+          self_certification:
+            type: boolean
+            description: 'Certification that the trader has confirmed their commitment to only offer products or services that
+
+              comply with the applicable rules of Union law.
+
+              '
+            example: true
+          contact_message:
+            $ref: '#/components/schemas/TraderContactMessage'
+          right_to_withdraw_message:
+            $ref: '#/components/schemas/TraderRightToWithdrawMessage'
+          email:
+            type: string
+            description: The trader email address.
+            example: travel@support.expedia.com
+          phone:
+            type: string
+            description: The trader phone number.
+            example: 0330-123-1235
+        description: Information of the professional entity that sells the property inventory or related services.
+    Totals:
+      type: object
+      properties:
+        inclusive:
+          $ref: '#/components/schemas/Charge'
+        exclusive:
+          $ref: '#/components/schemas/Charge'
+        property_inclusive:
+          $ref: '#/components/schemas/Charge'
+        inclusive_strikethrough:
+          $ref: '#/components/schemas/Charge'
+        strikethrough:
+          $ref: '#/components/schemas/Charge'
+        property_inclusive_strikethrough:
+          $ref: '#/components/schemas/Charge'
+        marketing_fee:
+          $ref: '#/components/schemas/Charge'
+        gross_profit:
+          $ref: '#/components/schemas/Charge'
+        minimum_selling_price:
+          $ref: '#/components/schemas/Charge'
+        property_fees:
+          $ref: '#/components/schemas/Charge'
+      description: 'The total price of charges, given various criteria.
+
+        * `inclusive` - provides the total price including taxes and fees. This does not include property collected fees such as resort, mandatory taxes, and mandatory fees.
+
+        * `exclusive` - provides the total price excluding taxes and fees.
+
+        * `property_inclusive` - provides the total price including taxes, fees, and property collected fees such as resort, mandatory taxes, and mandatory fees.
+
+        * `inclusive_strikethrough` - provides the tax `inclusive` total price with any property funded discounts added back. Can be used to merchandise the savings due to a discount.
+
+        * `strikethrough` - provides the tax `exclusive` total price with any property funded discounts added back. Can be used to merchandise the savings due to a discount.
+
+        * `property_inclusive_strikethrough` - provides the tax, fees, and property collected fees `inclusive` total price with any property funded discounts added back. Can be used to merchandise the savings due to a discount.
+
+        * `marketing_fee` - provides the potential owed earnings per transaction.
+
+        * `gross_profit` - provides the estimated gross profit per transaction.
+
+        * `minimum_selling_price` - provides the minimum selling price.
+
+        * `property_fees` - provides the total of the fees collected by the property.
+
+        '
+    Amount:
+      type: object
+      properties:
+        value:
+          type: string
+          description: The value of the amount object. Decimal point inline with correct precision.
+        currency:
+          type: string
+          description: Currency of the amount object.
+      description: The monetary amount.
+    Promotions:
+      type: object
+      properties:
+        value_adds:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ValueAdd'
+          description: A collection of value adds that apply to this rate.
+        deal:
+          $ref: '#/components/schemas/Deal'
+      description: Available promotions that apply to this rate.
   headers:
     Region:
       description: Optional header that provides information about where the request was processed.

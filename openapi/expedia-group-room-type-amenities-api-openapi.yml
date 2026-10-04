@@ -97,6 +97,14 @@ components:
         value:
           type: number
           description: Number. Adds precision to the amenity. Mandatory for some amenity, optional for other and prohibited by the rest of the amenities.
+    ErrorDTO:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
     ResponseWrapperDTO_List_RoomTypeAmenityDTO:
       type: object
       properties:
@@ -108,14 +116,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ErrorDTO'
-    ErrorDTO:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
   securitySchemes:
     Basic:
       type: http

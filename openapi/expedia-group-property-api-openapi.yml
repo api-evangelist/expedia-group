@@ -73,17 +73,14 @@ paths:
       - Basic: []
 components:
   schemas:
-    ResponseWrapperDTO_List_PropertyDTO:
+    ErrorDTO:
       type: object
       properties:
-        entity:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyDTO'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDTO'
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
     CutOffDTO:
       type: object
       properties:
@@ -96,6 +93,26 @@ components:
         time:
           type: string
           description: Indicates at which time we’ll stop making inventory available for same day reservations
+    ResponseWrapperDTO_PropertyDTO:
+      type: object
+      properties:
+        entity:
+          $ref: '#/components/schemas/PropertyDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDTO'
+    ResponseWrapperDTO_List_PropertyDTO:
+      type: object
+      properties:
+        entity:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDTO'
     PropertyDTO:
       type: object
       properties:
@@ -194,23 +211,6 @@ components:
         state:
           type: string
           description: State/Province, which is optional and thus might not be available
-    ErrorDTO:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
-    ResponseWrapperDTO_PropertyDTO:
-      type: object
-      properties:
-        entity:
-          $ref: '#/components/schemas/PropertyDTO'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDTO'
   securitySchemes:
     Basic:
       type: http
