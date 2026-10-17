@@ -73,6 +73,15 @@ paths:
       - Basic: []
 components:
   schemas:
+    ResponseWrapperDTO_PropertyDTO:
+      type: object
+      properties:
+        entity:
+          $ref: '#/components/schemas/PropertyDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDTO'
     ErrorDTO:
       type: object
       properties:
@@ -81,6 +90,38 @@ components:
           format: int32
         message:
           type: string
+    ResponseWrapperDTO_List_PropertyDTO:
+      type: object
+      properties:
+        entity:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDTO'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDTO'
+    PropertyAddressDTO:
+      type: object
+      properties:
+        city:
+          type: string
+          description: City in which the property is located
+        countryCode:
+          type: string
+          description: ISO 3166-1 Alpha 3 country code, for the country where the property is located
+        line1:
+          type: string
+          description: First line of address
+        line2:
+          type: string
+          description: Second line of address, not always available
+        postalCode:
+          type: string
+          description: Postal or State Code, might not be available
+        state:
+          type: string
+          description: State/Province, which is optional and thus might not be available
     CutOffDTO:
       type: object
       properties:
@@ -93,26 +134,6 @@ components:
         time:
           type: string
           description: Indicates at which time we’ll stop making inventory available for same day reservations
-    ResponseWrapperDTO_PropertyDTO:
-      type: object
-      properties:
-        entity:
-          $ref: '#/components/schemas/PropertyDTO'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDTO'
-    ResponseWrapperDTO_List_PropertyDTO:
-      type: object
-      properties:
-        entity:
-          type: array
-          items:
-            $ref: '#/components/schemas/PropertyDTO'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ErrorDTO'
     PropertyDTO:
       type: object
       properties:
@@ -190,27 +211,6 @@ components:
         timezone:
           type: string
           description: Descriptive information about property timezone configuration in Expedia system. Description will start by a GMT offset, followed by a friendly name.
-    PropertyAddressDTO:
-      type: object
-      properties:
-        city:
-          type: string
-          description: City in which the property is located
-        countryCode:
-          type: string
-          description: ISO 3166-1 Alpha 3 country code, for the country where the property is located
-        line1:
-          type: string
-          description: First line of address
-        line2:
-          type: string
-          description: Second line of address, not always available
-        postalCode:
-          type: string
-          description: Postal or State Code, might not be available
-        state:
-          type: string
-          description: State/Province, which is optional and thus might not be available
   securitySchemes:
     Basic:
       type: http

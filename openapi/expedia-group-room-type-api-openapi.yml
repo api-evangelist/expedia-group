@@ -199,6 +199,151 @@ paths:
       x-codegen-request-body-name: roomTypeBody
 components:
   schemas:
+    RegistrationRecord:
+      title: RegistrationRecord
+      required:
+      - registrationNumber
+      type: object
+      properties:
+        expiry:
+          type: string
+          description: Registration Number Expiry. Format is YYYY-MM-DD.
+        registrationNumber:
+          type: string
+          description: Registration Number
+        registrationNumberType:
+          type: string
+          description: Registration Number Type
+          enum:
+          - BUSINESS_LICENSE_NUMBER
+          - BUSINESS_TAX_ID
+          - HOTEL_LICENSE
+          - LICENSE_ID
+          - LICENSE_NUMBER
+          - OPERATOR_LICENSE_ID
+          - PARTIAL_TAX_ID
+          - PERMIT_NUMBER
+          - PLANNING_NUMBER
+          - REGISTRATION_NUMBER
+          - RESORT_TAX_ID
+          - SHORT_TERM_RENTAL_LICENSE
+          - TOURIST_DEVELOPMENT_TAX_ACCOUNT_NUMBER
+    AgeCategory:
+      title: AgeCategory
+      type: object
+      properties:
+        category:
+          type: string
+          description: The age category whose occupancy is being defined
+          enum:
+          - Adult
+          - ChildAgeA
+          - ChildAgeB
+          - ChildAgeC
+          - ChildAgeD
+          - Infant
+        minAge:
+          type: integer
+          description: Minimum age allowed for the category. Min 0, max 99
+          format: int32
+    Link:
+      title: Link
+      type: object
+      properties:
+        href:
+          type: string
+          description: The link's URL.
+    LivingRoom:
+      title: LivingRoom
+      type: object
+      properties:
+        bedding:
+          type: array
+          items:
+            $ref: '#/components/schemas/BedGroup'
+        count:
+          type: integer
+          format: int32
+    RoomTypeName:
+      title: RoomTypeName
+      required:
+      - attributes
+      - value
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/NameAttributes'
+        value:
+          type: string
+          description: The custom name provided for the room. Max. 255 characters. Not to be used in conjunction with the attributes
+    RegulatoryRecords:
+      title: RegulatoryRecords
+      type: object
+      properties:
+        category:
+          type: string
+          description: Regulatory Category
+          enum:
+          - BED_AND_BREAKFAST
+          - EVENT
+          - HOTEL
+          - HOTEL_OR_BNB
+          - HOTEL_RYOKAN
+          - LONG_TERM_ONLY
+          - MINPAKU
+          - NO_LICENSE
+          - PRIMARY_HOME
+          - PRIMARY_HOME_WITH_EXCEPTION
+          - PRIMARY_OR_SECONDARY
+          - RYOKAN
+          - SECONDARY_HOME
+          - SHORT_TERM_RENTAL
+          - SIMPLE_LODGING
+          - SPECIAL
+          - VACATION_RENTAL
+        records:
+          type: array
+          description: Registration Records
+          items:
+            $ref: '#/components/schemas/RegistrationRecord'
+    Size:
+      title: Size
+      required:
+      - squareFeet
+      - squareMeters
+      type: object
+      properties:
+        squareFeet:
+          type: integer
+          description: Room size in square feet. No decimals.
+          format: int32
+        squareMeters:
+          type: integer
+          description: Room size in square meters. No decimals.
+          format: int32
+    Bedroom:
+      title: Bedroom
+      required:
+      - bedding
+      - count
+      type: object
+      properties:
+        bedding:
+          type: array
+          items:
+            $ref: '#/components/schemas/BedGroup'
+        count:
+          type: integer
+          format: int32
+    BedGroup:
+      title: BedGroup
+      type: object
+      properties:
+        option:
+          type: array
+          description: List of bedding option
+          items:
+            $ref: '#/components/schemas/BedOption'
     BedOption:
       title: BedOption
       type: object
@@ -229,73 +374,6 @@ components:
           - Twin Bed
           - Twin Xl Bed
           - Water Bed
-    Surcharge:
-      title: Surcharge
-      required:
-      - type
-      type: object
-      properties:
-        amount:
-          type: number
-          description: If the surcharge type is different than 'Free', must be greater than 0. Otherwise, must not be defined.
-          format: double
-        type:
-          type: string
-          description: The type of surcharge applied to the extra bed.
-          enum:
-          - Free
-          - Per Day
-          - Per Night
-          - Per Week
-          - Per Stay
-          - Unknown
-    AgeCategory:
-      title: AgeCategory
-      type: object
-      properties:
-        category:
-          type: string
-          description: The age category whose occupancy is being defined
-          enum:
-          - Adult
-          - ChildAgeA
-          - ChildAgeB
-          - ChildAgeC
-          - ChildAgeD
-          - Infant
-        minAge:
-          type: integer
-          description: Minimum age allowed for the category. Min 0, max 99
-          format: int32
-    Size:
-      title: Size
-      required:
-      - squareFeet
-      - squareMeters
-      type: object
-      properties:
-        squareFeet:
-          type: integer
-          description: Room size in square feet. No decimals.
-          format: int32
-        squareMeters:
-          type: integer
-          description: Room size in square meters. No decimals.
-          format: int32
-    Bedroom:
-      title: Bedroom
-      required:
-      - bedding
-      - count
-      type: object
-      properties:
-        bedding:
-          type: array
-          items:
-            $ref: '#/components/schemas/BedGroup'
-        count:
-          type: integer
-          format: int32
     Occupancy:
       title: Occupancy
       type: object
@@ -309,51 +387,37 @@ components:
         total:
           type: integer
           format: int32
-    BedGroup:
-      title: BedGroup
+    Links:
+      title: Links
       type: object
       properties:
-        option:
-          type: array
-          description: List of bedding option
-          items:
-            $ref: '#/components/schemas/BedOption'
-    RegistrationRecord:
-      title: RegistrationRecord
-      required:
-      - registrationNumber
+        self:
+          $ref: '#/components/schemas/Link'
+    ExtraBed:
+      title: ExtraBed
       type: object
       properties:
-        expiry:
+        quantity:
+          type: integer
+          format: int32
+        size:
           type: string
-          description: Registration Number Expiry. Format is YYYY-MM-DD.
-        registrationNumber:
-          type: string
-          description: Registration Number
-        registrationNumberType:
-          type: string
-          description: Registration Number Type
           enum:
-          - BUSINESS_LICENSE_NUMBER
-          - BUSINESS_TAX_ID
-          - HOTEL_LICENSE
-          - LICENSE_ID
-          - LICENSE_NUMBER
-          - OPERATOR_LICENSE_ID
-          - PARTIAL_TAX_ID
-          - PERMIT_NUMBER
-          - PLANNING_NUMBER
-          - REGISTRATION_NUMBER
-          - RESORT_TAX_ID
-          - SHORT_TERM_RENTAL_LICENSE
-          - TOURIST_DEVELOPMENT_TAX_ACCOUNT_NUMBER
-    Errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiError'
+          - Crib
+          - Full
+          - King
+          - Queen
+          - Twin
+          - Twin Xl
+        surcharge:
+          $ref: '#/components/schemas/Surcharge'
+        type:
+          type: string
+          enum:
+          - Crib
+          - Day Bed
+          - Rollaway Bed
+          - Sofa Bed
     RoomType:
       title: RoomType
       required:
@@ -452,27 +516,6 @@ components:
           description: Used to indicate whether the room is configured to be wheelchair accessible or not.
         _links:
           $ref: '#/components/schemas/Links'
-    Links:
-      title: Links
-      type: object
-      properties:
-        self:
-          $ref: '#/components/schemas/Link'
-    Link:
-      title: Link
-      type: object
-      properties:
-        href:
-          type: string
-          description: The link's URL.
-    ApiError:
-      type: object
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
-          type: string
     NameAttributes:
       title: NameAttributes
       required:
@@ -509,84 +552,41 @@ components:
         view:
           type: string
           description: Attribute that gives additional information about the view of the room
-    RoomTypeName:
-      title: RoomTypeName
+    Surcharge:
+      title: Surcharge
       required:
-      - attributes
-      - value
+      - type
       type: object
       properties:
-        attributes:
-          $ref: '#/components/schemas/NameAttributes'
-        value:
-          type: string
-          description: The custom name provided for the room. Max. 255 characters. Not to be used in conjunction with the attributes
-    RegulatoryRecords:
-      title: RegulatoryRecords
-      type: object
-      properties:
-        category:
-          type: string
-          description: Regulatory Category
-          enum:
-          - BED_AND_BREAKFAST
-          - EVENT
-          - HOTEL
-          - HOTEL_OR_BNB
-          - HOTEL_RYOKAN
-          - LONG_TERM_ONLY
-          - MINPAKU
-          - NO_LICENSE
-          - PRIMARY_HOME
-          - PRIMARY_HOME_WITH_EXCEPTION
-          - PRIMARY_OR_SECONDARY
-          - RYOKAN
-          - SECONDARY_HOME
-          - SHORT_TERM_RENTAL
-          - SIMPLE_LODGING
-          - SPECIAL
-          - VACATION_RENTAL
-        records:
-          type: array
-          description: Registration Records
-          items:
-            $ref: '#/components/schemas/RegistrationRecord'
-    ExtraBed:
-      title: ExtraBed
-      type: object
-      properties:
-        quantity:
-          type: integer
-          format: int32
-        size:
-          type: string
-          enum:
-          - Crib
-          - Full
-          - King
-          - Queen
-          - Twin
-          - Twin Xl
-        surcharge:
-          $ref: '#/components/schemas/Surcharge'
+        amount:
+          type: number
+          description: If the surcharge type is different than 'Free', must be greater than 0. Otherwise, must not be defined.
+          format: double
         type:
           type: string
+          description: The type of surcharge applied to the extra bed.
           enum:
-          - Crib
-          - Day Bed
-          - Rollaway Bed
-          - Sofa Bed
-    LivingRoom:
-      title: LivingRoom
+          - Free
+          - Per Day
+          - Per Night
+          - Per Week
+          - Per Stay
+          - Unknown
+    ApiError:
       type: object
       properties:
-        bedding:
-          type: array
-          items:
-            $ref: '#/components/schemas/BedGroup'
-        count:
+        code:
           type: integer
           format: int32
+        message:
+          type: string
+    Errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
   securitySchemes:
     Basic:
       type: http
